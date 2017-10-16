@@ -1,0 +1,90 @@
+<!--FORMSCRIPT-->
+<div id="iz-custom-js">
+$('div.bizname:empty').hide(); $('div.ownername:empty').hide();
+</div>
+<!--FORMSCRIPT-->
+<link href="https://dl.dropboxusercontent.com/s/9v0yipr0416cqqb/support_reports.css" rel="stylesheet">
+
+<table style="width: 100%;">
+    <tbody>
+        <tr>
+            <td class="BCCNormal" style="width: 50%;">
+                <div class="const-bcc-agency"></div>
+				<div class="const-bcc-address"></div>
+				<div class="const-bcc-citystatezip"></div>
+				<div class="const-bcc-phone"></div>
+            </td>
+            <td align="right" class="BCCBold" valign="bottom">
+                RECEIPT NO: [TEMPLATE_ID]
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top" colspan="2">
+                <center>
+                    <div class="logocontainer">
+                        <div class="logocontent">
+                            <br>
+                            <br>
+                            <br>
+                            <div class="BCCBold">
+                                Temporary License*
+                            </div>
+                            <br>
+                            <br>
+                            <div class="BCCBigBold">
+                                [RECORD_TYPE]
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">
+                <p class="BCCBold">
+                    LICENSE NO: [TEMPLATE_ID]
+                </p>
+            </td>
+            <td align="right" class="BCCBold" valign="bottom">
+                VALID UNTIL: [DATE_EXPIRATION]
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">
+                <p class="BCCBold">
+                    BUSINESS NAME:
+                    <div class="BCCBold" id="bizname">
+                        [BUSINESS_NAME]
+                    </div>
+                    <div class="BCCBold" id="ownername">
+                        [NAME_FML#]
+                    </div>
+                    <br>
+                    <br>
+                    <p>
+                    </p>
+            </td>
+            <td align="right" class="BCCNormal" valign="bottom">
+                <p style="text-align: justify;">
+                    <br>
+                    In accordance to the provisions of Chapter 27 Section 30 of the Business
+                    and Professions Code, the individual names heron is issued a [RECORD_TYPE]
+                    license, and is subject to the laws and regulations of the Bureau of Cannabis
+                    Control. A temporary license is a conditional license and authorizes the holder thereof to engage in commercial cannabis activity as would be permitted under the privileges of the license for which the applicant has submitted an application to the licensing authority. Every licensee shall notify the bureau in writing within 10 calendar days of any change to any item listed in the application.<br><br>* A temporary license does not obligate the licensing authority to issue a nontemporary license.	
+
+
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" class="BCCNormal" valign="bottom" colspan="2">
+                <br>
+                ------CONTENT RELATED TO LICENSE DISPLAY IF APPLICABLE------
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p>
+</p>
