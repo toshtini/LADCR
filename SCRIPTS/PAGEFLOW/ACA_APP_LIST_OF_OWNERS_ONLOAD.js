@@ -274,11 +274,12 @@ try {
 		}
 	}
 
+	/*
 	//Hide page if sole owner
 	if (vBusinessType == "Sole Owner") {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
-
+	*/
 } catch (err) {
 
 	logDebug(err);
