@@ -264,7 +264,7 @@ function getRequiredDocuments(isPageFlow) {
 	if ((isApplication || isAttestationAmendment) && !isOwnerAttestation) {
 		// exclude items not needed for temp applications as submitted in ACA
 		if (isPageFlow && isTemporaryRequest) {
-			requirementArray.push(documentationOfLocalCompliance);
+			//requirementArray.push(documentationOfLocalCompliance);
 			requirementArray.push(evidenceOfLegalRightToOccupy);
 			requirementArray.push(diagramOfPremises);
 		} else {
