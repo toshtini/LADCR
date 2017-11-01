@@ -21,7 +21,8 @@ function getRequiredDocumentsFromCOA() {
 			if("Incomplete".equals(cm.getConditionStatus())) {  // only prompt for COA marked Incomplete
 				var req = {};
 				req.condition = cm.getConditionDescription();
-				req.document = cm.getConditionDescription();
+				// call this a bad doc.  Even if it's uploaded, we will ask again since the COA is incomplete.
+				req.document = "Bad Doc " + cm.getConditionDescription();
 				requirementArray.push(req);
 				}
 			}
