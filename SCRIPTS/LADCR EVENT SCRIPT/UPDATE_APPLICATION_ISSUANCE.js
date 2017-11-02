@@ -14,7 +14,7 @@ if (isTaskActive("Issuance") && isTaskStatus("Issuance", "Waiting for Payment") 
 	vProcessID = getProcessID("Issuance", capId);
 	vProcessCode = getProcessCode("Issuance", capId);
 	vTaskStepNum = getTaskStepNumber(vProcessCode, "Issuance", capId);
-	resultWorkflowTask("Issuance", vIssuanceType, "UPDATE_APPLICATION_ISSUANCE", "Update by UPDATE_APPLICATION_ISSUANCE");
+	resultWorkflowTask("Issuance", vIssuanceType, "Updated by UPDATE_APPLICATION_ISSUANCE", "Updated by UPDATE_APPLICATION_ISSUANCE");
 	runWTUAForWFTaskWFStatus("Issuance", vProcessID, vTaskStepNum, vIssuanceType, capId);		
 }
 // End script to move workflow task Issuance to Issued, Temporarily Issued, or Provisionally Issued once payment has been recieved. Runs thr WTUA event for the given type of issuance.

@@ -26,7 +26,7 @@ if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally 
 	//If no license exists create one.
 	//
 	vParentArry = getParents(vParentLicTypeString);
-	if (vParentArry != null) {
+	if (vParentArry != null && vParentArry != "") {
 		vLicenseID = vParentArry[0]
 	} else if (appTypeArray[3] == "Application") {
 		vLicenseID = createParent(appTypeArray[0], appTypeArray[1], appTypeArray[2], vParentLicType, getAppName(capId));
@@ -66,6 +66,9 @@ if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally 
 		//Activate the license records expiration cycle
 		vLicenseObj = new licenseObject(null, vLicenseID);
 		vLicenseObj.setStatus("Active");
+
+		//Add license to the CAT set;
+		addToCat(vLicenseID);
 
 		//get license object and expiration date
 		vLicenseObj = new licenseObject(null, vLicenseID);
@@ -121,12 +124,12 @@ if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally 
 			updateTask("Issuance", "About to Expire", "Updated by WTUA:Licenses/*/*/Application", "Updated by WTUA:Licenses/*/*/Application");
 			capId = tmpCap;
 		}
-		
+
 		//Add provisional license standard condition
 		if (wfStatus == "Provisionally Issued") {
 			addStdCondition("License Conditions", "Provisional License", vLicenseID);
-			}
-			
+		}
+
 		//Generate license report and email
 		var vEmailTemplate;
 		var vReportTemplate;
@@ -153,10 +156,22 @@ if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally 
 		capId = vLicenseID;
 		emailContacts_BCC("All", vEmailTemplate, vEParams, vReportTemplate, vRParams);
 		capId = tmpCap;
+
+		//update the initial review task and resend amendment emails
+		if (wfStatus == "Temporarily Issued") {
+			var vProcessID;
+			var vProcessCode;
+			var vTaskStepNum;
+			vProcessID = getProcessID("Initial Review", capId);
+			vProcessCode = getProcessCode("Initial Review", capId);
+			vTaskStepNum = getTaskStepNumber(vProcessCode, "Initial Review", capId);
+			resultWorkflowTask("Initial Review", "Additional Info Requested", "Updated by CREATE_LICENSE_RECORD", "Updated by CREATE_LICENSE_RECORD");
+			runWTUAForWFTaskWFStatus("Initial Review", vProcessID, vTaskStepNum, "Additional Info Requested", capId);
+		}
 	}
 	//If the current record is an application record and the parent license
 	//record already exists, close the applcation record.
-	if (wfStatus == "Issued" && (vParentArry != null || vLicenseID != null) && balanceDue <= 0) {
+	if ((wfStatus == "Issued" || wfStatus == "Provisionally Issued") && (vParentArry != null || vLicenseID != null) && balanceDue <= 0) {
 		closeTask("Close Out", "Issued", "Closed by WTUA:Licenses/*/*/Application", "Closed by WTUA:Licenses/*/*/Application");
 	}
 }

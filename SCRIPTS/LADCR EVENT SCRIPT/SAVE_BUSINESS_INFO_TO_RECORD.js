@@ -11,7 +11,8 @@
 	var vCapModel;
 	var vAddrModel;
 
-	if (vBusinesses) {
+	// Save the business name to the app name if it doesn't exist. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
+	if (vBusinesses && (getAppName() == null || getAppName == "")) {
 		// Assume only one business contact
 		vBusiness = vBusinesses[0];
 
@@ -30,9 +31,9 @@
 			editAppName(vBusinessObj.getBusinessName());
 		}
 
-		// Save address to the record
+		// Save address to the record if it doesn't already exists. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
 		vAddresses = vBusiness.addresses;
-		if (vAddresses) {
+		if (vAddresses && getAddress(capId) == null) {
 			x = 0;
 			for (x in vAddresses) {
 				vAddress = vAddresses[x];
