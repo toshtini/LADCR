@@ -40,6 +40,12 @@ function getRequiredDocuments(isPageFlow) {
 	/------------------------------------------------------------------------------------------------------*/
 	
 	var wfStopAll = [{
+			task: "Initial Review",
+			status: "Recommend Approval - Temporary"
+		},{
+			task: "Initial Review",
+			status: "Recommend Approval"
+		},{
 			task: "Supervisory Review",
 			status: "Approved"
 		}, {
@@ -51,11 +57,17 @@ function getRequiredDocuments(isPageFlow) {
 		}
 	];
 	var wfStopPermanentOnly = [{
+			task: "Initial Review",
+			status: "Recommend Approval"
+		},{
 			task: "Supervisory Review",
 			status: "Approved"
 		}, {
 			task: "Supervisory Review",
 			status: "Provisionally Approved"
+		}, {
+			task: "Review",
+			status: "Review Completed"
 		}
 	];
 	/*------------------------------------------------------------------------------------------------------/
@@ -264,7 +276,7 @@ function getRequiredDocuments(isPageFlow) {
 	if ((isApplication || isAttestationAmendment) && !isOwnerAttestation) {
 		// exclude items not needed for temp applications as submitted in ACA
 		if (isPageFlow && isTemporaryRequest) {
-			//requirementArray.push(documentationOfLocalCompliance);
+			requirementArray.push(documentationOfLocalCompliance);
 			requirementArray.push(evidenceOfLegalRightToOccupy);
 			requirementArray.push(diagramOfPremises);
 		} else {
