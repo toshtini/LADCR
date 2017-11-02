@@ -1,4 +1,4 @@
-function getRequiredDocuments(isPageFlow)  {
+function getRequiredDocuments(isPageFlow) {
 
 	logDebug("start getRequiredDocuments(" + [].slice.call(arguments) + ")");
 
