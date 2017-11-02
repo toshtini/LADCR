@@ -1,8 +1,3 @@
-if (publicUser && isAmendment()) {
-  editAppSpecific("Application ID","");
-  }
-
-// Begin script to associate parent application to owner submittal
 if (!publicUser) {
 	if (AInfo["Application ID"] && AInfo["Application ID"] != "") {
 		var parentIdResult = aa.cap.getCapID(AInfo["Application ID"]);
@@ -27,3 +22,10 @@ include("SAVE_OWNER_SUBMITTAL_APP_NAME");
 // Begin script to copy the address from the application to the owner submittal
 include("COPY_APP_ADDRESS_TO_OWNER_SUBMITTAL");
 // End script to copy the address from the application to the owner submittal
+
+// Inform the CTRCA event that this record is actually coming from the amendment link
+// And not to script adding the parent to the record.   The parent will be added
+// during the payment process
+if (publicUser && isAmendment()) {
+	editAppSpecific("Application ID","AMENDMENT" + AInfo["Application ID"]);
+	}
