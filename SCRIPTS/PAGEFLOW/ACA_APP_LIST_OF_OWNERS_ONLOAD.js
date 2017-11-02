@@ -254,12 +254,15 @@ try {
 						vASITRow["City"] = new asiTableValObj("City", "" + vCity, "Y");
 						vASITRow["State"] = new asiTableValObj("State", "" + vState, "Y");
 						vASITRow["Zip Code"] = new asiTableValObj("Zip Code", "" + vZip, "Y");
+						vASITRow["Contact Sequence Number"] = new asiTableValObj("Contact Sequence Number", "" + vOwnerSeqNbr, "Y");
 
-						// Populate Title and Percentage if "Sole Owner"
-						if (vBusinessType == "Sole Owner") {
-							vASITRow["Title"] = new asiTableValObj("Title", "Controlling Member", "Y");
+						/* removed per Connie 10/18/17
+						// Populate Title and Percentage if "Sole Proprietorship"
+						if (vBusinessType == "Sole Proprietorship") {
+							vASITRow["Title"] = new asiTableValObj("Title", "Controlling Manager", "Y");
 							vASITRow["Ownership Percentage"] = new asiTableValObj("Ownership Percentage", "100", "Y");
 						}
+						*/
 
 						vASITable.push(vASITRow);
 
@@ -273,13 +276,12 @@ try {
 			}
 		}
 	}
-
-	/*
-	//Hide page if sole owner
-	if (vBusinessType == "Sole Owner") {
+/*
+	//Hide page if sole Proprietorship
+	if (vBusinessType == "Sole Proprietorship") {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
-	*/
+*/
 } catch (err) {
 
 	logDebug(err);
