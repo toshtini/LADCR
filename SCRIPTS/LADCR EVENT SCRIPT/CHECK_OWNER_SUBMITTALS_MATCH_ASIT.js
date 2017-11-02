@@ -1,5 +1,5 @@
 // Begin script to check that Owner Applicant and Business Owner count matches the Owners ASIT
-if ((wfTask == "Application Acceptance" && wfStatus == "Application Received") || (wfTask == "Initial Review" && wfStatus.indexOf("Recommend") != -1)) {
+if ((wfTask == "Application Acceptance" && wfStatus == "Application Received") || (wfTask == "Initial Review" && wfStatus == "Recommend Approval")) {
 	var parentId = null;
 	var numberOfOwners;
 	var numberOfParentContacts;

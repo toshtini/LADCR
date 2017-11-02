@@ -1,5 +1,5 @@
 // Begin script to set 'Awaiting Data Entry' for back office submittals. Runs the WTUA event for Application Acceptance - Awaiting Data Entry
-if (!publicUser && isTaskActive("Application Acceptance") && balanceDue == 0) {
+if (!publicUser && isTaskActive("Application Acceptance") && !isTaskStatus("Application Acceptance", "Waiting for Payment") && balanceDue == 0) {
 	var vProcessID = getProcessID("Application Acceptance", capId);
 	var vProcessCode = getProcessCode("Application Acceptance", capId);
 	var vTaskStepNum;

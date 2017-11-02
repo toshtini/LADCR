@@ -14,6 +14,8 @@ if (wfTask == "Application Acceptance" && wfStatus == "Awaiting Owner Submittals
 				addParameter(vEParams, "$$LicenseType$$", appTypeAlias);
 				addParameter(vEParams, "$$ExpirationDate$$", dateAdd(null, 60));
 				addParameter(vEParams, "$$ApplicationID$$", capIDString);
+				addParameter(vEParams, "$$businessName$$", capName);
+				
 				vRParams = aa.util.newHashtable();
 				addParameter(vRParams, "p1Value", capIDString);
 				//send email for each ASIT entry

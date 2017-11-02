@@ -5,8 +5,6 @@ if (!publicUser && !appMatch("*/*/*/Application")) {
 }
 // End functionality to set inital workflow status.
 
-
-
 // Begin Story 5135, 6083 create document conditions of approval
 if (!publicUser) {
 	include("CREATE_DOCUMENT_CONDITIONS");

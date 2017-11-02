@@ -1,10 +1,7 @@
-// Begin script to copy Owner Application information to the Owners ASIT. This should only happen if business structure is "Sole Owner"
+// Begin script to copy Owner Applicant information to the Owners ASIT.
 var vTableName = "LIST OF OWNERS";
-var vOwnerTable = loadASITable(vTableName);
-var vBusiness = getContactObj(capId, "Business");
-var vBusinessType = vBusiness.asi["5006(b)(14) Business Organization Structure"];
-
-if (publicUser && (!vOwnerTable || vOwnerTable == null || vOwnerTable.length == 0) && vBusinessType == "Sole Owner") {
+var vContactModel = aa.env.getValue("Contact");
+if (vContactModel.getContactType() == "Owner Applicant") {
 	var vOwnerApplicant = getContactObj(capId, 'Owner Applicant');
 	var vOwnerAddresses;
 	var vOwnerAddress;
@@ -20,13 +17,15 @@ if (publicUser && (!vOwnerTable || vOwnerTable == null || vOwnerTable.length == 
 	var vCity;
 	var vState;
 	var vZip;
-	var vAsitFieldArray = [];
-	var asitFieldsRow1;
+	var vSeqNbr;
+	var vASITable = [];
+	var vASITRow = [];
 	if (vOwnerApplicant != null && vOwnerApplicant != false) {
 		vFName = vOwnerApplicant.people.firstName;
 		vLName = vOwnerApplicant.people.lastName;
 		vPhone = vOwnerApplicant.people.phone1;
 		vEmail = vOwnerApplicant.people.email;
+		vSeqNbr = vOwnerApplicant.refSeqNumber;
 		vOwnerAddresses = vOwnerApplicant.addresses;
 
 		x = 0;
@@ -64,6 +63,9 @@ if (publicUser && (!vOwnerTable || vOwnerTable == null || vOwnerTable.length == 
 			vAddrLine2 = vAddrLine2 + "";
 			vAddrLine2 = vAddrLine2.toUpperCase();
 		}
+		else {
+			vAddrLine2 = "";
+		}
 		if (vCity != null && vCity != "") {
 			vCity = vCity + "";
 			vCity = vCity.toUpperCase();
@@ -72,29 +74,22 @@ if (publicUser && (!vOwnerTable || vOwnerTable == null || vOwnerTable.length == 
 			vState = vState + "";
 			vState = vState.toUpperCase();
 		}
+	
+		vASITRow["First Name"] = new asiTableValObj("First Name", "" + vFName, "Y");
+		vASITRow["Last Name"] = new asiTableValObj("Last Name", "" + vLName, "Y");
+		vASITRow["Phone Number"] = new asiTableValObj("Phone Number", "" + vPhone, "Y");
+		vASITRow["Email Address"] = new asiTableValObj("Email Address", "" + vEmail, "Y");
+		vASITRow["Address Line 1"] = new asiTableValObj("Address Line 1", "" + vAddrLine1, "Y");
+		vASITRow["Address Line 2"] = new asiTableValObj("Address Line 2", "" + vAddrLine2, "Y");
+		vASITRow["City"] = new asiTableValObj("City", "" + vCity, "Y");
+		vASITRow["State"] = new asiTableValObj("State", "" + vState, "Y");
+		vASITRow["Zip Code"] = new asiTableValObj("Zip Code", "" + vZip, "Y");
+		vASITRow["Contact Sequence Number"] = new asiTableValObj("Contact Sequence Number", "" + vSeqNbr, "Y");
 
-		//Create a map to save the field and value map.
-		asitFieldsRow1 = aa.util.newHashMap(); // Map<columnName, columnValue>
-		asitFieldsRow1.put("First Name", vFName);
-		asitFieldsRow1.put("Last Name", vLName);
-		asitFieldsRow1.put("Phone Number", vPhone);
-		asitFieldsRow1.put("Email Address", vEmail);
-		asitFieldsRow1.put("Address Line 1", vAddrLine1);
-		asitFieldsRow1.put("Address Line 2", vAddrLine2);
-		asitFieldsRow1.put("City", vCity);
-		asitFieldsRow1.put("State", vState);
-		asitFieldsRow1.put("Zip Code", vZip);
+		vASITable.push(vASITRow);
 
-		// Populate Title and Percentage if "Sole Owner"
-		if (vBusinessType == "Sole Owner") {
-			asitFieldsRow1.put("Title", "Controlling Member");
-			asitFieldsRow1.put("Ownership Percentage", "100");
-		}
-
-		vAsitFieldArray.push(asitFieldsRow1);
-
-		//Create the ASIT Rows
-		addAppSpecificTableInfors(vTableName, capId, vAsitFieldArray);
+		removeASITable(vTableName, capId);
+		addASITable(vTableName, vASITable, capId);
 	}
 }
-// End script to copy Owner Application information to the Owners ASIT.
+// End script to copy Owner Applicant information to the Owners ASIT.

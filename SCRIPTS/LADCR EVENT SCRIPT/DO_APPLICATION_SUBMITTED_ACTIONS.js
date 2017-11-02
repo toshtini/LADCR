@@ -1,5 +1,5 @@
 // Begin script to do application submittal actions
-if (publicUser && wfTask == "Application Acceptance" && wfStatus == "Submitted") {
+if ((publicUser && wfTask == "Application Acceptance" && wfStatus == "Submitted") || (!publicUser && wfTask == "Application Acceptance" && wfStatus == "Submitted" && balanceDue == 0)) {
 	// ACA submittal, set to Awaiting Owner Submittals
 	var vProcessID = getProcessID("Application Acceptance", capId);
 	var vProcessCode = getProcessCode("Application Acceptance", capId);

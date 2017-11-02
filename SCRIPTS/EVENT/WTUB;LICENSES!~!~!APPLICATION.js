@@ -13,3 +13,7 @@ include("CHECK_TEMPORARY_REQUESTED");
 // Begin script to check for an Owner Applicant prior to any workflow progress
 include("CHECK_OWNER_APPLICANT");
 // End script to check for an Owner Applicant prior to any workflow progress
+
+// Begin script to check for any outstanding conditons of approval
+include("CHECK_ALL_REQUIREMENTS_MET");
+// End script to check for any outstanding conditons of approval
