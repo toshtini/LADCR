@@ -158,7 +158,6 @@ try {
 	//showMessage = true;
 	//cancel = true;
 
-	var isPriorityRequest = isASITrue(AInfo["Are you requesting priority processing?"]); // see user story 340
 	var isTemporaryRequest = isASITrue(AInfo["Are you requesting a temporary license?"]); // see user story 340
 
 	if (isTemporaryRequest) {

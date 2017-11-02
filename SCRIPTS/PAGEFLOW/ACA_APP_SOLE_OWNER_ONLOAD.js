@@ -160,11 +160,11 @@ try {
 
 	var vBusiness = getContactObj(cap,"Business")
 	var vBusinessType = vBusiness.asi["5006(b)(14) Business Organization Structure"];
-
-	if (vBusinessType == "Sole Owner") {
+/*
+	if (vBusinessType == "Sole Proprietorship") {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
-	
+*/	
 } catch (err) {
 
 	logDebug(err);

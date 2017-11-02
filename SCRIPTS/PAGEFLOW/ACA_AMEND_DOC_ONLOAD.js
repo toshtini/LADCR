@@ -157,12 +157,25 @@ try {
 	cancel = false;
 	showMessage = false;
 	capIdString = capId.getID1() + "-" + capId.getID2() + "-" + capId.getID3();
-	r = getRequiredDocumentsFromCOA(true);
-	submittedDocList = aa.document.getDocumentListByEntity(capIdString, "TMP_CAP").getOutput().toArray();
+	var r1 = getRequiredDocumentsFromCOA(true);
+	var r2 = getRequiredDocuments(true);
+	var r = mergeDocReqs(r1,r2);
+
+	var parentCapId;
+	parentCapIdString = "" + cap.getParentCapID();
+	if (parentCapIdString) {
+		pca = parentCapIdString.split("-");
+		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
+	}
+
 	uploadedDocs = new Array();
 
-	for (var i in submittedDocList)
-		uploadedDocs[submittedDocList[i].getDocCategory()] = true;
+	if (parentCapId) { 
+		submittedDocList = aa.document.getDocumentListByEntity(parentCapId, "CAP").getOutput().toArray();
+		for (var i in submittedDocList) {
+			uploadedDocs[submittedDocList[i].getDocCategory()] = true;
+			}
+	}
 
 	if (r.length > 0) {
 		for (x in r) {
@@ -234,4 +247,19 @@ if (debug.indexOf("**ERROR") > 0) {
 		if (showDebug)
 			aa.env.setValue("ErrorMessage", debug);
 	}
+}
+
+function mergeDocReqs(arr1,arr2) {
+var arr3 = [];
+for(var i in arr1){
+   var shared = false;
+   for (var j in arr2)
+       if (arr2[j].document == arr1[i].document) {
+           shared = true;
+           break;
+       }
+   if(!shared) arr3.push(arr1[i])
+}
+arr3 = arr3.concat(arr2);
+return arr3;
 }

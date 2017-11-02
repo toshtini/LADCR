@@ -195,6 +195,10 @@ try {
 			}
 		}
 		
+		//Clear out "Declarations Acknowledged By" ASI Field
+		editAppSpecific4ACA("Declarations Acknowledged By","");
+		
+		
 		//Hide ASI fields that have been answered.
 		hideAnsweredAppSpecific4ACA();
 		
