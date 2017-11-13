@@ -163,10 +163,11 @@ try {
 	var isPriorityRequest = isASITrue(AInfo["Are you requesting priority processing?"]); // see user story 340
 	var isTemporaryRequest = isASITrue(AInfo["Are you requesting a temporary license?"]); // see user story 340
 
-
-	if (isTemporaryRequest || vBusinessType == "Sole Owner") {
+/*
+	if (isTemporaryRequest || vBusinessType == "Sole Proprietorship") {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
+*/
 	
 } catch (err) {
 

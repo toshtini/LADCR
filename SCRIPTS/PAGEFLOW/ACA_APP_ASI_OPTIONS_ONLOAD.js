@@ -167,23 +167,40 @@ try {
 		hideAppSpecific4ACA("5006(b)(23) In compliance with all local ordinances and regulations.");
 		hideAppSpecific4ACA("19322(b) No failure to comply with operating procedures");
 		hideAppSpecific4ACA("Attest in operation prior to 9-1-16 for Priority Processing");
+		hideAppSpecific4ACA("Attest no prohibited location Within specified requirement");
 		hideAppSpecific4ACA("Status for Seller's Permit");
 		hideAppSpecific4ACA("Seller's Permit Number");
+		hideAppSpecific4ACA("Seller's Permit in process");
 		hideAppSpecific4ACA("20 or more employees?");
 		hideAppSpecific4ACA("Attest they will abide to the Labor Peace Agreement");
 		hideAppSpecific4ACA("Are they Sovereign Entity");
 		hideAppSpecific4ACA("5006(b)(33) Waiving Sovereign Immunity");
 		hideAppSpecific4ACA("CEQA");
 		hideAppSpecific4ACA("Cultivator License");
+		hideAppSpecific4ACA("Max dollar value as determined by CDTFA in access of excise tax");
+		hideAppSpecific4ACA("Accreditation/Provisional Testing Laboratory License");
+	} else {
+		resetAppSpecific4ACA("5006(b)(23) In compliance with all local ordinances and regulations.");
+		resetAppSpecific4ACA("19322(b) No failure to comply with operating procedures");
+		resetAppSpecific4ACA("Attest in operation prior to 9-1-16 for Priority Processing");
+		resetAppSpecific4ACA("Attest no prohibited location Within specified requirement");
+		resetAppSpecific4ACA("Status for Seller's Permit");
+		resetAppSpecific4ACA("Seller's Permit Number");
+		resetAppSpecific4ACA("Seller's Permit in process");
+		resetAppSpecific4ACA("20 or more employees?");
+		resetAppSpecific4ACA("Attest they will abide to the Labor Peace Agreement");
+		resetAppSpecific4ACA("Are they Sovereign Entity");
+		resetAppSpecific4ACA("5006(b)(33) Waiving Sovereign Immunity");
+		resetAppSpecific4ACA("CEQA");
+		resetAppSpecific4ACA("Cultivator License");
+		resetAppSpecific4ACA("Max dollar value as determined by CDTFA in access of excise tax");
+		resetAppSpecific4ACA("Accreditation/Provisional Testing Laboratory License");
 	}
 } catch (err) {
-
 	logDebug(err);
-
 }
 
 // page flow custom code end
-
 
 if (debug.indexOf("**ERROR") > 0) {
 	aa.env.setValue("ErrorCode", "1");
@@ -205,29 +222,3 @@ if (debug.indexOf("**ERROR") > 0) {
 }
 
 /////////////////////////////////////
-function hideAppSpecific4ACA(vASIField) {
-	// uses capModel in this event
-
-	var capASI = cap.getAppSpecificInfoGroups();
-	if (!capASI) {
-		logDebug("No ASI for the CapModel");
-	} else {
-		var i = cap.getAppSpecificInfoGroups().iterator();
-		while (i.hasNext()) {
-			var group = i.next();
-			var fields = group.getFields();
-			if (fields != null) {
-				var iteFields = fields.iterator();
-				while (iteFields.hasNext()) {
-					var field = iteFields.next();
-					//logDebug(field.getCheckboxDesc() + " : " + field.getVchDispFlag());
-					if (field.getCheckboxDesc() == vASIField) {
-						field.setAttributeValueReqFlag('N');
-						field.setVchDispFlag('H');
-						logDebug("Updated ASI: " + field.getCheckboxDesc() + " to be ACA not displayable.");
-					}
-				}
-			}
-		}
-	}
-}
