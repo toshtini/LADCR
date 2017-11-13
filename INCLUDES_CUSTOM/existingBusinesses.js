@@ -9,7 +9,7 @@ function getExistingBusinessInfo(btrc) {
 var eb = existingBusinesses();
 
 return eb.filter(function(b){
-  return fb.LOCATION_ACCOUNT.equals(btrc) && b.STATUS_GROUP == 1;
+  return b.LOCATION_ACCOUNT.equals(btrc);
 });
 }
 
