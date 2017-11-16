@@ -160,15 +160,10 @@ try {
 logDebug(isGroup1(AInfo["BTRC Number"]));
 logDebug(isGroup2(AInfo["BTRC Number"]));
 
-if (isGroup1(AInfo["BTRC Number"]) || isGroup2(AInfo["BTRC Number"])) {
-	//
-	}
-else {
 	showDebug = true;
 	showMessage = true;
 	comment("Unable to validate your BTRC for priority processing.   BTRC Numbers are formatted as 0000000000-0000-0");
 	cancel = true;
-	}		
 	
 logDebug("cancel = " + cancel);
 
