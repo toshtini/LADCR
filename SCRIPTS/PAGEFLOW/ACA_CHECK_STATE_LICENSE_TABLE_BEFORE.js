@@ -152,7 +152,7 @@ try {
 	if (!vStateLicTable  || vvStateLicTable.length == 0) {
 		//showDebug = true;
 		showMessage = true;
-		comment("At least on State License is required.");
+		comment("At least one State License entry is required.");
 		cancel = true;
 	}
 
