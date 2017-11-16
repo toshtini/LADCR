@@ -156,6 +156,13 @@ try {
 		cancel = true;
 	}
 
+	if (!isGroup1(AInfo["BTRC Number"]) && !isGroup2(AInfo["BTRC Number"])) {
+		//showDebug = true;
+		showMessage = true;
+		comment("Unable to validate your BTRC for priority processing.   BTRC Numbers are formatted as 0000000000-0000-0");
+		cancel = true;
+	}		
+	
 } catch (err) {
 	logDebug(err);
 }
