@@ -150,17 +150,21 @@ try {
 	// Check STATE LICENSES APPLYING FOR Table
 	var vStateLicTable = loadASITable4ACA("STATE LICENSES APPLYING FOR", cap);
 	if (!vStateLicTable  || vvStateLicTable.length == 0) {
-		//showDebug = true;
+		showDebug = true;
 		showMessage = true;
 		comment("At least one State License entry is required.");
 		cancel = true;
 	}
 
-	if (!isGroup1(AInfo["BTRC Number"]) && !isGroup2(AInfo["BTRC Number"])) {
-		//showDebug = true;
-		showMessage = true;
-		comment("Unable to validate your BTRC for priority processing.   BTRC Numbers are formatted as 0000000000-0000-0");
-		cancel = true;
+	
+if (isGroup1(AInfo["BTRC Number"]) || isGroup2(AInfo["BTRC Number"])) {
+	//
+	}
+else {
+	showDebug = true;
+	showMessage = true;
+	comment("Unable to validate your BTRC for priority processing.   BTRC Numbers are formatted as 0000000000-0000-0");
+	cancel = true;
 	}		
 	
 } catch (err) {
