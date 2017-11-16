@@ -21,7 +21,7 @@ var showMessage = false; // Set to true to see results in popup window
 var showDebug = false; // Set to true to see debug messages in popup window
 var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
 var useTaskSpecificGroupName = false; // Use Group name when populating Task Specific Info Values
-var cancel = false;
+var cancel = true;
 var useCustomScriptFile = true; // if true, use Events->Custom Script, else use Events->Scripts->INCLUDES_CUSTOM
 /*------------------------------------------------------------------------------------------------------/
 | END User Configurable Parameters
@@ -156,7 +156,10 @@ try {
 		cancel = true;
 	}
 
-	
+
+logDebug(isGroup1(AInfo["BTRC Number"]));
+logDebug(isGroup2(AInfo["BTRC Number"]));
+
 if (isGroup1(AInfo["BTRC Number"]) || isGroup2(AInfo["BTRC Number"])) {
 	//
 	}
@@ -167,6 +170,8 @@ else {
 	cancel = true;
 	}		
 	
+logDebug("cancel = " + cancel);
+
 } catch (err) {
 	logDebug(err);
 }
