@@ -16,19 +16,20 @@
 	if (vBusinesses && (getAppName() == null || getAppName == "")) {
 		// Assume only one business contact
 		vBusiness = vBusinesses[0];
-
-		// Get info from data load
-		var xCoord, yCoord, councilDistrict;
-		var ebi = getExistingBusinessInfo(vBusiness.asi["BTRC Number"]);
-		logDebug("ebi = " + ebi);
-		if (ebi && ebi.length > 0) {
-			logDebug("got one");
-			xCoord = parseFloat(ebi[0].LOCATION.split(",")[0]);
-			yCoord = parseFloat(ebi[0].LOCATION.split(",")[1]);
-			councilDistrict = "" + ebi[0].COUNCIL_DISTRICT;
-			editAppSpecific("Council District",councilDistrict);
-		}
-		
+		var btrc = AInfo["BTRC Number"];
+		if (btrc && btrc != "") {
+			vBusiness.setCustomField("BTRC Number",btrc);
+			vBusiness.save();
+			// Get info from data load
+			var xCoord, yCoord, councilDistrict;
+			var ebi = getExistingBusinessInfo(btrc);
+			if (ebi && ebi.length > 0) {
+				xCoord = parseFloat(ebi[0].LOCATION.split(",")[0]);
+				yCoord = parseFloat(ebi[0].LOCATION.split(",")[1]);
+				councilDistrict = "" + ebi[0].COUNCIL_DISTRICT;
+				editAppSpecific("Council District",councilDistrict);
+			}
+			}
 		// Save business name
 		vBusinessObj = vBusiness.people;
 		// If contact type is individual use the contact type 2
