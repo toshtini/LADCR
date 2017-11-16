@@ -155,8 +155,8 @@ function mainProcess(t) {
 		firstDef = getDateOfFirstDeficiency(capId);
 		if (firstDef) {
 			logDebug("Found a First Deficiency Date of " + firstDef);
-			// add one year for comparison.  comment out for testing.
-			//firstDef.setFullYear(firstDef.getFullYear()+1);
+			// add two months for comparison.  comment out for testing.
+			firstDef.setDate(firstDef.getDate()+60);
 			logDebug("comparing " + firstDef + " to " + today);
 			if (firstDef.getTime() < today.getTime()) {
 				logDebug("Abandoning the application");
