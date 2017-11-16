@@ -21,7 +21,7 @@ var showMessage = false; // Set to true to see results in popup window
 var showDebug = false; // Set to true to see debug messages in popup window
 var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
 var useTaskSpecificGroupName = false; // Use Group name when populating Task Specific Info Values
-var cancel = true;
+var cancel = false;
 var useCustomScriptFile = true; // if true, use Events->Custom Script, else use Events->Scripts->INCLUDES_CUSTOM
 /*------------------------------------------------------------------------------------------------------/
 | END User Configurable Parameters
@@ -150,7 +150,7 @@ try {
 	// Check STATE LICENSES APPLYING FOR Table
 	var vStateLicTable = loadASITable4ACA("STATE LICENSES APPLYING FOR", cap);
 	if (!vStateLicTable  || vvStateLicTable.length == 0) {
-		showDebug = true;
+		//showDebug = true;
 		showMessage = true;
 		comment("At least one State License entry is required.");
 		cancel = true;
