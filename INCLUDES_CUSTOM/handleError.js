@@ -13,11 +13,11 @@ function handleError(err,context) {
     headers.put("Content-Type","application/json");
 	
     var body = {};
-	body.text = ENVIRON + ":" + err.message + " In " + context + " Line " + err.lineNumber + "Stack: " + err.stack;
+	body.text = err.message + " In " + context + " Line " + err.lineNumber + "Stack: " + err.stack;
 	body.attachments = [{"fallback": "Full Debug Output"}];
 	body.attachments[0].text = debug;
 	
-    var apiURL = "https://hooks.slack.com/services/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";
+    var apiURL = "https://hooks.slack.com/services/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";
 	
 	
     var result = aa.httpClient.post(apiURL, headers, JSON.stringify(body));
