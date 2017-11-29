@@ -2,7 +2,7 @@
 var ENVIRON = "DEV";
 var EMAILREPLIES = "noreply@accela.com";
 var SENDEMAILS = false;
-var ACAURL = "https://aca.supp.accela.com/BMCR";
+var ACAURL = "https://aca.supp.accela.com/LADCR";
 
 
 //set Debug
