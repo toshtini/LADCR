@@ -1,12 +1,12 @@
 // this is a test
-var ENVIRON = "DEV";
-var EMAILREPLIES = "noreply@dca.ca.gov";
+var ENVIRON = "TEST";
+var EMAILREPLIES = "noreply@accela.com";
 var SENDEMAILS = true;
-var ACAURL = "https://aca.supp.accela.com/BMCR";
+var ACAURL = "https://aca.test.accela.com/LADCR";
 
 
 //set Debug
-var vDebugUsers = ['EWYLAM','ADMIN','JSCHILLO'];
+var vDebugUsers = ['JSCHOMP','EWYLAM','ADMIN','JSCHILLO'];
 if (exists(currentUserID,vDebugUsers)) {
 	showDebug = 3;
 	showMessage = true;
