@@ -17,7 +17,11 @@ function handleError(err,context) {
 	body.attachments = [{"fallback": "Full Debug Output"}];
 	body.attachments[0].text = debug;
 	
+<<<<<<< HEAD
     var apiURL = "https://hooks.slack.com/services/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";
+=======
+    var apiURL = SLACKURL;  // from globals
+>>>>>>> Dev
 	
 	
     var result = aa.httpClient.post(apiURL, headers, JSON.stringify(body));
