@@ -2,6 +2,10 @@
 include("COPY_BUSINESS_OWNER_TO_APP");
 // End script to copy Business Owner to application record
 
+// Send invoice report to approved owners
+include("SEND_INVOICE_TO_APPROVED_OWNER");
+// end invoice report
+
 // Begin script to update application workflow if all owners submitted
 include("SET_APP_RECIEVED_OWNER_SUBMITTALS_MATCH_ASIT");
 // End script to update application workflow if all owners submitted
