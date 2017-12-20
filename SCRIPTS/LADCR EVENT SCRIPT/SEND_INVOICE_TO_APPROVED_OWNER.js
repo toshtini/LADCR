@@ -7,5 +7,5 @@ if (wfTask == "Review" && wfStatus == "Review Completed") {
 	addParameter(vEParams, "$$ApplicationID$$", capIDString);
 	var vRParams = aa.util.newHashtable();
 	addParameter(vRParams, "p1Value", capIDString);
-	emailOwnercts_BCC('Business Owner', "LADCR_OWNER_INVOICE", vEParams, "Invoice", vRParams);
+	emailContacts_BCC('Business Owner', "LADCR_OWNER_INVOICE", vEParams, "Invoice", vRParams);
 }
