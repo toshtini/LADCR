@@ -265,10 +265,12 @@ function getRequiredDocuments(isPageFlow) {
 		// exclude items not needed for temp applications as submitted in ACA
 		if (isPageFlow && isTemporaryRequest) {
 			//requirementArray.push(documentationOfLocalCompliance);
+			requirementArray.push(governmentIssuedIdentification);
 			requirementArray.push(evidenceOfLegalRightToOccupy);
 			requirementArray.push(diagramOfPremises);
 		} else {
 			//requirementArray.push(documentationOfLocalCompliance); only required for temp
+			requirementArray.push(governmentIssuedIdentification);
 			requirementArray.push(evidenceOfLegalRightToOccupy);
 			requirementArray.push(diagramOfPremises);
 			requirementArray.push(proofOfSuretyBond); //not needed for temp
