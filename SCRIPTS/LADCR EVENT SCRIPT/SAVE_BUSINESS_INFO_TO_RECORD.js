@@ -24,8 +24,8 @@
 			// Get info from data load
 			var ebi = getExistingBusinessInfo(btrc);
 			if (ebi && ebi.length > 0) {
-				xCoord = "" + parseFloat(ebi[0].LOCATION.split(",")[0]);
-				yCoord = "" + parseFloat(ebi[0].LOCATION.split(",")[1]);
+				xCoord = parseFloat(ebi[0].LOCATION.split(",")[0]);
+				yCoord = parseFloat(ebi[0].LOCATION.split(",")[1]);
 				councilDistrict = "" + ebi[0].COUNCIL_DISTRICT;
 				editAppSpecific("Council District",councilDistrict);
 			}
