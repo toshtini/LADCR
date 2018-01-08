@@ -72,8 +72,8 @@
 					vAddrModel.setPrimaryFlag('Y');
 					vAddrModel.setCapID(capId);
 					vAddrModel.setAuditID('ADMIN');
-					vAddrModel.setXCoordinator(xCoord);
-					vAddrModel.setYCoordinator(yCoord);
+					if (xCoord) vAddrModel.setXCoordinator(xCoord);
+					if (yCoord) vAddrModel.setYCoordinator(yCoord);
 					
 					// Save the address
 					var vAddrResult = aa.address.createAddress(vAddrModel);
