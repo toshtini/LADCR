@@ -10,6 +10,7 @@
 	var vCapScriptModel;
 	var vCapModel;
 	var vAddrModel;
+	var xCoord, yCoord, councilDistrict;
 	
 
 	// Save the business name to the app name if it doesn't exist. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
@@ -21,7 +22,6 @@
 			vBusiness.setCustomField("BTRC Number",btrc);
 			vBusiness.save();
 			// Get info from data load
-			var xCoord, yCoord, councilDistrict;
 			var ebi = getExistingBusinessInfo(btrc);
 			if (ebi && ebi.length > 0) {
 				xCoord = parseFloat(ebi[0].LOCATION.split(",")[0]);
@@ -72,8 +72,8 @@
 					vAddrModel.setPrimaryFlag('Y');
 					vAddrModel.setCapID(capId);
 					vAddrModel.setAuditID('ADMIN');
-					vAddrModel.setXCoordinator(xCoord);
-					vAddrModel.setYCoordinator(yCoord);
+					if (xCoord) vAddrModel.setXCoordinator(xCoord);
+					if (yCoord) vAddrModel.setYCoordinator(yCoord);
 					
 					// Save the address
 					var vAddrResult = aa.address.createAddress(vAddrModel);
