@@ -161,7 +161,7 @@ try {
 
 	var isAgentOfService = isASITrue(AInfo["Agent of Service"]); // ghess, 3/20/18
 
-	if (isAgentOfService) {
+	if (!isAgentOfService) {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
 	
