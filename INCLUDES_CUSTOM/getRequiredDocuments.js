@@ -136,7 +136,7 @@ function getRequiredDocuments(isPageFlow) {
 	var isAdultUse =  AInfo["Adult Use"] == "YES" || AInfo["Adult Use"] == "Yes"; 
 	var isTesting = AInfo["Testing"] == "YES" || AInfo["Testing"] == "Yes"; 
 	var isCultivation = AInfo["Adult-Use Cultivation Medium Indoor"] == "CHECKED" || AInfo["Adult-Use Cultivation Small Indoor"]  == "CHECKED" || AInfo["Adult-Use Cultivation Specialty Cottage Indoor"]  == "CHECKED" || 	AInfo["Adult-Use Cultivation Specialty Indoor"] == "CHECKED" || AInfo["Medical Cultivation Medium Indoor"] == "CHECKED" || AInfo["Medical Cultivation Small Indoor"] == "CHECKED" || AInfo["Medical Cultivation Specialty Cottage Indoor"] == "CHECKED" || AInfo["Medical Cultivation Specialty Indoor"] == "CHECKED";	
-
+	var isTemporaryRequest = false;
 	//set isTemporaryRequest = true if ASI field is null or ""
 	if (AInfo["Are you requesting a temporary license?"] == null || AInfo["Are you requesting a temporary license?"] == "") {
 		isTemporaryRequest = true;
