@@ -24,6 +24,31 @@ function getRequiredDocuments(isPageFlow) {
 	| Load up Standard Conditions :
 	/------------------------------------------------------------------------------------------------------*/
 
+	var DiagramOfPremises = {
+		condition: "Diagram of Premises",
+		document: "Diagram of Premises"
+	};
+	
+	var DocOfLocalCompliance = {
+		condition : "Documentation of Local Compliance",
+		document: "Documentation of Local Compliance"
+	};
+	
+	var ProofOfBondInsurance = {
+		condition : "Proof of Bond / Insurance",
+		document :  "Proof of Bond / Insurance"
+	};
+	
+	var IndemnificationAgreement = {
+		condition : "Indemnification Agreement",
+		document : "Indemnification Agreement"
+	};
+
+	var CommunityBenefitAgreement = {
+		condition : "Community Benefit Agreement",
+		document : "Community Benefit Agreement"
+	};
+	
 	var BusinessTaxRegistrationCertificate = {
 		condition: "Business Tax Registration Certificate",
 		document: "Business Tax Registration Certificate"
@@ -43,6 +68,11 @@ function getRequiredDocuments(isPageFlow) {
 		condition: "Diversity Plan",
 		document: "Diversity Plan"
 	}; 
+	
+	var CUPAPermit = {
+		condition : "CUPA Permit",
+		document : "CUPA Permit"
+	};
 
 	var EnergyEfficiencyPlan = {
 		condition: "Energy Efficiency Plan",
@@ -193,6 +223,11 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(RadiusMap);
 			requirementArray.push(SecurityPlan);
 			requirementArray.push(StaffingPlan);
+			requirementArray.push(ProofOfBondInsurance);
+			requirementArray.push(CUPAPermit);
+			requirementArray.push(IndemnificationAgreement);
+			requirementArray.push(CommunityBenefitAgreement);
+			
 			if (isTesting) {
 				requirementArray.push(ISO170325Accreditation);
 				requirementArray.push(LaboratoryEmployeeQualifications);					
@@ -205,6 +240,8 @@ function getRequiredDocuments(isPageFlow) {
 			}
 		} else {
 			// only add temp requirements
+			requirementArray.push(DocOfLocalCompliance);
+			requirementArray.push(DiagramOfPremises);
 			requirementArray.push(BusinessTaxRegistrationCertificate);
 		}
 
