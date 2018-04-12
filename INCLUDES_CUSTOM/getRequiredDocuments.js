@@ -172,7 +172,7 @@ function getRequiredDocuments(isPageFlow) {
 		isTemporaryRequest = true;
 	}
 
-	logDebug("isTemporaryRequest: " + isTemporaryRequest);
+
 
 	//check to see if a temporary license has already been issued
 	var vWFTaskHistory = aa.workflow.getWorkflowHistory(capId, 'Issuance', null).getOutput();
@@ -192,6 +192,8 @@ function getRequiredDocuments(isPageFlow) {
 		isTemporaryRequest = false;
 		}
 
+	logDebug("isTemporaryRequest: " + isTemporaryRequest);
+		
 	/*
 	var business = getContactObj(capToUse, "Business");
 	if (business && business.asi) {
