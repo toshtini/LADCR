@@ -16,7 +16,7 @@ function getRequiredDocuments(isPageFlow) {
 	var isAttestationAmendment = appMatch("Licenses/*/*/Incomplete Attestation");
 	var isRenewal = appMatch("Licenses/*/*/Renewal");
 	var isOwner = appMatch("Licenses/*/*/Owner Submittal");
-	var isOwnerAttestation = appMatch("Licenses/Cannabis/Application Amendment/Incomplete Attestation");
+	var isOwnerAttestation = false; // not used for LADCR appMatch("Licenses/Cannabis/Application Amendment/Incomplete Attestation");
 	var isCEOAttestation = appMatch("Licenses/Cannabis/Event Organzier/Incomplete Attestation");
 	var isTemporaryEventAttestation = appMatch("Licenses/Cannabis/Temporary Event/Incomplete Attestation");
 	
