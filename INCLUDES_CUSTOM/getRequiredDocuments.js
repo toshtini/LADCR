@@ -159,6 +159,12 @@ function getRequiredDocuments(isPageFlow) {
 		document: "Testing Methodologies"
 	}; 
 
+	var LiveScan = {
+		condition: "Proof of Live Scan or Other Service",
+		document: "Proof of Live Scan or Other Service"
+	}; 
+
+
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Conditionals from Record
 	/------------------------------------------------------------------------------------------------------*/
@@ -226,6 +232,7 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(SecurityPlan);
 			requirementArray.push(StaffingPlan);
 			requirementArray.push(ProofOfBondInsurance);
+			requirementArray.push(LiveScan);
 			requirementArray.push(CUPAPermit);
 			requirementArray.push(IndemnificationAgreement);
 			requirementArray.push(CommunityBenefitAgreement);
