@@ -12,4 +12,12 @@ include("SAVE_BUSINESS_INFO_TO_RECORD");
 if (!appMatch("Licenses/Cannabis/Testing/Application")) {
 	include("CHECK_SSN_FEIN_MATCH");
 	}
+<<<<<<< HEAD
 // end check for fein/ssn
+=======
+// end check for fein/ssn
+
+// Assess fees
+include("ASSESS_BUS_APP_FEES");
+// end assess fees
+>>>>>>> Dev

@@ -1,5 +1,11 @@
 // Insert the public user reference contact as the owner applicant
-include("COPY_PUBLIC_USER_TO_OWNER_APPLICANT");
+//include("COPY_PUBLIC_USER_TO_OWNER_APPLICANT");
+// Insert the public user reference contact as the owner applicant or agent of service (ghess, 3/20/18)
+if (AInfo["Agent of Service"] == "Yes") {
+	include("COPY_PUBLIC_USER_TO_AGENT_OF_SERVICE");
+} else {
+	include("COPY_PUBLIC_USER_TO_OWNER_APPLICANT");
+}
 
 // Begin script to set the Owner Applicant information in the Owners ASIT to Read Only.
 include("SET_OWNER_APPLICANT_OWNER_TABLE_READ_ONLY");
