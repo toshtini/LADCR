@@ -152,16 +152,21 @@ try {
 
 	// Check business activities
 
+	var isGood = false;
 	for (var i in AInfo) {
 		if ((i.indexOf("Medical") > 0) || (i.indexOf("Adult-Use")) || (i.indexOf("Testing")) > 0) {
-			if (AInfo[i].equalsIgnoreCase("CHECKED") || AInfo[i].equalsIgnoreCase("YES")) {
-				cancel = true;
-				showMessage = true;
-				comment("You must select at least 1 activity to continue.");
+			if (AInfo[i] && (AInfo[i].equalsIgnoreCase("CHECKED") || AInfo[i].equalsIgnoreCase("YES"))) {
+				isGood = true;
+				break;
 				}
 		}
 	}
 
+if (!isGood) {
+	cancel = true;
+	showMessage = true;
+	comment("You must select at least 1 activity to continue.");
+}
 
 } catch (err) {
 	handleError(err);
