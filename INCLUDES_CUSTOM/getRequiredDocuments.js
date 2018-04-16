@@ -16,7 +16,7 @@ function getRequiredDocuments(isPageFlow) {
 	var isAttestationAmendment = appMatch("Licenses/*/*/Incomplete Attestation");
 	var isRenewal = appMatch("Licenses/*/*/Renewal");
 	var isOwner = appMatch("Licenses/*/*/Owner Submittal");
-	var isOwnerAttestation = appMatch("Licenses/Cannabis/Application Amendment/Incomplete Attestation");
+	var isOwnerAttestation = false; // not used for LADCR appMatch("Licenses/Cannabis/Application Amendment/Incomplete Attestation");
 	var isCEOAttestation = appMatch("Licenses/Cannabis/Event Organzier/Incomplete Attestation");
 	var isTemporaryEventAttestation = appMatch("Licenses/Cannabis/Temporary Event/Incomplete Attestation");
 	
@@ -159,6 +159,12 @@ function getRequiredDocuments(isPageFlow) {
 		document: "Testing Methodologies"
 	}; 
 
+	var LiveScan = {
+		condition: "Proof of Live Scan or Other Service",
+		document: "Proof of Live Scan or Other Service"
+	}; 
+
+
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Conditionals from Record
 	/------------------------------------------------------------------------------------------------------*/
@@ -172,7 +178,7 @@ function getRequiredDocuments(isPageFlow) {
 		isTemporaryRequest = true;
 	}
 
-	logDebug("isTemporaryRequest: " + isTemporaryRequest);
+
 
 	//check to see if a temporary license has already been issued
 	var vWFTaskHistory = aa.workflow.getWorkflowHistory(capId, 'Issuance', null).getOutput();
@@ -192,6 +198,8 @@ function getRequiredDocuments(isPageFlow) {
 		isTemporaryRequest = false;
 		}
 
+	logDebug("isTemporaryRequest: " + isTemporaryRequest);
+		
 	/*
 	var business = getContactObj(capToUse, "Business");
 	if (business && business.asi) {
@@ -224,6 +232,7 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(SecurityPlan);
 			requirementArray.push(StaffingPlan);
 			requirementArray.push(ProofOfBondInsurance);
+			requirementArray.push(LiveScan);
 			requirementArray.push(CUPAPermit);
 			requirementArray.push(IndemnificationAgreement);
 			requirementArray.push(CommunityBenefitAgreement);

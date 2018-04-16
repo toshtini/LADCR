@@ -35,15 +35,19 @@
 		// If contact type is individual use the contact type 2
 		if (vBusinessObj.getContactTypeFlag() == "individual") {
 			editAppName(vBusinessObj.getBusinessName2());
+			vBusinessObj.setBusinessName2(vBusinessObj.getBusinessName2());
 		}
 		// For all others use Use DBA/Trade name if provided
 		else if (vBusinessObj.getTradeName() != null && vBusinessObj.getTradeName() != "") {
 			editAppName(vBusinessObj.getTradeName());
+			vBusinessObj.setBusinessName2(vBusinessObj.getTradeName());
 		} 
 		// Use Business Name as a last resort
 		else if (vBusinessObj.getBusinessName() != null && vBusinessObj.getBusinessName() != "") {
 			editAppName(vBusinessObj.getBusinessName());
+			vBusinessObj.setBusinessName2(vBusinessObj.getBusinessName());
 		}
+		vBusiness.save();
 
 		// Save address to the record if it doesn't already exists. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
 		vAddresses = vBusiness.addresses;
