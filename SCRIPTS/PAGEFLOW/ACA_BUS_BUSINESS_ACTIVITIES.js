@@ -154,12 +154,16 @@ try {
 
 	var isGood = false;
 	for (var i in AInfo) {
-		if ((i.indexOf("Medical") > 0) || (i.indexOf("Adult-Use")) || (i.indexOf("Testing")) > 0) {
-			if (AInfo[i] && (AInfo[i].equalsIgnoreCase("CHECKED") || AInfo[i].equalsIgnoreCase("YES"))) {
+		if ((i.indexOf("Medical") >= 0) || (i.indexOf("Adult-Use") >= 0) || (i.indexOf("Testing")) >= 0) {
+			if (AInfo[i] && AInfo[i].equalsIgnoreCase("CHECKED")) {
 				isGood = true;
 				break;
 				}
-		}
+			}
+		if (i.equals("Testing") && AInfo[i].equalsIgnoreCase("YES")) {
+				isGood = true;
+				break;
+			}
 	}
 
 if (!isGood) {
