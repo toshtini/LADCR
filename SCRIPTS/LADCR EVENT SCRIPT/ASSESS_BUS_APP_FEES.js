@@ -34,3 +34,7 @@ if (AInfo["Adult-Use Cultivation Medium Indoor"] == "CHECKED" || AInfo["Medical 
 if (AInfo["Adult-Use Manufacturer Level 1"] == "CHECKED" || AInfo["Medical Manufacturer Level 1"] == "CHECKED") {
     updateFee("J009","CAN_BUS_APP","FINAL",1,"Y");
 }
+
+if (AInfo["Testing"] == "YES" || AInfo["Testing"] == "Yes") {
+    updateFee("J040","CAN_BUS_APP","FINAL",1,"Y");
+}
