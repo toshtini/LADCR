@@ -11,7 +11,7 @@ if (AInfo["Adult-Use Delivery Only"] == "CHECKED" || AInfo["Medical Delivery Onl
     updateFee("J003","CAN_BUS_APP","FINAL",1,"Y");
 }
 
-if (AInfo["Adult-Use Distributor Transport Only"] == "CHECKED" || AInfo["Medical Distributor Transport Only"] == "CHECKED") {
+if (AInfo["Adult-Use Distributor Transport Only"] == "CHECKED" || AInfo["Medical Distributor Transport Only"] == "CHECKED" || AInfo["Adult-Use Distributor"] == "CHECKED" || AInfo["Medical Distributor"] == "CHECKED") {
     updateFee("J004","CAN_BUS_APP","FINAL",1,"Y");
 }
 
@@ -33,4 +33,8 @@ if (AInfo["Adult-Use Cultivation Medium Indoor"] == "CHECKED" || AInfo["Medical 
 
 if (AInfo["Adult-Use Manufacturer Level 1"] == "CHECKED" || AInfo["Medical Manufacturer Level 1"] == "CHECKED") {
     updateFee("J009","CAN_BUS_APP","FINAL",1,"Y");
+}
+
+if (AInfo["Testing"] == "YES" || AInfo["Testing"] == "Yes") {
+    updateFee("J040","CAN_BUS_APP","FINAL",1,"Y");
 }
