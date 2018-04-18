@@ -11,7 +11,7 @@ if (AInfo["Adult-Use Delivery Only"] == "CHECKED" || AInfo["Medical Delivery Onl
     updateFee("J003","CAN_BUS_APP","FINAL",1,"Y");
 }
 
-if (AInfo["Adult-Use Distributor Transport Only"] == "CHECKED" || AInfo["Medical Distributor Transport Only"] == "CHECKED") {
+if (AInfo["Adult-Use Distributor Transport Only"] == "CHECKED" || AInfo["Medical Distributor Transport Only"] == "CHECKED" || AInfo["Adult-Use Distributor"] == "CHECKED" || AInfo["Medical Distributor"] == "CHECKED") {
     updateFee("J004","CAN_BUS_APP","FINAL",1,"Y");
 }
 
