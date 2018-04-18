@@ -13,7 +13,7 @@ function handleError(err,context) {
     headers.put("Content-Type","application/json");
 	
     var body = {};
-	body.text = ENVIRON + ": " + err.message + " In " + context + " Line " + err.lineNumber + " Stack: " + err.stack;
+	body.text = aa.getServiceProviderCode() + ":" + ENVIRON + ": " + err.message + " In " + context + " Line " + err.lineNumber + " Stack: " + err.stack;
 	body.attachments = [{"fallback": "Full Debug Output"}];
 	body.attachments[0].text = debug;
 	
