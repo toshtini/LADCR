@@ -158,21 +158,71 @@ try {
 			if (AInfo[i] && AInfo[i].equalsIgnoreCase("CHECKED")) {
 				isGood = true;
 				break;
-				}
 			}
+		}
 		if (i.equals("Testing") && AInfo[i].equalsIgnoreCase("YES")) {
-				isGood = true;
-				break;
-			}
+			isGood = true;
+			break;
+		}
 	}
 
-if (!isGood) {
-	cancel = true;
-	showMessage = true;
-	comment("You must select at least 1 activity to continue.");
-}
+	if (!isGood) {
+		cancel = true;
+		showMessage = true;
+		comment("You must select at least 1 activity to continue.");
+	} else {
+		// test logic on activities
+		var isGood = true;
+		var v = {};
 
-} catch (err) {
+		var acFields = ["Adult Use", "Adult-Use Cultivation Medium Indoor", "Adult-Use Cultivation Small Indoor", "Adult-Use Cultivation Specialty Cottage Indoor", "Adult-Use Cultivation Specialty Indoor", "Adult-Use Distributor", "Adult-Use Distributor Transport Only", "Adult-Use Manufacturer Level 1", "Adult-Use Retail", "Adult-Use Microbusiness", "Adult-Use Delivery Only", "Medical Use", "Medical Cultivation Medium Indoor", "Medical Cultivation Small Indoor", "Medical Cultivation Specialty Cottage Indoor", "Medical Cultivation Specialty Indoor", "Medical Distributor", "Medical Distributor Transport Only", "Medical Manufacturer Level 1", "Medical Retail", "Medical Microbusiness", "Medical Delivery Only"];
+		var acTypes = ["Adult Use", "Medical Use", "Testing"];
+
+		v.a = AInfo["Adult Use"];
+		v.A = {};
+		v.A.CMI = AInfo["Adult-Use Cultivation Medium Indoor"];
+		v.A.CSI = AInfo["Adult-Use Cultivation Small Indoor"];
+		v.A.CSC = AInfo["Adult-Use Cultivation Specialty Cottage Indoor"];
+		v.A.CSP = AInfo["Adult-Use Cultivation Specialty Indoor"];
+		v.A.D = AInfo["Adult-Use Distributor"];
+		v.A.DTO = AInfo["Adult-Use Distributor Transport Only"];
+		v.A.M1 = AInfo["Adult-Use Manufacturer Level 1"];
+		v.A.R = AInfo["Adult-Use Retail"];
+		v.A.M = AInfo["Adult-Use Microbusiness"];
+		v.A.DO = AInfo["Adult-Use Delivery Only"];
+		v.m = AInfo["Medical Use"];
+		v.M = {};
+		v.M.CMI = AInfo["Medical Cultivation Medium Indoor"];
+		v.M.CSI = AInfo["Medical Cultivation Small Indoor"];
+		v.M.CSC = AInfo["Medical Cultivation Specialty Cottage Indoor"];
+		v.M.CSP = AInfo["Medical Cultivation Specialty Indoor"];
+		v.M.D = AInfo["Medical Distributor"];
+		v.M.DTO = AInfo["Medical Distributor Transport Only"];
+		v.M.M1 = AInfo["Medical Manufacturer Level 1"];
+		v.M.R = AInfo["Medical Retail"];
+		v.M.M = AInfo["Medical Microbusiness"];
+		v.M.DO = AInfo["Medical Delivery Only"];
+		v.t = AInfo["Testing"];
+
+		if (isTrue(v.t) && (isTrue(v.a) || isTrue(v.m))) {
+			isGood = false;
+			msg = "You cannot select Testing with Adult/Medical Use"
+		}
+
+		if (numberOfTrue(v.A.CMI, v.A.CSI, v.A.CSC, v.A.CSP) > 1 || numberOfTrue(v.M.CMI, v.M.CSI, v.M.CSC, v.M.CSP) > 1 || numberOfTrue(v.A.D, v.A.DTO) > 1 || numberOfTrue(v.M.D, v.M.DTO) > 1 || numberOfTrue(v.A.R, v.A.M, v.A.DO) > 1 || numberOfTrue(v.A.R, v.A.M, v.A.DO) > 1) {
+			isGood = false;
+			msg = "Invalid selections, resetting"
+				for (var i in acFields) {
+					editAppSpecific4ACA(acFields[i], "UNCHECKED");
+				}
+				for (var i in acTypes) {
+					editAppSpecific4ACA(acTypes[i], "NO");
+				}
+		}
+
+	}
+}
+catch (err) {
 	handleError(err);
 }
 // page flow custom code end
@@ -195,4 +245,17 @@ if (debug.indexOf("**ERROR") > 0) {
 		if (showDebug)
 			aa.env.setValue("ErrorMessage", debug);
 	}
+}
+
+function numberOfTrue() {
+	var c = 0;
+	for (var i = 0; i <= arguments.length; i++) {
+		if (isTrue(arguments[i]))
+			c++;
+	}
+	return c;
+}
+
+function isTrue(o) {
+	return o == "CHECKED" || o == "YES" || o == "Yes";
 }
