@@ -18,7 +18,7 @@
 |     changes are made, please add notes above.
 /------------------------------------------------------------------------------------------------------*/
 var showMessage = false; // Set to true to see results in popup window
-var showDebug = false; // Set to true to see debug messages in popup window
+var showDebug = true; // Set to true to see debug messages in popup window
 var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
 var useTaskSpecificGroupName = false; // Use Group name when populating Task Specific Info Values
 var cancel = false;
@@ -153,6 +153,7 @@ try {
 	// Check business activities
 
 	var isGood = false;
+	var msg = "";
 	for (var i in AInfo) {
 		if ((i.indexOf("Medical") >= 0) || (i.indexOf("Adult-Use") >= 0) || (i.indexOf("Testing")) >= 0) {
 			if (AInfo[i] && AInfo[i].equalsIgnoreCase("CHECKED")) {
@@ -167,12 +168,9 @@ try {
 	}
 
 	if (!isGood) {
-		cancel = true;
-		showMessage = true;
-		comment("You must select at least 1 activity to continue.");
+		msg = "You must select at least 1 activity to continue.";
 	} else {
 		// test logic on activities
-		var isGood = true;
 		var v = {};
 
 		var acFields = ["Adult Use", "Adult-Use Cultivation Medium Indoor", "Adult-Use Cultivation Small Indoor", "Adult-Use Cultivation Specialty Cottage Indoor", "Adult-Use Cultivation Specialty Indoor", "Adult-Use Distributor", "Adult-Use Distributor Transport Only", "Adult-Use Manufacturer Level 1", "Adult-Use Retail", "Adult-Use Microbusiness", "Adult-Use Delivery Only", "Medical Use", "Medical Cultivation Medium Indoor", "Medical Cultivation Small Indoor", "Medical Cultivation Specialty Cottage Indoor", "Medical Cultivation Specialty Indoor", "Medical Distributor", "Medical Distributor Transport Only", "Medical Manufacturer Level 1", "Medical Retail", "Medical Microbusiness", "Medical Delivery Only"];
@@ -220,6 +218,11 @@ try {
 				}
 		}
 
+	}
+	if (!isGood) {
+		cancel = true;
+		showMessage = true;
+		comment(msg);
 	}
 }
 catch (err) {
