@@ -18,7 +18,7 @@
 |     changes are made, please add notes above.
 /------------------------------------------------------------------------------------------------------*/
 var showMessage = false; // Set to true to see results in popup window
-var showDebug = true; // Set to true to see debug messages in popup window
+var showDebug = false; // Set to true to see debug messages in popup window
 var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
 var useTaskSpecificGroupName = false; // Use Group name when populating Task Specific Info Values
 var cancel = false;
@@ -202,14 +202,9 @@ try {
 		v.M.DO = AInfo["Medical Delivery Only"];
 		v.t = AInfo["Testing"];
 
-		if (isTrue(v.t) && (isTrue(v.a) || isTrue(v.m))) {
+		if ((isTrue(v.t) && (isTrue(v.a) || isTrue(v.m))) || numberOfTrue(v.A.CMI, v.A.CSI, v.A.CSC, v.A.CSP) > 1 || numberOfTrue(v.M.CMI, v.M.CSI, v.M.CSC, v.M.CSP) > 1 || numberOfTrue(v.A.D, v.A.DTO) > 1 || numberOfTrue(v.M.D, v.M.DTO) > 1 || numberOfTrue(v.A.R, v.A.M, v.A.DO) > 1 || numberOfTrue(v.A.R, v.A.M, v.A.DO) > 1) {
 			isGood = false;
-			msg = "You cannot select Testing with Adult/Medical Use"
-		}
-
-		if (numberOfTrue(v.A.CMI, v.A.CSI, v.A.CSC, v.A.CSP) > 1 || numberOfTrue(v.M.CMI, v.M.CSI, v.M.CSC, v.M.CSP) > 1 || numberOfTrue(v.A.D, v.A.DTO) > 1 || numberOfTrue(v.M.D, v.M.DTO) > 1 || numberOfTrue(v.A.R, v.A.M, v.A.DO) > 1 || numberOfTrue(v.A.R, v.A.M, v.A.DO) > 1) {
-			isGood = false;
-			msg = "Invalid selections, resetting"
+			msg = "Invalid selections, please select items slowly.  Resetting..."
 				for (var i in acFields) {
 					editAppSpecific4ACA(acFields[i], "UNCHECKED");
 				}
@@ -223,6 +218,7 @@ try {
 		cancel = true;
 		showMessage = true;
 		comment(msg);
+		aa.env.setValue("CapModel", cap);
 	}
 }
 catch (err) {
