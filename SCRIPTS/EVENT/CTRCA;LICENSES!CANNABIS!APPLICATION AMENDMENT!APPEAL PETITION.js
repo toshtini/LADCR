@@ -7,10 +7,7 @@ if (vParentId == false || vParentId == null || vParentId == "") {
            addParent(vAppId);
      }
 }
-//End script to link amendment to application when user Defers Payment in ACA
-if (feeAmountAll(capId,"NEW") > 0 && balanceDue == 0) {
-	invoiceFeeAllNew(capId);
-}
+
 // Send Fee Notice
 if (publicUser == true) {
   include("SEND_APPEAL_PETITION_FEE_NOTICE");
