@@ -19,8 +19,4 @@ var parentId = getParent();
 	addParameter(vRParams, "p1Value", capIDString);
 
 //Send to contacts on parent application record
-	var saveCapId = capId;
-	capId = parentId;
-	//emailContacts_BCC('Business Owner', "LADCR_OWNER_INVOICE", vEParams, "Invoice", vRParams);
-	emailContacts_BCC("ALL", "LADCR_APPEAL_PETITION_FEES_DUE_NOTIFICATION", vEParams, "Invoice", vRParams);
-	capId = saveCapId;
+	emailContacts_BCC('Business Owner', "LADCR_OWNER_INVOICE", vEParams, "Invoice", vRParams, 'N', '', parentId);
