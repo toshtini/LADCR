@@ -10,5 +10,7 @@ if (vParentId == false || vParentId == null || vParentId == "") {
 
 // Send Fee Notice
 if (publicUser == true) {
+  //var parentId = getParent();
+  //copyContacts3_0(parentId, capId);
   include("SEND_APPEAL_PETITION_FEE_NOTICE");
 }
