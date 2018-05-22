@@ -7,6 +7,9 @@ if (vParentId == false || vParentId == null || vParentId == "") {
            addParent(vAppId);
      }
 }
+//Begin script to invoice all fees when user Defers Payment in ACA. 
+//Also tries to set workflow task Application Acceptance to Waiting for Payment for another rec type
+include("WAITING_FOR_PAYMENT");
 
 // Send Fee Notice
 if (publicUser == true) {
