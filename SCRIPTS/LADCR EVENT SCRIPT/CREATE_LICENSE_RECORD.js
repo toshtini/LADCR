@@ -142,7 +142,8 @@ if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally 
 			vReportTemplate = "";
 		} else {
 			vEmailTemplate = "DCA LICENSE ISSUED NOTIFICATION";
-			vReportTemplate = "License - Cannabis";
+			//vReportTemplate = "License - Cannabis";
+			vReportTemplate = "";
 		}
 
 		var vEParams = aa.util.newHashtable();
