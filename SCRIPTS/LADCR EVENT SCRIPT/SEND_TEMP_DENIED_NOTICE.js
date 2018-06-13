@@ -3,6 +3,7 @@ if (wfTask == "Supervisory Review" && wfStatus == "Temporary Denied") {
 	var vEParams = aa.util.newHashtable();
 	addParameter(vEParams, "$$LicenseType$$", appTypeAlias);
 	addParameter(vEParams, "$$ApplicationID$$", capIDString);
+	addParameter(vEParams, "$$businessName$$", capName);
 	var vRParams = aa.util.newHashtable();
 	addParameter(vRParams, "p1Value", capIDString);
 	emailContacts_BCC("All", "DCA OWNER APPLICANT TEMP DENIED NOTIFICATION", vEParams, "Denial of Temporary License", vRParams);
