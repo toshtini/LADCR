@@ -1,5 +1,8 @@
 // Begin script to send temporary denial notice - Story 1804
 if (wfTask == "Supervisory Review" && wfStatus == "Temporary Denied") {
+	//populate contact single address fields for report
+	updateContactAddressFromAddressType("Owner Applicant", "Mailing");
+	
 	var vEParams = aa.util.newHashtable();
 	addParameter(vEParams, "$$LicenseType$$", appTypeAlias);
 	addParameter(vEParams, "$$ApplicationID$$", capIDString);
