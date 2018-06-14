@@ -1,21 +1,18 @@
-function updateContactAddressFromAddressType(itemCap,pContactType, pAddressType)
+function updateContactAddressFromAddressType(itemCap,pContactType,pAddressType)
 {
 // This populates the address fields on the contact from the designated address type.
-// This was created for reports that access the contact single address fields.
+// This was created for reports that access the contact address fields.
 // Parameters:
 //		itemCap - capId
 //		pContactType - Contact Type to be updated, finds the first one
 //		pAddressType - Address Type from which to transfer, finds first one
 // Returns true if update occurs.
-// Can call from
-//	ASA:~
-//	CEA:~
-//	CTRCA:~
+// Can call from CTRCA
 // Created 06/05/2018, ghess
+// 06/13/2018, Updated to include addressLine2
 
 try{
-
-	//aa.print("Inside updateHaulerAddress...");
+	//aa.print("Inside updateContactAddressFromAddressType()...");
 
     var updateSuccess = false;
 	var capContactArray = new Array();
@@ -50,26 +47,28 @@ try{
 		var targetContact = targetPeoples[loopk];
 
 		for(addr in targetContact.addresses) {
-			haulerAddress = targetContact.addresses[addr]
-			//aa.print("addressType = " + haulerAddress.addressType);
-			if (haulerAddress.addressType == pAddressType){
-				//aa.print("haulerAddress.addressLine1: " + haulerAddress.addressLine1 );
-				//aa.print("haulerAddress.city: " + haulerAddress.city);
-				//aa.print("haulerAddress.state: " + haulerAddress.state);
-				//aa.print("haulerAddress.zip: " + haulerAddress.zip);
-				newAddrLine1 = haulerAddress.addressLine1;
-				newAddrCity = haulerAddress.city;
-				newAddrState = haulerAddress.state;
-				newAddrZip = haulerAddress.zip;
+			sourceAddress = targetContact.addresses[addr]
+			//aa.print("addressType = " + sourceAddress.addressType);
+			if (sourceAddress.addressType == pAddressType){
+				//aa.print("sourceAddress.addressLine1: " + sourceAddress.addressLine1 );
+				//aa.print("sourceAddress.addressLine2: " + sourceAddress.addressLine2 );
+				//aa.print("sourceAddress.city: " + sourceAddress.city);
+				//aa.print("sourceAddress.state: " + sourceAddress.state);
+				//aa.print("sourceAddress.zip: " + sourceAddress.zip);
+				newAddrLine1 = sourceAddress.addressLine1;
+				newAddrLine2 = sourceAddress.addressLine2;
+				newAddrCity = sourceAddress.city;
+				newAddrState = sourceAddress.state;
+				newAddrZip = sourceAddress.zip;
 				break;
 			}
 		}
-
 		//myResult = targetContact.people.getCompactAddress().getAddressLine1();
 		//aa.print(" myResult = " + myResult); 
 		
 		if (newAddrLine1 != "") {
 			targetContact.people.getCompactAddress().setAddressLine1(newAddrLine1);
+			targetContact.people.getCompactAddress().setAddressLine2(newAddrLine2);
 			targetContact.people.getCompactAddress().setCity(newAddrCity);
 			targetContact.people.getCompactAddress().setState(newAddrState);
 			targetContact.people.getCompactAddress().setZip(newAddrZip);
