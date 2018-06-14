@@ -1,4 +1,7 @@
 if ((wfTask == "Initial Review" || wfTask == "Review") && wfStatus == "Additional Info Requested") {
+	//populate contact single address fields for report
+	updateContactAddressFromAddressType(capId,"Owner Applicant","Mailing");
+
 	var vEParams = aa.util.newHashtable();
 	addParameter(vEParams, "$$LicenseType$$", appTypeAlias);
 	addParameter(vEParams, "$$ExpirationDate$$", dateAdd(null, 60));
