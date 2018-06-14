@@ -1,5 +1,8 @@
 // Begin script to send denial email
 if (wfStatus.equals("Denied")) {
+	//populate contact single address fields for report
+	updateContactAddressFromAddressType(capId,"Owner Applicant","Mailing");
+	
 	var vEParams = aa.util.newHashtable();
 	addParameter(vEParams, "$$LicenseType$$", appTypeAlias);
 	addParameter(vEParams, "$$ApplicationID$$", capIDString);
