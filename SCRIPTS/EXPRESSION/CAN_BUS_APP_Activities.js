@@ -22,8 +22,8 @@ function saveAndExit() {
 
 
 
-try {
-
+try {  
+ 
 var logDebug = false;
 var debug = "";
 
