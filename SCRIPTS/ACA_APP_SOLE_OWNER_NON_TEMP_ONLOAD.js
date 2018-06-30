@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APP_ASI_OPTIONS_ONLOAD.js
+| Program : ACA_APP_OPTIONS_ONLOAD.js
 | Event   : ACA Page Flow onload
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
@@ -154,27 +154,21 @@ try {
 		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
 	}
 
-	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other then "Completed". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
-				}
-			}
-		}
+	//showDebug = true;
+	//showMessage = true;
+	//cancel = true;
+
+	var vBusiness = getContactObj(cap,"Business")
+	var vBusinessType = vBusiness.asi["5006(b)(14) Business Organization Structure"];
+	var isPriorityRequest = isASITrue(AInfo["Are you requesting priority processing?"]); // see user story 340
+	var isTemporaryRequest = isASITrue(AInfo["Are you requesting a temporary license?"]); // see user story 340
+
+/*
+	if (isTemporaryRequest || vBusinessType == "Sole Proprietorship") {
+		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
+*/
+	
 } catch (err) {
 
 	logDebug(err);
@@ -202,5 +196,3 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", debug);
 	}
 }
-
-/////////////////////////////////////

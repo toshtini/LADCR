@@ -9,9 +9,9 @@ emailContacts_BCC
      vRParams  = report parameters
 	 vAddAdHocTask = Y/N for adding manual notification task when no email exists
      changeReportName = if using reportTemplate, will change the title of the document produced by the report from its default
-
-Sample: emailContacts_BCC('OWNER APPLICANT', 'DPD_WAITING_FOR_PAYMENT'); //minimal
-        emailContacts_BCC('OWNER APPLICANT,BUSINESS OWNER', 'DPD_PERMIT_ISSUED', eParamHashtable, 'Construction Permit', rParamHashtable, 'Y', 'New Report Name'); //full
+	 vContactCapId = capId to use for getting contact objects for emails, if differs from current capId
+	 Sample: emailContacts_BCC('OWNER APPLICANT', 'DPD_WAITING_FOR_PAYMENT'); //minimal
+        emailContacts_BCC('OWNER APPLICANT,BUSINESS OWNER', 'DPD_PERMIT_ISSUED', eParamHashtable, 'Construction Permit', rParamHashtable, 'Y', 'New Report Name', parentId); //full
  */
 function emailContacts_BCC(sendEmailToContactTypes, emailTemplate, vEParams, reportTemplate, vRParams) {
 	var vChangeReportName = "";
@@ -22,6 +22,7 @@ function emailContacts_BCC(sendEmailToContactTypes, emailTemplate, vEParams, rep
 	var vAsyncScript = "SEND_EMAIL_TO_CONTACTS_ASYNC";
 	var envParameters = aa.util.newHashMap();
 	var vAddAdHocTask = true;
+	var vContactCapId = false;
 
 	//Ad-hoc Task Requested
 	if (arguments.length > 5) {
@@ -35,6 +36,11 @@ logDebug("No adhoc task");
 	//Change Report Name Requested
 	if (arguments.length > 6) {
 		vChangeReportName = arguments[6]; // use provided report name
+	}
+
+	//Get cap Id to use for contact gathering
+	if (arguments.length > 7) {
+		vContactCapId = arguments[7]; // use provided report name
 	}
 
 logDebug("Provided contact types to send to: " + sendEmailToContactTypes);
@@ -70,7 +76,8 @@ logDebug("Validated contact types to send to: " + sendEmailToContactTypes);
 	envParameters.put("vChangeReportName", vChangeReportName);
 	envParameters.put("CapId", capId);
 	envParameters.put("vAddAdHocTask", vAddAdHocTask);
-	
+	envParameters.put("vContactCapId ", vContactCapId);
+		
 	//Start modification to support batch script
 	var vEvntTyp = aa.env.getValue("eventType");
 	if (vEvntTyp == "Batch Process") {
@@ -82,6 +89,7 @@ logDebug("Validated contact types to send to: " + sendEmailToContactTypes);
 		aa.env.setValue("vChangeReportName", vChangeReportName);
 		aa.env.setValue("CapId", capId);
 		aa.env.setValue("vAddAdHocTask", vAddAdHocTask);		
+		aa.env.setValue("vContactCapId ", vContactCapId);
 		//call sendEmailASync script
 		logDebug("Attempting to run Non-Async: " + vAsyncScript);
 		aa.includeScript(vAsyncScript);

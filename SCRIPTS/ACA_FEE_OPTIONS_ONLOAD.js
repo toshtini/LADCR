@@ -1,8 +1,8 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APP_ASI_OPTIONS_ONLOAD.js
+| Program : ACA_FEE_OPTIONS_ONLOAD.js
 | Event   : ACA Page Flow onload
 |
-| Usage   : Master Script by Accela.  See accompanying documentation and release notes.
+| Usage   : Onload script to hide the page for various situations. 
 |
 | Client  : N/A
 | Action# : N/A
@@ -154,90 +154,25 @@ try {
 		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
 	}
 
-	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other than "Abandoned", "Completed", "Void", "Withdrawn". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
-				}
-			}
-		}
+	//showDebug = true;
+	//showMessage = true;
+	//cancel = true;
 
-		parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
+	var isTemporaryRequest = isASITrue(AInfo["Are you requesting a temporary license?"]); // see user story 340
 
-		//Copy ASI
-		copyAppSpecific4ACA(parentCap);
-
-		//Copy ASIT
-		//set list of possible tables
-		var vASITNameArray = [];
-		vASITNameArray.push('LIST OF OWNERS');
-		vASITNameArray.push('NON CONTROLLING INTEREST');
-		vASITNameArray.push('FICTITIOUS BUSINESS NAME');
-		vASITNameArray.push('EVENT LICENSEES');
-		vASITNameArray.push('ENTITY OWNERSHIP');
-
-		var vASITName;
-		var x = 0;
-		var vASIT;
-		var vRowCount = 0;
-		var y = 0;
-		var vASITData;
-
-		for (x in vASITNameArray) {
-			vASITName = vASITNameArray[x];
-			vASIT = loadASITable(vASITName);
-			vRowCount = 0;
-
-			if (typeof(vASIT) == "object") {
-				for (y in vASIT) {
-					vRowCount = vRowCount + 1;
-				}
-			}
-
-			if (vRowCount == 0) {
-				vASITData = loadASITable(vASITName, parentCapId);
-				addASITable(vASITName, vASITData);
-
-				var tmpCap = aa.cap.getCapViewBySingle(capId);
-				cap.setAppSpecificTableGroupModel(tmpCap.getAppSpecificTableGroupModel());
-				aa.env.setValue("CapModel", cap);
-			}
-		}
-
-		//Hide ASI fields that have been answered.
-		hideAnsweredAppSpecific4ACA();
-
-		//Save application ID to ASI.
-		editAppSpecific4ACA("Application ID", parentCapId.getCustomID());
-
-		// Hide attestation page if parent is a full license:
-		var vTempASI = getAppSpecific("Are you requesting a temporary license?", parentCapId);
-		var isTemp = isASITrue(vTempASI);
-
-		if (!isTemp && vTempASI != null) {
-			aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
-		}
-
-		// Save all back to ACA capModel
-		aa.env.setValue("CapModel", cap);
+	//Hide if temporary
+	if (isTemporaryRequest) {
+		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
-
+	
+	//Hide if already answered
+	if (AInfo["Max dollar value as determined by CDTFA in assessing excise tax"] != null && AInfo["Max dollar value as determined by CDTFA in assessing excise tax"] != "") {
+		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
+	}
+	
 } catch (err) {
 
-	slackDebug(err);
+	logDebug(err);
 
 }
 
@@ -260,33 +195,5 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", message);
 		if (showDebug)
 			aa.env.setValue("ErrorMessage", debug);
-	}
-}
-
-/////////////////////////////////////
-function hideAnsweredAppSpecific4ACA() {
-	// uses capModel in this event
-	var capASI = cap.getAppSpecificInfoGroups();
-	if (!capASI) {
-		logDebug("No ASI for the CapModel");
-	} else {
-		var i = cap.getAppSpecificInfoGroups().iterator();
-		while (i.hasNext()) {
-			var group = i.next();
-			var fields = group.getFields();
-			if (fields != null) {
-				var iteFields = fields.iterator();
-				while (iteFields.hasNext()) {
-					var field = iteFields.next();
-					logDebug(field.getCheckboxDesc() + " : " + field.getChecklistComment());
-					//logDebug(field.getCheckboxDesc() + " : " + field.getVchDispFlag());
-					if (field.getChecklistComment() != null && field.getChecklistComment() != "null" && field.getChecklistComment() != "UNCHECKED") {
-						field.setAttributeValueReqFlag('N');
-						field.setVchDispFlag('H');
-						logDebug("Updated ASI: " + field.getCheckboxDesc() + " to be ACA not displayable.");
-					}
-				}
-			}
-		}
 	}
 }

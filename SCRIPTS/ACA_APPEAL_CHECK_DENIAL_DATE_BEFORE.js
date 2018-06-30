@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APP_ASI_OPTIONS_ONLOAD.js
-| Event   : ACA Page Flow onload
+| Program : ACA_APPLICATION_DOC_ONLOAD.JS
+| Event   : ACA Page Flow onload attachments component
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
 |
@@ -18,7 +18,7 @@
 |     changes are made, please add notes above.
 /------------------------------------------------------------------------------------------------------*/
 var showMessage = false; // Set to true to see results in popup window
-var showDebug = false; // Set to true to see debug messages in popup window
+var showDebug = true; // Set to true to see debug messages in popup window
 var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
 var useTaskSpecificGroupName = false; // Use Group name when populating Task Specific Info Values
 var cancel = false;
@@ -148,33 +148,29 @@ logDebug("balanceDue = " + balanceDue);
 
 try {
 
-	parentCapIdString = "" + cap.getParentCapID();
-	if (parentCapIdString) {
-		pca = parentCapIdString.split("-");
-		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
-	}
 
-	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other then "Completed". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
-				}
-			}
-		}
+// user story 303
+// As an Applicant I must not be able to submit an application 
+// denial appeal request if more than 30 calendar days has elapsed 
+// since the original application denial date so that I can petition/appeal
+// the decision on my application.
+//
+// should be called from ASB or any other before event.
+
+var testAge = 30;   // default is 30.   Set to 1 for testing.
+parentCapId = getParent();
+if (parentCapId) {
+	logDebug("CHECK_APPEAL_REQUEST_AGE : looking at parent " + parentCapId.getCustomID());
+	var age = getDenialAge(parentCapId);
+	logDebug("CHECK_APPEAL_REQUEST_AGE : Denial age = " + age);
+	if (age > testAge) {
+		showMessage = true;
+		comment("Cannot appeal this application.  More than " + testAge + " calendar days has elapsed since the original application denial date.");
+		cancel = true;
 	}
+}
+
+
 } catch (err) {
 
 	logDebug(err);
@@ -202,5 +198,3 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", debug);
 	}
 }
-
-/////////////////////////////////////

@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APP_ASI_OPTIONS_ONLOAD.js
-| Event   : ACA Page Flow onload
+| Program : ACA_AMEND_DOC_ONLOAD.JS
+| Event   : ACA Page Flow onload attachments component
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
 |
@@ -148,35 +148,81 @@ logDebug("balanceDue = " + balanceDue);
 
 try {
 
+	conditionType = "License Required Documents";
+	showDebug = false;
+	docsMissing = false;
+	showList = false;
+	addConditions = true;
+	addTableRows = false;
+	cancel = false;
+	showMessage = false;
+	capIdString = capId.getID1() + "-" + capId.getID2() + "-" + capId.getID3();
+	var r1 = getRequiredDocumentsFromCOA(true);
+	var r2 = getRequiredDocuments(true);
+	var r = mergeDocReqs(r1,r2);
+
+	var parentCapId;
 	parentCapIdString = "" + cap.getParentCapID();
 	if (parentCapIdString) {
 		pca = parentCapIdString.split("-");
 		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
 	}
 
-	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other then "Completed". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
+	uploadedDocs = new Array();
+
+	if (parentCapId) { 
+		submittedDocList = aa.document.getDocumentListByEntity(parentCapId, "CAP").getOutput().toArray();
+		for (var i in submittedDocList) {
+			uploadedDocs[submittedDocList[i].getDocCategory()] = true;
+			}
+	}
+
+	if (r.length > 0) {
+		for (x in r) {
+			if (uploadedDocs[r[x].document] == undefined) {
+				showMessage = true;
+				if (!docsMissing && showList) {
+					comment("<div class='docList'><span class='fontbold font14px ACA_Title_Color'>The following documents are required based on the information you have provided: </span><ol>");
+					docsMissing = true;
+				}
+	
+				dr = r[x].condition;
+				publicDisplayCond = null;
+				if (dr) {
+					ccr = aa.capCondition.getStandardConditions(conditionType, dr).getOutput();
+					for (var i = 0;
+						i < ccr.length;
+						i++)
+						if (ccr[i].getConditionDesc().toUpperCase() == dr.toUpperCase())
+							publicDisplayCond = ccr[i];
+				}
+
+				if (dr && ccr.length > 0 && showList && publicDisplayCond) {
+					message += "<li><span>" + dr + "</span>: " + publicDisplayCond.getPublicDisplayMessage() + "</li>";
+				}
+
+				if (dr && ccr.length > 0 && addConditions && !appHasCondition(conditionType, null, dr, null)) {
+					addStdCondition(conditionType, dr);
+				}
+
+				if (dr && ccr.length > 0 && addTableRows) {
+					row = new Array();
+					row["Document Type"] = new asiTableValObj("Document Type", dr, "Y");
+					row["Description"] = new asiTableValObj("Description", publicDisplayCond.getPublicDisplayMessage(), "Y");
+					conditionTable.push(row);
 				}
 			}
 		}
 	}
-} catch (err) {
 
+	if (r.length > 0 && showList && docsMissing) {
+		comment("</ol></div>");
+	}
+
+
+
+} catch (err) {
+	cancel = true; showDebug = true;
 	logDebug(err);
 
 }
@@ -203,4 +249,17 @@ if (debug.indexOf("**ERROR") > 0) {
 	}
 }
 
-/////////////////////////////////////
+function mergeDocReqs(arr1,arr2) {
+var arr3 = [];
+for(var i in arr1){
+   var shared = false;
+   for (var j in arr2)
+       if (arr2[j].document == arr1[i].document) {
+           shared = true;
+           break;
+       }
+   if(!shared) arr3.push(arr1[i])
+}
+arr3 = arr3.concat(arr2);
+return arr3;
+}

@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APP_ASI_OPTIONS_ONLOAD.js
+| Program : ACA_HIDE_ATT_4_AMEND.js
 | Event   : ACA Page Flow onload
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
@@ -147,34 +147,24 @@ logDebug("balanceDue = " + balanceDue);
 // page flow custom code begin
 
 try {
-
+	var parentCapId;
 	parentCapIdString = "" + cap.getParentCapID();
 	if (parentCapIdString) {
 		pca = parentCapIdString.split("-");
 		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
 	}
 
-	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other then "Completed". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
-				}
-			}
+	showDebug = true;
+	showMessage = true;
+	cancel = true;
+
+	if (parentCapID) {  // should always be true for amendment
+		var isTemp = isASITrue(getAppSpecific("Are you requesting a temporary license?",parentCapId));
+		if (!isTemp) {
+			aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 		}
 	}
+
 } catch (err) {
 
 	logDebug(err);
@@ -202,5 +192,3 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", debug);
 	}
 }
-
-/////////////////////////////////////

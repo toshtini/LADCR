@@ -155,26 +155,6 @@ try {
 	}
 
 	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other than "Abandoned", "Completed", "Void", "Withdrawn". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
-				}
-			}
-		}
-
 		parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
 
 		//Copy ASI
@@ -183,12 +163,11 @@ try {
 		//Copy ASIT
 		//set list of possible tables
 		var vASITNameArray = [];
-		vASITNameArray.push('LIST OF OWNERS');
-		vASITNameArray.push('NON CONTROLLING INTEREST');
-		vASITNameArray.push('FICTITIOUS BUSINESS NAME');
-		vASITNameArray.push('EVENT LICENSEES');
-		vASITNameArray.push('ENTITY OWNERSHIP');
-
+		vASITNameArray.push('5008 EMPLOYMENT HISTORY');
+		vASITNameArray.push('OTHER CANNABIS LICENSES');
+		vASITNameArray.push('CRIMINAL VIOLATIONS');
+		vASITNameArray.push('CANNABIS LICENSES');
+	
 		var vASITName;
 		var x = 0;
 		var vASIT;
@@ -216,20 +195,9 @@ try {
 				aa.env.setValue("CapModel", cap);
 			}
 		}
-
+		
 		//Hide ASI fields that have been answered.
 		hideAnsweredAppSpecific4ACA();
-
-		//Save application ID to ASI.
-		editAppSpecific4ACA("Application ID", parentCapId.getCustomID());
-
-		// Hide attestation page if parent is a full license:
-		var vTempASI = getAppSpecific("Are you requesting a temporary license?", parentCapId);
-		var isTemp = isASITrue(vTempASI);
-
-		if (!isTemp && vTempASI != null) {
-			aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
-		}
 
 		// Save all back to ACA capModel
 		aa.env.setValue("CapModel", cap);
@@ -237,7 +205,7 @@ try {
 
 } catch (err) {
 
-	slackDebug(err);
+	logDebug(err);
 
 }
 

@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APP_ASI_OPTIONS_ONLOAD.js
-| Event   : ACA Page Flow onload
+| Program : ACA_CHECK_STATE_LICENSE_TABLE_BEFORE.js
+| Event   : ACA Page Flow onload attachments component
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
 |
@@ -147,38 +147,18 @@ logDebug("balanceDue = " + balanceDue);
 // page flow custom code begin
 
 try {
-
-	parentCapIdString = "" + cap.getParentCapID();
-	if (parentCapIdString) {
-		pca = parentCapIdString.split("-");
-		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
-	}
-
-	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other then "Completed". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
-				}
-			}
+	if (isGroup1(AInfo["BTRC Number"]) || isGroup2(AInfo["BTRC Number"])) {
+		//
 		}
-	}
+	else {
+		//showDebug = true;
+		showMessage = true;
+		comment("Unable to validate your BTRC for priority processing.   BTRC Numbers are formatted as 0000000000-0000-0");
+		cancel = true;
+		}	
+	
 } catch (err) {
-
 	logDebug(err);
-
 }
 
 // page flow custom code end
@@ -202,5 +182,3 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", debug);
 	}
 }
-
-/////////////////////////////////////

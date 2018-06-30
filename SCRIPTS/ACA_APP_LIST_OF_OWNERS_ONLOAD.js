@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APP_ASI_OPTIONS_ONLOAD.js
+| Program : ACA_APP_OPTIONS_ONLOAD.js
 | Event   : ACA Page Flow onload
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
@@ -154,90 +154,137 @@ try {
 		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
 	}
 
-	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other than "Abandoned", "Completed", "Void", "Withdrawn". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
+	//showDebug = true;
+	//showMessage = true;
+	//cancel = true;
+
+	var vBusiness = getContactObj(cap, "Business");
+	var vBusinessType = vBusiness.asi["5006(b)(14) Business Organization Structure"];
+
+	var vTableName = "LIST OF OWNERS";
+	var tmpTable = loadASITable4ACA(vTableName, cap);
+	
+	if (!tmpTable || tmpTable.length == 0) {
+		// populate the Owner Table with the public users contact (Owner Applicant)
+		var getUserResult;
+		var vOwnerApplicant;
+		var vOwnerSeqNbr;
+		var vUserModel;
+		var vUserSeqNbr;
+		var vOwnerAddresses;
+		var vOwnerAddress;
+		var vAddressType;
+		var x;
+		var vFName;
+		var vLName;
+		var vTitle;
+		var vPhone;
+		var vEmail;
+		var vAddrLine1;
+		var vAddrLine2;
+		var vCity;
+		var vState;
+		var vZip;
+		var vASITable = [];
+		var vASITRow = [];
+		var vCapASITGroup;
+		var vUpdatedASIT;
+
+		// Get the public user account
+		getUserResult = aa.publicUser.getPublicUserByPUser(publicUserID);
+
+		if (getUserResult.getSuccess() && getUserResult.getOutput()) {
+			vUserModel = getUserResult.getOutput();
+			vUserSeqNbr = vUserModel.getUserSeqNum();
+			// get public users reference contact
+			vOwnerApplicant = getRefContactForPublicUser(vUserSeqNbr);
+			if (vOwnerApplicant != null && vOwnerApplicant != false) {
+				vOwnerSeqNbr = vOwnerApplicant.getContactSeqNumber();
+				if (vOwnerSeqNbr != null && vOwnerSeqNbr != false) {
+					vOwnerApplicant = aa.people.getPeople(vOwnerSeqNbr);
+					if (vOwnerApplicant.getSuccess() && vOwnerApplicant.getOutput()) {
+						vOwnerApplicant = vOwnerApplicant.getOutput();
+						vFName = vOwnerApplicant.getFirstName();
+						vLName = vOwnerApplicant.getLastName();
+						vPhone = vOwnerApplicant.getPhone1();
+						vEmail = vOwnerApplicant.getEmail();
+						// Get contact addresses
+						vOwnerAddresses = getRefAddContactList(vOwnerSeqNbr);
+						vOwnerAddresses = vOwnerAddresses.toArray();
+						x = 0;
+						for (x in vOwnerAddresses) {
+							vOwnerAddress = vOwnerAddresses[x];
+							vAddressType = vOwnerAddress.getAddressType();
+							if (vAddressType = "Mailing") {
+								vAddrLine1 = vOwnerAddress.getAddressLine1();
+								vAddrLine2 = vOwnerAddress.getAddressLine2();
+								vCity = vOwnerAddress.getCity();
+								vState = vOwnerAddress.getState();
+								vZip = vOwnerAddress.getZip();
+								break; //assume only one
+							}
+						}
+						// Save values in uppercase to match manual entry
+						if (vAddrLine1 != null && vAddrLine1 != "") {
+							vAddrLine1 = vAddrLine1 + "";
+							vAddrLine1 = vAddrLine1.toUpperCase();
+						}
+						if (vAddrLine2 != null && vAddrLine2 != "") {
+							vAddrLine2 = vAddrLine2 + "";
+							vAddrLine2 = vAddrLine2.toUpperCase();
+						} else {
+							vAddrLine2 = ""
+						}
+						if (vCity != null && vCity != "") {
+							vCity = vCity + "";
+							vCity = vCity.toUpperCase();
+						}
+
+						if (vState != null && vState != "") {
+							vState = vState + "";
+							vState = vState.toUpperCase();
+						}
+
+						vASITRow["First Name"] = new asiTableValObj("First Name", "" + vFName, "Y");
+						vASITRow["Last Name"] = new asiTableValObj("Last Name", "" + vLName, "Y");
+						vASITRow["Phone Number"] = new asiTableValObj("Phone Number", "" + vPhone, "Y");
+						vASITRow["Email Address"] = new asiTableValObj("Email Address", "" + vEmail, "Y");
+						vASITRow["Address Line 1"] = new asiTableValObj("Address Line 1", "" + vAddrLine1, "Y");
+						vASITRow["Address Line 2"] = new asiTableValObj("Address Line 2", "" + vAddrLine2, "Y");
+						vASITRow["City"] = new asiTableValObj("City", "" + vCity, "Y");
+						vASITRow["State"] = new asiTableValObj("State", "" + vState, "Y");
+						vASITRow["Zip Code"] = new asiTableValObj("Zip Code", "" + vZip, "Y");
+						vASITRow["Contact Sequence Number"] = new asiTableValObj("Contact Sequence Number", "" + vOwnerSeqNbr, "Y");
+
+						/* removed per Connie 10/18/17
+						// Populate Title and Percentage if "Sole Proprietorship"
+						if (vBusinessType == "Sole Proprietorship") {
+							vASITRow["Title"] = new asiTableValObj("Title", "Controlling Manager", "Y");
+							vASITRow["Ownership Percentage"] = new asiTableValObj("Ownership Percentage", "100", "Y");
+						}
+						*/
+
+						vASITable.push(vASITRow);
+
+						vCapASITGroup = cap.getAppSpecificTableGroupModel();
+						vUpdatedASIT = replaceASITable4ACAPageFlow(vCapASITGroup, vTableName, vASITable);
+						cap.setAppSpecificTableGroupModel(vUpdatedASIT);
+
+						aa.env.setValue("CapModel", cap);
 					}
 				}
 			}
 		}
-
-		parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
-
-		//Copy ASI
-		copyAppSpecific4ACA(parentCap);
-
-		//Copy ASIT
-		//set list of possible tables
-		var vASITNameArray = [];
-		vASITNameArray.push('LIST OF OWNERS');
-		vASITNameArray.push('NON CONTROLLING INTEREST');
-		vASITNameArray.push('FICTITIOUS BUSINESS NAME');
-		vASITNameArray.push('EVENT LICENSEES');
-		vASITNameArray.push('ENTITY OWNERSHIP');
-
-		var vASITName;
-		var x = 0;
-		var vASIT;
-		var vRowCount = 0;
-		var y = 0;
-		var vASITData;
-
-		for (x in vASITNameArray) {
-			vASITName = vASITNameArray[x];
-			vASIT = loadASITable(vASITName);
-			vRowCount = 0;
-
-			if (typeof(vASIT) == "object") {
-				for (y in vASIT) {
-					vRowCount = vRowCount + 1;
-				}
-			}
-
-			if (vRowCount == 0) {
-				vASITData = loadASITable(vASITName, parentCapId);
-				addASITable(vASITName, vASITData);
-
-				var tmpCap = aa.cap.getCapViewBySingle(capId);
-				cap.setAppSpecificTableGroupModel(tmpCap.getAppSpecificTableGroupModel());
-				aa.env.setValue("CapModel", cap);
-			}
-		}
-
-		//Hide ASI fields that have been answered.
-		hideAnsweredAppSpecific4ACA();
-
-		//Save application ID to ASI.
-		editAppSpecific4ACA("Application ID", parentCapId.getCustomID());
-
-		// Hide attestation page if parent is a full license:
-		var vTempASI = getAppSpecific("Are you requesting a temporary license?", parentCapId);
-		var isTemp = isASITrue(vTempASI);
-
-		if (!isTemp && vTempASI != null) {
-			aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
-		}
-
-		// Save all back to ACA capModel
-		aa.env.setValue("CapModel", cap);
 	}
-
+/*
+	//Hide page if sole Proprietorship
+	if (vBusinessType == "Sole Proprietorship") {
+		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
+	}
+*/
 } catch (err) {
 
-	slackDebug(err);
+	logDebug(err);
 
 }
 
@@ -260,33 +307,5 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", message);
 		if (showDebug)
 			aa.env.setValue("ErrorMessage", debug);
-	}
-}
-
-/////////////////////////////////////
-function hideAnsweredAppSpecific4ACA() {
-	// uses capModel in this event
-	var capASI = cap.getAppSpecificInfoGroups();
-	if (!capASI) {
-		logDebug("No ASI for the CapModel");
-	} else {
-		var i = cap.getAppSpecificInfoGroups().iterator();
-		while (i.hasNext()) {
-			var group = i.next();
-			var fields = group.getFields();
-			if (fields != null) {
-				var iteFields = fields.iterator();
-				while (iteFields.hasNext()) {
-					var field = iteFields.next();
-					logDebug(field.getCheckboxDesc() + " : " + field.getChecklistComment());
-					//logDebug(field.getCheckboxDesc() + " : " + field.getVchDispFlag());
-					if (field.getChecklistComment() != null && field.getChecklistComment() != "null" && field.getChecklistComment() != "UNCHECKED") {
-						field.setAttributeValueReqFlag('N');
-						field.setVchDispFlag('H');
-						logDebug("Updated ASI: " + field.getCheckboxDesc() + " to be ACA not displayable.");
-					}
-				}
-			}
-		}
 	}
 }

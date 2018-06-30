@@ -1,13 +1,14 @@
+//ACA_APP_PARENT_ID_ONLOAD
 /*------------------------------------------------------------------------------------------------------/
 | Program : ACA_APP_ASI_OPTIONS_ONLOAD.js
 | Event   : ACA Page Flow onload
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
 |
-| Client  : N/A
+| Client  : LADCR
 | Action# : N/A
 |
-| Notes   :
+| Notes   : Created 5/18/2018 from ACA_OWN_APP_PARENT_ID_ONLOAD so not specific to rec type, ghess
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -154,27 +155,23 @@ try {
 		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
 	}
 
+	//showDebug = true;
+	//showMessage = true;
+	//cancel = true;
+	
 	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other then "Completed". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
-				}
-			}
-		}
+		parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
+
+		// Set Application ID value to parentCapId
+		editAppSpecific4ACA("Application ID", parentCapId.getCustomID());
+		
+		// Make Application ID set to read only
+		//makeAppSpecificReadOnly4ACA("Application ID"); //no workie, need to use expression to make read only
+		
+		// Save all back to ACA capModel
+		aa.env.setValue("CapModel", cap);
 	}
+
 } catch (err) {
 
 	logDebug(err);
@@ -204,3 +201,28 @@ if (debug.indexOf("**ERROR") > 0) {
 }
 
 /////////////////////////////////////
+function makeAppSpecificReadOnly4ACA(vASIField) {
+	// uses capModel in this event
+
+	var capASI = cap.getAppSpecificInfoGroups();
+	if (!capASI) {
+		logDebug("No ASI for the CapModel");
+	} else {
+		var i = cap.getAppSpecificInfoGroups().iterator();
+		while (i.hasNext()) {
+			var group = i.next();
+			var fields = group.getFields();
+			if (fields != null) {
+				var iteFields = fields.iterator();
+				while (iteFields.hasNext()) {
+					var field = iteFields.next();
+					logDebug(field.getCheckboxDesc() + " : " + field.getVchDispFlag());
+					if (field.getCheckboxDesc() == vASIField) {
+						field.setVchDispFlag('R');
+						logDebug("Updated ASI: " + field.getCheckboxDesc() + " to be ACA read only.");				
+					}
+				}
+			}
+		}
+	}
+}

@@ -154,95 +154,53 @@ try {
 		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
 	}
 
-	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other than "Abandoned", "Completed", "Void", "Withdrawn". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
-				}
-			}
-		}
+	//showDebug = true;
+	//showMessage = true;
+	//cancel = true;
 
-		parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
+	var isPriorityRequest = isASITrue(AInfo["Are you requesting priority processing?"]); // see user story 340
+	var isTemporaryRequest = isASITrue(AInfo["Are you requesting a temporary license?"]); // see user story 340
 
-		//Copy ASI
-		copyAppSpecific4ACA(parentCap);
+	logDebug("Is Temp?: " + isTemporaryRequest);
 
-		//Copy ASIT
-		//set list of possible tables
-		var vASITNameArray = [];
-		vASITNameArray.push('LIST OF OWNERS');
-		vASITNameArray.push('NON CONTROLLING INTEREST');
-		vASITNameArray.push('FICTITIOUS BUSINESS NAME');
-		vASITNameArray.push('EVENT LICENSEES');
-		vASITNameArray.push('ENTITY OWNERSHIP');
-
-		var vASITName;
-		var x = 0;
-		var vASIT;
-		var vRowCount = 0;
-		var y = 0;
-		var vASITData;
-
-		for (x in vASITNameArray) {
-			vASITName = vASITNameArray[x];
-			vASIT = loadASITable(vASITName);
-			vRowCount = 0;
-
-			if (typeof(vASIT) == "object") {
-				for (y in vASIT) {
-					vRowCount = vRowCount + 1;
-				}
-			}
-
-			if (vRowCount == 0) {
-				vASITData = loadASITable(vASITName, parentCapId);
-				addASITable(vASITName, vASITData);
-
-				var tmpCap = aa.cap.getCapViewBySingle(capId);
-				cap.setAppSpecificTableGroupModel(tmpCap.getAppSpecificTableGroupModel());
-				aa.env.setValue("CapModel", cap);
-			}
-		}
-
-		//Hide ASI fields that have been answered.
-		hideAnsweredAppSpecific4ACA();
-
-		//Save application ID to ASI.
-		editAppSpecific4ACA("Application ID", parentCapId.getCustomID());
-
-		// Hide attestation page if parent is a full license:
-		var vTempASI = getAppSpecific("Are you requesting a temporary license?", parentCapId);
-		var isTemp = isASITrue(vTempASI);
-
-		if (!isTemp && vTempASI != null) {
-			aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
-		}
-
-		// Save all back to ACA capModel
-		aa.env.setValue("CapModel", cap);
+	if (isTemporaryRequest) {
+		hideAppSpecific4ACA("5006(b)(23) In compliance with all local ordinances and regulations.");
+		hideAppSpecific4ACA("19322(b) No failure to comply with operating procedures");
+		hideAppSpecific4ACA("Attest in operation prior to 9-1-16 for Priority Processing");
+		hideAppSpecific4ACA("Attest no prohibited location Within specified requirement");
+		hideAppSpecific4ACA("Status for Seller's Permit");
+		hideAppSpecific4ACA("Seller's Permit Number");
+		hideAppSpecific4ACA("Seller's Permit in process");
+		hideAppSpecific4ACA("20 or more employees?");
+		hideAppSpecific4ACA("Attest they will abide to the Labor Peace Agreement");
+		hideAppSpecific4ACA("Are they Sovereign Entity");
+		hideAppSpecific4ACA("5006(b)(33) Waiving Sovereign Immunity");
+		hideAppSpecific4ACA("CEQA");
+		hideAppSpecific4ACA("Cultivator License");
+		hideAppSpecific4ACA("Max dollar value as determined by CDTFA in access of excise tax");
+		hideAppSpecific4ACA("Accreditation/Provisional Testing Laboratory License");
+	} else {
+		resetAppSpecific4ACA("5006(b)(23) In compliance with all local ordinances and regulations.");
+		resetAppSpecific4ACA("19322(b) No failure to comply with operating procedures");
+		resetAppSpecific4ACA("Attest in operation prior to 9-1-16 for Priority Processing");
+		resetAppSpecific4ACA("Attest no prohibited location Within specified requirement");
+		resetAppSpecific4ACA("Status for Seller's Permit");
+		resetAppSpecific4ACA("Seller's Permit Number");
+		resetAppSpecific4ACA("Seller's Permit in process");
+		resetAppSpecific4ACA("20 or more employees?");
+		resetAppSpecific4ACA("Attest they will abide to the Labor Peace Agreement");
+		resetAppSpecific4ACA("Are they Sovereign Entity");
+		resetAppSpecific4ACA("5006(b)(33) Waiving Sovereign Immunity");
+		resetAppSpecific4ACA("CEQA");
+		resetAppSpecific4ACA("Cultivator License");
+		resetAppSpecific4ACA("Max dollar value as determined by CDTFA in access of excise tax");
+		resetAppSpecific4ACA("Accreditation/Provisional Testing Laboratory License");
 	}
-
 } catch (err) {
-
-	slackDebug(err);
-
+	logDebug(err);
 }
 
 // page flow custom code end
-
 
 if (debug.indexOf("**ERROR") > 0) {
 	aa.env.setValue("ErrorCode", "1");
@@ -264,29 +222,3 @@ if (debug.indexOf("**ERROR") > 0) {
 }
 
 /////////////////////////////////////
-function hideAnsweredAppSpecific4ACA() {
-	// uses capModel in this event
-	var capASI = cap.getAppSpecificInfoGroups();
-	if (!capASI) {
-		logDebug("No ASI for the CapModel");
-	} else {
-		var i = cap.getAppSpecificInfoGroups().iterator();
-		while (i.hasNext()) {
-			var group = i.next();
-			var fields = group.getFields();
-			if (fields != null) {
-				var iteFields = fields.iterator();
-				while (iteFields.hasNext()) {
-					var field = iteFields.next();
-					logDebug(field.getCheckboxDesc() + " : " + field.getChecklistComment());
-					//logDebug(field.getCheckboxDesc() + " : " + field.getVchDispFlag());
-					if (field.getChecklistComment() != null && field.getChecklistComment() != "null" && field.getChecklistComment() != "UNCHECKED") {
-						field.setAttributeValueReqFlag('N');
-						field.setVchDispFlag('H');
-						logDebug("Updated ASI: " + field.getCheckboxDesc() + " to be ACA not displayable.");
-					}
-				}
-			}
-		}
-	}
-}
