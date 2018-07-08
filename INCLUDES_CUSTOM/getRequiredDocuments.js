@@ -24,146 +24,57 @@ function getRequiredDocuments(isPageFlow) {
 	| Load up Standard Conditions :
 	/------------------------------------------------------------------------------------------------------*/
 
-	var DiagramOfPremises = {
-		condition: "Diagram of Premises",
-		document: "Diagram of Premises"
-	};
+	var DiagramOfPremises = {condition: "Diagram of Premises",document: "Diagram of Premises"};
+	var DocOfLocalCompliance = {condition : "Documentation of Local Compliance",document: "Documentation of Local Compliance"};
+	var ProofOfBondInsurance = {condition : "Proof of Bond / Insurance",document :  "Proof of Bond / Insurance"};
+	var IndemnificationAgreement = {condition : "Indemnification Agreement",document : "Indemnification Agreement"};
+	var CommunityBenefitAgreement = {condition : "Community Benefit Agreement",document : "Community Benefit Agreement"};
+	var BusinessTaxRegistrationCertificate = {condition: "Business Tax Registration Certificate",document: "Business Tax Registration Certificate"};
+	var CannabisWasteManagementPlan = {condition: "Cannabis Waste Management Plan",document: "Cannabis Waste Management Plan"}; 
+	var CommercialCannabisActivityPlan = {condition: "Commercial Cannabis Activity Plan",document: "Commercial Cannabis Activity Plan"}; 
+	var DiversityPlan = {condition: "Diversity Plan",document: "Diversity Plan"}; 
+	var CUPAPermit = {condition : "CUPA Permit",document : "CUPA Permit"};
+	var EnergyEfficiencyPlan = {condition: "Energy Efficiency Plan",document: "Energy Efficiency Plan"}; 
+	var CommercialCannabisActivityPlan = {condition: "Energy Efficiency Plan",document: "Energy Efficiency Plan"}; 
+	var FinancialInformation = {condition: "Financial Information",document: "Financial Information"}; 
+	var FireSafetyPlan = {condition: "Fire Safety Plan",document: "Fire Safety Plan"}; 
+	var GovernmentIssuedIdentification = {condition: "Government-Issued Identification",document: "Government-Issued Identification"}; 
+	var HiringPlan = {condition: "Hiring Plan",document: "Hiring Plan"}; 
+	var ISO170325Accreditation = {condition: "ISO 170325 Accreditation",document: "ISO 170325 Accreditation"}; 
+	var LaborPeaceAgreement = {condition: "Labor Peace Agreement",document: "Labor Peace Agreement"}; 
+	var LaboratoryEmployeeQualifications = {condition: "Laboratory Employee Qualifications",document: "Laboratory Employee Qualifications"}; 
+	var LimitedAccessAreasPlan = {condition: "Limited Access Areas Plan",document: "Limited Access Areas Plan"}; 
+	var OrgChart = {condition: "Org. Chart",document: "Org. Chart"}; 
+	var RadiusMap = {condition: "Radius Map",document: "Radius Map"}; 
+	var SamplingPlansProceduresAndProtocols = {condition: "Sampling Plans, Procedures and Protocols",document: "Sampling Plans, Procedures and Protocols"}; 
+	var SecurityPlan = {condition: "Security Plan",document: "Security Plan"}; 
+	var StaffingPlan = {condition: "Staffing Plan",document: "Staffing Plan"}; 
+	var StandardOperatingProcedures = {condition: "Standard Operating Procedures",document: "Standard Operating Procedures"}; 
+	var TestingMethodologies = {condition: "Testing Methodologies",document: "Testing Methodologies"}; 
+	var LiveScan = {condition: "Proof of Live Scan or Other Service",document: "Proof of Live Scan or Other Service"}; 
+	var CourtRecords = {condition: "Court Records",document: "Court Records"};
+	var GovernmentRecords = {condition: "Government Records",document: "Government Records"};
+	var DeclarationArrest = {condition: "Declaration - Arrest or Conviction",document: "Declaration - Arrest or Conviction"};
+	var OtherArrest = {condition: "Other Documents - Arrest or Conviction",document: "Other Documents - Arrest or Conviction"};
+	var TaxRecords = {condition: "Tax Records",document: "Tax Records"};
+	var FinancialRecordsWage = {condition: "Financial Records – Wage or Bank Statements",document: "Financial Records – Wage or Bank Statements"};
+	var ReceiptOfAssistance = {condition: "Receipt of Government Assistance",document: "Receipt of Government Assistance"};
+	var DeclarationIncome = {condition: "Declaration - Income",document: "Declaration - Income"};
+	var OtherLowIncome = {condition: "Other Documents - Low Income Status",document: "Other Documents - Low Income Status"};
+	var PropertyMortgageLease = {condition: "Property Deed, Mortgage, or Lease Agreement",document: "Property Deed, Mortgage, or Lease Agreement"};
+	var FinancialLease = {condition: "Financial Records – Lease or Mortgage",document: "Financial Records – Lease or Mortgage"};
+	var ProofOfAssistance = {condition: "Proof of Government Housing Assistance",document: "Proof of Government Housing Assistance"};
+	var UtilityBills = {condition: "Utility Bills, Registration, or Similar Document",document: "Utility Bills, Registration, or Similar Document"};
+	var EducationRecords = {condition: "Education Records",document: "Education Records"};
+	var DeclarationAddress = {condition: "Declaration - Address",document: "Declaration - Address"};
+	var DeclarationParent = {condition: "Declaration – Parent or Guardian",document: "Declaration – Parent or Guardian"};
+	var OtherDispro = {condition: "Other Documents - Disproportionately Impacted Area",document: "Other Documents - Disproportionately Impacted Area"};
+	var ExecutedTier1 = {condition: "Executed Tier 1 Contract",document: "Executed Tier 1 Contract"};
+	var Tier1Attest = {condition: "Tier 1 Attestation",document: "Tier 1 Attestation"};
+	var ExecutedTier2 = {condition: "Executed Tier 2 Contract",document: "Executed Tier 2 Contract"};
+	var Tier2Attest = {condition: "Tier 2 Attestation",document: "Tier 2 Attestation"};
 	
-	var DocOfLocalCompliance = {
-		condition : "Documentation of Local Compliance",
-		document: "Documentation of Local Compliance"
-	};
 	
-	var ProofOfBondInsurance = {
-		condition : "Proof of Bond / Insurance",
-		document :  "Proof of Bond / Insurance"
-	};
-	
-	var IndemnificationAgreement = {
-		condition : "Indemnification Agreement",
-		document : "Indemnification Agreement"
-	};
-
-	var CommunityBenefitAgreement = {
-		condition : "Community Benefit Agreement",
-		document : "Community Benefit Agreement"
-	};
-	
-	var BusinessTaxRegistrationCertificate = {
-		condition: "Business Tax Registration Certificate",
-		document: "Business Tax Registration Certificate"
-	};
-	
-	var CannabisWasteManagementPlan = {
-		condition: "Cannabis Waste Management Plan",
-		document: "Cannabis Waste Management Plan"
-	}; 
-	
-	var CommercialCannabisActivityPlan = {
-		condition: "Commercial Cannabis Activity Plan",
-		document: "Commercial Cannabis Activity Plan"
-	}; 
-
-	var DiversityPlan = {
-		condition: "Diversity Plan",
-		document: "Diversity Plan"
-	}; 
-	
-	var CUPAPermit = {
-		condition : "CUPA Permit",
-		document : "CUPA Permit"
-	};
-
-	var EnergyEfficiencyPlan = {
-		condition: "Energy Efficiency Plan",
-		document: "Energy Efficiency Plan"
-	}; 
-
-	var CommercialCannabisActivityPlan = {
-		condition: "Energy Efficiency Plan",
-		document: "Energy Efficiency Plan"
-	}; 
-
-	var FinancialInformation = {
-		condition: "Financial Information",
-		document: "Financial Information"
-	}; 
-
-	var FireSafetyPlan = {
-		condition: "Fire Safety Plan",
-		document: "Fire Safety Plan"
-	}; 
-
-	var GovernmentIssuedIdentification = {
-		condition: "Government-Issued Identification",
-		document: "Government-Issued Identification"
-	}; 
-
-	var HiringPlan = {
-		condition: "Hiring Plan",
-		document: "Hiring Plan"
-	}; 
-
-	var ISO170325Accreditation = {
-		condition: "ISO 170325 Accreditation",
-		document: "ISO 170325 Accreditation"
-	}; 
-
-	var LaborPeaceAgreement = {
-		condition: "Labor Peace Agreement",
-		document: "Labor Peace Agreement"
-	}; 
-
-	var LaboratoryEmployeeQualifications = {
-		condition: "Laboratory Employee Qualifications",
-		document: "Laboratory Employee Qualifications"
-	}; 
-
-	var LimitedAccessAreasPlan = {
-		condition: "Limited Access Areas Plan",
-		document: "Limited Access Areas Plan"
-	}; 
-
-	var OrgChart = {
-		condition: "Org. Chart",
-		document: "Org. Chart"
-	}; 
-
-	var RadiusMap = {
-		condition: "Radius Map",
-		document: "Radius Map"
-	}; 
-
-	var SamplingPlansProceduresAndProtocols = {
-		condition: "Sampling Plans, Procedures and Protocols",
-		document: "Sampling Plans, Procedures and Protocols"
-	}; 
-
-	var SecurityPlan = {
-		condition: "Security Plan",
-		document: "Security Plan"
-	}; 
-
-	var StaffingPlan = {
-		condition: "Staffing Plan",
-		document: "Staffing Plan"
-	}; 
-
-	var StandardOperatingProcedures = {
-		condition: "Standard Operating Procedures",
-		document: "Standard Operating Procedures"
-	}; 
-
-	var TestingMethodologies = {
-		condition: "Testing Methodologies",
-		document: "Testing Methodologies"
-	}; 
-
-	var LiveScan = {
-		condition: "Proof of Live Scan or Other Service",
-		document: "Proof of Live Scan or Other Service"
-	}; 
-
 
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Conditionals from Record
@@ -213,6 +124,28 @@ function getRequiredDocuments(isPageFlow) {
 
 	if (isOwner || isOwnerAttestation) {
 		requirementArray.push(GovernmentIssuedIdentification);
+		if (isChecked("Court Records")) requirementArray.push(CourtRecords);
+		if (isChecked("Government Records")) requirementArray.push(GovernmentRecords);
+		if (isChecked("Declaration - Arrest or Conviction")) requirementArray.push(DeclarationArrest);
+		if (isChecked("Other Documents - Arrest or Conviction")) requirementArray.push(OtherArrest);
+		if (isChecked("Tax Records")) requirementArray.push(TaxRecords);
+		if (isChecked("Financial Records – Wage or Bank Statements")) requirementArray.push(FinancialRecordsWage);
+		if (isChecked("Receipt of Government Assistance")) requirementArray.push(ReceiptOfAssistance);
+		if (isChecked("Declaration - Income")) requirementArray.push(DeclarationIncome);
+		if (isChecked("Other Documents - Low Income Status")) requirementArray.push(OtherLowIncome);
+		if (isChecked("Property Deed, Mortgage, or Lease Agreement")) requirementArray.push(PropertyMortgageLease);
+		if (isChecked("Financial Records – Lease or Mortgage")) requirementArray.push(FinancialLease);
+		if (isChecked("Proof of Government Housing Assistance")) requirementArray.push(ProofOfAssistance);
+		if (isChecked("Utility Bills, Registration, or Similar Document")) requirementArray.push(UtilityBills);
+		if (isChecked("Education Records")) requirementArray.push(EducationRecords);
+		if (isChecked("Declaration - Address")) requirementArray.push(DeclarationAddress);
+		if (isChecked("Declaration – Parent or Guardian")) requirementArray.push(DeclarationParent);
+		if (isChecked("Other Documents - Disproportionately Impacted Area")) requirementArray.push(OtherDispro);
+		if (isChecked("Executed Tier 1 Contract")) requirementArray.push(ExecutedTier1);
+		if (isChecked("Tier 1 Attestation")) requirementArray.push(Tier1Attest);
+		if (isChecked("Executed Tier 2 Contract")) requirementArray.push(ExecutedTier2);
+		if (isChecked("Tier 2 Attestation")) requirementArray.push(Tier2Attest);
+
 	}
 
 	if ((isApplication || isAttestationAmendment) && !isOwnerAttestation) {
@@ -253,11 +186,15 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(DiagramOfPremises);
 			requirementArray.push(BusinessTaxRegistrationCertificate);
 		}
-
 	}
+
 
 	logDebug("Num of Req Docs:" + requirementArray.length + " docs.");
 	logDebug("All req docs: " + requirementArray);
 
 	return requirementArray;
+}
+
+function isChecked(fld) {
+	return (AInfo[fld] && "CHECKED".equals(AInfo[fld].toUpperCase()));
 }
