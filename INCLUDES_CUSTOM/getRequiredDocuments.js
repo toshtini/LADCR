@@ -73,7 +73,17 @@ function getRequiredDocuments(isPageFlow) {
 	var Tier1Attest = {condition: "Tier 1 Attestation",document: "Tier 1 Attestation"};
 	var ExecutedTier2 = {condition: "Executed Tier 2 Contract",document: "Executed Tier 2 Contract"};
 	var Tier2Attest = {condition: "Tier 2 Attestation",document: "Tier 2 Attestation"};
-	
+	var contract2016 = {condition: "Contract Pre-2016",document: "Contract Pre-2016"};
+	var lease2016 = {condition: "Lease Pre-2016",document: "Lease Pre-2016"};
+	var formulation2016 = {condition: "Business Formulation Documents Pre-2016",document: "Business Formulation Documents Pre-2016"};
+	var business2016 = {condition: "Business Records Pre-2016",document: "Business Records Pre-2016"};
+	var other2016 = {condition: "Other Supporting Documents Pre-2016",document: "Other Supporting Documents Pre-2016"};
+	var contract2017 = {condition: "Contract Pre-2017",document: "Contract Pre-2017"};
+	var lease2017 = {condition: "Lease Pre-2017",document: "Lease Pre-2017"};
+	var formulation2017 = {condition: "Business Formulation Documents Pre-2017",document: "Business Formulation Documents Pre-2017"};
+	var business2017 = {condition: "Business Records Pre-2017",document: "Business Records Pre-2017"};
+	var other2017 = {condition: "Other Supporting Documents Pre-2017",document: "Other Supporting Documents Pre-2017"};
+
 	
 
 	/*------------------------------------------------------------------------------------------------------/
@@ -186,9 +196,21 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(DiagramOfPremises);
 			requirementArray.push(BusinessTaxRegistrationCertificate);
 		}
+		
+		// add eligibility reqs based on selections
+
+		if (isChecked("Contract Pre-2016")) requirementArray.push(contract2016);
+		if (isChecked("Lease Pre-2016")) requirementArray.push(lease2016);
+		if (isChecked("Business Formulation Documents Pre-2016")) requirementArray.push(formulation2016);
+		if (isChecked("Business Records Pre-2016")) requirementArray.push(business2016);
+		if (isChecked("Other Supporting Documents Pre-2016")) requirementArray.push(other2016);
+		if (isChecked("Contract Pre-2017")) requirementArray.push(contract2017);
+		if (isChecked("Lease Pre-2017")) requirementArray.push(lease2017);
+		if (isChecked("Business Formulation Documents Pre-2017")) requirementArray.push(formulation2017);
+		if (isChecked("Business Records Pre-2017")) requirementArray.push(business2017);
+		if (isChecked("Other Supporting Documents Pre-2017")) requirementArray.push(other2017);
+
 	}
-
-
 	logDebug("Num of Req Docs:" + requirementArray.length + " docs.");
 	logDebug("All req docs: " + requirementArray);
 
