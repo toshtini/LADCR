@@ -83,6 +83,8 @@ function getRequiredDocuments(isPageFlow) {
 	var formulation2017 = {condition: "Business Formulation Documents Pre-2017",document: "Business Formulation Documents Pre-2017"};
 	var business2017 = {condition: "Business Records Pre-2017",document: "Business Records Pre-2017"};
 	var other2017 = {condition: "Other Supporting Documents Pre-2017",document: "Other Supporting Documents Pre-2017"};
+	var DeclarationEngagedActivities  = {condition: "Declaration - Engaged in Activities Prior to January 1, 2016",document: "Declaration - Engaged in Activities Prior to January 1, 2016"};
+	var DeclarationSuppliedEMMD  = {condition: "Declaration - Supplied EMMD Prior to January 1, 2017",document: "Declaration - Supplied EMMD Prior to January 1, 2017"};
 
 	
 
@@ -195,6 +197,8 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(DocOfLocalCompliance);
 			requirementArray.push(DiagramOfPremises);
 			requirementArray.push(BusinessTaxRegistrationCertificate);
+			requirementArray.push(DeclarationEngagedActivities);
+			requirementArray.push(DeclarationSuppliedEMMD);
 		}
 		
 		// add eligibility reqs based on selections
