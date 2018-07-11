@@ -161,6 +161,12 @@ function getRequiredDocuments(isPageFlow) {
 	}
 
 	if ((isApplication || isAttestationAmendment) && !isOwnerAttestation) {
+		// add for temp and annual
+		if (!isTesting) {
+			requirementArray.push(DeclarationEngagedActivities);
+			requirementArray.push(DeclarationSuppliedEMMD);
+		}
+		
 		// if full app, add all requirements
 		if (!isTemporaryRequest) {
 			requirementArray.push(BusinessTaxRegistrationCertificate);
@@ -197,8 +203,6 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(DocOfLocalCompliance);
 			requirementArray.push(DiagramOfPremises);
 			requirementArray.push(BusinessTaxRegistrationCertificate);
-			requirementArray.push(DeclarationEngagedActivities);
-			requirementArray.push(DeclarationSuppliedEMMD);
 		}
 		
 		// add eligibility reqs based on selections
