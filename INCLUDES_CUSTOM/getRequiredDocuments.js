@@ -86,7 +86,16 @@ function getRequiredDocuments(isPageFlow) {
 	var DeclarationEngagedActivities  = {condition: "Declaration - Engaged in Activities Prior to January 1, 2016",document: "Declaration - Engaged in Activities Prior to January 1, 2016"};
 	var DeclarationSuppliedEMMD  = {condition: "Declaration - Supplied EMMD Prior to January 1, 2017",document: "Declaration - Supplied EMMD Prior to January 1, 2017"};
 
-	
+	var OrganizationalChart = {condition: "Organizational Chart",document: "Organizational Chart"}; 
+	var ProofOfBondOrIns = {condition: "Proof of Bond or Insurance",document: "Proof of Bond or Insurance"}; 
+	var CAOperationalReqs = {condition: "State of California Operational Requirements",document: "State of California Operational Requirements"}; 
+	var LAFDNotification = {condition: "LAFD Notification Form",document: "LAFD Notification Form"}; 
+	var LAFDCUPA = {condition: "LAFD Certified Uniform Program Agency (CUPA)",document: "LAFD Certified Uniform Program Agency (CUPA)"}; 
+	var CommunityBenefits = {condition: "Community Benefits Agreement",document: "Community Benefits Agreement"}; 
+	var DatedRadiusMap = {condition: "Dated Radius Map",document: "Dated Radius Map"}; 
+	var TestingISO17025 = {condition: "ISO 17025 (Testing Applications Only)",document: "ISO 17025 (Testing Applications Only)"}; 
+	var TestingPlan = {condition: "Testing Plan (Testing Applications Only)",document: "Testing Plan (Testing Applications Only)"}; 
+
 
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Conditionals from Record
@@ -206,7 +215,6 @@ function getRequiredDocuments(isPageFlow) {
 		}
 		
 		// add eligibility reqs based on selections
-
 		if (isChecked("Contract Pre-2016")) requirementArray.push(contract2016);
 		if (isChecked("Lease Pre-2016")) requirementArray.push(lease2016);
 		if (isChecked("Business Formulation Documents Pre-2016")) requirementArray.push(formulation2016);
@@ -217,6 +225,17 @@ function getRequiredDocuments(isPageFlow) {
 		if (isChecked("Business Formulation Documents Pre-2017")) requirementArray.push(formulation2017);
 		if (isChecked("Business Records Pre-2017")) requirementArray.push(business2017);
 		if (isChecked("Other Supporting Documents Pre-2017")) requirementArray.push(other2017);
+
+		// add Additional Requirements based on selections
+		if (isChecked("Organizational Chart")) requirementArray.push(OrganizationalChart);
+		if (isChecked("Proof of Bond or Insurance")) requirementArray.push(ProofOfBondOrIns);
+		if (isChecked("State of California Operational Requirements")) requirementArray.push(CAOperationalReqs);
+		if (isChecked("LAFD Notification Form")) requirementArray.push(LAFDNotification);
+		if (isChecked("LAFD Certified Uniform Program Agency (CUPA)")) requirementArray.push(LAFDCUPA);
+		if (isChecked("Community Benefits Agreement")) requirementArray.push(CommunityBenefits);
+		if (isChecked("Dated Radius Map")) requirementArray.push(DatedRadiusMap);
+		if (isChecked("ISO 17025 (Testing Applications Only)")) requirementArray.push(TestingISO17025);
+		if (isChecked("Testing Plan (Testing Applications Only)")) requirementArray.push(TestingPlan);
 
 	}
 	logDebug("Num of Req Docs:" + requirementArray.length + " docs.");
