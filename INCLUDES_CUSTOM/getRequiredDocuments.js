@@ -185,12 +185,12 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(FinancialInformation);
 			requirementArray.push(FireSafetyPlan);
 			requirementArray.push(HiringPlan);
-			requirementArray.push(LaborPeaceAgreement);
+			//requirementArray.push(LaborPeaceAgreement); // moved below
 			requirementArray.push(LimitedAccessAreasPlan);
 			requirementArray.push(OrgChart);
 			requirementArray.push(RadiusMap);
-			requirementArray.push(SecurityPlan);
-			requirementArray.push(StaffingPlan);
+			//requirementArray.push(SecurityPlan); // moved below
+			//requirementArray.push(StaffingPlan); // moved below
 			requirementArray.push(ProofOfBondInsurance);
 			requirementArray.push(LiveScan);
 			requirementArray.push(CUPAPermit);
@@ -236,6 +236,9 @@ function getRequiredDocuments(isPageFlow) {
 		if (isChecked("Dated Radius Map")) requirementArray.push(DatedRadiusMap);
 		if (isChecked("ISO 17025 (Testing Applications Only)")) requirementArray.push(TestingISO17025);
 		if (isChecked("Testing Plan (Testing Applications Only)")) requirementArray.push(TestingPlan);
+		if (isChecked("Labor Peace Agreement")) requirementArray.push(LaborPeaceAgreement);
+		if (isChecked("Security Plan")) requirementArray.push(SecurityPlan);
+		if (isChecked("Staffing Plan")) requirementArray.push(StaffingPlan);
 
 	}
 	logDebug("Num of Req Docs:" + requirementArray.length + " docs.");
