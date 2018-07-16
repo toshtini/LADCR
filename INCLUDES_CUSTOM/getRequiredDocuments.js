@@ -35,7 +35,7 @@ function getRequiredDocuments(isPageFlow) {
 	var DiversityPlan = {condition: "Diversity Plan",document: "Diversity Plan"}; 
 	var CUPAPermit = {condition : "CUPA Permit",document : "CUPA Permit"};
 	var EnergyEfficiencyPlan = {condition: "Energy Efficiency Plan",document: "Energy Efficiency Plan"}; 
-	var CommercialCannabisActivityPlan = {condition: "Energy Efficiency Plan",document: "Energy Efficiency Plan"}; 
+	//var CommercialCannabisActivityPlan = {condition: "Energy Efficiency Plan",document: "Energy Efficiency Plan"}; //defined above
 	var FinancialInformation = {condition: "Financial Information",document: "Financial Information"}; 
 	var FireSafetyPlan = {condition: "Fire Safety Plan",document: "Fire Safety Plan"}; 
 	var GovernmentIssuedIdentification = {condition: "Government-Issued Identification",document: "Government-Issued Identification"}; 
