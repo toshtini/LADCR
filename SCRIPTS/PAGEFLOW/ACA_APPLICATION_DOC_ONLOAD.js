@@ -161,8 +161,22 @@ try {
 	submittedDocList = aa.document.getDocumentListByEntity(capIdString, "TMP_CAP").getOutput().toArray();
 	uploadedDocs = new Array();
 
-	for (var i in submittedDocList)
+	for (var i in submittedDocList) {
 		uploadedDocs[submittedDocList[i].getDocCategory()] = true;
+	}
+	
+	// remove all conditions without a doc
+
+	var capCondResult = aa.capCondition.getCapConditions(capId,conditionType);
+
+	if (capCondResult.getSuccess()) {
+		var ccs = capCondResult.getOutput();
+		for (var pc1 in ccs) {
+			if(uploadedDocs["" + ccs[pc1].getConditionDescription()] == undefined) {
+				var rmCapCondResult = aa.capCondition.deleteCapCondition(capId,ccs[pc1].getConditionNumber());
+			}
+		}
+	}
 
 	if (r.length > 0) {
 		for (x in r) {
