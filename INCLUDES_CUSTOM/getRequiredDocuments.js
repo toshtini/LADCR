@@ -26,7 +26,7 @@ function getRequiredDocuments(isPageFlow) {
 
 	var DiagramOfPremises = {condition: "Diagram of Premises",document: "Diagram of Premises"};
 	var DocOfLocalCompliance = {condition : "Documentation of Local Compliance",document: "Documentation of Local Compliance"};
-	var ProofOfBondInsurance = {condition : "Proof of Bond / Insurance",document :  "Proof of Bond / Insurance"};
+	//var ProofOfBondInsurance = {condition : "Proof of Bond / Insurance",document :  "Proof of Bond / Insurance"};
 	var IndemnificationAgreement = {condition : "Indemnification Agreement",document : "Indemnification Agreement"};
 	var CommunityBenefitAgreement = {condition : "Community Benefit Agreement",document : "Community Benefit Agreement"};
 	var BusinessTaxRegistrationCertificate = {condition: "Business Tax Registration Certificate",document: "Business Tax Registration Certificate"};
@@ -44,7 +44,7 @@ function getRequiredDocuments(isPageFlow) {
 	var LaborPeaceAgreement = {condition: "Labor Peace Agreement",document: "Labor Peace Agreement"}; 
 	var LaboratoryEmployeeQualifications = {condition: "Laboratory Employee Qualifications",document: "Laboratory Employee Qualifications"}; 
 	var LimitedAccessAreasPlan = {condition: "Limited Access Areas Plan",document: "Limited Access Areas Plan"}; 
-	var OrgChart = {condition: "Org. Chart",document: "Org. Chart"}; 
+	//var OrgChart = {condition: "Org. Chart",document: "Org. Chart"}; 
 	var RadiusMap = {condition: "Radius Map",document: "Radius Map"}; 
 	var SamplingPlansProceduresAndProtocols = {condition: "Sampling Plans, Procedures and Protocols",document: "Sampling Plans, Procedures and Protocols"}; 
 	var SecurityPlan = {condition: "Security Plan",document: "Security Plan"}; 
@@ -73,6 +73,8 @@ function getRequiredDocuments(isPageFlow) {
 	var Tier1Attest = {condition: "Tier 1 Attestation",document: "Tier 1 Attestation"};
 	var ExecutedTier2 = {condition: "Executed Tier 2 Contract",document: "Executed Tier 2 Contract"};
 	var Tier2Attest = {condition: "Tier 2 Attestation",document: "Tier 2 Attestation"};
+	var DeclarationPhase2Eligibility = {condition: "Declaration of Phase 2 Eligibility",document: "Declaration of Phase 2 Eligibility"};
+
 	var contract2016 = {condition: "Contract Pre-2016",document: "Contract Pre-2016"};
 	var lease2016 = {condition: "Lease Pre-2016",document: "Lease Pre-2016"};
 	var formulation2016 = {condition: "Business Formulation Documents Pre-2016",document: "Business Formulation Documents Pre-2016"};
@@ -145,6 +147,7 @@ function getRequiredDocuments(isPageFlow) {
 
 	if (isOwner || isOwnerAttestation) {
 		requirementArray.push(GovernmentIssuedIdentification);
+		requirementArray.push(DeclarationPhase2Eligibility);
 		if (isChecked("Court Records")) requirementArray.push(CourtRecords);
 		if (isChecked("Government Records")) requirementArray.push(GovernmentRecords);
 		if (isChecked("Declaration - Arrest or Conviction")) requirementArray.push(DeclarationArrest);
@@ -166,7 +169,6 @@ function getRequiredDocuments(isPageFlow) {
 		if (isChecked("Tier 1 Attestation")) requirementArray.push(Tier1Attest);
 		if (isChecked("Executed Tier 2 Contract")) requirementArray.push(ExecutedTier2);
 		if (isChecked("Tier 2 Attestation")) requirementArray.push(Tier2Attest);
-
 	}
 
 	if ((isApplication || isAttestationAmendment) && !isOwnerAttestation) {
@@ -187,11 +189,11 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(HiringPlan);
 			//requirementArray.push(LaborPeaceAgreement); // moved below
 			requirementArray.push(LimitedAccessAreasPlan);
-			requirementArray.push(OrgChart);
+			//requirementArray.push(OrgChart); // moved below, renamed
 			requirementArray.push(RadiusMap);
 			//requirementArray.push(SecurityPlan); // moved below
 			//requirementArray.push(StaffingPlan); // moved below
-			requirementArray.push(ProofOfBondInsurance);
+			//requirementArray.push(ProofOfBondInsurance); // moved below, renamed
 			requirementArray.push(LiveScan);
 			requirementArray.push(CUPAPermit);
 			requirementArray.push(IndemnificationAgreement);
