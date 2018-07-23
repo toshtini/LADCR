@@ -25,7 +25,7 @@ if (AInfo["Adult-Use Cultivation Specialty Indoor"] == "CHECKED" || AInfo["Medic
     updateFee("J206","CAN_BUS_APP","FINAL",1,"Y");
 }
 
-if (AInfo["Adult-Use Cultivation Small Indoor"] == "CHECKED" || AInfo["Medical Cultivation Small Indoor "] == "CHECKED") {
+if (AInfo["Adult-Use Cultivation Small Indoor"] == "CHECKED" || AInfo["Medical Cultivation Small Indoor"] == "CHECKED") {
     updateFee("J207","CAN_BUS_APP","FINAL",1,"Y");
 }
 
