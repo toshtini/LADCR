@@ -1,4 +1,6 @@
 
+updateFee("F100","CAN_BUS_APP","FINAL",1,"Y");
+
 if (AInfo["Adult-Use Retail"] == "CHECKED" || AInfo["Medical Retail"] == "CHECKED") {
     updateFee("J001","CAN_BUS_APP","FINAL",1,"Y");
 }
