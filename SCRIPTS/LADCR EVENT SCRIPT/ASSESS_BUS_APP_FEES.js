@@ -12,27 +12,27 @@ if (AInfo["Adult-Use Delivery Only"] == "CHECKED" || AInfo["Medical Delivery Onl
 }
 
 if (AInfo["Adult-Use Distributor Transport Only"] == "CHECKED" || AInfo["Medical Distributor Transport Only"] == "CHECKED" || AInfo["Adult-Use Distributor"] == "CHECKED" || AInfo["Medical Distributor"] == "CHECKED") {
-    updateFee("J004","CAN_BUS_APP","FINAL",1,"Y");
+    updateFee("J204","CAN_BUS_APP","FINAL",1,"Y");
 }
 
 if (AInfo["Adult-Use Cultivation Specialty Cottage Indoor"] == "CHECKED" || AInfo["Medical Cultivation Specialty Cottage Indoor"] == "CHECKED") {
-    updateFee("J005","CAN_BUS_APP","FINAL",1,"Y");
+    updateFee("J205","CAN_BUS_APP","FINAL",1,"Y");
 }
 
 if (AInfo["Adult-Use Cultivation Specialty Indoor"] == "CHECKED" || AInfo["Medical Cultivation Specialty Indoor"] == "CHECKED") {
-    updateFee("J006","CAN_BUS_APP","FINAL",1,"Y");
+    updateFee("J206","CAN_BUS_APP","FINAL",1,"Y");
 }
 
 if (AInfo["Adult-Use Cultivation Small Indoor"] == "CHECKED" || AInfo["Medical Cultivation Small Indoor "] == "CHECKED") {
-    updateFee("J007","CAN_BUS_APP","FINAL",1,"Y");
+    updateFee("J207","CAN_BUS_APP","FINAL",1,"Y");
 }
 
 if (AInfo["Adult-Use Cultivation Medium Indoor"] == "CHECKED" || AInfo["Medical Cultivation Medium Indoor"] == "CHECKED") {
-    updateFee("J008","CAN_BUS_APP","FINAL",1,"Y");
+    updateFee("J208","CAN_BUS_APP","FINAL",1,"Y");
 }
 
 if (AInfo["Adult-Use Manufacturer Level 1"] == "CHECKED" || AInfo["Medical Manufacturer Level 1"] == "CHECKED") {
-    updateFee("J009","CAN_BUS_APP","FINAL",1,"Y");
+    updateFee("J209","CAN_BUS_APP","FINAL",1,"Y");
 }
 
 if (AInfo["Testing"] == "YES" || AInfo["Testing"] == "Yes") {
