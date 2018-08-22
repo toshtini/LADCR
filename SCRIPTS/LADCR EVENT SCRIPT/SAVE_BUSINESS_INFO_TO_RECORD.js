@@ -14,7 +14,7 @@
 	
 
 	// Save the business name to the app name if it doesn't exist. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
-	if (vBusinesses && (getAppName() == null || getAppName == "")) {
+	if (vBusinesses && (getAppName() == null || getAppName() == "")) {
 		// Assume only one business contact
 		vBusiness = vBusinesses[0];
 		var btrc = AInfo["BTRC Number"];
