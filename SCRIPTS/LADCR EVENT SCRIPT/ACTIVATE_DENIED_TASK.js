@@ -16,7 +16,7 @@
 	
 	if (deniedTask != "Not Found"){
 	  //branch to that task
+	  setTask(wfTask,"N","Y");
 	  activateTask(deniedTask);
-	  setTask(deniedTask,"N","Y");
-	  updateTask(checkTask,"Denial Denied","Comment","Note");
+	  updateTask(deniedTask,"Denial Denied","Comment","Note");
 	}
