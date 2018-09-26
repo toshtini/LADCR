@@ -63,6 +63,6 @@ include("SEND_APP_FEE_ACKNOWLEDGEMENT");
 //End email to all contacts when application is submitted in back office. Email is to let them know the application number and fee amount due, User Story 1625
 
 //Conditional branch for denied denials
-if (matches(wfTask,"Executive Review","CRC Appeal Meeting") && wfStatus == "Denial Overturned"){
+if (matches(wfTask,"Executive Review","CRC Appeal Meeting") && wfStatus.equals("Denial Overturned")){
 	include("ACTIVATE_DENIED_TASK");
 }
