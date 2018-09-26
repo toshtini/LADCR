@@ -64,5 +64,5 @@ include("SEND_APP_FEE_ACKNOWLEDGEMENT");
 
 //Conditional branch for denied denials
 if (matches(wfTask,"Executive Review","CRC Appeal Meeting") && wfStatus.equals("Denial Overturned")){
-	include('RETURN_TO_DENIED_TASK');
+	include("ACTIVATE_DENIED_TASK");
 }
