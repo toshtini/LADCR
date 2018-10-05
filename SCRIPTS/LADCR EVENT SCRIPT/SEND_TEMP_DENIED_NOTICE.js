@@ -1,5 +1,5 @@
 // Begin script to send temporary denial notice - Story 1804
-if (wfTask == "Supervisory Review" && wfStatus == "Temporary Denied") {
+if (wfTask == "Close Review" && wfStatus == "Temporary Denied") {
 	//populate contact single address fields for report
 	updateContactAddressFromAddressType(capId,"Owner Applicant","Mailing");
 	
