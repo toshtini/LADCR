@@ -13,7 +13,7 @@ if (wfStatus.equals("Additional Info Requested")){
 }
 
 //if (wfStatus.equals("Temporarily Approved")){
-if (wfStatus.equals("Temporarily Approved") || wfStatus.equals("Temp License Granted") || wfStatus.equals("Temp License Granted With Issues")) {
+if (wfStatus.equals("Temporarily Approved") || wfStatus.equals("Temp License Granted") || wfStatus.equals("Temp License Granted with Issues")) {
 	// Begin Story 1557
 	include("SEND_TEMP_LICENSE_INCOMPLETE_NOTICE");
 	//End Story 1557
