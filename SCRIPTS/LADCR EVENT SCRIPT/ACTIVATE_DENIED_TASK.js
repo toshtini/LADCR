@@ -18,5 +18,5 @@
 	  //branch to that task
 	  setTask(wfTask,"N","Y");
 	  activateTask(deniedTask);
-	  updateTask(deniedTask,"Denial Denied","Comment","Note");
+	  updateTask(deniedTask,"Denial Denied","Returned from " + wfTask,"Script ACTIVATE_DENIED_TASK");
 	}
