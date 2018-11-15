@@ -9,7 +9,7 @@
 var vEmailTemplate = "LADCR LOCAL AUTHORIZATION NOTICE";
 var vReportTemplate = "Local Authorization Notification";
 var rtf = ["Licenses", null, null, "Application"];
-var vGoodStatuses = ["Awaiting Owner Submittals"];
+var vGoodStatuses = ["Awaiting Owner Submittals,Awaiting Data Entry"];
 var contactString = "Owner Applicant,Business Owner,Business,Primary Contact Person";
 
 var showMessage = false; // Set to true to see results in popup window
