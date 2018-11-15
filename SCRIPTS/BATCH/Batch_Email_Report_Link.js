@@ -8,9 +8,9 @@
 
 var vEmailTemplate = "LADCR LOCAL AUTHORIZATION NOTICE";
 var vReportTemplate = "Local Authorization Notification";
-var rtf = ["Licenses", null, null, "Temporary License"];
-var vGoodStatuses = ["Issued","Active","About to Expire"];
-var contactString = "Owner Applicant,Business Owner";
+var rtf = ["Licenses", null, null, "Application"];
+var vGoodStatuses = ["Awaiting Owner Submittals"];
+var contactString = "Owner Applicant,Business Owner,Business,Primary Contact Person";
 
 var showMessage = false; // Set to true to see results in popup window
 var disableTokens = false;
