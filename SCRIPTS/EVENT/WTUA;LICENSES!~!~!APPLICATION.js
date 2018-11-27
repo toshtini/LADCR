@@ -31,6 +31,10 @@ if (wfStatus.equals("Denied")){
 include("SEND_TEMP_DENIED_NOTICE");
 // End script to send temporary denial notice
 
+// Begin script #45: Appeal Process Activation 
+include("SEND_WAIT_FOR_APPEAL");
+// End script #45: Appeal Process Activation 
+
 if (wfTask.equals("Issuance") && wfStatus.equals("Waiting for Payment")) {
 	// Begin Story 323
 	include("SEND_FEES_DUE_NOTICE");
