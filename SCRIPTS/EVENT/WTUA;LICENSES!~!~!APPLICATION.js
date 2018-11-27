@@ -33,6 +33,7 @@ include("SEND_TEMP_DENIED_NOTICE");
 
 // Begin script #45: Appeal Process Activation 
 include("SEND_WAIT_FOR_APPEAL");
+include("SEND_TEMP_WAIT_FOR_APPEAL");
 // End script #45: Appeal Process Activation 
 
 if (wfTask.equals("Issuance") && wfStatus.equals("Waiting for Payment")) {
