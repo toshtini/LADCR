@@ -1,4 +1,5 @@
-if ((wfTask == "Initial Review" || wfTask == "Review") && wfStatus == "Additional Info Requested") {
+//if ((wfTask == "Initial Review" || wfTask == "Review") && wfStatus == "Additional Info Requested") { // modified 11/27/18
+if (wfStatus == "Additional Info Requested") {
 	//populate contact single address fields for report
 	updateContactAddressFromAddressType(capId,"Owner Applicant","Mailing");
 
