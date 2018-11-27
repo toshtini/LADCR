@@ -2,6 +2,7 @@
 if ((wfTask.equals("Final Review") && wfStatus.equals("Issuance Denied")) || 
     (wfTask.equals("DCR Community Meeting") && wfStatus.equals("Recommend Denial")) || 
     (wfTask.equals("CRC Meeting") && wfStatus.equals("Recommend Denial"))) {
+    // advance workflow
     deactivateTask(wfTask);
     activateTask("Wait for Appeal");
     
