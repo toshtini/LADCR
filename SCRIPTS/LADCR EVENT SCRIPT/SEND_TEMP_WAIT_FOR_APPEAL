@@ -1,10 +1,12 @@
-// Begin script to send temporary denial notice - Story 1804
+// Begin script to activate appeal process and send temporary denial notice - Script #45
 if (wfTask == "Executive Review" && wfStatus == "Decision Appealable") {
-  // advance workflow
-  
+	// advance workflow
+	deactivateTask(wfTask);
+	activateTask("Wait for Appeal");
+
 	//populate contact single address fields for report
 	updateContactAddressFromAddressType(capId,"Owner Applicant","Mailing");
-	
+
 	var vEParams = aa.util.newHashtable();
 	addParameter(vEParams, "$$LicenseType$$", appTypeAlias);
 	addParameter(vEParams, "$$ApplicationID$$", capIDString);
@@ -13,4 +15,4 @@ if (wfTask == "Executive Review" && wfStatus == "Decision Appealable") {
 	addParameter(vRParams, "p1Value", capIDString);
 	emailContacts_BCC("All", "DCA OWNER APPLICANT TEMP DENIED NOTIFICATION", vEParams, "Denial of Temporary License", vRParams);
 }
-// End script to send temporary denial notice - Story 1804
+// End script to activate appeal process and send temporary denial notice - Script #45
