@@ -11,6 +11,13 @@
 		
 		if (matches(checkStatus,"Abandoned","Void","Withdrawn","Temporary Denied")) {
 			deniedTask = checkTask;
+		} else {
+			checkTask = "Pre-Inspection Review";
+			checkStatus = taskStatus(checkTask);
+
+			if (matches(checkStatus,"Inspection Timeout - No Activity")) {
+				deniedTask = checkTask;
+			}
 		}
 	}
 	
