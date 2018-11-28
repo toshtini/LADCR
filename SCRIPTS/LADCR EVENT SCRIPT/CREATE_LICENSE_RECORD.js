@@ -1,5 +1,7 @@
 //Start - License Creation/Update Script
-if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally Issued" || wfStatus == "Temporarily Issued")) {
+//if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally Issued" || wfStatus == "Temporarily Issued"))  // modified (11/28/18)
+if ((wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally Issued" || wfStatus == "Temporarily Issued")) ||
+	(wfTask == "Pre-Inspection Review" && (wfStatus == "Temp License Granted" || wfStatus == "Temp License Granted with Issues"))) {
 	var vParentArry;
 	var vLicenseID;
 	var tmpCap;
@@ -11,7 +13,8 @@ if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally 
 	var vToday_mm;
 	var vEndOfMonth;
 
-	if (wfStatus == "Temporarily Issued") {
+	//if (wfStatus == "Temporarily Issued") // modified (11/28/18)
+	if (wfStatus == "Temporarily Issued" || wfStatus == "Temp License Granted" || wfStatus == "Temp License Granted with Issues") {
 		vParentLicTypeString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/" + "Temporary License";
 		vParentLicType = "Temporary License";
 	} else {
@@ -130,13 +133,19 @@ if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally 
 			addStdCondition("License Conditions", "Provisional License", vLicenseID);
 		}
 
+		//Add temp license (with issues) standard condition (11/28/18)
+		if (wfStatus.equals("Temp License Granted with Issues")) {
+			addStdCondition("License Conditions", "Temp License Granted with Issues");
+		}
+
 		//Generate license report and email
 		var vEmailTemplate;
 		var vReportTemplate;
 
-		if (wfStatus == "Temporarily Issued") {
-			vEmailTemplate = "DCA TEMP LICENSE ISSUED NOTIFICATION";
+		//if (wfStatus == "Temporarily Issued") // modified 11/28/18
+		if (wfStatus == "Temporarily Issued" || wfStatus == "Temp License Granted" || wfStatus == "Temp License Granted with Issues") { 
 			vReportTemplate = "Temporary Cannabis License";
+			vEmailTemplate = "DCA TEMP LICENSE ISSUED NOTIFICATION";
 		} else if (wfStatus == "Provisionally Issued") {
 			vEmailTemplate = "";
 			vReportTemplate = "";
@@ -172,7 +181,7 @@ if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally 
 		}
 	}
 	//If the current record is an application record and the parent license
-	//record already exists, close the applcation record.
+	//record already exists, close the application record.
 	if ((wfStatus == "Issued" || wfStatus == "Provisionally Issued") && (vParentArry != null || vLicenseID != null) && balanceDue <= 0) {
 		closeTask("Close Out", "Issued", "Closed by WTUA:Licenses/*/*/Application", "Closed by WTUA:Licenses/*/*/Application");
 	}
