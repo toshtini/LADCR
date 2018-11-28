@@ -26,7 +26,7 @@ function copyASIInfo(srcCapId, targetCapId)
 	}
 	else
 	{
-		aa.print("something");
+		//aa.print("something");
 		copyAppSpecificRenewal(AppSpecInfo,targetCapId);
 
 	}
