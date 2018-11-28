@@ -68,7 +68,12 @@ include("CREATE_LICENSE_RECORD");
 include("SEND_APP_FEE_ACKNOWLEDGEMENT");
 //End email to all contacts when application is submitted in back office. Email is to let them know the application number and fee amount due, User Story 1625
 
-//Conditional branch for denied denials
+//Begin conditional branch for denied denials
 if (wfTask.equals("Executive Review") && wfStatus.equals("Return to Review")){
 	include("ACTIVATE_DENIED_TASK");
 }
+//End conditional branch for denied denials
+
+//Begin set application status to “Pending Final Review” when all parallel reviews are complete
+include("UPDATE_APP_SUPERVISOR_REVIEWS_COMPLETE");
+//End set application status to “Pending Final Review” when all parallel reviews are complete
