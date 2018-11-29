@@ -177,7 +177,7 @@ try {
 			continue;
 		}
 
-		if (capId.getCustomID().indexOf("LA-C") != 0) {
+		if (capId.getCustomID().indexOf("LA-C-") != 0) {
 			continue;
 		}
 		
