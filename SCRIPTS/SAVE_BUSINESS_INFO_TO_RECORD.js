@@ -48,6 +48,12 @@
 			vBusinessObj.setBusinessName2(vBusinessObj.getBusinessName());
 		}
 		vBusiness.save();
+		
+		//Copy Business Entity type from contact to ASI 
+		vBusEntity = vBusiness.getCustomField("5006(b)(14) Business Organization Structure");
+		if (vBusEntity != null && vBusEntity != "") {
+			editAppSpecific("Business Organizational Structure", vBusEntity);
+		}
 
 		// Save address to the record if it doesn't already exists. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
 		vAddresses = vBusiness.addresses;
