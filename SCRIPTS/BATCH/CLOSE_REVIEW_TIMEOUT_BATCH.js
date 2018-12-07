@@ -153,7 +153,7 @@ function mainProcess(t) {
     logDebug("daysApart:  " + daysApart);
     if (daysApart >= lookBehindDays) {
        closeTask("Close Review", "Close", "", "");
-		}
+	}
   }
 }
   function getDaysApart() {
