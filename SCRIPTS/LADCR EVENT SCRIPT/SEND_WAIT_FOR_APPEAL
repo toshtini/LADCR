@@ -17,6 +17,6 @@ if ((wfTask.equals("Final Review") && wfStatus.equals("Issuance Denied")) ||
     addParameter(vRParams, "p1Value", capIDString);
     addParameter(vRParams, "p2Value", wfStatus);
     addParameter(vRParams, "p3Value", wfTask);
-    emailContacts_BCC("All", "DCA OWNER APPLICANT DENIED NOTIFICATION", vEParams, "Denial of Permanent License", vRParams);
+    emailContacts_BCC("All", "DCA OWNER APPLICANT DENIED NOTIFICATION", vEParams, "Denial of License - Appealable", vRParams);
   }
 // End script to branch workflow and send denial email
