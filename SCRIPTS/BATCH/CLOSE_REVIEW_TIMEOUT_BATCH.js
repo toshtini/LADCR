@@ -118,7 +118,7 @@ function mainProcess(t) {
 	var appList = new Array();
   var permitType = "Cannabis";
 	var taskName = "Close Review";
-	var taskStatus = "In Progress"
+	var taskStatus = "In Progress";
 
 	logDebug("Retrieving permit type of Cannibus that is in Close Review and In Progress");
 	logDebug("********************************");
