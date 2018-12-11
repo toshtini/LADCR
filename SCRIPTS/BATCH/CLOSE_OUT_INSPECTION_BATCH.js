@@ -96,7 +96,6 @@ today.setHours(0); today.setMinutes(0); today.setSeconds(0); today.setMillisecon
 |
 /-----------------------------------------------------------------------------------------------------*/
 logDebug("Start of Job");
-logDebug("current Date: " + curDate);
 mainProcess();
 
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
