@@ -147,7 +147,7 @@ function mainProcess(t) {
 		//var tsiWaitDays = Get the Waiting Period number of days for the close out Inspection.
 		tsiWaitDays = getTaskSpecific("Pre-Inspection Review", "Waiting Period");
 	  logDebug("tsiWaitDays Field:" + tsiWaitDays);
-    getDaysApart();
+    daysApart = getDaysApart();
     logDebug("daysApart:  " + daysApart);
     if (daysApart >  tsiWaitDays) {
        closeTask("Pre-Inspection Review", "Inspection Timeout - No Activity", "", "");

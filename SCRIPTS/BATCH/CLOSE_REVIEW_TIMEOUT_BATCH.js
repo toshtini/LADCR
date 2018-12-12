@@ -149,7 +149,7 @@ function mainProcess(t) {
     capIDString = capId.getCustomID();
     logDebug(capIDString);
 
-    getDaysApart();
+    daysApart = getDaysApart();
     logDebug("daysApart:  " + daysApart);
     if (daysApart >= lookBehindDays) {
        closeTask("Close Review", "Close", "", "");
