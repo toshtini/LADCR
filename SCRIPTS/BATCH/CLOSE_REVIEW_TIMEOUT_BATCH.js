@@ -41,6 +41,8 @@ eval(getScriptText("INCLUDES_BATCH"));
 eval(getMasterScriptText("INCLUDES_CUSTOM"));
 eval(getScriptText("INCLUDES_CUSTOM_GLOBALS"));
 
+overRide = "function logDebug(dstr) { aa.print(dstr); } function logMessage(dstr) { aa.print(dstr); }";
+eval(overRide); 
 
 function getScriptText(vScriptName){
 	vScriptName = vScriptName.toUpperCase();
@@ -162,23 +164,10 @@ function mainProcess(t) {
 
   //get workflow status date and chane it for the startDate 2018/01/06 format
 
-	  tDateStr = taskStatusDate("Close Review", null, capId);
-	  var tDateStr = new Date();
-		var mm = tDateStr.getMonth() + 1;
-    var dd = tDateStr.getDate();
-    var yyyy = tDateStr.getFullYear();
-    if (dd < 10) {
-       dd = '0' + dd;
-    }
-    if (mm < 10) {
-       mm = '0' + mm;
-    }
-    var tDateStr =  yyyy + "/" + mm + "/" + dd;
-
-	logDebug("tDateStr " + tDateStr);
-
-  //Establish start and end dates
-	var startDate = new Date(tDateStr);
+    tDateStr = taskStatusDate("Close Review", null, capId);
+    
+    //Establish start and end dates
+	var startDate = convertDate(tDateStr);
   var endDate = new Date();
 
   logDebug("Start Date " + startDate);

@@ -42,6 +42,8 @@ eval(getScriptText("INCLUDES_BATCH"));
 eval(getMasterScriptText("INCLUDES_CUSTOM"));
 eval(getScriptText("INCLUDES_CUSTOM_GLOBALS"));
 
+overRide = "function logDebug(dstr) { aa.print(dstr); } function logMessage(dstr) { aa.print(dstr); }";
+eval(overRide); 
 
 function getScriptText(vScriptName){
 	vScriptName = vScriptName.toUpperCase();
@@ -156,30 +158,16 @@ function mainProcess(t) {
   }
 	logDebug("Records Modified " + modCount);
 }
-  function getDaysApart() {
+  function getDaysApart(waitDays) {
   // Find the number of days different from the current date to the status date. Close the review
   // workflow status if the number of days exceeds the or is equal to the customer supplied lookBehindDays
 
   //get workflow status date and change it for the startDate 2018/01/06 format yyyy/mm/dd
-	  tDateString = taskStatusDate("Pre-Inspection Review", null, capId);
-		logDebug("tDateString " + tDateString);
-	  var tDateStr = new Date(tDateString);
-		logDebug("Second tDateStr " + tDateStr);
-		var mm = tDateStr.getMonth() + 1;
-    var dd = tDateStr.getDate();
-    var yyyy = tDateStr.getFullYear();
-    if (dd < 10) {
-       dd = '0' + dd;
-    }
-    if (mm < 10) {
-       mm = '0' + mm;
-    }
-    var tDateStr =  yyyy + "/" + mm + "/" + dd;
-
-	logDebug("tDateStr " + tDateStr);
+	 tDateString = taskStatusDate("Pre-Inspection Review", null, capId);
+	
 
   //Establish start and end dates
-	var startDate = new Date(tDateStr);
+	var startDate = convertDate(tDateString);
   var endDate = new Date();
 
   logDebug("Start Date " + startDate);
