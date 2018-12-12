@@ -155,8 +155,11 @@ function mainProcess() {
 			lastPaymentDate = dateAdd(null, 0); 
 		}
 		tDateString = taskStatusDate("Application Acceptance", null, capId);
-		var tDateStr = new Date(tDateString);
-		daysDiff = workDaysBetween(tDateStr, lastPaymentDate, ['AGENCY WORKDAY'], ["WEEKEND", "HOLIDAY"]);
+		statusDateJS = new Date(tDateString);
+		
+
+		daysDiff = workDaysBetween(statusDateJS, lastPaymentDate, ['AGENCY WORKDAY'], ["WEEKEND", "HOLIDAY"]);
+
     if (daysDiff >  businessDays) {
        closeTask("Application Acceptance", "Abandoned", "", "");
 			 modCount++;
@@ -252,6 +255,7 @@ function workDaysBetween(sDate,eDate,aCal,aDayEx){
 	var dArray = []; // to store the dates between the two dates.
 	var sDate2 = convertDateBetter(sDate);
 	var eDate2 = convertDateBetter(eDate);
+	//logDebug(sDate2 + "-" + eDate2);
 	
 	aDays2 = dayDiff(sDate2,eDate2);
 	
