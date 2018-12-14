@@ -3,7 +3,7 @@
 |
 | Version 1.0 - Base Version.
 |
-|
+| 12/14/18 - changed from closeTask to branchTask
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 |
@@ -152,7 +152,7 @@ function mainProcess(t) {
     daysApart = getDaysApart();
     logDebug("daysApart:  " + daysApart);
     if (daysApart >  tsiWaitDays) {
-       closeTask("Pre-Inspection Review", "Inspection Timeout - No Activity", "", "");
+       branchTask("Pre-Inspection Review", "Inspection Timeout - No Activity", "", "");
 			 modCount++;
 		}
   }
