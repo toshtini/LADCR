@@ -3,7 +3,7 @@
 |
 | Version 1.0 - Base Version.
 |
-|
+| 12/14/2018 - changing delta for daysApart from 6 to 5
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 |
@@ -155,7 +155,7 @@ function mainProcess() {
     daysApart = getDaysApart(tsiWaitDays);
 
     if (daysApart <= tsiWaitDays) {
-      if (daysApart == 6) {
+      if (daysApart == 5) {
 				actionBy = getTaskActionBy("Pre-Inspection Review");
 				emailAddr = getUserEmail(actionBy);
 				if (emailAddr.length) {
