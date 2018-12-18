@@ -182,8 +182,9 @@ if ((wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally
 	}
 	//If the current record is an application record and the parent license
 	//record already exists, close the application record.
-	if ((wfStatus == "Issued" || wfStatus == "Provisionally Issued") && (vParentArry != null || vLicenseID != null) && balanceDue <= 0) {
-		closeTask("Close Out", "Issued", "Closed by WTUA:Licenses/*/*/Application", "Closed by WTUA:Licenses/*/*/Application");
+	//not needed with new workflow (12/17/18)
+	//if ((wfStatus == "Issued" || wfStatus == "Provisionally Issued") && (vParentArry != null || vLicenseID != null) && balanceDue <= 0) {
+	//	closeTask("Close Out", "Issued", "Closed by WTUA:Licenses/*/*/Application", "Closed by WTUA:Licenses/*/*/Application");
 	}
 }
 //End - License Creation/Update Script
