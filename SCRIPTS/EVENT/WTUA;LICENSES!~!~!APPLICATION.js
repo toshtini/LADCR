@@ -77,3 +77,9 @@ if (wfTask.equals("Executive Review") && wfStatus.equals("Return to Review")){
 //Begin set application status to "Pending Final Review" when all parallel reviews are complete
 include("UPDATE_APP_SUPERVISOR_REVIEWS_COMPLETE");
 //End set application status to "Pending Final Review" when all parallel reviews are complete
+
+//Begin conditional branch for denied denials
+if (wfTask.equals("Close Out") && wfStatus.equals("Abandoned")){
+	include("NOTIFY_ABANDONED_APP");
+}
+//End conditional branch for denied denials
