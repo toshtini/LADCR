@@ -83,3 +83,14 @@ if (wfTask.equals("Close Out") && wfStatus.equals("Abandoned")){
 	include("NOTIFY_ABANDONED_APP");
 }
 //End conditional branch for denied denials
+// Begin schedule meeting
+if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled")) {
+		dateNotsMailed = getStatusDateinTaskHistory("Appeal Meeting", "Public Notifications Mailed");
+	    dateNotsMailedJS = new Date(dateNotsMailed.getTime());
+	    if (dateNotsMailed) {
+	        // get 20 business days after
+	        meetingDate = workDaysAdd(dateNotsMailedJS, 20, ['AGENCY WORKDAY'], ["WEEKEND", "HOLIDAY"]);
+	        schResult = scheduleMeeting(meetingDate, "CANNABIS COMMISSION MEETING", 90, capId);
+	    }
+}
+// End schedule meeting
