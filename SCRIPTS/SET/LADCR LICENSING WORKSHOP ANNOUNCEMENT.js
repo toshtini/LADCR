@@ -55,7 +55,7 @@ var SetId = aa.env.getValue("SetID");
 var ScriptName = aa.env.getValue("ScriptName");
 batchJobName = "";
 batchJobID = "";
-logDebug("Event Type is " + aa.env.getValue("eventType"));
+
 /*------------------------------------------------------------------------------------------------------/
 | BEGIN Includes
 /------------------------------------------------------------------------------------------------------*/
@@ -104,6 +104,7 @@ sysDate = aa.date.getCurrentDate();
 /------------------------------------------------------------------------------------------------------*/
 
 var showDebug = true; //debug on or off
+logDebug("Event Type is " + aa.env.getValue("eventType"));
 
 logDebug("=====Processing set " + SetId);
 
