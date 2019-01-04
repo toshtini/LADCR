@@ -154,16 +154,19 @@ else {
 		conType = conTypeArray[z];
 		conEmail = null;
 		peopTemp = null;
-		//logDebug("          Searching for " + conTypeArray[z]);
+		logDebug("          Searching for " + conTypeArray[z]);
 		if (conType == "Primary") {
 			vConObjArry = getContactObjsByCap_BCC(capId);
+			logDebug("          found " + vConObjArry);
 		} else {
 			vConObjArry = getContactObjsByCap_BCC(capId, conTypeArray[z]);
+			logDebug("          found " + vConObjArry);
 		}
 		for (x in vConObjArry) {
 			vConObj = vConObjArry[x];
 			vConRefSeqNbr = vConObj.refSeqNumber;
 			//Get contact email
+			logDebug("          looking at Contact Object " + vConObj.refSeqNumber);
 			if (vConObj) {
 				conEmail = vConObj.people.getEmail();
 				if (conEmail && conEmail != null && conEmail != "") {
