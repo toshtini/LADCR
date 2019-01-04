@@ -45,7 +45,7 @@ var sysFromEmail = "dcrlicensing@lacity.org";
 
 var emailTemplate = "LADCR LICENSING WORKSHOP ANNOUNCEMENT";
 var sendEmailToContactTypes = "Owner Applicant,Business Owner,Business,Primary Contact Person";
-var sendEmailToContactTypes = "Individual";
+//var sendEmailToContactTypes = "Individual";
 
 //
 //
