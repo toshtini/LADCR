@@ -128,6 +128,9 @@ else {
 	if (sendEmailToContactTypes != "All" && sendEmailToContactTypes != null && sendEmailToContactTypes != '') {
 		conTypeArray = sendEmailToContactTypes.split(",");
 	}
+	
+	logDebug("We have " + conTypeArray.length  + " valid contact types");
+	
 	for (x in conTypeArray) {
 		//check all that are not "Primary"
 		vConType = conTypeArray[x];
