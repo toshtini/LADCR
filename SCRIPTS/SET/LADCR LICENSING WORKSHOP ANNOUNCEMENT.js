@@ -44,7 +44,8 @@ var SetMemberArray = aa.env.getValue("SetMemberArray");
 //
 
 var vEmailTemplate = "LADCR LICENSING WORKSHOP ANNOUNCEMENT";
-var contactString = "Owner Applicant,Business Owner,Business,Primary Contact Person";
+//var contactString = "Owner Applicant,Business Owner,Business,Primary Contact Person";
+var contactString = "All";
 //var contactString = "Primary Contact Person";
 
 //
