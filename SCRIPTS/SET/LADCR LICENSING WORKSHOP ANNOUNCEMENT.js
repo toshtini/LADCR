@@ -104,7 +104,7 @@ sysDate = aa.date.getCurrentDate();
 /------------------------------------------------------------------------------------------------------*/
 
 var showDebug = true; //debug on or off
-aa.env.setValue("EventType","Batch Process") // need to be for sync emails.
+aa.env.setValue("eventType","Batch Process") // need to be for sync emails.
 
 logDebug("=====Processing set " + SetId);
 
