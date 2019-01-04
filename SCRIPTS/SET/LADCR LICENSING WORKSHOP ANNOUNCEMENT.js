@@ -38,14 +38,14 @@ var useAppSpecificGroupName = ""; // getAppSpecific needs this defined as global
 var currentUserID = aa.env.getValue("CurrentUserID");
 var systemUserObj = aa.person.getUser(currentUserID).getOutput();
 var SetMemberArray = aa.env.getValue("SetMemberArray");
-
+var sysFromEmail = "dcrlicensing@lacity.org";
 //
 //
 //
 
-var vEmailTemplate = "LADCR LICENSING WORKSHOP ANNOUNCEMENT";
-var contactString = "Owner Applicant,Business Owner,Business,Primary Contact Person";
-//var contactString = "Primary Contact Person";
+var emailTemplate = "LADCR LICENSING WORKSHOP ANNOUNCEMENT";
+var sendEmailToContactTypes = "Owner Applicant,Business Owner,Business,Primary Contact Person";
+var sendEmailToContactTypes = "Individual";
 
 //
 //
@@ -151,9 +151,9 @@ function mainProcess() {
 		var capIdObject = getCapId();
 
 		var cap = aa.cap.getCap(capId).getOutput();
-		var customID = capIdObject.getCustomID();
+		var altId = capIdObject.getCustomID();
 
-		logDebug("=====Identifying record " + customID);
+		logDebug("=====Identifying record " + altId);
 
 		/*
 		//Generate license report and email
@@ -161,11 +161,29 @@ function mainProcess() {
 		addParameter(vRParams, "p1Value", capId.getCustomID());
 		*/
 		var vEParams = aa.util.newHashtable();		
-		//emailContacts_BCC("All", vEmailTemplate, vEParams, vReportTemplate, vRParams);
-		//emailContacts_BCC(contactString, vEmailTemplate, vEParams, vReportTemplate, vRParams);
-		emailContacts_BCC(contactString, vEmailTemplate, vEParams, null, null);
-		logDebug(vEmailTemplate + " generated for record " + capId.getCustomID());
-		
+		if (sendEmailToContactTypes.length > 0 && emailTemplate.length > 0) {
+			var conTypeArray = sendEmailToContactTypes.split(",");
+			var	conArray = getContactArray(capId);
+			for (thisCon in conArray) {
+				var conEmail = false;
+				thisContact = conArray[thisCon];
+				if (exists(thisContact["contactType"],conTypeArray)) {
+					for(a in conTypeArray) {
+						if(thisContact["contactType"] == conTypeArray[a]) {
+							conEmail = thisContact["email"];
+							if (conEmail) {
+								eParams = aa.util.newHashtable();
+								addParameter(eParams,"$$AltId$$",altId);
+								addParameter(eParams,"$$firstName$$",thisContact["firstName"]);
+								addParameter(eParams,"$$lastName$$",thisContact["lastName"]);
+								sendNotification(sysFromEmail,conEmail,"",emailTemplate,eParams, [],capId);
+								logDebug(altId + ": Sent Email template " + emailTemplate + " to " + thisContact["contactType"] + " : " + conEmail);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
