@@ -149,7 +149,7 @@ function mainProcess() {
 		aa.env.setValue("PermitId2", resultObjArray[curRecord].getID2());
 		aa.env.setValue("PermitId3", resultObjArray[curRecord].getID3());
 		var capIdObject = getCapId();
-		varp capId = capIdObject;
+		var capId = capIdObject;
 
 		var cap = aa.cap.getCap(capId).getOutput();
 		var customID = capIdObject.getCustomID();
