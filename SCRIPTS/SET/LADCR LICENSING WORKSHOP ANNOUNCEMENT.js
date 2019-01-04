@@ -44,8 +44,7 @@ var SetMemberArray = aa.env.getValue("SetMemberArray");
 //
 
 var vEmailTemplate = "LADCR LICENSING WORKSHOP ANNOUNCEMENT";
-//var contactString = "Owner Applicant,Business Owner,Business,Primary Contact Person";
-var contactString = "All";
+var contactString = "Owner Applicant,Business Owner,Business,Primary Contact Person";
 //var contactString = "Primary Contact Person";
 
 //
@@ -150,7 +149,6 @@ function mainProcess() {
 		aa.env.setValue("PermitId2", resultObjArray[curRecord].getID2());
 		aa.env.setValue("PermitId3", resultObjArray[curRecord].getID3());
 		var capIdObject = getCapId();
-		capId = capIdObject;
 
 		var cap = aa.cap.getCap(capId).getOutput();
 		var customID = capIdObject.getCustomID();
