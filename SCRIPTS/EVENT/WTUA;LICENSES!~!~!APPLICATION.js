@@ -46,6 +46,11 @@ if (wfTask.equals("Issuance") && wfStatus.equals("Waiting for Payment")) {
 	// End Story 298
 }
 
+if (wfTask.equals("Wait for Appeal") && wfStatus.equals("Waiting for Payment")) {
+	// Begin Story 323
+	include("SEND_APPEAL_FEES_DUE");
+	// End Story 323
+}
 if (wfTask.equals("Application Acceptance") && wfStatus.equals("Application Received")) {
 	// Begin Story 5135, 6083
 	include("CREATE_DOCUMENT_CONDITIONS");
