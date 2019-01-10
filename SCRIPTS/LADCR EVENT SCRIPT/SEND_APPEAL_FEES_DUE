@@ -16,4 +16,4 @@ var parentId = getParent();
 
 //Send to contacts on parent application record
 	//emailContacts_BCC('Business Owner', "LADCR_OWNER_INVOICE", vEParams, "Invoice", vRParams, 'N', '', parentId);
-	emailContacts_BCC("All", "LADCR APPEAL FEES DUE NOTIFICATION", vEParams, "Invoice - Appeal", vRParams);
+	emailContacts_BCC("All", "LADCR APPEAL FEES DUE", vEParams, "Invoice - Appeal", vRParams);
