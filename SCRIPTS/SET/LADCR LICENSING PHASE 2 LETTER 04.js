@@ -176,6 +176,8 @@ function mainProcess() {
 								addParameter(eParams,"$$AltId$$",altId);
 								addParameter(eParams,"$$firstName$$",thisContact["firstName"]);
 								addParameter(eParams,"$$lastName$$",thisContact["lastName"]);
+								addParameter(eParams,"$$todayplus14$$",dateAdd(null,14));
+								addParameter(eParams,"$$todaysDate$$",dateAdd(null,0));
 								sendNotification(sysFromEmail,conEmail,"",emailTemplate,eParams, [],capId);
 								logDebug(altId + ": Sent Email template " + emailTemplate + " to " + thisContact["contactType"] + " : " + conEmail);
 							}
