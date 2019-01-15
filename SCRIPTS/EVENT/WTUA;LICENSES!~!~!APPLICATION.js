@@ -83,11 +83,11 @@ if (wfTask.equals("Executive Review") && wfStatus.equals("Return to Review")){
 include("UPDATE_APP_SUPERVISOR_REVIEWS_COMPLETE");
 //End set application status to "Pending Final Review" when all parallel reviews are complete
 
-//Begin conditional branch for denied denials
+//Begin conditional branch for sending abandoned notice
 if (wfTask.equals("Close Out") && wfStatus.equals("Abandoned")){
 	include("NOTIFY_ABANDONED_APP");
 }
-//End conditional branch for denied denials
+//End conditional branch for sending abandoned notice
 // Begin schedule meeting
 if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled")) {
 		dateNotsMailed = getStatusDateinTaskHistory("Appeal Meeting", "Public Notifications Mailed");
