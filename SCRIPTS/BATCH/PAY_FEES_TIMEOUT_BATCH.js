@@ -144,7 +144,11 @@ function mainProcess() {
     capIDString = capId.getCustomID();
     logDebug(capIDString);
 
-
+	cap = aa.cap.getCap(capId).getOutput();
+	appTypeResult = cap.getCapType();
+	appTypeString = appTypeResult.toString();
+	appTypeArray = appTypeString.split("/");
+	if (appTypeArray[2] != "Business") continue;
 		lastPaymentDate = getLastPaymentDate(capId);
 		if (lastPaymentDate) {
 				logDebug("LastPaymentDate = " + lastPaymentDate);
