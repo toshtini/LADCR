@@ -135,14 +135,17 @@ function mainProcess() {
   /------------------------------------------------------------------------------------------------------*/
   for (al in appList) {
     capId = aa.cap.getCapID(appList[al].getCapID().getID1(),appList[al].getCapID().getID2(),appList[al].getCapID().getID3()).getOutput();
-    capIDString = capId.getCustomID();
-    logDebug(capIDString);
-
+    capIDString = capId.getCustomID();  
 	cap = aa.cap.getCap(capId).getOutput();
+	if (!cap) {
+		continue;
+	}
 	appTypeResult = cap.getCapType();
 	appTypeString = appTypeResult.toString();
 	appTypeArray = appTypeString.split("/");
 	if (appTypeArray[2] != "Business") continue;
+	logDebug(capIDString);
+
 		lastPaymentDate = getLastPaymentDate(capId);
 		if (lastPaymentDate) {
 				logDebug("LastPaymentDate = " + lastPaymentDate);
