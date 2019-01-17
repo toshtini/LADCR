@@ -71,14 +71,8 @@ else
 | Start: BATCH PARAMETERS
 |
 /------------------------------------------------------------------------------------------------------*/
-// Standard Choice PARAMETERS
-/*----------------------------------------------------------------------------------------------------/
-| Standard Choice : Data Extract for Assessors Office
-|- lookBehindDays "30"
-/------------------------------------------------------------------------------------------------------*/
-/*
-Standard Choice Variables
-*/
+
+
 /*----------------------------------------------------------------------------------------------------/
 |
 | End: BATCH PARAMETERS
@@ -116,7 +110,7 @@ function mainProcess() {
 	var businessDays = 10;
 	var modCount = 0;
 
-	logDebug("Retrieving permit type of Cannibus that is in Application Acceptance");
+	logDebug("Retrieving permit type of Cannibus/Business that is in Application Acceptance");
 	logDebug("********************************");
 
   var appListResult = aa.cap.getCaps(permitType, taskName, taskStatus, null);
