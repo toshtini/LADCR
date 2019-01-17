@@ -46,6 +46,11 @@ if (wfTask.equals("Issuance") && wfStatus.equals("Waiting for Payment")) {
 	// End Story 298
 }
 
+if (wfTask.equals("Wait for Appeal") && wfStatus.equals("Waiting for Payment")) {
+	// Begin Story 323
+	include("SEND_APPEAL_FEES_DUE");
+	// End Story 323
+}
 if (wfTask.equals("Application Acceptance") && wfStatus.equals("Application Received")) {
 	// Begin Story 5135, 6083
 	include("CREATE_DOCUMENT_CONDITIONS");
@@ -78,11 +83,11 @@ if (wfTask.equals("Executive Review") && wfStatus.equals("Return to Review")){
 include("UPDATE_APP_SUPERVISOR_REVIEWS_COMPLETE");
 //End set application status to "Pending Final Review" when all parallel reviews are complete
 
-//Begin conditional branch for denied denials
+//Begin conditional branch for sending abandoned notice
 if (wfTask.equals("Close Out") && wfStatus.equals("Abandoned")){
 	include("NOTIFY_ABANDONED_APP");
 }
-//End conditional branch for denied denials
+//End conditional branch for sending abandoned notice
 // Begin schedule meeting
 if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled")) {
 		dateNotsMailed = getStatusDateinTaskHistory("Appeal Meeting", "Public Notifications Mailed");
