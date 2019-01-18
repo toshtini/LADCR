@@ -99,3 +99,7 @@ if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled"))
 	    }
 }
 // End schedule meeting
+
+//Start send reviewer notice if returned from supervisor
+include("SEND_REVIEWER_NOTICE");
+//End send reviewer notice
