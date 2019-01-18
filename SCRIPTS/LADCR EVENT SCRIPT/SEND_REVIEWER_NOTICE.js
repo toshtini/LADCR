@@ -12,19 +12,19 @@
 		//Get task reviewer and send notice
 		if (reviewTask != "") {
 			var assignedStaffUser = getTaskAssignedStaff(reviewTask);
-			aa.print("assignedStaffUser = " + assignedStaffUser);
+			//aa.print("assignedStaffUser = " + assignedStaffUser);
 
 			var actionByUser = getTaskActionBy(reviewTask);
-			aa.print("actionByUser = " + actionByUser);
+			//aa.print("actionByUser = " + actionByUser);
 			
 			var iNameResult  = aa.person.getUser(actionByUser);
 			if (!iNameResult.getSuccess())
 			{ 
-				aa.print("**ERROR retrieving  user model " + actionByUser + " : " + iNameResult.getErrorMessage()) ; 
+				logDebug("**ERROR retrieving  user model " + actionByUser + " : " + iNameResult.getErrorMessage()) ; 
 				//return false ; 
 			} else {
 				var iName = iNameResult.getOutput();
-				aa.print("getDeptOfUser = " +  iName.getDeptOfUser() + ", getUserID = " + iName.getUserID() + ", getEmail = " + iName.getEmail());
+				//aa.print("getDeptOfUser = " +  iName.getDeptOfUser() + ", getUserID = " + iName.getUserID() + ", getEmail = " + iName.getEmail());
 
 				emailSubject = "Civic Platform Task Needs Review";
 				emailMessage = "Supervisor returned your task '" + reviewTask + "' for further review. Please check the application.";
