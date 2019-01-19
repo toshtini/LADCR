@@ -4,7 +4,7 @@
 	if (wfStatus == "Needs Review") {
 		//Determine task to be reviewed based on task submitted
 		var reviewTask = "";
-		if (wfTask == "Supervisor Premise Review") reviewTask = "Premise Review"; else
+		if (wfTask == "Supervisor Premises Review") reviewTask = "Premises Review"; else
 		if (wfTask == "Supervisor Owner Review") reviewTask = "Owner Review"; else
 		if (wfTask == "Supervisor Social Equity Review") reviewTask = "Social Equity Review"; else
 		if (wfTask == "Supervisor Temp Review") reviewTask = "Premises Temp Review"; 
