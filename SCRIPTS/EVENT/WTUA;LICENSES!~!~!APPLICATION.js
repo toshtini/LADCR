@@ -97,7 +97,7 @@ if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled"))
 	        meetingDate = workDaysAdd(dateNotsMailedJS, 20, ['AGENCY WORKDAY'], ["WEEKEND", "HOLIDAY"]);
 	        schResult = scheduleMeeting(meetingDate, "CANNABIS COMMISSION MEETING", 60, 90, capId);
 	    } else {
-	        logDebug("No Public Notifications Mailed status set, CRC Meeting not scheduled");
+	        logDebug("Warning: No Public Notifications Mailed status set, CRC Meeting not scheduled");
 	    }
 }
 // End schedule meeting
