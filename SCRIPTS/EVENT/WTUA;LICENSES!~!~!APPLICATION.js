@@ -90,12 +90,14 @@ if (wfTask.equals("Close Out") && wfStatus.equals("Abandoned")){
 //End conditional branch for sending abandoned notice
 // Begin schedule meeting
 if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled")) {
-		dateNotsMailed = getStatusDateinTaskHistory("Appeal Meeting", "Public Notifications Mailed");
+	    dateNotsMailed = getStatusDateinTaskHistory("Appeal Meeting", "Public Notifications Mailed");
 	    dateNotsMailedJS = new Date(dateNotsMailed.getTime());
 	    if (dateNotsMailed) {
 	        // get 20 business days after
 	        meetingDate = workDaysAdd(dateNotsMailedJS, 20, ['AGENCY WORKDAY'], ["WEEKEND", "HOLIDAY"]);
 	        schResult = scheduleMeeting(meetingDate, "CANNABIS COMMISSION MEETING", 60, 90, capId);
+	    } else {
+	        logDebug("No Public Notifications Mailed status set, CRC Meeting not scheduled");
 	    }
 }
 // End schedule meeting
