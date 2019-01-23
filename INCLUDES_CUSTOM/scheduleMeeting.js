@@ -2,7 +2,7 @@ function scheduleMeeting(mtgDateTime, mtgType, durationMinutes, numDays) {
 	// schedule meeting looking X number of days out from mtgDateTime
     try{
         var itemCap = capId; 
-        if (arguments.length == 4) itemCap = arguments[4]; // use cap ID specified in args
+        if (arguments.length == 5) itemCap = arguments[4]; // use cap ID specified in args
         var reqDateTime = ""+ mtgDateTime;
         var reqDate = reqDateTime.substring(0,10);
         var reqTime = reqDateTime.substr(13,5);
