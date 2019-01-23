@@ -91,9 +91,9 @@ if (wfTask.equals("Close Out") && wfStatus.equals("Abandoned")){
 // Begin schedule meeting
 if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled")) {
 	    dateNotsMailed = getStatusDateinTaskHistory("Appeal Meeting", "Public Notifications Mailed");
-	    dateNotsMailedJS = new Date(dateNotsMailed.getTime());
 	    if (dateNotsMailed) {
 	        // get 20 business days after
+	        dateNotsMailedJS = new Date(dateNotsMailed.getTime());
 	        meetingDate = workDaysAdd(dateNotsMailedJS, 20, ['AGENCY WORKDAY'], ["WEEKEND", "HOLIDAY"]);
 	        schResult = scheduleMeeting(meetingDate, "CANNABIS COMMISSION MEETING", 60, 90, capId);
 	    } else {
