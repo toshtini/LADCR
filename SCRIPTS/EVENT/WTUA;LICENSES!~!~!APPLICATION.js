@@ -88,7 +88,17 @@ if (wfTask.equals("Close Out") && wfStatus.equals("Abandoned")){
 	include("NOTIFY_ABANDONED_APP");
 }
 //End conditional branch for sending abandoned notice
-// Begin schedule meeting
+
+// Begin schedule meeting for Review - script #48
+if (wfTask.equals("DCR Community Meeting") && wfStatus.equals("Recommend Approval")) {
+	        // get 20 business days after
+	        todayDateJS = new Date();
+	        meetingDate = workDaysAdd(todayDateJS, 20, ['AGENCY WORKDAY'], ["WEEKEND", "HOLIDAY"]);
+	        schResult = scheduleMeeting(meetingDate, "CANNABIS COMMISSION MEETING", 60, 90, capId);
+}
+// End schedule meeting for Review
+
+// Begin schedule meeting for Appeal - Script #44
 if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled")) {
 	    dateNotsMailed = getStatusDateinTaskHistory("Appeal Meeting", "Public Notifications Mailed");
 	    if (dateNotsMailed) {
@@ -100,7 +110,7 @@ if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled"))
 	        logDebug("Warning: No Public Notifications Mailed status set, CRC Meeting not scheduled");
 	    }
 }
-// End schedule meeting
+// End schedule meeting for Appeal
 
 //Start send reviewer notice if returned from supervisor
 include("SEND_REVIEWER_NOTICE");
