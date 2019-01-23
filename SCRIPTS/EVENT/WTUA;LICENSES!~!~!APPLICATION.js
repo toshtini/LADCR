@@ -95,7 +95,7 @@ if (wfTask.equals("Appeal Meeting") && wfStatus.equals("CRC Meeting Scheduled"))
 	    if (dateNotsMailed) {
 	        // get 20 business days after
 	        meetingDate = workDaysAdd(dateNotsMailedJS, 20, ['AGENCY WORKDAY'], ["WEEKEND", "HOLIDAY"]);
-	        schResult = scheduleMeeting(meetingDate, "CANNABIS COMMISSION MEETING", 90, capId);
+	        schResult = scheduleMeeting(meetingDate, "CANNABIS COMMISSION MEETING", 60, 90, capId);
 	    }
 }
 // End schedule meeting
