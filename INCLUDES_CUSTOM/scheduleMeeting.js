@@ -1,4 +1,4 @@
-function scheduleMeeting(mtgDateTime, mtgType, numDays) {
+function scheduleMeeting(mtgDateTime, mtgType, durationMinutes, numDays) {
 	// schedule meeting looking X number of days out from mtgDateTime
     try{
         var itemCap = capId; 
@@ -33,7 +33,7 @@ function scheduleMeeting(mtgDateTime, mtgType, numDays) {
                 }
                 else{
                     var mtgGroupId = mtgObj.getMeetingGroupId();
-                    scheduledResult = aa.meeting.scheduleMeeting(itemCap, mtgGroupId, mtgEventID, "0", "", "");
+                    scheduledResult = aa.meeting.scheduleMeeting(itemCap, mtgGroupId, mtgEventID, durationMinutes, "", "");
                     if(scheduledResult.getSuccess()){
                         comment("Meeting successfully scheduled for " + mtgObj.getStartDate());
                         break;
