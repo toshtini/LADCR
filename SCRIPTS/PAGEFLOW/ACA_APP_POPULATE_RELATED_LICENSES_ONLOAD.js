@@ -51,13 +51,13 @@ var useAppSpecificGroupName = false;
 
 		} catch (ex) {
         logDebug("Error: " + ex.message);
-			aa.env.setValue("ErrorCode", "-2");
-			aa.env.setValue("ErrorMessage", debug);
+			//aa.env.setValue("ErrorCode", "-2");
+			//aa.env.setValue("ErrorMessage", debug);
 
     }
 
-	aa.env.setValue("ErrorCode", "-2");
-	aa.env.setValue("ErrorMessage", debug);
+	//aa.env.setValue("ErrorCode", "-2");
+	//aa.env.setValue("ErrorMessage", debug);
 
 })();
 
