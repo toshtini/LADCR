@@ -57,10 +57,14 @@ var useAppSpecificGroupName = false;
         aa.env.setValue("CapModel", cap);
     } catch (ex) {
         logDebug("Error: " + ex.message);
-        aa.sendMail("john@grayquarter.com", "noreply@accela.com", "", "ACA_APP_POPULATE_RELATED_LICENSES_ONLOAD", debug); //debug
+			aa.env.setValue("ErrorCode", "-2");
+			aa.env.setValue("ErrorMessage", debug);
+
     }
 
-    aa.sendMail("john@grayquarter.com", "noreply@accela.com", "", "ACA_APP_POPULATE_RELATED_LICENSES_ONLOAD", debug); //debug
+	aa.env.setValue("ErrorCode", "-2");
+	aa.env.setValue("ErrorMessage", debug);
+
 })();
 
 /******************************************************************************************/
