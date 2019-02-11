@@ -47,13 +47,9 @@ var useAppSpecificGroupName = false;
 		
 		var asit = cap.getAppSpecificTableGroupModel();
 		var newASIT = addASITable4ACAPageFlow(asit,"RELATED APPLICATIONS",relASIT);
-
-        // Update cap model
-        var tempCapModel = aa.cap.getCapViewBySingle(capId);
-        cap.setAppSpecificTableGroupModel(tempCapModel.getAppSpecificTableGroupModel());
-
         aa.env.setValue("CapModel", cap);
-    } catch (ex) {
+
+		} catch (ex) {
         logDebug("Error: " + ex.message);
 			aa.env.setValue("ErrorCode", "-2");
 			aa.env.setValue("ErrorMessage", debug);
