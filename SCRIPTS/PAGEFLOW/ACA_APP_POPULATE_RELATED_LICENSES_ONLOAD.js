@@ -35,15 +35,12 @@ var useAppSpecificGroupName = false;
 
 		relASIT = loadASITable4ACA("RELATED APPLICATIONS", cap);
 
-		if (relASIT == undefined || relASIT == null) { 
-			logDebug("table not defined");
-			return;
-		}
-
-		if (relASIT.length > 0) {
+		if (relASIT && relASIT.length > 0) {
 			logDebug("table already has rows, exiting");
 			return;
 		}
+		
+		var relASIT = [];
 		var newRow = [];
 		newRow["Application ID"] = new asiTableValObj("Application ID", String(parentAltId),"Y");
 		relASIT.push(newRow);
