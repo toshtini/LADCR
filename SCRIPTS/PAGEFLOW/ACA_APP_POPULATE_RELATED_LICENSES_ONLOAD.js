@@ -44,9 +44,10 @@ var useAppSpecificGroupName = false;
 			logDebug("table already has rows, exiting");
 			return;
 		}
-		var newRow = []
+		var newRow = [];
 		newRow["Application ID"] = new asiTableValObj("Application ID", String(parentAltId),"Y");
-
+		relASIT.push(newRow);
+		
 		var asit = cap.getAppSpecificTableGroupModel();
 		var newASIT = addASITable4ACAPageFlow(asit,"RELATED APPLICATIONS",relASIT);
 
