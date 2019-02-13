@@ -4,11 +4,13 @@ if (wfTask == "Application Acceptance" && wfStatus == "Awaiting Owner Submittals
 	//var reportName = "Owner Submittal Letter(s)";
 	var reportName = "Owner Submittal Letter - Accept";
 	sendNotification = true;
-} else {
-if (wfTask == "Owner Review" && wfStatus == "Awaiting Owner Submittals") {
-	var reportName = "Owner Submittal Letter - License";
-	sendNotification = true;
-}}
+} 
+//not until LiveScan is available
+//else {
+//if (wfTask == "Owner Review" && wfStatus == "Awaiting Owner Submittals") {
+//	var reportName = "Owner Submittal Letter - License";
+//	sendNotification = true;
+//}}
 
 if(sendNotification) {
 	var owner;
