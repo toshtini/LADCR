@@ -1,5 +1,5 @@
 function getRequiredDocuments(isPageFlow) {
-
+	
 	logDebug("start getRequiredDocuments(" + [].slice.call(arguments) + ")");
 
 	//TODO: put in checks to validate record types and reference conditions.
@@ -28,7 +28,7 @@ function getRequiredDocuments(isPageFlow) {
 	var DocOfLocalCompliance = {condition : "Documentation of Local Compliance",document: "Documentation of Local Compliance"};
 	//var ProofOfBondInsurance = {condition : "Proof of Bond / Insurance",document :  "Proof of Bond / Insurance"};
 	var IndemnificationAgreement = {condition : "Indemnification Agreement",document : "Indemnification Agreement"};
-	var CommunityBenefitAgreement = {condition : "Community Benefit Agreement",document : "Community Benefit Agreement"};
+	//var CommunityBenefitAgreement = {condition : "Community Benefit Agreement",document : "Community Benefit Agreement"};
 	var BusinessTaxRegistrationCertificate = {condition: "Business Tax Registration Certificate",document: "Business Tax Registration Certificate"};
 	var CannabisWasteManagementPlan = {condition: "Cannabis Waste Management Plan",document: "Cannabis Waste Management Plan"}; 
 	var CommercialCannabisActivityPlan = {condition: "Commercial Cannabis Activity Plan",document: "Commercial Cannabis Activity Plan"}; 
@@ -41,7 +41,7 @@ function getRequiredDocuments(isPageFlow) {
 	var GovernmentIssuedIdentification = {condition: "Government-Issued Identification",document: "Government-Issued Identification"}; 
 	var HiringPlan = {condition: "Hiring Plan",document: "Hiring Plan"}; 
 	var ISO170325Accreditation = {condition: "ISO 170325 Accreditation",document: "ISO 170325 Accreditation"}; 
-	var LaborPeaceAgreement = {condition: "Labor Peace Agreement",document: "Labor Peace Agreement"}; 
+	var LaborPeaceAgreement = {condition: "Labor Peace Agreement Attestation Form",document: "Labor Peace Agreement Attestation Form"}; 
 	var LaboratoryEmployeeQualifications = {condition: "Laboratory Employee Qualifications",document: "Laboratory Employee Qualifications"}; 
 	var LimitedAccessAreasPlan = {condition: "Limited Access Areas Plan",document: "Limited Access Areas Plan"}; 
 	//var OrgChart = {condition: "Org. Chart",document: "Org. Chart"}; 
@@ -57,17 +57,17 @@ function getRequiredDocuments(isPageFlow) {
 	var DeclarationArrest = {condition: "Declaration - Arrest or Conviction",document: "Declaration - Arrest or Conviction"};
 	var OtherArrest = {condition: "Other Documents - Arrest or Conviction",document: "Other Documents - Arrest or Conviction"};
 	var TaxRecords = {condition: "Tax Records",document: "Tax Records"};
-	var FinancialRecordsWage = {condition: "Financial Records – Wage or Bank Statements",document: "Financial Records – Wage or Bank Statements"};
+	var FinancialRecordsWage = {condition: "Financial Records - Wage or Bank Statements",document: "Financial Records - Wage or Bank Statements"};
 	var ReceiptOfAssistance = {condition: "Receipt of Government Assistance",document: "Receipt of Government Assistance"};
 	var DeclarationIncome = {condition: "Declaration - Income",document: "Declaration - Income"};
 	var OtherLowIncome = {condition: "Other Documents - Low Income Status",document: "Other Documents - Low Income Status"};
 	var PropertyMortgageLease = {condition: "Property Deed, Mortgage, or Lease Agreement",document: "Property Deed, Mortgage, or Lease Agreement"};
-	var FinancialLease = {condition: "Financial Records – Lease or Mortgage",document: "Financial Records – Lease or Mortgage"};
+	var FinancialLease = {condition: "Financial Records - Lease or Mortgage",document: "Financial Records - Lease or Mortgage"};
 	var ProofOfAssistance = {condition: "Proof of Government Housing Assistance",document: "Proof of Government Housing Assistance"};
 	var UtilityBills = {condition: "Utility Bills, Registration, or Similar Document",document: "Utility Bills, Registration, or Similar Document"};
 	var EducationRecords = {condition: "Education Records",document: "Education Records"};
 	var DeclarationAddress = {condition: "Declaration - Address",document: "Declaration - Address"};
-	var DeclarationParent = {condition: "Declaration – Parent or Guardian",document: "Declaration – Parent or Guardian"};
+	var DeclarationParent = {condition: "Declaration - Parent or Guardian",document: "Declaration - Parent or Guardian"};
 	var OtherDispro = {condition: "Other Documents - Disproportionately Impacted Area",document: "Other Documents - Disproportionately Impacted Area"};
 	var ExecutedTier1 = {condition: "Executed Tier 1 Contract",document: "Executed Tier 1 Contract"};
 	var Tier1Attest = {condition: "Tier 1 Attestation",document: "Tier 1 Attestation"};
@@ -90,14 +90,24 @@ function getRequiredDocuments(isPageFlow) {
 
 	var OrganizationalChart = {condition: "Organizational Chart",document: "Organizational Chart"}; 
 	var ProofOfBondOrIns = {condition: "Proof of Bond or Insurance",document: "Proof of Bond or Insurance"}; 
-	var CAOperationalReqs = {condition: "State of California Operational Requirements",document: "State of California Operational Requirements"}; 
-	var LAFDNotification = {condition: "LAFD Notification Form",document: "LAFD Notification Form"}; 
-	var LAFDCUPA = {condition: "LAFD Certified Uniform Program Agency (CUPA)",document: "LAFD Certified Uniform Program Agency (CUPA)"}; 
-	var CommunityBenefits = {condition: "Community Benefits Agreement",document: "Community Benefits Agreement"}; 
+	//var CAOperationalReqs = {condition: "State of California Operational Requirements",document: "State of California Operational Requirements"}; 
+	var LAFDNotification = {condition: "LAFD Statement of Intended Use",document: "LAFD Statement of Intended Use"}; 
+	//var LAFDCUPA = {condition: "LAFD Certified Uniform Program Agency (CUPA)",document: "LAFD Certified Uniform Program Agency (CUPA)"}; 
+	//var CommunityBenefits = {condition: "Community Benefits Agreement",document: "Community Benefits Agreement"}; 
 	var DatedRadiusMap = {condition: "Dated Radius Map",document: "Dated Radius Map"}; 
 	var TestingISO17025 = {condition: "ISO 17025 (Testing Applications Only)",document: "ISO 17025 (Testing Applications Only)"}; 
 	var TestingPlan = {condition: "Testing Plan (Testing Applications Only)",document: "Testing Plan (Testing Applications Only)"}; 
 
+	// new requirements 2/13/2019 JHS
+
+	var bizFormOrg = {condition: "Business Formation and Organization Documents",document: "Business Formation and Organization Documents" };
+	var ownDisclosure = { condition: "Ownership Disclosure Form", document: "Ownership Disclosure Form"};
+	var retailerPlan = { condition: "Retailer Plan (Type 10 Applications Only)", document: "Retailer Plan (Type 10 Applications Only)" };
+	var deliveryPlan = { condition: "Delivery Plan (Type 9 and Type 10 Applications Only)", document: "Delivery Plan (Type 9 and Type 10 Applications Only)"};
+	var distributorPlan = { condition: "Distributor Plan (Distribution Applications Only)", document: "Distributor Plan (Distribution Applications Only)"};
+	var manufacturerPlan = { condition: "Manufacturer Plan (Manufacturing Applications Only)", document: "Manufacturer Plan (Manufacturing Applications Only)"};
+	var cultivatorPlan = { condition: "Cultivator Plan (Cultivation Applications Only)", document: "Cultivator Plan (Cultivation Applications Only)"};
+	var indemnificationAgreement = { condition: "Indemnification Agreement", document: "Indemnification Agreement"};
 
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Conditionals from Record
@@ -153,17 +163,17 @@ function getRequiredDocuments(isPageFlow) {
 		if (isChecked("Declaration - Arrest or Conviction")) requirementArray.push(DeclarationArrest);
 		if (isChecked("Other Documents - Arrest or Conviction")) requirementArray.push(OtherArrest);
 		if (isChecked("Tax Records")) requirementArray.push(TaxRecords);
-		if (isChecked("Financial Records – Wage or Bank Statements")) requirementArray.push(FinancialRecordsWage);
+		if (isChecked("Financial Records - Wage or Bank Statements")) requirementArray.push(FinancialRecordsWage);
 		if (isChecked("Receipt of Government Assistance")) requirementArray.push(ReceiptOfAssistance);
 		if (isChecked("Declaration - Income")) requirementArray.push(DeclarationIncome);
 		if (isChecked("Other Documents - Low Income Status")) requirementArray.push(OtherLowIncome);
 		if (isChecked("Property Deed, Mortgage, or Lease Agreement")) requirementArray.push(PropertyMortgageLease);
-		if (isChecked("Financial Records – Lease or Mortgage")) requirementArray.push(FinancialLease);
+		if (isChecked("Financial Records - Lease or Mortgage")) requirementArray.push(FinancialLease);
 		if (isChecked("Proof of Government Housing Assistance")) requirementArray.push(ProofOfAssistance);
 		if (isChecked("Utility Bills, Registration, or Similar Document")) requirementArray.push(UtilityBills);
 		if (isChecked("Education Records")) requirementArray.push(EducationRecords);
 		if (isChecked("Declaration - Address")) requirementArray.push(DeclarationAddress);
-		if (isChecked("Declaration – Parent or Guardian")) requirementArray.push(DeclarationParent);
+		if (isChecked("Declaration - Parent or Guardian")) requirementArray.push(DeclarationParent);
 		if (isChecked("Other Documents - Disproportionately Impacted Area")) requirementArray.push(OtherDispro);
 		if (isChecked("Executed Tier 1 Contract")) requirementArray.push(ExecutedTier1);
 		if (isChecked("Tier 1 Attestation")) requirementArray.push(Tier1Attest);
@@ -197,7 +207,7 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(LiveScan);
 			requirementArray.push(CUPAPermit);
 			requirementArray.push(IndemnificationAgreement);
-			requirementArray.push(CommunityBenefitAgreement);
+			//requirementArray.push(CommunityBenefitAgreement);
 			
 			if (isTesting) {
 				requirementArray.push(ISO170325Accreditation);
@@ -231,16 +241,27 @@ function getRequiredDocuments(isPageFlow) {
 		// add Additional Requirements based on selections
 		if (isChecked("Organizational Chart")) requirementArray.push(OrganizationalChart);
 		if (isChecked("Proof of Bond or Insurance")) requirementArray.push(ProofOfBondOrIns);
-		if (isChecked("State of California Operational Requirements")) requirementArray.push(CAOperationalReqs);
-		if (isChecked("LAFD Notification Form")) requirementArray.push(LAFDNotification);
-		if (isChecked("LAFD Certified Uniform Program Agency (CUPA)")) requirementArray.push(LAFDCUPA);
-		if (isChecked("Community Benefits Agreement")) requirementArray.push(CommunityBenefits);
+		//if (isChecked("State of California Operational Requirements")) requirementArray.push(CAOperationalReqs);
+		if (isChecked("LAFD Statement of Intended Use")) requirementArray.push(LAFDNotification);
+		//if (isChecked("LAFD Certified Uniform Program Agency (CUPA)")) requirementArray.push(LAFDCUPA);
+		//if (isChecked("Community Benefits Agreement")) requirementArray.push(CommunityBenefits);
 		if (isChecked("Dated Radius Map")) requirementArray.push(DatedRadiusMap);
 		if (isChecked("ISO 17025 (Testing Applications Only)")) requirementArray.push(TestingISO17025);
 		if (isChecked("Testing Plan (Testing Applications Only)")) requirementArray.push(TestingPlan);
-		if (isChecked("Labor Peace Agreement")) requirementArray.push(LaborPeaceAgreement);
+		if (isChecked("Labor Peace Agreement Attestation Form")) requirementArray.push(LaborPeaceAgreement);
 		if (isChecked("Security Plan")) requirementArray.push(SecurityPlan);
 		if (isChecked("Staffing Plan")) requirementArray.push(StaffingPlan);
+		
+		// added 2/13/19
+		if (isChecked("Business Formation and Organization Documents")) requirementArray.push(bizFormOrg);
+		if (isChecked("Ownership Disclosure Form")) requirementArray.push(ownDisclosure);
+		if (isChecked("Retailer Plan (Type 10 Applications Only)")) requirementArray.push(retailerPlan);
+		if (isChecked("Delivery Plan (Type 9 and Type 10 Applications Only)")) requirementArray.push(deliveryPlan);
+		if (isChecked("Distributor Plan (Distribution Applications Only)")) requirementArray.push(distributorPlan);
+		if (isChecked("Manufacturer Plan (Manufacturing Applications Only)")) requirementArray.push(manufacturerPlan);
+		if (isChecked("Cultivator Plan (Cultivation Applications Only)")) requirementArray.push(cultivatorPlan);
+		if (isChecked("Indemnification Agreement")) requirementArray.push(indemnificationAgreement);
+
 
 	}
 	logDebug("Num of Req Docs:" + requirementArray.length + " docs.");
