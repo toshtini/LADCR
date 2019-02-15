@@ -56,7 +56,7 @@
 			for (x in vAddresses) {
 				vAddress = vAddresses[x];
 				// Use only the Premise address type - assumes only one
-				if (vAddress.getAddressType() == "Premise") {
+				if (vAddress.getAddressType() == "Premise" || vAddress.getAddressType() == "Premises") {
 					// Get transactional address model
 					vCapScriptModel = aa.cap.getCap(capId).getOutput();
 					vCapModel = vCapScriptModel.getCapModel();
