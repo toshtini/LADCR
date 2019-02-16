@@ -183,6 +183,10 @@ function getRequiredDocuments(isPageFlow) {
 
 	if ((isApplication || isAttestationAmendment) && !isOwnerAttestation) {
 		// add for temp and annual
+		// add always...
+		requirementArray.push(DiagramOfPremises); //added 2/15/2019 per Alex
+		requirementArray.push(PropertyMortgageLease); //added 2/15/2019 per Alex
+		
 		if (!isTesting) {
 			requirementArray.push(DeclarationEngagedActivities);
 			requirementArray.push(DeclarationSuppliedEMMD);
@@ -222,7 +226,7 @@ function getRequiredDocuments(isPageFlow) {
 		} else {
 			// only add temp requirements
 			requirementArray.push(DocOfLocalCompliance);
-			requirementArray.push(DiagramOfPremises);
+			//requirementArray.push(DiagramOfPremises); //moved above
 			requirementArray.push(BusinessTaxRegistrationCertificate);
 		}
 		
