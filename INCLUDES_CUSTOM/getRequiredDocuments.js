@@ -29,29 +29,29 @@ function getRequiredDocuments(isPageFlow) {
 	//var ProofOfBondInsurance = {condition : "Proof of Bond / Insurance",document :  "Proof of Bond / Insurance"};
 	var IndemnificationAgreement = {condition : "Indemnification Agreement",document : "Indemnification Agreement"};
 	//var CommunityBenefitAgreement = {condition : "Community Benefit Agreement",document : "Community Benefit Agreement"};
-	var BusinessTaxRegistrationCertificate = {condition: "Business Tax Registration Certificate",document: "Business Tax Registration Certificate"};
+	//var BusinessTaxRegistrationCertificate = {condition: "Business Tax Registration Certificate",document: "Business Tax Registration Certificate"};
 	var CannabisWasteManagementPlan = {condition: "Cannabis Waste Management Plan",document: "Cannabis Waste Management Plan"}; 
-	var CommercialCannabisActivityPlan = {condition: "Commercial Cannabis Activity Plan",document: "Commercial Cannabis Activity Plan"}; 
+	//var CommercialCannabisActivityPlan = {condition: "Commercial Cannabis Activity Plan",document: "Commercial Cannabis Activity Plan"}; 
 	var DiversityPlan = {condition: "Diversity Plan",document: "Diversity Plan"}; 
-	var CUPAPermit = {condition : "CUPA Permit",document : "CUPA Permit"};
+	//var CUPAPermit = {condition : "CUPA Permit",document : "CUPA Permit"};
 	var EnergyEfficiencyPlan = {condition: "Energy Efficiency Plan",document: "Energy Efficiency Plan"}; 
 	//var CommercialCannabisActivityPlan = {condition: "Energy Efficiency Plan",document: "Energy Efficiency Plan"}; //defined above
 	var FinancialInformation = {condition: "Financial Information",document: "Financial Information"}; 
 	var FireSafetyPlan = {condition: "Fire Safety Plan",document: "Fire Safety Plan"}; 
 	var GovernmentIssuedIdentification = {condition: "Government-Issued Identification",document: "Government-Issued Identification"}; 
-	var HiringPlan = {condition: "Hiring Plan",document: "Hiring Plan"}; 
+	//var HiringPlan = {condition: "Hiring Plan",document: "Hiring Plan"}; 
 	var ISO170325Accreditation = {condition: "ISO 170325 Accreditation",document: "ISO 170325 Accreditation"}; 
 	var LaborPeaceAgreement = {condition: "Labor Peace Agreement Attestation Form",document: "Labor Peace Agreement Attestation Form"}; 
 	var LaboratoryEmployeeQualifications = {condition: "Laboratory Employee Qualifications",document: "Laboratory Employee Qualifications"}; 
-	var LimitedAccessAreasPlan = {condition: "Limited Access Areas Plan",document: "Limited Access Areas Plan"}; 
+	//var LimitedAccessAreasPlan = {condition: "Limited Access Areas Plan",document: "Limited Access Areas Plan"}; 
 	//var OrgChart = {condition: "Org. Chart",document: "Org. Chart"}; 
-	var RadiusMap = {condition: "Radius Map",document: "Radius Map"}; 
+	//var RadiusMap = {condition: "Radius Map",document: "Radius Map"}; 
 	var SamplingPlansProceduresAndProtocols = {condition: "Sampling Plans, Procedures and Protocols",document: "Sampling Plans, Procedures and Protocols"}; 
 	var SecurityPlan = {condition: "Security Plan",document: "Security Plan"}; 
 	var StaffingPlan = {condition: "Staffing Plan",document: "Staffing Plan"}; 
 	var StandardOperatingProcedures = {condition: "Standard Operating Procedures",document: "Standard Operating Procedures"}; 
 	var TestingMethodologies = {condition: "Testing Methodologies",document: "Testing Methodologies"}; 
-	var LiveScan = {condition: "Proof of Live Scan or Other Service",document: "Proof of Live Scan or Other Service"}; 
+	//var LiveScan = {condition: "Proof of Live Scan or Other Service",document: "Proof of Live Scan or Other Service"}; 
 	var CourtRecords = {condition: "Court Records",document: "Court Records"};
 	var GovernmentRecords = {condition: "Government Records",document: "Government Records"};
 	var DeclarationArrest = {condition: "Declaration - Arrest or Conviction",document: "Declaration - Arrest or Conviction"};
@@ -85,8 +85,8 @@ function getRequiredDocuments(isPageFlow) {
 	var formulation2017 = {condition: "Business Formulation Documents Pre-2017",document: "Business Formulation Documents Pre-2017"};
 	var business2017 = {condition: "Business Records Pre-2017",document: "Business Records Pre-2017"};
 	var other2017 = {condition: "Other Supporting Documents Pre-2017",document: "Other Supporting Documents Pre-2017"};
-	var DeclarationEngagedActivities  = {condition: "Declaration - Engaged in Activities Prior to January 1, 2016",document: "Declaration - Engaged in Activities Prior to January 1, 2016"};
-	var DeclarationSuppliedEMMD  = {condition: "Declaration - Supplied EMMD Prior to January 1, 2017",document: "Declaration - Supplied EMMD Prior to January 1, 2017"};
+	//var DeclarationEngagedActivities  = {condition: "Declaration - Engaged in Activities Prior to January 1, 2016",document: "Declaration - Engaged in Activities Prior to January 1, 2016"};
+	//var DeclarationSuppliedEMMD  = {condition: "Declaration - Supplied EMMD Prior to January 1, 2017",document: "Declaration - Supplied EMMD Prior to January 1, 2017"};
 
 	var OrganizationalChart = {condition: "Organizational Chart",document: "Organizational Chart"}; 
 	var ProofOfBondOrIns = {condition: "Proof of Bond or Insurance",document: "Proof of Bond or Insurance"}; 
@@ -188,28 +188,28 @@ function getRequiredDocuments(isPageFlow) {
 		requirementArray.push(PropertyMortgageLease); //added 2/15/2019 per Alex
 		
 		if (!isTesting) {
-			requirementArray.push(DeclarationEngagedActivities);
-			requirementArray.push(DeclarationSuppliedEMMD);
+			//requirementArray.push(DeclarationEngagedActivities);
+			//requirementArray.push(DeclarationSuppliedEMMD);
 		}
 		
 		// if full app, add all requirements
 		if (!isTemporaryRequest) {
-			requirementArray.push(BusinessTaxRegistrationCertificate);
+			//requirementArray.push(BusinessTaxRegistrationCertificate);
 			requirementArray.push(CannabisWasteManagementPlan);
-			requirementArray.push(CommercialCannabisActivityPlan);
+			//requirementArray.push(CommercialCannabisActivityPlan);
 			requirementArray.push(DiversityPlan);
 			requirementArray.push(FinancialInformation);
 			requirementArray.push(FireSafetyPlan);
-			requirementArray.push(HiringPlan);
+			//requirementArray.push(HiringPlan);
 			//requirementArray.push(LaborPeaceAgreement); // moved below
-			requirementArray.push(LimitedAccessAreasPlan);
+			//requirementArray.push(LimitedAccessAreasPlan);
 			//requirementArray.push(OrgChart); // moved below, renamed
-			requirementArray.push(RadiusMap);
+			//requirementArray.push(RadiusMap);
 			//requirementArray.push(SecurityPlan); // moved below
 			//requirementArray.push(StaffingPlan); // moved below
 			//requirementArray.push(ProofOfBondInsurance); // moved below, renamed
-			requirementArray.push(LiveScan);
-			requirementArray.push(CUPAPermit);
+			//requirementArray.push(LiveScan);
+			//requirementArray.push(CUPAPermit);
 			requirementArray.push(IndemnificationAgreement);
 			//requirementArray.push(CommunityBenefitAgreement);
 			
@@ -227,7 +227,7 @@ function getRequiredDocuments(isPageFlow) {
 			// only add temp requirements
 			requirementArray.push(DocOfLocalCompliance);
 			//requirementArray.push(DiagramOfPremises); //moved above
-			requirementArray.push(BusinessTaxRegistrationCertificate);
+			//requirementArray.push(BusinessTaxRegistrationCertificate);
 		}
 		
 		// add eligibility reqs based on selections
