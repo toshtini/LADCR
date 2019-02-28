@@ -273,6 +273,8 @@ function getRequiredDocuments(isPageFlow) {
 		var relASIT = loadASITable4ACA("Management Companies", capToUse);
 		if (relASIT && relASIT.length > 0) {
 			requirementArray.push(managementCompanies);
+		} else {
+			requirementArray.push(managementCompanies); // for testing!!!!!!!!!!!!!!!!!
 		}
 
 	}
