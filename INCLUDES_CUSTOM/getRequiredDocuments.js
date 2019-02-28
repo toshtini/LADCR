@@ -109,6 +109,9 @@ function getRequiredDocuments(isPageFlow) {
 	var cultivatorPlan = { condition: "Cultivator Plan (Cultivation Applications Only)", document: "Cultivator Plan (Cultivation Applications Only)"};
 	var indemnificationAgreement = { condition: "Indemnification Agreement", document: "Indemnification Agreement"};
 
+	// new requirements 2/28/2019 GH
+	var managementCompanies = { condition: "Management Company Agreement", document: "Management Company Agreement"};
+
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Conditionals from Record
 	/------------------------------------------------------------------------------------------------------*/
@@ -266,6 +269,11 @@ function getRequiredDocuments(isPageFlow) {
 		if (isChecked("Cultivator Plan (Cultivation Applications Only)")) requirementArray.push(cultivatorPlan);
 		if (isChecked("Indemnification Agreement")) requirementArray.push(indemnificationAgreement);
 
+		// added 2/28/2019 - check if entry in table for document requirement
+		var relASIT = loadASITable4ACA("Management Companies", capToUse);
+		if (relASIT && relASIT.length > 0) {
+			requirementArray.push(managementCompanies);
+		}
 
 	}
 	logDebug("Num of Req Docs:" + requirementArray.length + " docs.");
