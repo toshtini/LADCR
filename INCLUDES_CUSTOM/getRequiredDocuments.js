@@ -270,7 +270,8 @@ function getRequiredDocuments(isPageFlow) {
 		if (isChecked("Indemnification Agreement")) requirementArray.push(indemnificationAgreement);
 
 		// added 2/28/2019 - check if entry in table for document requirement
-		var relASIT = loadASITable4ACA("MANAGEMENT COMPANIES", capToUse);
+		
+		var relASIT = isPageFlow ? loadASITable4ACA("MANAGEMENT COMPANIES", capToUse) : loadASITable("MANAGEMENT COMPANIES",capToUse);
 		if (relASIT && relASIT.length > 0) {
 			requirementArray.push(managementCompanies);
 		} 
