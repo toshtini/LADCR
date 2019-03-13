@@ -1,10 +1,9 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program: ABANDONED_APPLICATIONS
-| Client:  State of CA DCA - BCC
+| Program: Close_Review_Timeout_Batch
 |
-| Version 1.0 - Base Version. 
+| Version 1.0 - Base Version.
 |
-| 
+|
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 |
@@ -13,18 +12,17 @@
 /------------------------------------------------------------------------------------------------------*/
 var emailText = "";
 var debugText = "";
-var showDebug = true;	
+var showDebug = true;
 var showMessage = false;
 var message = "";
 var maxSeconds = 4.5 * 60;
 var br = "<br>";
 var currentUserID = "ADMIN";
 var debug = "";
-var reviewTask = "Initial Review";
-var supervisorReviewTask = "Supervisory Review";
-var deficiencyStatus = "Additional Info Requested";
-var abandonStatus = "Abandoned";
-
+var permitType = "Cannabis";
+var currWorkFlowTask = "Close Review";
+var wtaskStatus = "In Progress";
+curDate = new Date();
 
 SCRIPT_VERSION = 3.0
 /*------------------------------------------------------------------------------------------------------/
@@ -43,6 +41,8 @@ eval(getScriptText("INCLUDES_BATCH"));
 eval(getMasterScriptText("INCLUDES_CUSTOM"));
 eval(getScriptText("INCLUDES_CUSTOM_GLOBALS"));
 
+overRide = "function logDebug(dstr) { aa.print(dstr); } function logMessage(dstr) { aa.print(dstr); }";
+eval(overRide); 
 
 function getScriptText(vScriptName){
 	vScriptName = vScriptName.toUpperCase();
@@ -73,7 +73,18 @@ else
 | Start: BATCH PARAMETERS
 |
 /------------------------------------------------------------------------------------------------------*/
-
+// Standard Choice PARAMETERS
+/*----------------------------------------------------------------------------------------------------/
+| Standard Choice : Data Extract for Assessors Office
+|- lookBehindDays "30"
+/------------------------------------------------------------------------------------------------------*/
+/*
+Standard Choice Variables
+*/
+var stdChoiceName = "CLOSEREVIEWTIMEOUTBATCH";
+var lookBehindDays = lookup(stdChoiceName, "lookBehindDays");
+if (!lookBehindDays)
+  lookBehindDays = "30";
 /*----------------------------------------------------------------------------------------------------/
 |
 | End: BATCH PARAMETERS
@@ -90,11 +101,9 @@ today.setHours(0); today.setMinutes(0); today.setSeconds(0); today.setMillisecon
 | <===========Main=Loop================>
 |
 /-----------------------------------------------------------------------------------------------------*/
-
 logDebug("Start of Job");
-
-mainProcess(reviewTask);
-mainProcess(supervisorReviewTask);
+logDebug("current Date: " + curDate);
+mainProcess();
 
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 
@@ -105,27 +114,18 @@ if (showDebug) {
 //aa.print(emailText);
 /*------------------------------------------------------------------------------------------------------/
 | <===========END=Main=Loop================>
-/-----------------------------------------------------------------------------------------------------*/
-
+/------------------------------------------------------------------------------------------------------*/
 function mainProcess(t) {
 	var capCount = 0;
 	var appList = new Array();
+  var permitType = "Cannabis";
+	var taskName = "Close Review";
+	var taskStatus = "In Progress";
 
-	logDebug("Retrieving applications with active task = " + t);
+	logDebug("Retrieving permit type of Cannibus that is in Close Review and In Progress");
 	logDebug("********************************");
 
-	//Setup the workflow task criteria
-	var taskItemScriptModel = aa.workflow.getTaskItemScriptModel().getOutput();
-	taskItemScriptModel.setActiveFlag("Y");
-	taskItemScriptModel.setCompleteFlag("N");
-	taskItemScriptModel.setTaskDescription(t);
-
-	//Setup the cap type criteria
-	var capTypeScriptModel = aa.workflow.getCapTypeScriptModel().getOutput();
-	capTypeScriptModel.setCategory("Application");
-	capTypeScriptModel.setGroup("Licenses");
-
-	var appListResult = aa.workflow.getCapIdsByCriteria(taskItemScriptModel, null,null, capTypeScriptModel, null);
+  var appListResult = aa.cap.getCaps(permitType, taskName, taskStatus, null);
 	if (appListResult.getSuccess()) {
 		appList = appListResult.getOutput();
 	}
@@ -133,63 +133,58 @@ function mainProcess(t) {
 		logDebug("ERROR: Getting Applications, reason is: " + appListResult.getErrorType() + ":" + appListResult.getErrorMessage());
 		return false;
 	}
-		
+
 	if (appList.length > 0) {
 		logDebug("Processing " + appList.length + " application records");
 	} else {
-		logDebug("No applications returned"); 
+		logDebug("No applications returned");
 		return false;
 	}
 
 	logDebug("********************************");
+  /*------------------------------------------------------------------------------------------------------/
+  |  Loop through the list of applications
+  /------------------------------------------------------------------------------------------------------*/
+  for (al in appList) {
 
-	/*------------------------------------------------------------------------------------------------------/
-	|  Loop through the list of applications
-	/------------------------------------------------------------------------------------------------------*/
-	
-	for (al in appList) {
+    capId = aa.cap.getCapID(appList[al].getCapID().getID1(),appList[al].getCapID().getID2(),appList[al].getCapID().getID3()).getOutput();
+    capIDString = capId.getCustomID();
+    logDebug(capIDString);
 
-		capId = aa.cap.getCapID(appList[al].getCapID().getID1(),appList[al].getCapID().getID2(),appList[al].getCapID().getID3()).getOutput();
-		capIDString = capId.getCustomID();
-		logDebug(capIDString);
-		firstDef = getDateOfFirstDeficiency(capId);
-		if (firstDef) {
-			logDebug("Found a First Deficiency Date of " + firstDef);
-			// add two months for comparison.  comment out for testing.
-			firstDef.setDate(firstDef.getDate()+60);
-			logDebug("comparing " + firstDef + " to " + today);
-			if (firstDef.getTime() < today.getTime()) {
-				logDebug("Abandoning the application");
-				taskCloseAllExcept(abandonStatus,"Batch Job " + batchJobName + " Job ID " + batchJobID);
-				updateAppStatus(abandonStatus,"Batch Job " + batchJobName + " Job ID " + batchJobID);
-				capCount++;
-			}
-		}
-	} 
-	
-	logDebug("********************************");
- 	logDebug("Total CAPS qualified criteria: " + appList.length);
- 	logDebug("Total CAPS processed: " + capCount);
- 	
- }
- 
- function getDateOfFirstDeficiency(c) {
-	var theDate;
-	var r = aa.workflow.getHistory(c);
-	if (r.getSuccess()) {
-		var wh = r.getOutput();
-		for (var i in wh) {
-
-		fTask = wh[i];
-			var t = fTask.getTaskDescription();
-			var s = fTask.getDisposition();
-			var d = fTask.getStatusDate();
-			if ((t.equals(reviewTask) || t.equals(supervisorReviewTask)) && s.equals(deficiencyStatus)) {
-				logDebug(new Date(d.getTime()));
-				var theDate = new Date(d.getTime());
-				}
-			}
+    daysApart = getDaysApart();
+    logDebug("daysApart:  " + daysApart);
+    if (daysApart >= lookBehindDays) {
+       closeTask("Close Review", "Close", "", "");
 	}
-	return theDate;
+  }
 }
- 
+  function getDaysApart() {
+  // Find the number of days different from the current date to the status date. Close the review
+  // workflow status if the number of days exceeds the or is equal to the customer supplied lookBehindDays
+
+  //get workflow status date and chane it for the startDate 2018/01/06 format
+
+    tDateStr = taskStatusDate("Close Review", null, capId);
+    
+    //Establish start and end dates
+	var startDate = convertDate(tDateStr);
+  var endDate = new Date();
+
+  logDebug("Start Date " + startDate);
+  logDebug("end Date " + endDate);
+
+  // compute one day in milliseconds
+  days = 1000 * 60 * 60 * 24;  // one day in milliseconds
+
+  //Calculate both dates to setMilliseconds
+  startDate_ms = startDate.getTime();
+  endDate_ms = endDate.getTime();
+
+  //Calculate the difference in setMilliseconds
+
+  difference_ms = endDate_ms - startDate_ms;
+
+  //Convert back to days and return
+
+  return daysApart = (Math.floor(difference_ms/days));
+  }
