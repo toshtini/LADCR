@@ -14,7 +14,7 @@
 	
 
 	// Save the business name to the app name if it doesn't exist. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
-	if (vBusinesses && (getAppName() == null || getAppName == "")) {
+	if (vBusinesses && (getAppName() == null || getAppName() == "")) {
 		// Assume only one business contact
 		vBusiness = vBusinesses[0];
 		var btrc = AInfo["BTRC Number"];
@@ -35,15 +35,19 @@
 		// If contact type is individual use the contact type 2
 		if (vBusinessObj.getContactTypeFlag() == "individual") {
 			editAppName(vBusinessObj.getBusinessName2());
+			vBusinessObj.setBusinessName2(vBusinessObj.getBusinessName2());
 		}
 		// For all others use Use DBA/Trade name if provided
 		else if (vBusinessObj.getTradeName() != null && vBusinessObj.getTradeName() != "") {
 			editAppName(vBusinessObj.getTradeName());
+			vBusinessObj.setBusinessName2(vBusinessObj.getTradeName());
 		} 
 		// Use Business Name as a last resort
 		else if (vBusinessObj.getBusinessName() != null && vBusinessObj.getBusinessName() != "") {
 			editAppName(vBusinessObj.getBusinessName());
+			vBusinessObj.setBusinessName2(vBusinessObj.getBusinessName());
 		}
+		vBusiness.save();
 
 		// Save address to the record if it doesn't already exists. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
 		vAddresses = vBusiness.addresses;
@@ -52,7 +56,7 @@
 			for (x in vAddresses) {
 				vAddress = vAddresses[x];
 				// Use only the Premise address type - assumes only one
-				if (vAddress.getAddressType() == "Premise") {
+				if (vAddress.getAddressType() == "Premise" || vAddress.getAddressType() == "Premises") {
 					// Get transactional address model
 					vCapScriptModel = aa.cap.getCap(capId).getOutput();
 					vCapModel = vCapScriptModel.getCapModel();

@@ -1,4 +1,5 @@
 if (wfStatus.equals("Temporarily Approved")) {
+	
 	var vEParams = aa.util.newHashtable();
 	addParameter(vEParams, "$$LicenseType$$", appTypeAlias);
 	addParameter(vEParams, "$$ExpirationDate$$", dateAdd(null, 60));

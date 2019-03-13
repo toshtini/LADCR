@@ -9,6 +9,7 @@ var vRParams = aa.env.getValue("vRParams");
 var vChangeReportName = aa.env.getValue("vChangeReportName");
 var capId = aa.env.getValue("CapId");
 var vAddAdHocTask = aa.env.getValue("vAddAdHocTask");
+var vContactCapId = aa.env.getValue("vContactCapId");
 
 aa.print("2) sendEmailToContactTypes: " + sendEmailToContactTypes);
 aa.print("3) emailTemplate: " + emailTemplate);
@@ -157,13 +158,15 @@ else {
 		conType = conTypeArray[z];
 		conEmail = null;
 		peopTemp = null;
-		logDebug("          Searching for " + conTypeArray[z]);
+		//logDebug("          Searching for " + conTypeArray[z]);
+		//Determine capId from which to get contacts
+		if (vContactCapId == null || vContactCapId == "" || vContactCapId == false){
+			vContactCapId = capId;
+		}
 		if (conType == "Primary") {
-			vConObjArry = getContactObjsByCap_BCC(capId);
-			logDebug("          found " + vConObjArry);
+			vConObjArry = getContactObjsByCap_BCC(vContactCapId);
 		} else {
-			vConObjArry = getContactObjsByCap_BCC(capId, conTypeArray[z]);
-			logDebug("          found " + vConObjArry);
+			vConObjArry = getContactObjsByCap_BCC(vContactCapId, conTypeArray[z]);
 		}
 		for (x in vConObjArry) {
 			vConObj = vConObjArry[x];

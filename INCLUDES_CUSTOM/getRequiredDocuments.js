@@ -1,9 +1,8 @@
 function getRequiredDocuments(isPageFlow) {
-
+	
 	logDebug("start getRequiredDocuments(" + [].slice.call(arguments) + ")");
 
 	//TODO: put in checks to validate record types and reference conditions.
-
 	var capToUse = capId;
 	if (isPageFlow) {
 		capToUse = cap;
@@ -13,349 +12,277 @@ function getRequiredDocuments(isPageFlow) {
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Record Types : NEEDS REVIEW, map variables to record types
 	/------------------------------------------------------------------------------------------------------*/
-	var isMedical = appMatch("Licenses/Medical Cannabis/*/*");
-	var isAdultUse = appMatch("Licenses/Adult Use Cannabis/*/*");
-	var isCannabis = appMatch("Licenses/Cannabis/*/*"); // combined
-
 	var isApplication = appMatch("Licenses/*/*/Application");
 	var isAttestationAmendment = appMatch("Licenses/*/*/Incomplete Attestation");
 	var isRenewal = appMatch("Licenses/*/*/Renewal");
 	var isOwner = appMatch("Licenses/*/*/Owner Submittal");
-	var isOwnerAttestation = appMatch("Licenses/Cannabis/Application Amendment/Incomplete Attestation");
-
-	var isDispensary = appMatch("Licenses/*/Dispensary/*"); // No longer exists
-	var isProducingDispensary = appMatch("Licenses/*/Producing Dispensary/*"); // No longer exists
-	var isDistributor = appMatch("Licenses/*/Distributor/*");  // Type A11, M11
-	var isTesting = appMatch("Licenses/*/Testing/*");  // Type 8
-	var isTransporter = appMatch("Licenses/*/Transporter/*"); // No longer exists
-	var isRetailer = appMatch("Licenses/*/Retailer/*"); // Type A10, M10
-	var isRetailerNonStore = appMatch("Licenses/*/Retailer Nonstorefront/*");  // Type A9, M9
-	var isMicroBusiness = appMatch("Licenses/*/Microbusiness/*");  // Type A12, M12
-	var isDistribTransportOnly = appMatch("Licenses/*/Distributor-Transport Only/*");  // Type A13, M13
-	var isDeficiency = appMatch("Licenses/*/*/Attestation Deficiency");
-
-
-	/*------------------------------------------------------------------------------------------------------/
-	| Load up Workflow Requirements :
-	/------------------------------------------------------------------------------------------------------*/
+	var isOwnerAttestation = false; // not used for LADCR appMatch("Licenses/Cannabis/Application Amendment/Incomplete Attestation");
+	var isCEOAttestation = appMatch("Licenses/Cannabis/Event Organzier/Incomplete Attestation");
+	var isTemporaryEventAttestation = appMatch("Licenses/Cannabis/Temporary Event/Incomplete Attestation");
 	
-	var wfStopAll = [{
-			task: "Supervisory Review",
-			status: "Approved"
-		}, {
-			task: "Supervisory Review",
-			status: "Provisionally Approved"
-		}, {
-			task: "Supervisory Review",
-			status: "Temporarily Approved"
-		}
-	];
-	var wfStopPermanentOnly = [{
-			task: "Supervisory Review",
-			status: "Approved"
-		}, {
-			task: "Supervisory Review",
-			status: "Provisionally Approved"
-		}
-	];
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Standard Conditions :
 	/------------------------------------------------------------------------------------------------------*/
-	var businessFormationDocuments = {
-		condition: "Business Formation Documents",
-		document: "Business Formation Documents",
-		workflow: wfStopPermanentOnly
-	}; // 5006(b)(15)
-	var financialInformation = {
-		condition: "Financial Information",
-		document: "Financial Information",
-		workflow: wfStopPermanentOnly
-	}; // 5006(b)(18)
-	var documentationOfLocalCompliance = {
-		condition: "Documentation of Local Compliance",
-		document: "Documentation of Local Compliance",
-		workflow: wfStopAll
-	}; // 5006(b)(23)
-	var laborPeaceAgreement = {
-		condition: "Labor Peace Agreement",
-		document: "Labor Peace Agreement",
-		workflow: wfStopPermanentOnly
-	}; // 5006(b)(26)
-	var documentForLaborPeace = {
-		condition: "Document for Labor Peace Requirement",
-		document: "Document for Labor Peace Requirement",
-		workflow: wfStopPermanentOnly
-		
-	}; // user story 2213
-	var waiverOfSovereignImmunity = {
-		condition: "Waiver of Sovereign Immunity",
-		document: "Waiver of Sovereign Immunity",
-		workflow: wfStopPermanentOnly
-	}; // 5006(b)(33)
-	var evidenceOfLegalRightToOccupy = {
-		condition: "Evidence of Legal Right to Occupy",
-		document: "Evidence of Legal Right to Occupy",
-		workflow: wfStopAll
-	}; // 5006(b)(24)
-	var proofOfSuretyBond = {
-		condition: "Proof of Surety Bond",
-		document: "Proof of Surety Bond",
-		workflow: wfStopPermanentOnly
-	}; // 5006(b)(28)
-	var diagramOfPremises = {
-		condition: "Diagram of Premises",
-		document: "Diagram of Premises",
-		workflow: wfStopAll
-	}; // 5006(b)(28)
-/* no longer used see story 2062
-	var operatingProceduresDistrib = {
-		condition: "Operating Procedures - Distribution",
-		document: "Operating Procedures"
-	}; // 5006(b)(30)
-	var operatingProceduresTransport = {
-		condition: "Operating Procedures - Transport",
-		document: "Operating Procedures"
-	}; // 5006(b)(31)
-	var operatingProceduresDispense = {
-		condition: "Operating Procedures - Dispensary",
-		document: "Operating Procedures"
-	}; // 5006(b)(32)
-	var operatingProceduresMicro = {
-		condition: "Operating Procedures - MicroBusiness",
-		document: "Operating Procedures"
-	}; // AUMA regs
-	var operatingProceduresTesting = {
-		condition: "Operating Procedures - Testing",
-		document: "Operating Procedures"
-	}; // 5292 (a)
-*/
-	var labEmployeeQualifications = {
-		condition: "Laboratory Employee Qualifications",
-		document: "Laboratory Employee Qualifications",
-		workflow: wfStopPermanentOnly
-	}; // 5238(b)
-	var proofOfIsoAccreditationStatus = {
-		condition: "Proof of ISO Accreditation Status",
-		document: "Proof of ISO Accreditation Status",
-		workflow: wfStopPermanentOnly
-	}; // 5238(b)
-	var submittedFingerPrintImages = {
-		condition: "Submitted Application for Fingerprint Images",
-		document: "Submitted Application for Fingerprint Images",
-		workflow: wfStopPermanentOnly
-	}; // 5238(b)
-	var governmentIssuedIdentification = {
-		condition: "Government-Issued Identification",
-		document: "Government-Issued Identification",
-		workflow: wfStopPermanentOnly
-	}; // 5238(b)
-	var descriptionOfConvictions = {
-		condition: "Description of Convictions",
-		document: "Description of Convictions",
-		workflow: wfStopPermanentOnly
-	}; // 5238(b)
-	var proofOfMilitaryStatus = {
-		condition: "Proof of Military Status",
-		document: "Proof of Military Status",
-		workflow: wfStopPermanentOnly
-	}; // 5006(b)(4)
-	var priorityProcessingRequest = {
-		condition: "Priority Processing Request",
-		document: "Priority Processing Request",
-		workflow: wfStopPermanentOnly
-	};
-	var proofOfInsurance = {
-		condition: "Proof of Commercial General Liability Insurance",
-		document: "Proof of Commercial General Liability Insurance",
-		workflow: wfStopPermanentOnly
-	};
-	var evidencePremiseLessThan600ft = {
-		condition: "Evidence of Premise Less Than 600ft Compliance",
-		document: "Evidence of Premise Less Than 600ft Compliance",
-		workflow: wfStopPermanentOnly
-	};
 
-	var transportationProcess = {
-		condition: "Transportation Process",
-		document: "Transportation Process",
-		workflow: wfStopPermanentOnly
-	};
-	var inventoryProcedures = {
-		condition: "Inventory Procedures",
-		document: "Inventory Procedures",
-		workflow: wfStopPermanentOnly
-	};
-	var qualityControlProcedures = {
-		condition: "Quality Control Procedures",
-		document: "Quality Control Procedures",
-		workflow: wfStopPermanentOnly
-	};
-	var securityProtocols = {
-		condition: "Security Protocols",
-		document: "Security Protocols",
-		workflow: wfStopPermanentOnly
-	};
-	var standardOperatingProcedures = {
-		condition: "Standard Operating Procedures",
-		document: "Standard Operating Procedures",
-		workflow: wfStopPermanentOnly
-	};
-	/*
-	// removed user story 2229
-	var chainOfCustodyProtocol = { condition: "Chain of Custody Protocol",document: "Chain of Custody Protocol"	};
-	var labAnalysesStandard = {condition: "Laboratory Analyses Standard",document: "Laboratory Analyses Standard"	};
-	var testingMethods = { condition: "Testing Methods",document: "Testing Methods"	};
-	*/
+	var DiagramOfPremises = {condition: "Diagram of Premises",document: "Diagram of Premises"};
+	var DocOfLocalCompliance = {condition : "Documentation of Local Compliance",document: "Documentation of Local Compliance"};
+	//var ProofOfBondInsurance = {condition : "Proof of Bond / Insurance",document :  "Proof of Bond / Insurance"};
+	var IndemnificationAgreement = {condition : "Indemnification Agreement",document : "Indemnification Agreement"};
+	//var CommunityBenefitAgreement = {condition : "Community Benefit Agreement",document : "Community Benefit Agreement"};
+	//var BusinessTaxRegistrationCertificate = {condition: "Business Tax Registration Certificate",document: "Business Tax Registration Certificate"};
+	var CannabisWasteManagementPlan = {condition: "Cannabis Waste Management Plan",document: "Cannabis Waste Management Plan"}; 
+	//var CommercialCannabisActivityPlan = {condition: "Commercial Cannabis Activity Plan",document: "Commercial Cannabis Activity Plan"}; 
+	var DiversityPlan = {condition: "Diversity Plan",document: "Diversity Plan"}; 
+	//var CUPAPermit = {condition : "CUPA Permit",document : "CUPA Permit"};
+	var EnergyEfficiencyPlan = {condition: "Energy Efficiency Plan",document: "Energy Efficiency Plan"}; 
+	//var CommercialCannabisActivityPlan = {condition: "Energy Efficiency Plan",document: "Energy Efficiency Plan"}; //defined above
+	var FinancialInformation = {condition: "Financial Information",document: "Financial Information"}; 
+	var FireSafetyPlan = {condition: "Fire Safety Plan",document: "Fire Safety Plan"}; 
+	var GovernmentIssuedIdentification = {condition: "Government-Issued Identification",document: "Government-Issued Identification"}; 
+	//var HiringPlan = {condition: "Hiring Plan",document: "Hiring Plan"}; 
+	var ISO170325Accreditation = {condition: "ISO 170325 Accreditation",document: "ISO 170325 Accreditation"}; 
+	var LaborPeaceAgreement = {condition: "Labor Peace Agreement Attestation Form",document: "Labor Peace Agreement Attestation Form"}; 
+	var LaboratoryEmployeeQualifications = {condition: "Laboratory Employee Qualifications",document: "Laboratory Employee Qualifications"}; 
+	//var LimitedAccessAreasPlan = {condition: "Limited Access Areas Plan",document: "Limited Access Areas Plan"}; 
+	//var OrgChart = {condition: "Org. Chart",document: "Org. Chart"}; 
+	//var RadiusMap = {condition: "Radius Map",document: "Radius Map"}; 
+	var SamplingPlansProceduresAndProtocols = {condition: "Sampling Plans, Procedures and Protocols",document: "Sampling Plans, Procedures and Protocols"}; 
+	var SecurityPlan = {condition: "Security Plan",document: "Security Plan"}; 
+	var StaffingPlan = {condition: "Staffing Plan",document: "Staffing Plan"}; 
+	var StandardOperatingProcedures = {condition: "Standard Operating Procedures",document: "Standard Operating Procedures"}; 
+	var TestingMethodologies = {condition: "Testing Methodologies",document: "Testing Methodologies"}; 
+	//var LiveScan = {condition: "Proof of Live Scan or Other Service",document: "Proof of Live Scan or Other Service"}; 
+	var CourtRecords = {condition: "Court Records",document: "Court Records"};
+	var GovernmentRecords = {condition: "Government Records",document: "Government Records"};
+	var DeclarationArrest = {condition: "Declaration - Arrest or Conviction",document: "Declaration - Arrest or Conviction"};
+	var OtherArrest = {condition: "Other Documents - Arrest or Conviction",document: "Other Documents - Arrest or Conviction"};
+	var TaxRecords = {condition: "Tax Records",document: "Tax Records"};
+	var FinancialRecordsWage = {condition: "Financial Records - Wage or Bank Statements",document: "Financial Records - Wage or Bank Statements"};
+	var ReceiptOfAssistance = {condition: "Receipt of Government Assistance",document: "Receipt of Government Assistance"};
+	var DeclarationIncome = {condition: "Declaration - Income",document: "Declaration - Income"};
+	var OtherLowIncome = {condition: "Other Documents - Low Income Status",document: "Other Documents - Low Income Status"};
+	var PropertyMortgageLease = {condition: "Property Deed, Mortgage, or Lease Agreement",document: "Property Deed, Mortgage, or Lease Agreement"};
+	var FinancialLease = {condition: "Financial Records - Lease or Mortgage",document: "Financial Records - Lease or Mortgage"};
+	var ProofOfAssistance = {condition: "Proof of Government Housing Assistance",document: "Proof of Government Housing Assistance"};
+	var UtilityBills = {condition: "Utility Bills, Registration, or Similar Document",document: "Utility Bills, Registration, or Similar Document"};
+	var EducationRecords = {condition: "Education Records",document: "Education Records"};
+	var DeclarationAddress = {condition: "Declaration - Address",document: "Declaration - Address"};
+	var DeclarationParent = {condition: "Declaration - Parent or Guardian",document: "Declaration - Parent or Guardian"};
+	var OtherDispro = {condition: "Other Documents - Disproportionately Impacted Area",document: "Other Documents - Disproportionately Impacted Area"};
+	var ExecutedTier1 = {condition: "Executed Tier 1 Contract",document: "Executed Tier 1 Contract"};
+	var Tier1Attest = {condition: "Tier 1 Attestation",document: "Tier 1 Attestation"};
+	var ExecutedTier2 = {condition: "Executed Tier 2 Contract",document: "Executed Tier 2 Contract"};
+	var Tier2Attest = {condition: "Tier 2 Attestation",document: "Tier 2 Attestation"};
+	var DeclarationPhase2Eligibility = {condition: "Declaration of Phase 2 Eligibility",document: "Declaration of Phase 2 Eligibility"};
+
+	var contract2016 = {condition: "Contract Pre-2016",document: "Contract Pre-2016"};
+	var lease2016 = {condition: "Lease Pre-2016",document: "Lease Pre-2016"};
+	var formulation2016 = {condition: "Business Formulation Documents Pre-2016",document: "Business Formulation Documents Pre-2016"};
+	var business2016 = {condition: "Business Records Pre-2016",document: "Business Records Pre-2016"};
+	var other2016 = {condition: "Other Supporting Documents Pre-2016",document: "Other Supporting Documents Pre-2016"};
+	var contract2017 = {condition: "Contract Pre-2017",document: "Contract Pre-2017"};
+	var lease2017 = {condition: "Lease Pre-2017",document: "Lease Pre-2017"};
+	var formulation2017 = {condition: "Business Formulation Documents Pre-2017",document: "Business Formulation Documents Pre-2017"};
+	var business2017 = {condition: "Business Records Pre-2017",document: "Business Records Pre-2017"};
+	var other2017 = {condition: "Other Supporting Documents Pre-2017",document: "Other Supporting Documents Pre-2017"};
+	//var DeclarationEngagedActivities  = {condition: "Declaration - Engaged in Activities Prior to January 1, 2016",document: "Declaration - Engaged in Activities Prior to January 1, 2016"};
+	//var DeclarationSuppliedEMMD  = {condition: "Declaration - Supplied EMMD Prior to January 1, 2017",document: "Declaration - Supplied EMMD Prior to January 1, 2017"};
+
+	var OrganizationalChart = {condition: "Organizational Chart",document: "Organizational Chart"}; 
+	var ProofOfBondOrIns = {condition: "Proof of Bond or Insurance",document: "Proof of Bond or Insurance"}; 
+	//var CAOperationalReqs = {condition: "State of California Operational Requirements",document: "State of California Operational Requirements"}; 
+	var LAFDNotification = {condition: "LAFD Statement of Intended Use",document: "LAFD Statement of Intended Use"}; 
+	//var LAFDCUPA = {condition: "LAFD Certified Uniform Program Agency (CUPA)",document: "LAFD Certified Uniform Program Agency (CUPA)"}; 
+	//var CommunityBenefits = {condition: "Community Benefits Agreement",document: "Community Benefits Agreement"}; 
+	var DatedRadiusMap = {condition: "Dated Radius Map",document: "Dated Radius Map"}; 
+	var TestingISO17025 = {condition: "ISO 17025 (Testing Applications Only)",document: "ISO 17025 (Testing Applications Only)"}; 
+	var TestingPlan = {condition: "Testing Plan (Testing Applications Only)",document: "Testing Plan (Testing Applications Only)"}; 
+
+	// new requirements 2/13/2019 JHS
+
+	var bizFormOrg = {condition: "Business Formation and Organization Documents",document: "Business Formation and Organization Documents" };
+	var ownDisclosure = { condition: "Ownership Disclosure Form", document: "Ownership Disclosure Form"};
+	var retailerPlan = { condition: "Retailer Plan (Type 10 Applications Only)", document: "Retailer Plan (Type 10 Applications Only)" };
+	var deliveryPlan = { condition: "Delivery Plan (Type 9 and Type 10 Applications Only)", document: "Delivery Plan (Type 9 and Type 10 Applications Only)"};
+	var distributorPlan = { condition: "Distributor Plan (Distribution Applications Only)", document: "Distributor Plan (Distribution Applications Only)"};
+	var manufacturerPlan = { condition: "Manufacturer Plan (Manufacturing Applications Only)", document: "Manufacturer Plan (Manufacturing Applications Only)"};
+	var cultivatorPlan = { condition: "Cultivator Plan (Cultivation Applications Only)", document: "Cultivator Plan (Cultivation Applications Only)"};
+	var indemnificationAgreement = { condition: "Indemnification Agreement", document: "Indemnification Agreement"};
+
+	// new requirements 2/28/2019 GH
+	var managementCompanies = { condition: "Management Company Agreement", document: "Management Company Agreement"};
 
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Conditionals from Record
 	/------------------------------------------------------------------------------------------------------*/
-	var isLargeEmployer = isASITrue(AInfo["20 or more employees?"]); // see user story 5135
-	var isWaivingSovereignImmunity = isASITrue(AInfo["Are they Sovereign Entity"]); // see user story 5135, 1890
-	var isPriorityRequest = isASITrue(AInfo["Are you requesting priority processing?"]); // see user story 340
-	var isTemporaryRequest = isASITrue(AInfo["Are you requesting a temporary license?"]); // see user story 340
-	var isLessThan600ft = isASITrue(AInfo["Attest no prohibited location Within specified requirement"]); //se user story 2203
-	var needsLaborPeaceAgreement = isASITrue(AInfo["Attest they will abide to the Labor Peace Agreement"]); //see story 2213
-	var hasDistributorTransportOnlyActivity = isASITrue(AInfo["Distributor-Transport Only"]); // see user story 2079
-	var hasDistributorActivity = isASITrue(AInfo["Distributor"]); // see user story 2079
-	var hasIsoLicense = isASITrue(AInfo["Accreditation/Provisional Testing Laboratory License"]); // see user story
-
-
-	var isCriminal = false;
-	var isSoleOwner = false;
-	isMilitary = isASITrue(AInfo["Military Service"]);
-
-	var ownerApplicant = getContactObj(capToUse, "Owner Applicant");
-	if (ownerApplicant && ownerApplicant.asi) {
-		isCriminal = isASITrue(ownerApplicant.asi["Criminal Convictions"]);
+	var isMedical =  AInfo["Medical"] == "YES" || AInfo["Medical"] == "Yes"; 
+	var isAdultUse =  AInfo["Adult Use"] == "YES" || AInfo["Adult Use"] == "Yes"; 
+	var isTesting = AInfo["Testing"] == "YES" || AInfo["Testing"] == "Yes"; 
+	var isCultivation = AInfo["Adult-Use Cultivation Medium Indoor"] == "CHECKED" || AInfo["Adult-Use Cultivation Small Indoor"]  == "CHECKED" || AInfo["Adult-Use Cultivation Specialty Cottage Indoor"]  == "CHECKED" || 	AInfo["Adult-Use Cultivation Specialty Indoor"] == "CHECKED" || AInfo["Medical Cultivation Medium Indoor"] == "CHECKED" || AInfo["Medical Cultivation Small Indoor"] == "CHECKED" || AInfo["Medical Cultivation Specialty Cottage Indoor"] == "CHECKED" || AInfo["Medical Cultivation Specialty Indoor"] == "CHECKED";	
+	var isTemporaryRequest = isASITrue(AInfo["Are you requesting a temporary license?"]); 
+	//set isTemporaryRequest = true if ASI field is null or ""
+	if (AInfo["Are you requesting a temporary license?"] == null || AInfo["Are you requesting a temporary license?"] == "") {
+		isTemporaryRequest = true;
 	}
 
-	var businessOwner = getContactObj(capToUse, "Business Owner");
-	if (businessOwner && businessOwner.asi) {
-		isCriminal = isASITrue(businessOwner.asi["Criminal Convictions"]);
 
+
+	//check to see if a temporary license has already been issued
+	var vWFTaskHistory = aa.workflow.getWorkflowHistory(capId, 'Issuance', null).getOutput();
+	var vTaskModel;
+	var vTaskStatus;
+	var x = 0;
+	for (x in vWFTaskHistory) {
+		vTaskModel = vWFTaskHistory[x];
+		vTaskStatus = vTaskModel.getDisposition();
+		if (vTaskStatus == 'Temporarily Issued') {
+			isTemporaryRequest = false;
+			break;
+		}
 	}
 
+	if (isAttestationAmendment) {
+		isTemporaryRequest = false;
+		}
+
+	logDebug("isTemporaryRequest: " + isTemporaryRequest);
+		
+	/*
 	var business = getContactObj(capToUse, "Business");
 	if (business && business.asi) {
-		isSoleOwner = business.asi["5006(b)(14) Business Organization Structure"] == "Sole Proprietorship";
+		isSoleOwner = business.asi["What is your business's organizational structure?"] == "Sole Proprietorship";
 	}
-
+	*/
+	
 	/*------------------------------------------------------------------------------------------------------/
-	| Business Rules : NEEDS REVIEW, map variables to standard condition
+	| Business Rules : map variables to standard condition
 	/------------------------------------------------------------------------------------------------------*/
+
 	if (isOwner || isOwnerAttestation) {
-		// removed requirement 5/24 after sprint story acceptance per Connie
-		//requirementArray.push(submittedFingerPrintImages);
-		requirementArray.push(governmentIssuedIdentification);
-
-		if (isCriminal) {
-			// Removed doc requirement per Connie 5/24 sprint acceptance meeting
-			// requirementArray.push(descriptionOfConvictions);
-		}
-	}
-
-	if (isOwner) {
-		if (isMilitary) {
-			requirementArray.push(proofOfMilitaryStatus);
-		}
+		requirementArray.push(GovernmentIssuedIdentification);
+		requirementArray.push(DeclarationPhase2Eligibility);
+		if (isChecked("Court Records")) requirementArray.push(CourtRecords);
+		if (isChecked("Government Records")) requirementArray.push(GovernmentRecords);
+		if (isChecked("Declaration - Arrest or Conviction")) requirementArray.push(DeclarationArrest);
+		if (isChecked("Other Documents - Arrest or Conviction")) requirementArray.push(OtherArrest);
+		if (isChecked("Tax Records")) requirementArray.push(TaxRecords);
+		if (isChecked("Financial Records - Wage or Bank Statements")) requirementArray.push(FinancialRecordsWage);
+		if (isChecked("Receipt of Government Assistance")) requirementArray.push(ReceiptOfAssistance);
+		if (isChecked("Declaration - Income")) requirementArray.push(DeclarationIncome);
+		if (isChecked("Other Documents - Low Income Status")) requirementArray.push(OtherLowIncome);
+		if (isChecked("Property Deed, Mortgage, or Lease Agreement")) requirementArray.push(PropertyMortgageLease);
+		if (isChecked("Financial Records - Lease or Mortgage")) requirementArray.push(FinancialLease);
+		if (isChecked("Proof of Government Housing Assistance")) requirementArray.push(ProofOfAssistance);
+		if (isChecked("Utility Bills, Registration, or Similar Document")) requirementArray.push(UtilityBills);
+		if (isChecked("Education Records")) requirementArray.push(EducationRecords);
+		if (isChecked("Declaration - Address")) requirementArray.push(DeclarationAddress);
+		if (isChecked("Declaration - Parent or Guardian")) requirementArray.push(DeclarationParent);
+		if (isChecked("Other Documents - Disproportionately Impacted Area")) requirementArray.push(OtherDispro);
+		if (isChecked("Executed Tier 1 Contract")) requirementArray.push(ExecutedTier1);
+		if (isChecked("Tier 1 Attestation")) requirementArray.push(Tier1Attest);
+		if (isChecked("Executed Tier 2 Contract")) requirementArray.push(ExecutedTier2);
+		if (isChecked("Tier 2 Attestation")) requirementArray.push(Tier2Attest);
 	}
 
 	if ((isApplication || isAttestationAmendment) && !isOwnerAttestation) {
-		// exclude items not needed for temp applications as submitted in ACA
-		if (isPageFlow && isTemporaryRequest) {
-			//requirementArray.push(documentationOfLocalCompliance);
-			requirementArray.push(governmentIssuedIdentification);
-			requirementArray.push(evidenceOfLegalRightToOccupy);
-			requirementArray.push(diagramOfPremises);
-		} else {
-			//requirementArray.push(documentationOfLocalCompliance); only required for temp
-			requirementArray.push(governmentIssuedIdentification);
-			requirementArray.push(evidenceOfLegalRightToOccupy);
-			requirementArray.push(diagramOfPremises);
-			requirementArray.push(proofOfSuretyBond); //not needed for temp
-			requirementArray.push(financialInformation); //not needed for temp
+		// add for temp and annual
+		// add always...
+		requirementArray.push(DiagramOfPremises); //added 2/15/2019 per Alex
+		requirementArray.push(PropertyMortgageLease); //added 2/15/2019 per Alex
+		
+		if (!isTesting) {
+			//requirementArray.push(DeclarationEngagedActivities);
+			//requirementArray.push(DeclarationSuppliedEMMD);
 		}
-
-		if (isPriorityRequest) {
-			requirementArray.push(priorityProcessingRequest);
-		}
-
-		//if (isTemporaryRequest) {
-		//	requirementArray.push(temporaryLicenseRequest);
-		//}
-
+		
+		// if full app, add all requirements
 		if (!isTemporaryRequest) {
-			requirementArray.push(businessFormationDocuments);
-
-			if (isLargeEmployer) {
-				if (needsLaborPeaceAgreement) {
-					requirementArray.push(laborPeaceAgreement);
-				} else	{
-					requirementArray.push(documentForLaborPeace);
-				}
+			//requirementArray.push(BusinessTaxRegistrationCertificate);
+			requirementArray.push(CannabisWasteManagementPlan);
+			//requirementArray.push(CommercialCannabisActivityPlan);
+			requirementArray.push(DiversityPlan);
+			requirementArray.push(FinancialInformation);
+			requirementArray.push(FireSafetyPlan);
+			//requirementArray.push(HiringPlan);
+			//requirementArray.push(LaborPeaceAgreement); // moved below
+			//requirementArray.push(LimitedAccessAreasPlan);
+			//requirementArray.push(OrgChart); // moved below, renamed
+			//requirementArray.push(RadiusMap);
+			//requirementArray.push(SecurityPlan); // moved below
+			//requirementArray.push(StaffingPlan); // moved below
+			//requirementArray.push(ProofOfBondInsurance); // moved below, renamed
+			//requirementArray.push(LiveScan);
+			//requirementArray.push(CUPAPermit);
+			requirementArray.push(IndemnificationAgreement);
+			//requirementArray.push(CommunityBenefitAgreement);
+			
+			if (isTesting) {
+				requirementArray.push(ISO170325Accreditation);
+				requirementArray.push(LaboratoryEmployeeQualifications);					
+				requirementArray.push(SamplingPlansProceduresAndProtocols);
+				requirementArray.push(StandardOperatingProcedures);
+				requirementArray.push(TestingMethodologies);
 			}
-		}
-
-		if (isWaivingSovereignImmunity) {
-			requirementArray.push(waiverOfSovereignImmunity);
-		}
-
-		if (isLessThan600ft) {
-			requirementArray.push(evidencePremiseLessThan600ft);
-		}
-
-		if (hasIsoLicense) {
-			requirementArray.push(proofOfIsoAccreditationStatus)
-		}
-
-		if (isDistributor || isRetailer || isRetailerNonStore || isMicroBusiness || isDistribTransportOnly) {
-			// exclude items not needed for temp applications as submitted in ACA
-			if (isPageFlow && isTemporaryRequest) {
-				//nothing to do here
-			} else {
-				// user story 2062
-				requirementArray.push(transportationProcess);
-				requirementArray.push(inventoryProcedures);
-				requirementArray.push(qualityControlProcedures);
-				requirementArray.push(securityProtocols);			}
-		}
-
-		if (isTesting) {
-			// exclude items not needed for temp applications as submitted in ACA
-			if (isTemporaryRequest) {
-				//nothing to do here
-			} else {
-				//requirementArray.push(operatingProceduresTesting);
-				//removed in user story 1604
-				//requirementArray.push(labEmployeeQualifications);
-				// user story 2062
-
-				requirementArray.push(standardOperatingProcedures);
-
-				/*
-				// removed in user story 2229
-				requirementArray.push(labAnalysesStandard);
-				requirementArray.push(chainOfCustodyProtocol);
-				requirementArray.push(testingMethods);
-        requirementArray.push(proofOfIsoAccreditationStatus);
-				*/
-				}
-		}
-
-		if (isDistributor || isDistribTransportOnly || (isMicroBusiness && (hasDistributorActivity || hasDistributorTransportOnlyActivity))) {
-				// exclude items not needed for temp applications as submitted in ACA
-			if (isPageFlow && isTemporaryRequest) {
-				//nothing to do here
-			} else {
-				//use story 2079
-				requirementArray.push(proofOfInsurance);
+			if (isCultivation) {
+				requirementArray.push(EnergyEfficiencyPlan);
 			}
-	}
+		} else {
+			// only add temp requirements
+			requirementArray.push(DocOfLocalCompliance);
+			//requirementArray.push(DiagramOfPremises); //moved above
+			//requirementArray.push(BusinessTaxRegistrationCertificate);
+		}
+		
+		// add eligibility reqs based on selections
+		if (isChecked("Contract Pre-2016")) requirementArray.push(contract2016);
+		if (isChecked("Lease Pre-2016")) requirementArray.push(lease2016);
+		if (isChecked("Business Formulation Documents Pre-2016")) requirementArray.push(formulation2016);
+		if (isChecked("Business Records Pre-2016")) requirementArray.push(business2016);
+		if (isChecked("Other Supporting Documents Pre-2016")) requirementArray.push(other2016);
+		if (isChecked("Contract Pre-2017")) requirementArray.push(contract2017);
+		if (isChecked("Lease Pre-2017")) requirementArray.push(lease2017);
+		if (isChecked("Business Formulation Documents Pre-2017")) requirementArray.push(formulation2017);
+		if (isChecked("Business Records Pre-2017")) requirementArray.push(business2017);
+		if (isChecked("Other Supporting Documents Pre-2017")) requirementArray.push(other2017);
+
+		// add Additional Requirements based on selections
+		if (isChecked("Organizational Chart")) requirementArray.push(OrganizationalChart);
+		if (isChecked("Proof of Bond or Insurance")) requirementArray.push(ProofOfBondOrIns);
+		//if (isChecked("State of California Operational Requirements")) requirementArray.push(CAOperationalReqs);
+		if (isChecked("LAFD Statement of Intended Use")) requirementArray.push(LAFDNotification);
+		//if (isChecked("LAFD Certified Uniform Program Agency (CUPA)")) requirementArray.push(LAFDCUPA);
+		//if (isChecked("Community Benefits Agreement")) requirementArray.push(CommunityBenefits);
+		if (isChecked("Dated Radius Map")) requirementArray.push(DatedRadiusMap);
+		if (isChecked("ISO 17025 (Testing Applications Only)")) requirementArray.push(TestingISO17025);
+		if (isChecked("Testing Plan (Testing Applications Only)")) requirementArray.push(TestingPlan);
+		if (isChecked("Labor Peace Agreement Attestation Form")) requirementArray.push(LaborPeaceAgreement);
+		if (isChecked("Security Plan")) requirementArray.push(SecurityPlan);
+		if (isChecked("Staffing Plan")) requirementArray.push(StaffingPlan);
+		
+		// added 2/13/19
+		if (isChecked("Business Formation and Organization Documents")) requirementArray.push(bizFormOrg);
+		if (isChecked("Ownership Disclosure Form")) requirementArray.push(ownDisclosure);
+		if (isChecked("Retailer Plan (Type 10 Applications Only)")) requirementArray.push(retailerPlan);
+		if (isChecked("Delivery Plan (Type 9 and Type 10 Applications Only)")) requirementArray.push(deliveryPlan);
+		if (isChecked("Distributor Plan (Distribution Applications Only)")) requirementArray.push(distributorPlan);
+		if (isChecked("Manufacturer Plan (Manufacturing Applications Only)")) requirementArray.push(manufacturerPlan);
+		if (isChecked("Cultivator Plan (Cultivation Applications Only)")) requirementArray.push(cultivatorPlan);
+		if (isChecked("Indemnification Agreement")) requirementArray.push(indemnificationAgreement);
+
+		// added 2/28/2019 - check if entry in table for document requirement
+		
+		var relASIT = isPageFlow ? loadASITable4ACA("MANAGEMENT COMPANIES", capToUse) : loadASITable("MANAGEMENT COMPANIES",capToUse);
+		if (relASIT && relASIT.length > 0) {
+			requirementArray.push(managementCompanies);
+		} 
 
 	}
 	logDebug("Num of Req Docs:" + requirementArray.length + " docs.");
 	logDebug("All req docs: " + requirementArray);
 
 	return requirementArray;
+}
+
+function isChecked(fld) {
+	return (AInfo[fld] && "CHECKED".equals(AInfo[fld].toUpperCase()));
 }

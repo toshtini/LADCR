@@ -1,0 +1,305 @@
+<!--FORMSCRIPT-->
+<p>
+</p>
+<div id="iz-custom-js">
+$('#tempApp').hide();
+$('#annualApp').hide();
+if ($.trim($('#answer').text()).indexOf('Yes') >= 0) {
+	$('#tempApp').show();
+} else {
+	$('#annualApp').show();
+}
+if ($.trim($('#answer').text()).indexOf('Yes') >= 0) {
+	$('#microExtractionInfusion').hide();
+}
+if ($.trim($('#answer').text()).indexOf('Yes') >= 0) {
+	$('#declarations').hide();
+}
+if ($.trim($('#answer').text()).indexOf('Yes') >= 0) {
+	$('#nonControllingInterests').hide();
+}
+if ($.trim($('#answer').text()).indexOf('Yes') >= 0) {
+	$('#fictitiousBusinessNames').hide();
+}
+if ($.trim($('#answer').text()).indexOf('Yes') >= 0) {
+	$('#feeAssessment').hide();
+}
+if ($('#bizPremiseAddress').text().indexOf('No Results') >= 0) {
+	$('#bizPremiseAddress').hide();
+}
+if ($('#bizMailingAddress').text().indexOf('No Results') >= 0) {
+	$('#bizMailingAddress').hide();
+}
+if ($('#microBizActivities').text().indexOf('No Results') >= 0) {
+	$('#microBizActivities').hide();
+}
+if ($('#microExtractionInfusion').text().indexOf('No Results') >= 0) {
+	$('#microExtractionInfusion').hide();
+}
+if ($('#microDeclarations').text().indexOf('No Results') >= 0) {
+	$('#microDeclarations').hide();
+}
+if ($('#distDeclarations').text().indexOf('No Results') >= 0) {
+	$('#distDeclarations').hide();
+}
+if ($('#dstrDeclarations').text().indexOf('No Results') >= 0) {
+	$('#dstrDeclarations').hide();
+}
+if ($('#retailDeclarations').text().indexOf('No Results') >= 0) {
+	$('#retailDeclarations').hide();
+}
+if ($('#testDeclarations').text().indexOf('No Results') >= 0) {
+	$('#testDeclarations').hide();
+}
+if ($('#ceoDeclarations').text().indexOf('No Results') >= 0) {
+	$('#ceoDeclarations').hide();
+}
+
+$('#entityOwnersList').hide();
+
+if ($.trim($('#owned').text()).indexOf('Yes') >= 0) {
+	$('#entityOwnersList').show();
+}
+if ($('#microFees').text().indexOf('No Results') >= 0) {
+	$('#microFees').hide();
+}
+if ($('#distFees').text().indexOf('No Results') >= 0) {
+	$('#distFees').hide();
+}
+if ($('#retailFees').text().indexOf('No Results') >= 0) {
+	$('#retailFees').hide();
+}
+if ($('#testFees').text().indexOf('No Results') >= 0) {
+	$('#testFees').hide();
+}
+if ($('#ceoFees').text().indexOf('No Results') >= 0) {
+	$('#ceoFees').hide();
+}
+$('.hidden').hide();
+$('.hidden').parent().hide();
+$('.hidden').filter(function () {
+	return $(this).text() === "CHECKED";
+}).parent().show();
+$('.activities').hide();
+var activitystring = $('.activities').map(function () {
+		if ('CHECKED' == $(this).text())
+			return $(this).attr('title');
+	}).get().join(', ');
+
+$('#activitystring').text(activitystring);
+
+$(".contactMailing").each(function( index ) {
+	$(this).text($("#contactAddressLookup tr[data-number=" + $(this).data("key") + "]:first td[data-column=ADDRESS_LINE1]:first")
+    .text());
+});
+
+$(".contactZip").each(function( index ) {
+	$(this).text($("#contactAddressLookup tr[data-number=" + $(this).data("key") + "]:first td[data-column=ZIP]:first")
+    .text());
+});
+
+$(".contactState").each(function( index ) {
+	$(this).text($("#contactAddressLookup tr[data-number=" + $(this).data("key") + "]:first td[data-column=STATE]:first")
+    .text());
+});
+
+$(".contactCity").each(function( index ) {
+	$(this).text($("#contactAddressLookup tr[data-number=" + $(this).data("key") + "]:first td[data-column=CITY]:first")
+    .text());
+});
+
+</div>
+<p>
+</p>
+<!--FORMSCRIPT-->
+<p>
+    <link href="https://www.dl.dropboxusercontent.com/s/2vk4cll8r2tgquy/support_reports.css"
+    rel="stylesheet">
+</p>
+<table class="mce-item-table" style="width: 100%;" data-mce-style="width: 100%;"
+data-mce-selected="1">
+    <tbody>
+        <tr>
+            <td class="BCCNormal">
+                <img style="height: 90px;" src="https://cannabis.lacity.org/sites/g/files/wph1081/f/LADCR_Logo_rev1.png"
+                data-mce-style="height: 90px;">
+            </td>
+            <td align="right" class="BCCHeader">
+                <span class="const-bcc-agency"></span>
+                <br>
+                <span class="const-bcc-address1"></span>
+                <br>
+                <span class="const-bcc-address2"></span>
+                <br>
+                <span class="const-bcc-citystatezip"></span>
+                <br>
+                <span class="const-bcc-phone"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p>
+</p>
+<div class="BccBold" id="reportTitle">
+    <p align="center">
+        CANNABIS LICENSE APPLICATION -&nbsp;[TEMPLATE ID]
+        <br>
+    </p>
+</div>
+<div id="appType">
+    <table class="mce-item-table" style="border: 1px solid #000000; width: 100%; font-size: 12px; border-collapse: collapse;"
+    data-mce-selected="1" data-mce-style="border: 1px solid #000000; width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tbody>
+            <tr>
+                <td style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;"
+                data-mce-style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;">
+                    <b>APPLICANT/BUSINESS INFORMATION</b>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse;"
+                data-mce-style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse;">
+                    <b>License Business Activities:</b>
+                    <br>
+                    <span id="activitystring"></span>
+ 					<span title="Adult-Use Cultivation Medium Indoor" class="activities">[Adult-Use Cultivation Medium Indoor]</span>
+                    <span title="Adult-Use Cultivation Small Indoor" class="activities">[Adult-Use Cultivation Small Indoor]</span>
+                    <span title="Adult-Use Cultivation Specialty Cottage Indoor" class="activities">[Adult-Use Cultivation Specialty Cottage Indoor]</span>
+                    <span title="Adult-Use Cultivation Specialty Indoor" class="activities">[Adult-Use Cultivation Specialty Indoor]</span>
+                    <span title="Adult-Use Distributor" class="activities">[Adult-Use Distributor]</span>
+                    <span title="Adult-Use Manufacturer Level 1" class="activities">[Adult-Use Manufacturer Level 1]</span>
+                    <span title="Adult-Use Manufacturer Level 2" class="activities">[Adult-Use Manufacturer Level 2]</span>
+                    <span title="Adult-Use Retail" class="activities">[Adult-Use Retail]</span>
+                    <span title="Adult-Use Microbusiness" class="activities">[Adult-Use Microbusiness]</span>
+                    <span title="Adult-Use Delivery Only" class="activities">[Adult-Use Delivery Only]</span>
+                    <span title="Medical Cultivation Medium Indoor" class="activities">[Medical Cultivation Medium Indoor]</span>
+                    <span title="Medical Cultivation Small Indoor" class="activities">[Medical Cultivation Small Indoor]</span>
+                    <span title="Medical Cultivation Specialty Cottage Indoor" class="activities">[Medical Cultivation Specialty Cottage Indoor]</span>
+                    <span title="Medical Cultivation Specialty Indoor" class="activities">[Medical Cultivation Specialty Indoor]</span>
+                    <span title="Medical Distributor" class="activities">[Medical Distributor]</span>
+                    <span title="Medical Manufacturer Level 1" class="activities">[Medical Manufacturer Level 1]</span>
+                    <span title="Medical Manufacturer Level 2" class="activities">[Medical Manufacturer Level 2]</span>
+                    <span title="Medical Retail" class="activities">[Medical Retail]</span>
+                    <span title="Medical Microbusiness" class="activities">[Medical Microbusiness]</span>
+                    <span title="Medical Delivery Only" class="activities">[Medical Delivery Only]</span>
+                    <span title="Adult-Use Distributor Transport Only" class="activities">[Adult-Use Distributor Transport Only]</span>
+                    <span title="Medical Distributor Transport Only" class="activities">[Medical Distributor Transport Only]</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+	<div>
+		<table class="mce-item-table" style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 100%; font-size: 12px; border-collapse: collapse;"
+		data-mce-selected="1">
+			<tbody>
+				<tbody>
+					<tr align="top">
+						<td style="border: 1px solid rgb(0, 0, 0); border-image: none; font-size: 12px; border-collapse: collapse;">
+							<b>Business Organizational Structure:</b>
+							<br>
+							[Business Organizational Structure]
+							</td>
+					</tr>
+				</tbody>
+		</table>
+	</div>
+<div id="bizName">
+    [[Subreports\App Record - Business Name]]
+</div>
+<div id="bizPremiseAddress">
+    [[Subreports\App Record - Business Premise Address]]
+</div>
+<div id="bizInfo">
+    [[Subreports\App Record - Business Addl Info]]
+</div>
+<div id="primaryContact">
+    <table class="mce-item-table" style="border: 1px solid #000000; width: 100%; font-size: 12px; border-collapse: collapse;"
+    data-mce-style="border: 1px solid #000000; width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tbody>
+            <tr>
+                <td style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;"
+                data-mce-style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;">
+                    <b>PRIMARY CONTACT PERSON</b>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    [[Subreports\App Record - Primary Contact]]
+</div>
+<div id="allOwnerAddresses" style="display:none">
+	[[Subreports\App Record - All Contact Addr]]
+</div>
+<div id="listofOwners">
+    <table class="mce-item-table" style="border: 1px solid #000000; width: 100%; font-size: 12px; border-collapse: collapse;"
+    data-mce-style="border: 1px solid #000000; width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tbody>
+            <tr>
+                <td style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;"
+                data-mce-style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;">
+                    <b>LIST OF OWNERS</b>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    [[Subreports\App Record - List of Owners]]
+</div>
+
+<div id="reqDocs">
+    <table class="mce-item-table" style="width: 100%; font-size: 12px; border-collapse: collapse;"
+    data-mce-style="width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tbody>
+            <tr>
+                <td style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;"
+                data-mce-style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;">
+                    <b>NEIGHBORHOOD LIAISON</b>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+	<div>
+		<table class="mce-item-table" style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 100%; font-size: 12px; border-collapse: collapse;"
+		data-mce-selected="1">
+			<tbody>
+				<tbody class="iz-repeater">
+					<tr align="top">
+						<td style="border: 1px solid rgb(0, 0, 0); border-image: none; font-size: 12px; border-collapse: collapse;">
+							<b>Name:</b>
+							<br>
+							[Neighborhood Liaison First Name] [Neighborhood Liaison Last Name]
+							</td>
+						<td style="border: 1px solid rgb(0, 0, 0); border-image: none; font-size: 12px; border-collapse: collapse;">
+							<b>Email:</b>
+							<br>
+							[Neighborhood Liaison Email Address]
+						</td>
+						<td style="border: 1px solid rgb(0, 0, 0); border-image: none; font-size: 12px; border-collapse: collapse;">
+							<b>Phone Number:</b>
+							<br>
+							[Neighborhood Liaison Phone Number]
+						</td>
+					</tr>
+				</tbody>
+		</table>
+	</div>
+</div>
+<div id="reqDocs">
+    <table class="mce-item-table" style="width: 100%; font-size: 12px; border-collapse: collapse;"
+    data-mce-style="width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tbody>
+            <tr>
+                <td style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;"
+                data-mce-style="border: 1px solid #000000; font-size: 12px; border-collapse: collapse; background-color: #b5b5b5;">
+                    <b>REQUIRED ATTACHMENTS/DOCUMENTS</b>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    [[Subreports\App Record - Required Docs]]
+</div>

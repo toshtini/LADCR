@@ -1,6 +1,7 @@
+//ACA_BUS_APP_AGENT_ONLOAD
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APPLICATION_DOC_ONLOAD.JS
-| Event   : ACA Page Flow onload attachments component
+| Program : ACA_BUS_APP_AGENT_ONLOAD.js
+| Event   : ACA Page Flow onload
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
 |
@@ -148,80 +149,22 @@ logDebug("balanceDue = " + balanceDue);
 
 try {
 
-	conditionType = "License Required Documents";
-	showDebug = false;
-	docsMissing = false;
-	showList = false;
-	addConditions = true;
-	addTableRows = false;
-	cancel = false;
-	showMessage = false;
-	capIdString = capId.getID1() + "-" + capId.getID2() + "-" + capId.getID3();
-	r = getRequiredDocuments(true);
-	submittedDocList = aa.document.getDocumentListByEntity(capIdString, "TMP_CAP").getOutput().toArray();
-	uploadedDocs = new Array();
+	parentCapIdString = "" + cap.getParentCapID();
+	if (parentCapIdString) {
+		pca = parentCapIdString.split("-");
+		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
+	}
 
-	for (var i in submittedDocList) {
-		uploadedDocs[submittedDocList[i].getDocCategory()] = true;
+	//showDebug = true;
+	//showMessage = true;
+	//cancel = true;
+
+	var isAgentOfService = isASITrue(AInfo["Agent of Service"]); // ghess, 3/20/18
+
+	if (!isAgentOfService) {
+		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
 	
-	// remove all conditions without a doc
-
-	var capCondResult = aa.capCondition.getCapConditions(capId,conditionType);
-
-	if (capCondResult.getSuccess()) {
-		var ccs = capCondResult.getOutput();
-		for (var pc1 in ccs) {
-			if(uploadedDocs["" + ccs[pc1].getConditionDescription()] == undefined) {
-				var rmCapCondResult = aa.capCondition.deleteCapCondition(capId,ccs[pc1].getConditionNumber());
-			}
-		}
-	}
-
-	if (r.length > 0) {
-		for (x in r) {
-			if (uploadedDocs[r[x].document] == undefined) {
-				showMessage = true;
-				if (!docsMissing && showList) {
-					comment("<div class='docList'><span class='fontbold font14px ACA_Title_Color'>The following documents are required based on the information you have provided: </span><ol>");
-					docsMissing = true;
-				}
-	
-				dr = r[x].condition;
-				publicDisplayCond = null;
-				if (dr) {
-					ccr = aa.capCondition.getStandardConditions(conditionType, dr).getOutput();
-					for (var i = 0;
-						i < ccr.length;
-						i++)
-						if (ccr[i].getConditionDesc().toUpperCase() == dr.toUpperCase())
-							publicDisplayCond = ccr[i];
-				}
-
-				if (dr && ccr.length > 0 && showList && publicDisplayCond) {
-					message += "<li><span>" + dr + "</span>: " + publicDisplayCond.getPublicDisplayMessage() + "</li>";
-				}
-
-				if (dr && ccr.length > 0 && addConditions && !appHasCondition(conditionType, null, dr, null)) {
-					addStdCondition(conditionType, dr);
-				}
-
-				if (dr && ccr.length > 0 && addTableRows) {
-					row = new Array();
-					row["Document Type"] = new asiTableValObj("Document Type", dr, "Y");
-					row["Description"] = new asiTableValObj("Description", publicDisplayCond.getPublicDisplayMessage(), "Y");
-					conditionTable.push(row);
-				}
-			}
-		}
-	}
-
-	if (r.length > 0 && showList && docsMissing) {
-		comment("</ol></div>");
-	}
-
-
-
 } catch (err) {
 
 	logDebug(err);

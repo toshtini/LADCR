@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APPLICATION_DOC_ONLOAD.JS
-| Event   : ACA Page Flow onload attachments component
+| Program : ACA_MICR_BUSINESS_ACTIVITIES.js
+| Event   : ACA Page Flow Before Button
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
 |
@@ -145,89 +145,85 @@ logDebug("feesInvoicedTotal = " + feesInvoicedTotal);
 logDebug("balanceDue = " + balanceDue);
 
 // page flow custom code begin
-
 try {
+	//cancel = true;
+	//showDebug = true;
+	//showMessage = true;
 
-	conditionType = "License Required Documents";
-	showDebug = false;
-	docsMissing = false;
-	showList = false;
-	addConditions = true;
-	addTableRows = false;
-	cancel = false;
-	showMessage = false;
-	capIdString = capId.getID1() + "-" + capId.getID2() + "-" + capId.getID3();
-	r = getRequiredDocuments(true);
-	submittedDocList = aa.document.getDocumentListByEntity(capIdString, "TMP_CAP").getOutput().toArray();
-	uploadedDocs = new Array();
+	// Check business activities
 
-	for (var i in submittedDocList) {
-		uploadedDocs[submittedDocList[i].getDocCategory()] = true;
-	}
-	
-	// remove all conditions without a doc
-
-	var capCondResult = aa.capCondition.getCapConditions(capId,conditionType);
-
-	if (capCondResult.getSuccess()) {
-		var ccs = capCondResult.getOutput();
-		for (var pc1 in ccs) {
-			if(uploadedDocs["" + ccs[pc1].getConditionDescription()] == undefined) {
-				var rmCapCondResult = aa.capCondition.deleteCapCondition(capId,ccs[pc1].getConditionNumber());
+	var isGood = false;
+	var msg = "";
+	for (var i in AInfo) {
+		if ((i.indexOf("Medical") >= 0) || (i.indexOf("Adult-Use") >= 0) || (i.indexOf("Testing")) >= 0) {
+			if (AInfo[i] && AInfo[i].equalsIgnoreCase("CHECKED")) {
+				isGood = true;
+				break;
 			}
+		}
+		if (i.equals("Testing") && AInfo[i].equalsIgnoreCase("YES")) {
+			isGood = true;
+			break;
 		}
 	}
 
-	if (r.length > 0) {
-		for (x in r) {
-			if (uploadedDocs[r[x].document] == undefined) {
-				showMessage = true;
-				if (!docsMissing && showList) {
-					comment("<div class='docList'><span class='fontbold font14px ACA_Title_Color'>The following documents are required based on the information you have provided: </span><ol>");
-					docsMissing = true;
-				}
-	
-				dr = r[x].condition;
-				publicDisplayCond = null;
-				if (dr) {
-					ccr = aa.capCondition.getStandardConditions(conditionType, dr).getOutput();
-					for (var i = 0;
-						i < ccr.length;
-						i++)
-						if (ccr[i].getConditionDesc().toUpperCase() == dr.toUpperCase())
-							publicDisplayCond = ccr[i];
-				}
+	if (!isGood) {
+		msg = "You must select at least 1 activity to continue.";
+	} else {
+		// test logic on activities
+		var v = {};
 
-				if (dr && ccr.length > 0 && showList && publicDisplayCond) {
-					message += "<li><span>" + dr + "</span>: " + publicDisplayCond.getPublicDisplayMessage() + "</li>";
-				}
+		var acFields = ["Adult Use", "Adult-Use Cultivation Medium Indoor", "Adult-Use Cultivation Small Indoor", "Adult-Use Cultivation Specialty Cottage Indoor", "Adult-Use Cultivation Specialty Indoor", "Adult-Use Distributor", "Adult-Use Distributor Transport Only", "Adult-Use Manufacturer Level 1", "Adult-Use Retail", "Adult-Use Microbusiness", "Adult-Use Delivery Only", "Medical Use", "Medical Cultivation Medium Indoor", "Medical Cultivation Small Indoor", "Medical Cultivation Specialty Cottage Indoor", "Medical Cultivation Specialty Indoor", "Medical Distributor", "Medical Distributor Transport Only", "Medical Manufacturer Level 1", "Medical Retail", "Medical Microbusiness", "Medical Delivery Only"];
+		var acTypes = ["Adult Use", "Medical Use", "Testing"];
 
-				if (dr && ccr.length > 0 && addConditions && !appHasCondition(conditionType, null, dr, null)) {
-					addStdCondition(conditionType, dr);
-				}
+		v.a = AInfo["Adult Use"];
+		v.A = {};
+		v.A.CMI = AInfo["Adult-Use Cultivation Medium Indoor"];
+		v.A.CSI = AInfo["Adult-Use Cultivation Small Indoor"];
+		v.A.CSC = AInfo["Adult-Use Cultivation Specialty Cottage Indoor"];
+		v.A.CSP = AInfo["Adult-Use Cultivation Specialty Indoor"];
+		v.A.D = AInfo["Adult-Use Distributor"];
+		v.A.DTO = AInfo["Adult-Use Distributor Transport Only"];
+		v.A.M1 = AInfo["Adult-Use Manufacturer Level 1"];
+		v.A.R = AInfo["Adult-Use Retail"];
+		v.A.M = AInfo["Adult-Use Microbusiness"];
+		v.A.DO = AInfo["Adult-Use Delivery Only"];
+		v.m = AInfo["Medical Use"];
+		v.M = {};
+		v.M.CMI = AInfo["Medical Cultivation Medium Indoor"];
+		v.M.CSI = AInfo["Medical Cultivation Small Indoor"];
+		v.M.CSC = AInfo["Medical Cultivation Specialty Cottage Indoor"];
+		v.M.CSP = AInfo["Medical Cultivation Specialty Indoor"];
+		v.M.D = AInfo["Medical Distributor"];
+		v.M.DTO = AInfo["Medical Distributor Transport Only"];
+		v.M.M1 = AInfo["Medical Manufacturer Level 1"];
+		v.M.R = AInfo["Medical Retail"];
+		v.M.M = AInfo["Medical Microbusiness"];
+		v.M.DO = AInfo["Medical Delivery Only"];
+		v.t = AInfo["Testing"];
 
-				if (dr && ccr.length > 0 && addTableRows) {
-					row = new Array();
-					row["Document Type"] = new asiTableValObj("Document Type", dr, "Y");
-					row["Description"] = new asiTableValObj("Description", publicDisplayCond.getPublicDisplayMessage(), "Y");
-					conditionTable.push(row);
+		if ((isTrue(v.t) && (isTrue(v.a) || isTrue(v.m))) || numberOfTrue(v.A.CMI, v.A.CSI, v.A.CSC, v.A.CSP) > 1 || numberOfTrue(v.M.CMI, v.M.CSI, v.M.CSC, v.M.CSP) > 1 || numberOfTrue(v.A.D, v.A.DTO) > 1 || numberOfTrue(v.M.D, v.M.DTO) > 1 || numberOfTrue(v.A.R, v.A.M, v.A.DO) > 1 || numberOfTrue(v.A.R, v.A.M, v.A.DO) > 1) {
+			isGood = false;
+			msg = "Invalid selections, please select items slowly.  Resetting..."
+				for (var i in acFields) {
+					editAppSpecific4ACA(acFields[i], "UNCHECKED");
 				}
-			}
+				for (var i in acTypes) {
+					editAppSpecific4ACA(acTypes[i], "NO");
+				}
 		}
+
 	}
-
-	if (r.length > 0 && showList && docsMissing) {
-		comment("</ol></div>");
+	if (!isGood) {
+		cancel = true;
+		showMessage = true;
+		comment(msg);
+		aa.env.setValue("CapModel", cap);
 	}
-
-
-
-} catch (err) {
-
-	logDebug(err);
-
 }
-
+catch (err) {
+	handleError(err);
+}
 // page flow custom code end
 
 
@@ -248,4 +244,17 @@ if (debug.indexOf("**ERROR") > 0) {
 		if (showDebug)
 			aa.env.setValue("ErrorMessage", debug);
 	}
+}
+
+function numberOfTrue() {
+	var c = 0;
+	for (var i = 0; i <= arguments.length; i++) {
+		if (isTrue(arguments[i]))
+			c++;
+	}
+	return c;
+}
+
+function isTrue(o) {
+	return o == "CHECKED" || o == "YES" || o == "Yes";
 }

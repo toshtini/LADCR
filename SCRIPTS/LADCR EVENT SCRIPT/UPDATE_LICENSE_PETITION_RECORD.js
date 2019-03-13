@@ -1,9 +1,9 @@
 if (wfTask ==  "Case Management" && wfStatus == "Petition Overturned") {
-	updateTask("Petition Decision", "Petition Overturned", "Updated by script 'UPDATE_LICENSE_PETITION_RECORD'", "Updated by script 'UPDATE_LICENSE_PETITION_RECORD'", "", parentCapId);
+	updateTask("Petition Decision", "Department Decision Overturned", "Updated by script 'UPDATE_LICENSE_PETITION_RECORD'", "Updated by script 'UPDATE_LICENSE_PETITION_RECORD'", "", parentCapId);
 }
 
 if (wfTask ==  "Case Management" && wfStatus == "Petition Upheld") {
-	updateTask("Petition Decision", "Petition Upheld", "Updated by script 'UPDATE_LICENSE_PETITION_RECORD'", "Updated by script 'UPDATE_LICENSE_PETITION_RECORD'", "", parentCapId);
+	updateTask("Petition Decision", "Department Decision Upheld", "Updated by script 'UPDATE_LICENSE_PETITION_RECORD'", "Updated by script 'UPDATE_LICENSE_PETITION_RECORD'", "", parentCapId);
 	var vProcessID = getProcessID("Petition Decision", parentCapId);
 	var vProcessCode = getProcessCode("Petition Decision", parentCapId);
 	var vTaskStepNum;
