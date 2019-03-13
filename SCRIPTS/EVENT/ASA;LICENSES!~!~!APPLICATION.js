@@ -9,5 +9,5 @@ if (!appMatch("Licenses/Cannabis/Testing/Application")) {
 // end check for fein/ssn	
 
  // Assess fees	// Assess fees
-include("ASSESS_BUS_APP_FEES");	include("ASSESS_BUS_APP_FEES");
+include("ASSESS_BUS_APP_FEES");
 // end assess fees
