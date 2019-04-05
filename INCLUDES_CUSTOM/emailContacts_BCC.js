@@ -98,6 +98,12 @@ logDebug("Validated contact types to send to: " + sendEmailToContactTypes);
 		//call sendEmailASync script
 		logDebug("Attempting to run Async: " + vAsyncScript);
 		aa.runAsyncScript(vAsyncScript, envParameters);
+		
+		//call Interested Parties script
+		vAsyncScript = "SEND_EMAIL_TO_INTERESTED_PARTIES_ASYNC";
+		logDebug("Attempting to run Async: " + vAsyncScript);
+		aa.runAsyncScript(vAsyncScript, envParameters);
+
 	}
 	//End modification to support batch script
 	
