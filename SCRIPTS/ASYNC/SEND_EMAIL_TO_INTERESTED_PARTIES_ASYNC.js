@@ -91,6 +91,8 @@ try {
 					//addParameter(vEParamsToSend, "$$FullNameBusName$$", attrFullName);
 									
 					//Send email
+					pMailFrom = "dcrinterestedparty@lacity.org";
+
 					aa.print("Email Sent: " + aa.document.sendEmailAndSaveAsDocument(pMailFrom, attrEmail, "", pEmailTemplate, vEParamsToSend, capId4Email, null).getSuccess());
 					aa.print("     " + capId.getCustomID() + ": Sent Email template " + pEmailTemplate + " to " + attrEmail);
 					
