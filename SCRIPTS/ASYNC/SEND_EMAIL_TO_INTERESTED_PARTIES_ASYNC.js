@@ -1,10 +1,13 @@
 //SEND_EMAIL_TO_INTERESTED_PARTIES_ASYNC
 //created 04/05/2019, ghess
+//updated 04/08/2019
 
-function notifyByArea(pStdChoice, pFieldName, pMailFrom, pEmailTemplate, vEParamsToSend, capId4Email){
+function notifyByArea(pFieldName, pFieldValue, pMailFrom, pEmailTemplate, vEParamsToSend, capId4Email){
+//Gathers all contacts whose template field matches the input value
+//send email to the contacts' email address
 //Parameters:
-//	pStdChoice - name of Standard Choice containing area values 
-//	pFieldName - custom field name containing value to be compared against Standard Choice values
+//	pFieldName - name of contact template field containing area values 
+//	pFieldValue - value to be searched for in template field
 //	for sending email...
 //		pMailFrom
 //		pEmailTemplate
@@ -13,11 +16,13 @@ function notifyByArea(pStdChoice, pFieldName, pMailFrom, pEmailTemplate, vEParam
 //
 //Returns true if contact attribute found, otherwise false
 try {
+var testing = false;
 		
-	logDebug("Looking up interested parties for field: " + pFieldName);
+	logDebug("Inside notifyByArea(): Looking for a match for " + pFieldName + " = " + pFieldValue);
+	if (testing) aa.print("Inside notifyByArea(): Looking for a match for " + pFieldName + " = " + pFieldValue);
 
 	var retNotifcations = false;
-	var asiFieldName = pFieldName.toUpperCase();
+	var contactTemplFieldName = pFieldName.toUpperCase();
 	var attrEmail = "";
 	var attrFirstName = "";
 	var attrLastName = "";
@@ -25,41 +30,24 @@ try {
 	var attrFullName= "";
 	var personArr = new Array();
 
-	
-	var bizDomScriptResult = aa.bizDomain.getBizDomain(pStdChoice);
-	if (!bizDomScriptResult || !bizDomScriptResult.getSuccess())
-	{
-		logDebug("Standard Choice '" + pStdChoice + "' not defined.");
-		return false;
-	}
-	var bizDomScriptObj = bizDomScriptResult.getOutput();
-	if (!bizDomScriptObj || bizDomScriptObj.size() == 0)
-	{
-		logDebug("No criteria defined in Standard Choice '" + pStdChoice + "'.");
-		return false;
-	}
-
 	//aa.print("");
-	for(var BDIndx = 0; BDIndx < bizDomScriptObj.size(); BDIndx++)
-	{
-		var standardChoiceObj = bizDomScriptObj.get(BDIndx);
-		//objectExplore1(standardChoiceObj);
-		var standardChoiceValue = standardChoiceObj.getDispBizdomainValue();
-		if (!standardChoiceValue || standardChoiceValue == "")
-			continue;
-		//aa.print("standardChoiceValue = " + standardChoiceValue);
+		if (!pFieldValue || pFieldValue == null || pFieldValue == "") {
+				logDebug("Invalid Contact template value");
+				//aa.print("Invalid Contact template value");
+				return retNotifcations;
+			}
 
-		peopleArr = getRefContactListByTypeAndAttribute("Individual", asiFieldName, standardChoiceValue);
+		peopleArr = getRefContactListByTypeAndAttribute("Individual", contactTemplFieldName, pFieldValue);
 		//objectExplore1(peopleArr);
 		
 		if (peopleArr && peopleArr.length > 0) {
 			for (cnt in peopleArr) {
 			
 				perString = String(peopleArr[cnt]);
-				//aa.print(perString);
+				if (testing) aa.print(perString);
 				personArr = perString.split(" ");
 				for (attrib in personArr){
-					////aa.print("personArr[" + attrib + "] = " + personArr[attrib]);
+					if (testing) aa.print("personArr[" + attrib + "] = " + personArr[attrib]);
 
 					if (personArr[attrib] == "FirstName:") attrFirstName = personArr[++attrib];
 					if (personArr[attrib] == "LastName:") attrLastName = personArr[++attrib];
@@ -67,10 +55,10 @@ try {
 					if (personArr[attrib] == "ContactSeqNumber:") attrContactSeqNumber = personArr[++attrib];
 					
 				}
-				//aa.print("attrContactSeqNumber = " + attrContactSeqNumber);
-				//aa.print("attrFirstName = " + attrFirstName);
-				//aa.print("attrLastName = " + attrLastName);
-				//aa.print("attrEmail = " + attrEmail);
+				if (testing) aa.print("attrContactSeqNumber = " + attrContactSeqNumber);
+				if (testing) aa.print("attrFirstName = " + attrFirstName);
+				if (testing) aa.print("attrLastName = " + attrLastName);
+				if (testing) aa.print("attrEmail = " + attrEmail);
 				//aa.print("");
 
 				// check for duplicates
@@ -78,7 +66,8 @@ try {
 				for (x in partyEmailsArr) {
 					if (partyEmailsArr[x] == attrEmail) {
 						notDuplicate = false;
-						aa.print("Duplicate email found: " + attrEmail);
+						logDebug("Duplicate email found: " + attrEmail);
+						if (testing) aa.print("Duplicate email found: " + attrEmail);
 					}
 				}
 				if (notDuplicate) {
@@ -92,16 +81,17 @@ try {
 									
 					//Send email
 					pMailFrom = "dcrinterestedparty@lacity.org";
-
 					aa.print("Email Sent: " + aa.document.sendEmailAndSaveAsDocument(pMailFrom, attrEmail, "", pEmailTemplate, vEParamsToSend, capId4Email, null).getSuccess());
-					aa.print("     " + capId.getCustomID() + ": Sent Email template " + pEmailTemplate + " to " + attrEmail);
+					logDebug("     " + capId.getCustomID() + ": Sent Email template " + pEmailTemplate + " to " + attrEmail);
+					if (testing) aa.print("     " + capId.getCustomID() + ": Sent Email template " + pEmailTemplate + " to " + attrEmail);
 					
 					retNotifcations = true;
 				}
 			}
+		} else {
+			logDebug("No contacts returned from attribute search!");
+			if (testing) aa.print("No contacts returned from attribute search!");
 		}
-		//break; //for debugging
-	}
 
 	return retNotifcations;
 	}
@@ -146,8 +136,9 @@ var vDocumentModel;
 var vDocumentName;
 var vACAUrl;
 var vEParamsToSend = vEParams;
-var stdChoice = "";
 var asiFieldName = "";
+var asiFieldValue = "";
+var contactTemplateField = "";
 
 //Start modification to support batch script, if not batch then grab globals, if batch do not.
 if (aa.env.getValue("eventType") != "Batch Process") {
@@ -185,14 +176,14 @@ else {
 }
 /* End Code needed to call master script functions -----------------------------------------------------*/
 
-	/* --------- For testing --------------
+	/* --------- For testing -------------- */
 	capIdStr = "LA-C-19-000048-APP";
 	
 	//aa.print("Current Record Id: " + capIdStr);
 	var ltresult = aa.cap.getCapID(capIdStr);
 	 if (ltresult.getSuccess())
   		capId = ltresult.getOutput();
-	 ------------------------------------ */
+	/* ------------------------------------ */
 
 logDebug("1) Here in SEND_EMAIL_TO_INTERESTED_PARTIES_ASYNC: " + aa.env.getValue("eventType"));
 logDebug("2) emailTemplate: " + emailTemplate);
@@ -265,26 +256,34 @@ else {
 	//Global store email addresses for duplicate checking
 	var partyEmailsArr = new Array();
 
-	stdChoice = "Council Districts";
+	//get record custom field values
+	//send notice to conacts whos template field mathces the corresponding record custom field
+	
 	asiFieldName = "Council District";
+	asiFieldValue = getAppSpecific(asiFieldName);
+	//aa.print("Looking for new field match for " + asiFieldName + " = " + asiFieldValue);
+	//aa.print("asiFieldValue = " + asiFieldValue);
+	contactTemplateField = "Council District";
 	
-	var notifyResult = notifyByArea(stdChoice, asiFieldName, mailFrom, emailTemplate, vEParamsToSend, capId4Email);
-	////aa.print("notifyResult for " + asiFieldName + " = " + notifyResult);
+	var notifyResult = notifyByArea(contactTemplateField, asiFieldValue, mailFrom, emailTemplate, vEParamsToSend, capId4Email);
+	//aa.print("notifyResult for " + asiFieldName + " = " + notifyResult);
 	
-	stdChoice = "Neighborhood Councils";
+	//aa.print("");
 	asiFieldName = "Neighborhood Council";
+	asiFieldValue = getAppSpecific(asiFieldName);
+	//aa.print("Looking for new field match for " + asiFieldName + " = " + asiFieldValue);
+	//aa.print("asiFieldValue = " + asiFieldValue);
+	contactTemplateField = "Neighborhood Council";
 
-	var notifyResult = notifyByArea(stdChoice, asiFieldName, mailFrom, emailTemplate, vEParamsToSend, capId4Email);
-	////aa.print("notifyResult for " + asiFieldName + " = " + notifyResult);
+	var notifyResult = notifyByArea(contactTemplateField, asiFieldValue, mailFrom, emailTemplate, vEParamsToSend, capId4Email);
+	//aa.print("notifyResult for " + asiFieldName + " = " + notifyResult);
 
 	/****************************************************
-	stdChoice = "Area Planning Commission";
 	asiFieldName = "Area Planning Commission";
 
 	var notifyResult = notifyByArea(stdChoice, asiFieldName);
 	//aa.print("notifyResult for " + asiFieldName + " = " + notifyResult);
 	
-	stdChoice = "Community Police Stations";
 	asiFieldName = "Police Department Area";
 	
 	****************************************************/
