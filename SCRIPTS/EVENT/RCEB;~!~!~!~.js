@@ -6,8 +6,8 @@ if (publicUser) {
 	if (matches(seStatus,"Pending DCR Review","Not Eligible","SEP Tier 1 and Tier 2 Eligibility Verified","SEP Tier 2 Eligibility Verified","SEP Tier 1 Eligibility Verified")) {
 		cancel = true;
 		showMessage = true;
+		showDebug = false; // prevent debug
 		comment("No changes can be made to your profile at this time");
 		}
 }
 
-slackDebug(debug);
