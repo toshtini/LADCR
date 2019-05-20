@@ -25,7 +25,7 @@ if (publicUser) {
 		addParameter(params, "$$Fax$$", people.getFax());
 		addParameter(params, "$$Country$$", people.getCompactAddress().getCountry());
 		addParameter(params, "$$FullName$$", people.getFullName());
-  		aa.document.sendEmailByTemplateName("dcrlicensing@lacity.org","john@grayquarter.com;ghess@accela.com","","LADCR Social Equity Application Alert",params,[]);
+  		//aa.document.sendEmailByTemplateName("dcrlicensing@lacity.org","john@grayquarter.com;ghess@accela.com","","LADCR Social Equity Application Alert",params,[]);
 	}
 }
 
