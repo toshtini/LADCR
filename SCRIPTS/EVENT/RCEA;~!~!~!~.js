@@ -8,7 +8,7 @@ var customFieldsObj = null;
 var customFields = new Array();
 var customTablesObj = null;
 var customTables = new Array();
-var refSeqNumber = ContactSeqNumber
+
 //Attributes
 if (people.getAttributes() != null) {
 	asiObj = people.getAttributes().toArray();
