@@ -1,7 +1,40 @@
-logDebug("contact  Model class is " + ContactModel.getClass());
 
-var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+if (publicUser) {
+	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+	var seStatus = people.getSalutation();
+	var asi  = loadRefAttr(people);
+	if ((!seStatus || "".equals(seStatus)) && "Y".equals(asi["Final Submittal"])) {
+		// final submittal with no status, let's set it up.
+		people.setSalution("Pending DCR Review");
+		var result = aa.people.editPeople(people)
+		logDebug("edited salutation success? " + result.getSuccess());
+		// notification
+		params = aa.util.newHashtable();
+		addParameter(params, "$$LastName$$", people.getLastName());
+		addParameter(params, "$$FirstName$$", people.getFirstName());
+		addParameter(params, "$$MiddleName$$", people.getMiddleName());
+		addParameter(params, "$$BusinesName$$", people.getBusinessName());
+		addParameter(params, "$$ContactSeqNumber$$", seqNumber);
+		addParameter(params, "$$Phone1$$", people.getPhone1());
+		addParameter(params, "$$Phone2$$", people.getPhone2());
+		addParameter(params, "$$Email$$", people.getEmail());
+		addParameter(params, "$$AddressLine1$$", people.getCompactAddress().getAddressLine1());
+		addParameter(params, "$$AddressLine2$$", people.getCompactAddress().getAddressLine2());
+		addParameter(params, "$$City$$", people.getCompactAddress().getCity());
+		addParameter(params, "$$State$$", people.getCompactAddress().getState());
+		addParameter(params, "$$Zip$$", people.getCompactAddress().getZip());
+		addParameter(params, "$$Fax$$", people.getFax());
+		addParameter(params, "$$Country$$", people.getCompactAddress().getCountry());
+		addParameter(params, "$$FullName$$", people.getFullName());
+		sendNotification("dcrlicensing@lacity.org","john@grayquarter.com;ghess@accela.com","","LADCR Social Equity Application Alert",params,"");
+	}
+}
 
+slackDebug(debug);
+
+
+
+function loadRefAttr(people) {
 
 var asiObj = null;
 var asi = new Array();    // associative array of attributes
@@ -44,4 +77,6 @@ if (tm)	{
 	}
 }
 
-slackDebug(debug);
+	
+	return asi;
+}
