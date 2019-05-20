@@ -14,7 +14,6 @@ if (publicUser) {
 		addParameter(params, "$$FirstName$$", people.getFirstName());
 		addParameter(params, "$$MiddleName$$", people.getMiddleName());
 		addParameter(params, "$$BusinesName$$", people.getBusinessName());
-		addParameter(params, "$$ContactSeqNumber$$", seqNumber);
 		addParameter(params, "$$Phone1$$", people.getPhone1());
 		addParameter(params, "$$Phone2$$", people.getPhone2());
 		addParameter(params, "$$Email$$", people.getEmail());
