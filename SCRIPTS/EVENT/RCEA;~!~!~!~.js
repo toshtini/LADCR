@@ -1,1 +1,1 @@
-slackDebug("testing");
+slackDebug(debug);
