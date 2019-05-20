@@ -1,6 +1,6 @@
 logDebug("contact  Model class is " + ContactModel.getClass());
 slackDebug(debug);
-var people = ContactModel;
+var people = aa.people.getPeople(ContactModel.ContactSeqNumber).getOutput();
 
 var asiObj = null;
 var asi = new Array();    // associative array of attributes
