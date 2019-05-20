@@ -5,8 +5,8 @@ if (publicUser) {
 	var asi  = loadRefAttr(people);
 	if ((!seStatus || "".equals(seStatus)) && "Y".equals(asi["Final Submittal"])) {
 		// final submittal with no status, let's set it up.
-		people.setSalution("Pending DCR Review");
-		var result = aa.people.editPeople(people)
+		people.setSalutation("Pending DCR Review");
+		var result = aa.people.editPeople(people);
 		logDebug("edited salutation success? " + result.getSuccess());
 		// notification
 		params = aa.util.newHashtable();
