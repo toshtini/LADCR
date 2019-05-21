@@ -1,4 +1,6 @@
+/*
 
+// using expression for this now.
 if (publicUser) {
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var seStatus = people.getSalutation();
@@ -11,3 +13,4 @@ if (publicUser) {
 		}
 }
 
+*/
