@@ -29,9 +29,6 @@ if (publicUser) {
 	}
 }
 
-slackDebug(debug);
-
-
 
 function loadRefAttr(people) {
 
