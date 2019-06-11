@@ -2,6 +2,7 @@
 | Script Title: ACA_APP_POPULATE_RELATED_LICENSES_ONLOAD
 | Event: on load
 | Usage: Copy ASIT parent record into license table
+| Update: ghess, 06/10/2019 - hiding page if not renewal
 *********************************************************/
 var showMessage = false;						// Set to true to see results in popup window
 var showDebug = false;							// Set to true to see debug messages in popup window
@@ -21,32 +22,36 @@ var useAppSpecificGroupName = false;
     try {
         var parentCapIdString = String(cap.getParentCapID());
         if (!parentCapIdString) {
-            return;
+		//for non-renewals, hide page
+		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
+		return;
         }
 
         var parentTypeArr = parentCapIdString.split("-");
         var parentCapId = aa.cap.getCapID(parentTypeArr[0], parentTypeArr[1], parentTypeArr[2]).getOutput();
         if (!parentCapId) {
-            return;
+  		//for non-renewals, hide page
+		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
+        	return;
         }
 
-		var parentAltId = parentCapId.getCustomID();
+	var parentAltId = parentCapId.getCustomID();
 		
 
-		relASIT = loadASITable4ACA("RELATED APPLICATIONS", cap);
+	relASIT = loadASITable4ACA("RELATED APPLICATIONS", cap);
 
-		if (relASIT && relASIT.length > 0) {
-			logDebug("table already has rows, exiting");
-			return;
-		}
+	if (relASIT && relASIT.length > 0) {
+		logDebug("table already has rows, exiting");
+		return;
+	}
 		
-		var relASIT = [];
-		var newRow = [];
-		newRow["Application ID"] = new asiTableValObj("Application ID", String(parentAltId),"Y");
-		relASIT.push(newRow);
+	var relASIT = [];
+	var newRow = [];
+	newRow["Application ID"] = new asiTableValObj("Application ID", String(parentAltId),"Y");
+	relASIT.push(newRow);
 		
-		var asit = cap.getAppSpecificTableGroupModel();
-		var newASIT = addASITable4ACAPageFlow(asit,"RELATED APPLICATIONS",relASIT);
+	var asit = cap.getAppSpecificTableGroupModel();
+	var newASIT = addASITable4ACAPageFlow(asit,"RELATED APPLICATIONS",relASIT);
         aa.env.setValue("CapModel", cap);
 
 		} catch (ex) {
