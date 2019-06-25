@@ -11,9 +11,13 @@ include("SAVE_BUSINESS_INFO_TO_RECORD");
 // Check matching FEIN or SSN for this BTRC, not for testing records
 if (!appMatch("Licenses/Cannabis/Testing/Application")) {
 	include("CHECK_SSN_FEIN_MATCH");
-	}
+}
 // end check for fein/ssn
 
 // Assess fees
-include("ASSESS_BUS_APP_FEES");
+if (AInfo["Is this a Renewal?"] && AInfo["Is this a Renewal?"].substr(0, 1).toUpperCase().equals("Y")) {
+	// skip fees
+} else {
+	include("ASSESS_BUS_APP_FEES");
+}
 // end assess fees
