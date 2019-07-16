@@ -189,6 +189,7 @@ function getRequiredDocuments(isPageFlow) {
 		// add always...
 		requirementArray.push(DiagramOfPremises); //added 2/15/2019 per Alex
 		requirementArray.push(PropertyMortgageLease); //added 2/15/2019 per Alex
+		requirementArray.push(GovernmentIssuedIdentification); //added 7/16/2019 by request
 		
 		if (!isTesting) {
 			//requirementArray.push(DeclarationEngagedActivities);
