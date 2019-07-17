@@ -1,4 +1,4 @@
-
+//07/17/2019 - ghess, added Salutation debug for non-public users
 if (publicUser) {
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var seStatus = people.getSalutation();
@@ -27,6 +27,11 @@ if (publicUser) {
 		addParameter(params, "$$FullName$$", people.getFullName());
   		aa.document.sendEmailByTemplateName("dcrlicensing@lacity.org","birdsnack@gmail.com","","LADCR Social Equity Application Alert",params,[]);
 	}
+} else {
+
+	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+	var seStatus = people.getSalutation();
+	logDebug("Salutation:  " + seStatus);
 }
 
 
