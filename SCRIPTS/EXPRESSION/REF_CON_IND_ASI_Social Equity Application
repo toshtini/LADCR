@@ -1,0 +1,184 @@
+//05/23/2019: added new residence fields and drilldown
+//05/28/2019: added Registration Text 3
+var aa = expression.getScriptRoot();
+
+try {
+var vSSN = expression.getValue("REFCONTACT::maskedSsn");
+var vBirthDate = expression.getValue("REFCONTACT::birthDate");
+
+var asiOwnership = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Do you have ownership interest in a licensed commercial cannabis business?");
+var asiEmployee = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::State Employee or Office Holder?");
+var asiSocialEquity = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Social Equity Application?");
+var asiText3 = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Registration Text 3");
+var asiApplying = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Are you applying to be verified?");
+var asiCannabisArrest = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Did you have a California Cannabis Arrest or Conviction?");
+var asiGovtRec = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Government records reflecting an Applicant’s California cannabis arrest or conviction");
+var asiOtherDoc = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Other DCR-approved document (click here for list)");
+var asiEvidenceIncome = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Evidence of Income Status");
+var asiFederalTax = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Federal or state tax return?");
+var asiAssistance = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Proof of eligibility for General Assistance, Food Stamps, Medical/CALWORKs or SSI or SSDI");
+var asiReside10Years = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Have you resided in a Disproportionately Impacted Area for 10 or more years?");
+var asiResideProof5Years = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Proof of residency information or other DCR-approved document for 5 or more years?");
+var asiResideProof10Years = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Proof of residency information or other DCR-approved document for 10 or more years?");
+var asiFinalSubmit = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Final Submittal");
+var seStatus = expression.getValue("REFCONTACT::salutation");
+
+//var asiCourtRec = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Court records reflecting an Applicant’s California cannabis arrest or conviction");
+//var asiEvidenceResident = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Evidence of Residency?");
+//var asiReside5Years = expression.getValue("REFCONTACTTPLFORM::CON_INDV::SOCIAL EQUITY::Have you resided in a Disproportionately Impacted Area for 5 or more years?");
+
+asiOwnership.hidden = false;
+asiEmployee.hidden = false;
+
+asiFinalSubmit.hidden = true;
+asiText3.hidden = true;
+asiApplying.hidden = true;
+//asiCourtRec.hidden = true;
+asiCannabisArrest.hidden = true;
+asiEvidenceIncome.hidden = true;
+//asiEvidenceResident.hidden = true;
+asiGovtRec.hidden = true;
+asiOtherDoc.hidden = true;
+asiFederalTax.hidden = true;
+asiAssistance.hidden = true;
+
+//asiReside5Years.hidden = true;
+asiResideProof5Years.hidden = true;
+asiReside10Years.hidden = true;
+asiResideProof10Years.hidden = true;
+
+asiSocialEquity.readOnly = false;
+//asiCourtRec.readOnly = false;
+asiOwnership.readOnly = false;
+asiFinalSubmit.readOnly = false;
+//asiText3.readOnly = true;
+asiApplying.readOnly = false;
+asiEmployee.readOnly = false;
+asiCannabisArrest.readOnly = false;
+asiEvidenceIncome.readOnly = false;
+//asiEvidenceResident.readOnly = false;
+asiGovtRec.readOnly = false;
+asiOtherDoc.readOnly = false;
+asiFederalTax.readOnly = false;
+asiAssistance.readOnly = false;
+
+//asiReside5Years.readOnly = false;
+asiResideProof5Years.readOnly = false;
+asiReside10Years.readOnly = false;
+asiResideProof10Years.readOnly = false;
+
+if (vSSN.value != null && !vSSN.value.equals(String('')) && vSSN.value != null && !vSSN.value.equals("")) {
+	vBirthDate.required = true;
+	vBirthDate.hidden = false;
+} else {
+	vBirthDate.required = false;
+	vBirthDate.hidden = true;
+}
+
+if ((asiSocialEquity.value != null && (asiSocialEquity.value.equalsIgnoreCase('YES') || asiSocialEquity.value.equalsIgnoreCase('Y') || asiSocialEquity.value.equalsIgnoreCase('CHECKED') || asiSocialEquity.value.equalsIgnoreCase('SELECTED') || asiSocialEquity.value.equalsIgnoreCase('TRUE') || asiSocialEquity.value.equalsIgnoreCase('ON')))) {
+	asiFinalSubmit.hidden = false;
+	asiText3.hidden = false;
+	asiApplying.hidden = false;
+	//asiOwnership.hidden = false;
+	//asiEmployee.hidden = false;
+}
+
+if (asiApplying.value != null && !asiApplying.value.equals(String('')) && asiApplying.value != null && !asiApplying.value.equals("")) {
+	asiCannabisArrest.hidden = false;
+	asiEvidenceIncome.hidden = false;
+	asiReside10Years.hidden = false;
+
+	//asiEvidenceResident.hidden = false;
+	//asiReside5Years.hidden = false;
+	//asiResideProof5Years.hidden = false;
+	//asiResideProof10Years.hidden = false;
+}
+
+if ((asiCannabisArrest.value != null && (asiCannabisArrest.value.equalsIgnoreCase('YES') || asiCannabisArrest.value.equalsIgnoreCase('Y') || asiCannabisArrest.value.equalsIgnoreCase('CHECKED') || asiCannabisArrest.value.equalsIgnoreCase('SELECTED') || asiCannabisArrest.value.equalsIgnoreCase('TRUE') || asiCannabisArrest.value.equalsIgnoreCase('ON')))) {
+	//asiCourtRec.hidden = false;
+	asiGovtRec.hidden = false;
+	asiOtherDoc.hidden = false;
+}
+
+if ((asiReside10Years.value != null && (asiReside10Years.value.equalsIgnoreCase('YES') || asiReside10Years.value.equalsIgnoreCase('Y') || asiReside10Years.value.equalsIgnoreCase('CHECKED') || asiReside10Years.value.equalsIgnoreCase('SELECTED') || asiReside10Years.value.equalsIgnoreCase('TRUE') || asiReside10Years.value.equalsIgnoreCase('ON')))) {
+
+	asiResideProof5Years.hidden = false;
+	asiResideProof10Years.hidden = false;
+
+}
+
+if ((asiEvidenceIncome.value != null && (asiEvidenceIncome.value.equalsIgnoreCase('YES') || asiEvidenceIncome.value.equalsIgnoreCase('Y') || asiEvidenceIncome.value.equalsIgnoreCase('CHECKED') || asiEvidenceIncome.value.equalsIgnoreCase('SELECTED') || asiEvidenceIncome.value.equalsIgnoreCase('TRUE') || asiEvidenceIncome.value.equalsIgnoreCase('ON')))) {
+	asiFederalTax.hidden = false;
+	asiAssistance.hidden = false;
+}
+
+//slackDebug("NOOO " + seStatus.value);
+//if (seStatus.value != null && (seStatus.value.equals(String("SEP Tier 1 Eligibility Verified")) || seStatus.value != null && seStatus.value.equals(String("SEP Tier 2 Eligibility Verified")) || seStatus.value != null && seStatus.value.equals(String("SEP Tier 1 and Tier 2 Eligibility Verified")) || seStatus.value != null && seStatus.value.equals(String("Not Eligible")) || seStatus.value != null && seStatus.value.equals(String("Pending DCR Review")))) {
+if (seStatus.value != null && !(seStatus.value.equals("")) ) {
+	//slackDebug("YEEEE " + seStatus.value);
+	asiSocialEquity.readOnly = true;
+	//asiOwnership.readOnly = true;
+	asiFinalSubmit.readOnly = true;
+	asiApplying.readOnly = true;
+	//asiEmployee.readOnly = true;
+	asiCannabisArrest.readOnly = true;
+	asiEvidenceIncome.readOnly = true;
+	//asiEvidenceResident.readOnly = true;
+	//asiCourtRec.readOnly = true;
+	asiGovtRec.readOnly = true;
+	asiOtherDoc.readOnly = true;
+	asiFederalTax.readOnly = true;
+	asiAssistance.readOnly = true;
+	
+	//asiReside5Years.readOnly = true;
+	asiResideProof5Years.readOnly = true;
+	asiReside10Years.readOnly = true;
+	asiResideProof10Years.readOnly = true;
+
+}
+
+expression.setReturn(asiOwnership);
+expression.setReturn(asiFinalSubmit);
+expression.setReturn(asiText3);
+expression.setReturn(asiApplying);
+expression.setReturn(asiEmployee);
+expression.setReturn(vBirthDate);
+//expression.setReturn(asiCourtRec);
+expression.setReturn(asiCannabisArrest);
+//expression.setReturn(asiEvidenceResident);
+expression.setReturn(asiEvidenceIncome);
+expression.setReturn(asiGovtRec);
+expression.setReturn(asiOtherDoc);
+expression.setReturn(asiFederalTax);
+expression.setReturn(asiSocialEquity);
+expression.setReturn(asiAssistance);
+
+//expression.setReturn(asiReside5Years);
+expression.setReturn(asiResideProof5Years);
+expression.setReturn(asiReside10Years);
+expression.setReturn(asiResideProof10Years);
+
+} catch (err) { slackDebug(err.message); }
+
+function slackDebug(msg) {
+
+	var headers = aa.util.newHashMap();
+
+	headers.put("Content-Type", "application/json");
+
+	var body = {};
+	body.text = aa.getServiceProviderCode() + ":" + msg;
+	//body.text = "TEST!"
+	//body.attachments = [{"fallback": "Full Debug Output"}];
+	//body.attachments[0].text = debug;
+
+	var apiURL = "https://hooks.slack.com/services/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"; // from globals
+
+
+	var result = aa.httpClient.post(apiURL, headers, JSON.stringify(body));
+	if (!result.getSuccess()) {
+		aa.print("Slack get anonymous token error: " + result.getErrorMessage());
+	} else {
+		aa.print("Slack Results: " + result.getOutput());
+	}
+}
