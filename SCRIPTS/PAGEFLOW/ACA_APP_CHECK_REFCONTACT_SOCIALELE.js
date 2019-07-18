@@ -170,42 +170,32 @@ try {
     comment("block " + pSeqNumber);
     cancel = true;
 	} catch (err) { logDebug(err)}
-//
-// Check for invoicing of fees
-//
-if (feeSeqList.length)
-	{
-	invoiceResult = aa.finance.createInvoice(capId, feeSeqList, paymentPeriodList);
-	if (invoiceResult.getSuccess())
-		logMessage("Invoicing assessed fee items is successful.");
-	else
-		logMessage("**ERROR: Invoicing the fee items assessed to app # " + capIDString + " was not successful.  Reason: " +  invoiceResult.getErrorMessage());
-	}
+
 
 /*------------------------------------------------------------------------------------------------------/
 | <===========END=Main=Loop================>
 /-----------------------------------------------------------------------------------------------------*/
 
-if (debug.indexOf("**ERROR") > 0)
-	{
+if (debug.indexOf("**ERROR") > 0) {
 	aa.env.setValue("ErrorCode", "1");
 	aa.env.setValue("ErrorMessage", debug);
-	}
-else
-	{
-	if (cancel)
-		{
+} else {
+	if (cancel) {
 		aa.env.setValue("ErrorCode", "-2");
-		if (showMessage) aa.env.setValue("ErrorMessage", message);
-		if (showDebug) 	aa.env.setValue("ErrorMessage", debug);
-		}
-	else
-		{
+		if (showMessage)
+			aa.env.setValue("ErrorMessage", message);
+		if (showDebug)
+			aa.env.setValue("ErrorMessage", debug);
+	} else {
 		aa.env.setValue("ErrorCode", "0");
-		if (showMessage) aa.env.setValue("ErrorMessage", message);
-		if (showDebug) 	aa.env.setValue("ErrorMessage", debug);
-		}
+		if (showMessage)
+			aa.env.setValue("ErrorMessage", message);
+		if (showDebug)
+			aa.env.setValue("ErrorMessage", debug);
 	}
+}
+
+
 
 /*------------------------------------------------------------------------------------------------------/
 | <===========External Functions (used by Action entries)
