@@ -155,12 +155,12 @@ logGlobals(AInfo);
 try {
     showDebug = true;
     logDebug(publicUserID)
-    //var pSeqNumber = publicUserID.replace('PUBLICUSER','');  
-
+    var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
+    logDebug(pSeqNumber)
 	
 	cancel = true;
 	showMessage = true;
-	comment("Here6 ");
+	comment("Here7 ");
 		
 } catch (err) { logDebug(err)	}
 
