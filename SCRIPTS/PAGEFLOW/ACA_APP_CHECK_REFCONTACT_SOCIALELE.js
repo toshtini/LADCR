@@ -153,7 +153,9 @@ logGlobals(AInfo);
 /-----------------------------------------------------------------------------------------------------*/
 
 try {
-    var pSeqNumber = publicUserID.replace('PUBLICUSER','');  
+    showDebug = true;
+    var pSeqNumber = publicUserID.replace('PUBLICUSER',''); 
+    logDebug("pSeqNumber " + pSeqNumber)
     publicUserResult = aa.publicUser.getPublicUser(aa.util.parseLong(pSeqNumber));
     if (publicUserResult.getSuccess()) {
     	publicUser = publicUserResult.getOutput();
@@ -177,7 +179,7 @@ try {
     }
 	cancel = true;
 	showMessage = true;
-	comment("Here1 " + refPeopleModel.getSalutation());
+	comment("DONB4");
 		
 } catch (err) { logDebug(err)	}
 
