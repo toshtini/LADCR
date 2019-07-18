@@ -141,7 +141,7 @@ logDebug("balanceDue = " + balanceDue);
 // page flow custom code begin
 
 try {
-    //showDebug = true;
+    showDebug = true;
     logDebug(publicUserID)
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     logDebug(pSeqNumber)
