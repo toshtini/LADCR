@@ -163,10 +163,10 @@ try {
 			if (refPeopleModel != null) {
 				logDebug("DONB2")
                 var refPeopleModel = refConResult.getOutput();
-                logDebug("salut " + refPeopleModel.getSalutation())
+                //logDebug("salut " + refPeopleModel.getSalutation())
 				if(matches(refPeopleModel.getSalutation(),"Not Eligible"))
 					{
-                        logDebug("DONB3")
+                    logDebug("DONB3")
 					showMessage = true;
 					comment("Unable to validate proceed. You are not eligible for the Social Equity Status");
 					cancel = true;
