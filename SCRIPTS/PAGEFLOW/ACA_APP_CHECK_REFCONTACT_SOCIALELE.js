@@ -161,7 +161,8 @@ try {
 		if (refConResult.getSuccess()) {
 			if (refPeopleModel != null) {
 				
-				var refPeopleModel = refConResult.getOutput();
+                var refPeopleModel = refConResult.getOutput();
+                logDebug("getSalutation " + refPeopleModel.getSalutation())
 				if(matches(refPeopleModel.getSalutation(),"Not Eligible"))
 					{
 					showMessage = true;
