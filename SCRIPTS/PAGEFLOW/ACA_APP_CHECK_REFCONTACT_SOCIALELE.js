@@ -146,7 +146,7 @@ try {
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     logDebug(pSeqNumber)
 
-    publicUserResult = aa.publicUser.getPublicUser(aa.util.parseLong(pSeqNumber));
+    publicUserResult = aa.publicUser.getPublicUser(aa.util.parseInt(pSeqNumber));
     if (publicUserResult.getSuccess()) {
         logDebug(pSeqNumber + "Found")
     	publicUser = publicUserResult.getOutput();
