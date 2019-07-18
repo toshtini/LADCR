@@ -164,10 +164,10 @@ try {
     	publicUser = publicUserResult.getOutput();
     }
     contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
-    logDebug(contrPeopleModel)
+    //logDebug(contrPeopleModel)
 	if (contrPeopleModel != null) {
         refNum = contrPeopleModel.getContactSeqNumber();
-        logDebug("refNum " + refNum)
+        //logDebug("refNum " + refNum)
 	    var refConResult = aa.people.getPeople(refNum);
 		if (refConResult.getSuccess()) {
 			if (refPeopleModel != null) {
