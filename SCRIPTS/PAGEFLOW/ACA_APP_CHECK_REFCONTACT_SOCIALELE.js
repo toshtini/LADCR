@@ -141,7 +141,7 @@ logDebug("balanceDue = " + balanceDue);
 // page flow custom code begin
 
 try {
-    showDebug = true;
+    //showDebug = true;
     logDebug(publicUserID)
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     logDebug(pSeqNumber)
@@ -157,7 +157,8 @@ try {
 	if (contrPeopleModel != null) {
         refNum = contrPeopleModel.getContactSeqNumber();
         logDebug("refNum " + refNum)
-	    var refConResult = aa.people.getPeople(refNum);
+        var refConResult = aa.people.getPeople(refNum);
+        logDebug("refConResult.getSuccess  " + refConResult.getSuccess())
 		if (refConResult.getSuccess()) {
 			if (refPeopleModel != null) {
 				
