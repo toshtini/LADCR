@@ -25,3 +25,9 @@ if (publicUser) {
 	setInitialWorkflowTaskStatus("Y");
 }
 // End functionality to set inital workflow status.
+
+// Begin script to update the Application AltID based on Business Activity
+if(publicUser){
+	include("UPDATE_APPLICATION_MJ_ALTID");
+}
+// End script to update the Application AltID based on Business Activity

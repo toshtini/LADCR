@@ -33,3 +33,6 @@ if (parentCapId != null && vGoodToRenew) {
 }
 //End Core Renewal Functionality
 
+// Begin Script to Update the AltID
+if(!publicUser)
+	{lacdUpdateAltID(capId,"RENEWAL",capId.getCustomID(), null)}
