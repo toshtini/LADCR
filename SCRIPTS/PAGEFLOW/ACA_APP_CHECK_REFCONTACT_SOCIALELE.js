@@ -161,9 +161,9 @@ try {
         logDebug("getSuccess " + refConResult.getSuccess())
 		if (refConResult.getSuccess()) {
 			if (refPeopleModel != null) {
-				
+				logDebug("DONB2")
                 var refPeopleModel = refConResult.getOutput();
-               
+                logDebug("salut " + refPeopleModel.getSalutation())
 				if(matches(refPeopleModel.getSalutation(),"Not Eligible"))
 					{
 					showMessage = true;
