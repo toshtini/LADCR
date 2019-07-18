@@ -154,7 +154,8 @@ logGlobals(AInfo);
 
 try {
 
-	
+    
+    
 	cancel = true;
 	showMessage = true;
 	comment("Here");
