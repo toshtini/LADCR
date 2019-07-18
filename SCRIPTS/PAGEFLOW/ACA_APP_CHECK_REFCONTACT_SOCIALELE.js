@@ -154,11 +154,10 @@ logGlobals(AInfo);
 
 try {
 
-    
-    
+	
 	cancel = true;
 	showMessage = true;
-	comment("Here 1");
+	comment("Here");
 		
 } catch (err) { logDebug(err)	}
 
