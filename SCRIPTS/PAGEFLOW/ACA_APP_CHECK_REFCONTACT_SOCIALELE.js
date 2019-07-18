@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_Before_Add_Ref_Contact_Check.js
+| Program : ACA_Before_Sample_V3.0.js
 | Event   : ACA_Before
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
@@ -20,7 +20,7 @@
 var showMessage = false;						// Set to true to see results in popup window
 var showDebug = false;							// Set to true to see debug messages in popup window
 var preExecute = "PreExecuteForBeforeEvents"
-var controlString = "Before Template";		// Standard choice for control
+var controlString = "LP Validate - Before";		// Standard choice for control
 var documentOnly = false;						// Document Only -- displays hierarchy of std choice steps
 var disableTokens = false;						// turn off tokenizing of std choices (enables use of "{} and []")
 var useAppSpecificGroupName = false;			// Use Group name when populating App Specific Info Values
@@ -57,16 +57,34 @@ if (bzr.getSuccess() && bzr.getOutput().getAuditStatus() != "I") {
 	if (bzr.getSuccess()) { SAScript = bzr.getOutput().getDescription(); }
 	}
 	
-eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
-
+if (SA) {
+	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS",SA));
+	eval(getScriptText(SAScript,SA));
+	}
+else {
+	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+	}
 	
 eval(getScriptText("INCLUDES_CUSTOM"));
 
+if (documentOnly) {
+	doStandardChoiceActions(controlString,false,0);
+	aa.env.setValue("ScriptReturnCode", "0");
+	aa.env.setValue("ScriptReturnMessage", "Documentation Successful.  No actions executed.");
+	aa.abortScript();
+	}
+
 function getScriptText(vScriptName){
-	vScriptName = vScriptName.toUpperCase();
+	var servProvCode = aa.getServiceProviderCode();
+	if (arguments.length > 1) servProvCode = arguments[1]; // use different serv prov code
+	vScriptName = vScriptName.toUpperCase();	
 	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-	var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(),vScriptName);
-	return emseScript.getScriptText() + "";	
+	try {
+		var emseScript = emseBiz.getScriptByPK(servProvCode,vScriptName,"ADMIN");
+		return emseScript.getScriptText() + "";	
+		} catch(err) {
+		return "";
+	}
 }
 
 var cap = aa.env.getValue("CapModel");
@@ -154,12 +172,11 @@ logGlobals(AInfo);
 
 try {
 
-	
+
 	cancel = true;
 	showMessage = true;
-	comment("Here");
-		
-} catch (err) { logDebug(err)	}
+	comment("DONB1")		
+	} catch (err) { logDebug(err)	}
 
 
 //
@@ -202,12 +219,3 @@ else
 /*------------------------------------------------------------------------------------------------------/
 | <===========External Functions (used by Action entries)
 /------------------------------------------------------------------------------------------------------*/
-function getContactByType4ACA(conType) {
-	var capContactArray = cap.getContactsGroup().toArray() ;
-
-	for(thisContact in capContactArray) {
-		if((capContactArray[thisContact].getPeople().contactType).toUpperCase() == conType.toUpperCase())
-			return capContactArray[thisContact].getPeople();
-	}
-	return false;
-}
