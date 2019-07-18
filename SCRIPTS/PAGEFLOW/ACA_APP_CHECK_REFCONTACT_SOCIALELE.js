@@ -160,9 +160,9 @@ try {
         var refConResult = aa.people.getPeople(refNum);
         logDebug("getSuccess " + refConResult.getSuccess())
 		if (refConResult.getSuccess()) {
+            var refPeopleModel = refConResult.getOutput();
 			if (refPeopleModel != null) {
 				logDebug("DONB2")
-                var refPeopleModel = refConResult.getOutput();
                 //logDebug("salut " + refPeopleModel.getSalutation())
 				if(matches(refPeopleModel.getSalutation(),"Not Eligible"))
 					{
