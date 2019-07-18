@@ -167,7 +167,10 @@ try {
 					cancel = true;
 					}
 			}
-		}
+        }
+    showMessage = true;
+    comment("Testing " + contrPeopleModel + " " + pSeqNumber);
+    cancel = true;
 	}
 } catch (err) {
 	logDebug(err);
