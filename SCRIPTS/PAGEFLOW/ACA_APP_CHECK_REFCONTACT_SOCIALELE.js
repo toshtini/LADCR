@@ -157,10 +157,32 @@ try {
     logDebug(publicUserID)
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     logDebug(pSeqNumber)
-	
+
+    publicUserResult = aa.publicUser.getPublicUser(aa.util.parseLong(pSeqNumber));
+    if (publicUserResult.getSuccess()) {
+        logDebug(pSeqNumber + "Found")
+    	publicUser = publicUserResult.getOutput();
+    }
+    contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
+	if (contrPeopleModel != null) {
+		refNum = contrPeopleModel.getContactSeqNumber();
+	    var refConResult = aa.people.getPeople(refNum);
+		if (refConResult.getSuccess()) {
+			if (refPeopleModel != null) {
+				
+				var refPeopleModel = refConResult.getOutput();
+				if(matches(refPeopleModel.getSalutation(),"Not Eligible"))
+					{
+					showMessage = true;
+					comment("Unable to validate proceed. You are not eligible for the Social Equity Status");
+					cancel = true;
+					}
+			}
+        }
+    }
 	cancel = true;
 	showMessage = true;
-	comment("Here7 ");
+	comment("Here8 ");
 		
 } catch (err) { logDebug(err)	}
 
