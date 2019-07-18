@@ -153,11 +153,11 @@ logGlobals(AInfo);
 /-----------------------------------------------------------------------------------------------------*/
 
 try {
-
-
+    
+	
 	cancel = true;
 	showMessage = true;
-	comment("DONB4");
+	comment("Here");
 		
 } catch (err) { logDebug(err)	}
 
@@ -211,4 +211,3 @@ function getContactByType4ACA(conType) {
 	}
 	return false;
 }
-
