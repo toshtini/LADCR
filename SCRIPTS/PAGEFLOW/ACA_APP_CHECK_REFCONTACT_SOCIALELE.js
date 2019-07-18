@@ -153,38 +153,11 @@ logGlobals(AInfo);
 /-----------------------------------------------------------------------------------------------------*/
 
 try {
-    showDebug = true;
-    logDebug(publicUserID)
-    var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
-    logDebug(pSeqNumber)
 
-    publicUserResult = aa.publicUser.getPublicUser(aa.util.parseLong(pSeqNumber));
-    if (publicUserResult.getSuccess()) {
-        logDebug(pSeqNumber + "Found")
-    	publicUser = publicUserResult.getOutput();
-    }
-    contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
-    //logDebug(contrPeopleModel)
-	if (contrPeopleModel != null) {
-        refNum = contrPeopleModel.getContactSeqNumber();
-        //logDebug("refNum " + refNum)
-	    var refConResult = aa.people.getPeople(refNum);
-		if (refConResult.getSuccess()) {
-			if (refPeopleModel != null) {
-				
-				var refPeopleModel = refConResult.getOutput();
-				if(matches(refPeopleModel.getSalutation(),"Not Eligible"))
-					{
-					showMessage = true;
-					comment("Unable to validate proceed. You are not eligible for the Social Equity Status");
-					cancel = true;
-					}
-			}
-        }
-    }
+	
 	cancel = true;
 	showMessage = true;
-	comment("Here9 ");
+	comment("Here");
 		
 } catch (err) { logDebug(err)	}
 
@@ -238,17 +211,3 @@ function getContactByType4ACA(conType) {
 	}
 	return false;
 }
-
-function getRefContactForPublicUser(userSeqNum) {
-	contractorPeopleBiz = aa.proxyInvoker.newInstance("com.accela.pa.people.ContractorPeopleBusiness").getOutput();
-	userList = aa.util.newArrayList();
-	userList.add(aa.util.parseLong(userSeqNum));
-	peopleList = contractorPeopleBiz.getContractorPeopleListByUserSeqNBR(aa.getServiceProviderCode(), userList); 
-	if (peopleList != null) {
-		peopleArray = peopleList.toArray();
-		if (peopleArray.length > 0)
-			return peopleArray[0];
-	}
-	return null;
-}
-
