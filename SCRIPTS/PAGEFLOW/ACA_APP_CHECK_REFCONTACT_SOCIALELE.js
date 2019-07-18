@@ -171,11 +171,11 @@ logGlobals(AInfo);
 /-----------------------------------------------------------------------------------------------------*/
 
 try {
-    var pSeqNumber = publicUserID.replace('PUBLICUSER','');  
-    publicUserResult = aa.publicUser.getPublicUser(aa.util.parseLong(pSeqNumber));
-    if (publicUserResult.getSuccess()) {
-    	publicUser = publicUserResult.getOutput();
-    }
+    //var pSeqNumber = publicUserID.replace('PUBLICUSER','');  
+    //publicUserResult = aa.publicUser.getPublicUser(aa.util.parseLong(pSeqNumber));
+    //if (publicUserResult.getSuccess()) {
+    //	publicUser = publicUserResult.getOutput();
+    //}
     /*contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
 	if (contrPeopleModel != null) {
 		refNum = contrPeopleModel.getContactSeqNumber();
