@@ -176,7 +176,7 @@ try {
     if (publicUserResult.getSuccess()) {
     	publicUser = publicUserResult.getOutput();
     }
-    contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
+    /*contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
 	if (contrPeopleModel != null) {
 		refNum = contrPeopleModel.getContactSeqNumber();
 	    var refConResult = aa.people.getPeople(refNum);
@@ -192,7 +192,10 @@ try {
 					}
 			}
         }
-    }
+    }*/
+    showMessage = true;
+    comment("block " + pSeqNumber);
+    cancel = true;
 	} catch (err) { logDebug(err)}
 //
 // Check for invoicing of fees
