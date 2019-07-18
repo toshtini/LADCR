@@ -177,7 +177,7 @@ try {
     }
 	cancel = true;
 	showMessage = true;
-	comment("Here1");
+	comment("Here1 " + refPeopleModel.getSalutation());
 		
 } catch (err) { logDebug(err)	}
 
