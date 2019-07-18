@@ -153,7 +153,7 @@ logGlobals(AInfo);
 /-----------------------------------------------------------------------------------------------------*/
 
 try {
-    //showDebug = true;
+    showDebug = true;
     logDebug(publicUserID)
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     logDebug(pSeqNumber)
@@ -164,8 +164,10 @@ try {
     	publicUser = publicUserResult.getOutput();
     }
     contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
+    logDebug(contrPeopleModel)
 	if (contrPeopleModel != null) {
-		refNum = contrPeopleModel.getContactSeqNumber();
+        refNum = contrPeopleModel.getContactSeqNumber();
+        logDebug("refNum " + refNum)
 	    var refConResult = aa.people.getPeople(refNum);
 		if (refConResult.getSuccess()) {
 			if (refPeopleModel != null) {
@@ -180,9 +182,9 @@ try {
 			}
         }
     }
-	//cancel = true;
-	//showMessage = true;
-	//comment("Here8 ");
+	cancel = true;
+	showMessage = true;
+	comment("Here8 ");
 		
 } catch (err) { logDebug(err)	}
 
