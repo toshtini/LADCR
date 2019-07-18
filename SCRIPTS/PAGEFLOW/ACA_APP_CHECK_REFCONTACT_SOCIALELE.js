@@ -153,7 +153,7 @@ logGlobals(AInfo);
 /-----------------------------------------------------------------------------------------------------*/
 
 try {
-    showDebug = true;
+    //showDebug = true;
     logDebug(publicUserID)
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     logDebug(pSeqNumber)
@@ -180,9 +180,9 @@ try {
 			}
         }
     }
-	cancel = true;
-	showMessage = true;
-	comment("Here8 ");
+	//cancel = true;
+	//showMessage = true;
+	//comment("Here8 ");
 		
 } catch (err) { logDebug(err)	}
 
