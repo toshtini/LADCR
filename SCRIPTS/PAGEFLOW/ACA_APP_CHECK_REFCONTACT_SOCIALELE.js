@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_Before_Sample_V3.0.js
-| Event   : ACA_Before
+| Program : ACA_APPLICATION_DOC_BEFORE.js 
+| Event   : ACA Page Flow attachments before event
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
 |
@@ -17,75 +17,60 @@
 |     will no longer be considered a "Master" script and will not be supported in future releases.  If
 |     changes are made, please add notes above.
 /------------------------------------------------------------------------------------------------------*/
-var showMessage = false;						// Set to true to see results in popup window
-var showDebug = false;							// Set to true to see debug messages in popup window
-var preExecute = "PreExecuteForBeforeEvents"
-var controlString = "LP Validate - Before";		// Standard choice for control
-var documentOnly = false;						// Document Only -- displays hierarchy of std choice steps
-var disableTokens = false;						// turn off tokenizing of std choices (enables use of "{} and []")
-var useAppSpecificGroupName = false;			// Use Group name when populating App Specific Info Values
-var useTaskSpecificGroupName = false;			// Use Group name when populating Task Specific Info Values
-var enableVariableBranching = false;			// Allows use of variable names in branching.  Branches are not followed in Doc Only
-var maxEntries = 99;							// Maximum number of std choice entries.  Entries must be Left Zero Padded
+var showMessage = false; // Set to true to see results in popup window
+var showDebug = false; // Set to true to see debug messages in popup window
+var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
+var useTaskSpecificGroupName = false; // Use Group name when populating Task Specific Info Values
+var cancel = false;
+var useCustomScriptFile = true;  			// if true, use Events->Custom Script, else use Events->Scripts->INCLUDES_CUSTOM
 /*------------------------------------------------------------------------------------------------------/
 | END User Configurable Parameters
 /------------------------------------------------------------------------------------------------------*/
-var cancel = false;
 var startDate = new Date();
 var startTime = startDate.getTime();
-var message =	"";							// Message String
-var debug = "";								// Debug String
-var br = "<BR>";							// Break Tag
-var feeSeqList = new Array();						// invoicing fee list
-var paymentPeriodList = new Array();					// invoicing pay periods
-
-if (documentOnly) {
-	doStandardChoiceActions(controlString,false,0);
-	aa.env.setValue("ScriptReturnCode", "0");
-	aa.env.setValue("ScriptReturnMessage", "Documentation Successful.  No actions executed.");
-	aa.abortScript();
-	}
+var message = ""; // Message String
+var debug = ""; // Debug String
+var br = "<BR>"; // Break Tag
 
 var useSA = false;
 var SA = null;
 var SAScript = null;
-var bzr = aa.bizDomain.getBizDomainByValue("MULTI_SERVICE_SETTINGS","SUPER_AGENCY_FOR_EMSE"); 
-if (bzr.getSuccess() && bzr.getOutput().getAuditStatus() != "I") { 
-	useSA = true; 	
+var bzr = aa.bizDomain.getBizDomainByValue("MULTI_SERVICE_SETTINGS", "SUPER_AGENCY_FOR_EMSE");
+if (bzr.getSuccess() && bzr.getOutput().getAuditStatus() != "I") {
+	useSA = true;
 	SA = bzr.getOutput().getDescription();
-	bzr = aa.bizDomain.getBizDomainByValue("MULTI_SERVICE_SETTINGS","SUPER_AGENCY_INCLUDE_SCRIPT"); 
-	if (bzr.getSuccess()) { SAScript = bzr.getOutput().getDescription(); }
+	bzr = aa.bizDomain.getBizDomainByValue("MULTI_SERVICE_SETTINGS", "SUPER_AGENCY_INCLUDE_SCRIPT");
+	if (bzr.getSuccess()) {
+		SAScript = bzr.getOutput().getDescription();
 	}
-	
+}
+
 if (SA) {
-	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS",SA));
-	eval(getScriptText(SAScript,SA));
-	}
-else {
-	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
-	}
-	
-eval(getScriptText("INCLUDES_CUSTOM"));
+	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS", SA, useCustomScriptFile));
+	eval(getScriptText(SAScript, SA));
+} else {
+	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS",null,useCustomScriptFile));
+}
 
-if (documentOnly) {
-	doStandardChoiceActions(controlString,false,0);
-	aa.env.setValue("ScriptReturnCode", "0");
-	aa.env.setValue("ScriptReturnMessage", "Documentation Successful.  No actions executed.");
-	aa.abortScript();
-	}
+eval(getScriptText("INCLUDES_CUSTOM",null,useCustomScriptFile));
 
-function getScriptText(vScriptName){
-	var servProvCode = aa.getServiceProviderCode();
-	if (arguments.length > 1) servProvCode = arguments[1]; // use different serv prov code
-	vScriptName = vScriptName.toUpperCase();	
+
+function getScriptText(vScriptName, servProvCode, useProductScripts) {
+	if (!servProvCode)  servProvCode = aa.getServiceProviderCode();
+	vScriptName = vScriptName.toUpperCase();
 	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
 	try {
-		var emseScript = emseBiz.getScriptByPK(servProvCode,vScriptName,"ADMIN");
-		return emseScript.getScriptText() + "";	
-		} catch(err) {
+		if (useProductScripts) {
+			var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
+		} else {
+			var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
+		}
+		return emseScript.getScriptText() + "";
+	} catch (err) {
 		return "";
 	}
 }
+
 
 var cap = aa.env.getValue("CapModel");
 var capId = cap.getCapID();
@@ -153,69 +138,39 @@ logDebug("houseCount = " + houseCount);
 logDebug("feesInvoicedTotal = " + feesInvoicedTotal);
 logDebug("balanceDue = " + balanceDue);
 
-/*------------------------------------------------------------------------------------------------------/
-| BEGIN Event Specific Variables
-/------------------------------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------------------------------------/
-| END Event Specific Variables
-/------------------------------------------------------------------------------------------------------*/
-
-if (preExecute.length) doStandardChoiceActions(preExecute,true,0); 	// run Pre-execution code
-
-logGlobals(AInfo);
-
-/*------------------------------------------------------------------------------------------------------/
-| <===========Main=Loop================>
-|
-/-----------------------------------------------------------------------------------------------------*/
+// page flow custom code begin
 
 try {
+    showDebug = true
+    cancel = true
+    showMessage = true
+    comment("DONB3")
+		
+} catch (err) { 
+
+logDebug(err)	}
+
+// page flow custom code end
 
 
-	cancel = true;
-	showMessage = true;
-	comment("DONB1")		
-	} catch (err) { logDebug(err)	}
-
-
-//
-// Check for invoicing of fees
-//
-if (feeSeqList.length)
-	{
-	invoiceResult = aa.finance.createInvoice(capId, feeSeqList, paymentPeriodList);
-	if (invoiceResult.getSuccess())
-		logMessage("Invoicing assessed fee items is successful.");
-	else
-		logMessage("**ERROR: Invoicing the fee items assessed to app # " + capIDString + " was not successful.  Reason: " +  invoiceResult.getErrorMessage());
-	}
-
-/*------------------------------------------------------------------------------------------------------/
-| <===========END=Main=Loop================>
-/-----------------------------------------------------------------------------------------------------*/
-
-if (debug.indexOf("**ERROR") > 0)
-	{
+if (debug.indexOf("**ERROR") > 0) {
 	aa.env.setValue("ErrorCode", "1");
 	aa.env.setValue("ErrorMessage", debug);
-	}
-else
-	{
-	if (cancel)
-		{
+} else {
+	if (cancel) {
 		aa.env.setValue("ErrorCode", "-2");
-		if (showMessage) aa.env.setValue("ErrorMessage", message);
-		if (showDebug) 	aa.env.setValue("ErrorMessage", debug);
-		}
-	else
-		{
+		if (showMessage)
+			aa.env.setValue("ErrorMessage", message);
+		if (showDebug)
+			aa.env.setValue("ErrorMessage", debug);
+	} else {
 		aa.env.setValue("ErrorCode", "0");
-		if (showMessage) aa.env.setValue("ErrorMessage", message);
-		if (showDebug) 	aa.env.setValue("ErrorMessage", debug);
-		}
+		if (showMessage)
+			aa.env.setValue("ErrorMessage", message);
+		if (showDebug)
+			aa.env.setValue("ErrorMessage", debug);
 	}
+}
 
-/*------------------------------------------------------------------------------------------------------/
-| <===========External Functions (used by Action entries)
-/------------------------------------------------------------------------------------------------------*/
+
+
