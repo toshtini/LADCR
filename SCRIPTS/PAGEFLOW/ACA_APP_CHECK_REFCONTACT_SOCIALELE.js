@@ -139,7 +139,7 @@ logDebug("feesInvoicedTotal = " + feesInvoicedTotal);
 logDebug("balanceDue = " + balanceDue);
 
 // page flow custom code begin
-
+ 
 try {
     showDebug = true;
     logDebug(publicUserID)
