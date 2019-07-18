@@ -141,7 +141,7 @@ logDebug("balanceDue = " + balanceDue);
 // page flow custom code begin
 
 try {
-    showDebug = true;
+    //showDebug = true;
     logDebug(publicUserID)
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     logDebug(pSeqNumber)
@@ -158,12 +158,12 @@ try {
         refNum = contrPeopleModel.getContactSeqNumber();
         logDebug("refNum " + refNum)
         var refConResult = aa.people.getPeople(refNum);
-        logDebug("refConResult.getSuccess  " + refConResult.getSuccess())
+       
 		if (refConResult.getSuccess()) {
 			if (refPeopleModel != null) {
 				
                 var refPeopleModel = refConResult.getOutput();
-                logDebug("getSalutation " + refPeopleModel.getSalutation())
+               
 				if(matches(refPeopleModel.getSalutation(),"Not Eligible"))
 					{
 					showMessage = true;
