@@ -139,7 +139,7 @@ logDebug("feesInvoicedTotal = " + feesInvoicedTotal);
 logDebug("balanceDue = " + balanceDue);
 
 // page flow custom code begin
-  
+
 try {
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     pSeqNumber = aa.util.parseInt(pSeqNumber)
