@@ -45,8 +45,7 @@ if (!publicUser)
 	addParameter(vEParams, "$$ApplicationID$$", capIDString);
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
-		emailContacts_BCC("All", "LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT", vEParams, null, null)
-		}
+		emailAsync_BCC(refContactEmail, "LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT", vEParams, null, null, null, null)
 	}
 
 function loadRefAttr(people) {
