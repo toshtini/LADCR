@@ -42,7 +42,7 @@ if (!publicUser)
 	var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
 	logDebug(beforeEditSocialEquity)
 	var vEParams = aa.util.newHashtable();
-	addParameter(vEParams, "$$ApplicationID$$", capIDString);
+
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
 		sendNotification(null,refContactEmail,"","LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null); 
