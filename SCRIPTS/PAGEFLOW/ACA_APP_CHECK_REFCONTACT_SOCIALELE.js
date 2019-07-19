@@ -155,18 +155,16 @@ try {
 		if (refConResult.getSuccess()) {
             var refPeopleModel = refConResult.getOutput();
 			if (refPeopleModel != null) {
-                //logDebug("salut " + refPeopleModel.getSalutation())
 				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
 					{
 					showMessage = true;
-					comment("Unable to validate proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
+					comment("Unable to proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
 					cancel = true;
 					}
 			}
         }
     }
     showMessage = true;
-    //comment( refPeopleModel.getSalutation());
     comment(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
     cancel = true;
 		

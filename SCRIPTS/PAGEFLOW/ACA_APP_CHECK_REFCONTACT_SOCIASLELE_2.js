@@ -182,6 +182,7 @@ try {
 //
 // Check for invoicing of fees
 //
+
 if (feeSeqList.length)
 	{
 	invoiceResult = aa.finance.createInvoice(capId, feeSeqList, paymentPeriodList);
