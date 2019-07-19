@@ -5,7 +5,7 @@
 // End associated forms for owner data
 
 // Begin script to copy Business contact information (Business Name and Address) to record
-//include("SAVE_BUSINESS_INFO_TO_RECORD");
+include("SAVE_BUSINESS_INFO_TO_RECORD");
 // End script to copy Business contact information (Business Name and Address) to record
 
 // Check matching FEIN or SSN for this BTRC, not for testing records
