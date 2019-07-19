@@ -72,4 +72,4 @@ if(AD != null || MD != null || AML1 != null || MML1 != null || ADO != null || AM
 	}
 
 // Update the AltID
-lacdUpdateAltID(capId,thisRecType,capId.getCustomID(), ActivityType)
+lacdUpdateAltID(capId,thisRecType,capId.getCustomID(), thisActivityType)
