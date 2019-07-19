@@ -42,7 +42,7 @@ if (!publicUser)
 	pSeqNumber = aa.util.parseInt(pSeqNumber)
 	pSeqNumber = aa.util.parseLong(pSeqNumber)
 	
-	capArray = aa.people.getCapIDsByRefContact(CpSeqNumber);
+	capArray = aa.people.getCapIDsByRefContact(pSeqNumber);
 	var afterEditSocialEquity = people.getSalutation();
 	var refContactEmail = people.getEmail();
 	var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
