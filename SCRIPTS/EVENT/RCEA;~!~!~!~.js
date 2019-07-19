@@ -38,7 +38,7 @@ if (!publicUser)
 	{
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var capArray = new Array;
-	capArray = getCapIDsByRefContact(ontactModel.getContactSeqNumber());
+	capArray = aa.people.getCapIDsByRefContact(ContactModel.getContactSeqNumber());
 	var afterEditSocialEquity = people.getSalutation();
 	var refContactEmail = people.getEmail();
 	var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
