@@ -168,7 +168,7 @@ try {
 					{
                     logDebug("DONB3")
 					showMessage = true;
-					comment("Unable to validate proceed. You are not eligible for the Social Equity Status");
+					comment("Unable to validate proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
 					cancel = true;
 					}
 			}
