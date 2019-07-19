@@ -36,7 +36,7 @@ if (publicUser) {
 showDebug = true
 if (!publicUser)
 	{
-	var beforeEditSocialEquity = aa.env.setValue("beforeEditSocialEquity")
+	var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
 	logDebug(beforeEditSocialEquity)
 	}
 
