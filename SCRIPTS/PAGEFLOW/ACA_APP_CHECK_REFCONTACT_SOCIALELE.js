@@ -141,7 +141,6 @@ logDebug("balanceDue = " + balanceDue);
 // page flow custom code begin
   
 try {
-    //showDebug = true;
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     pSeqNumber = aa.util.parseInt(pSeqNumber)
     pSeqNumber = aa.util.parseLong(pSeqNumber)
@@ -157,7 +156,7 @@ try {
             var refPeopleModel = refConResult.getOutput();
 			if (refPeopleModel != null) {
                 //logDebug("salut " + refPeopleModel.getSalutation())
-				if(matches(refPeopleModel.getSalutation(),"Not Eligible"))
+				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
 					{
 					showMessage = true;
 					comment("Unable to validate proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
