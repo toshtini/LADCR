@@ -192,10 +192,11 @@ if (feeSeqList.length)
 		logMessage("**ERROR: Invoicing the fee items assessed to app # " + capIDString + " was not successful.  Reason: " +  invoiceResult.getErrorMessage());
 	}
 
-	
+
 /*------------------------------------------------------------------------------------------------------/
 | <===========END=Main=Loop================>
 /-----------------------------------------------------------------------------------------------------*/
+
 
 if (debug.indexOf("**ERROR") > 0)
 	{
