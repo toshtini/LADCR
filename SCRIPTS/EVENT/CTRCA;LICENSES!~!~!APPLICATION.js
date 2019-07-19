@@ -27,7 +27,7 @@ if (publicUser) {
 // End functionality to set inital workflow status.
 
 // Begin script to update the Application AltID based on Business Activity
-if(publicUser){
+if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 	include("UPDATE_APPLICATION_MJ_ALTID");
 }
 // End script to update the Application AltID based on Business Activity
