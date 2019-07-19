@@ -38,7 +38,11 @@ if (!publicUser)
 	{
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var capArray = new Array;
-	capArray = aa.people.getCapIDsByRefContact(ContactModel.getContactSeqNumber());
+	pSeqNumber = ContactModel.getContactSeqNumber()
+	pSeqNumber = aa.util.parseInt(pSeqNumber)
+	pSeqNumber = aa.util.parseLong(pSeqNumber)
+	
+	capArray = aa.people.getCapIDsByRefContact(CpSeqNumber);
 	var afterEditSocialEquity = people.getSalutation();
 	var refContactEmail = people.getEmail();
 	var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
