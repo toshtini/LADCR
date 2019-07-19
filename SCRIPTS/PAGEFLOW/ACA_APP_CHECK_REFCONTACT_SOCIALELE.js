@@ -165,6 +165,10 @@ try {
 			}
         }
     }
+    showMessage = true;
+    //comment( refPeopleModel.getSalutation());
+    comment(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
+    cancel = true;
 		
 } catch (err) { 
 
