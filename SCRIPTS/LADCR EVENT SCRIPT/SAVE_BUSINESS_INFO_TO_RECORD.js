@@ -1,8 +1,9 @@
 // Copy Business contact information (Business Name and Address) to record
 //if ((publicUser && vEventName == "ConvertToRealCAPAfter") || (!publicUser && vEventName == "ApplicationSubmitAfter")) {
 	// Get Business contact object
+	var vBusinesses = new Array;
 	var vBusinesses = getContactObjsByCap_BCC(capId, 'Business');
-	var vBusiness;
+	var vBusiness; 
 	var vBusinessObj;
 	var vAddresses = [];
 	var vAddress;
@@ -14,7 +15,7 @@
 	
 
 	// Save the business name to the app name if it doesn't exist. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
-	if (vBusinesses && (getAppName() == null || getAppName() == "")) {
+	if (vBusinesses.length > 0 && (getAppName() == null || getAppName() == "")) {
 		// Assume only one business contact
 		vBusiness = vBusinesses[0];
 		var btrc = AInfo["BTRC Number"];
