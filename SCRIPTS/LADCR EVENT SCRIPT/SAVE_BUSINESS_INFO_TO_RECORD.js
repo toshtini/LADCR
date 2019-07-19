@@ -13,6 +13,7 @@
 	var vAddrModel;
 	var xCoord, yCoord, councilDistrict;
 	
+	
 	// Save the business name to the app name if it doesn't exist. This can happen when the ACA user selects defer payment and the ASA event actions do not save.
 	if (vBusinesses.length > 0 && (getAppName() == null || getAppName() == "")) {
 		// Assume only one business contact
