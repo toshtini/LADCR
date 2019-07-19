@@ -45,7 +45,7 @@ if (!publicUser)
 
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
-		sendNotification(null,refContactEmail,"","LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null); 
+		sendEmailNoCapId(null,refContactEmail,"","LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null); 
 		}
 	}
 
