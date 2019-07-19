@@ -46,6 +46,7 @@ if (!publicUser)
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
 		emailAsync_BCC(refContactEmail, "LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT", vEParams, null, null, null, null)
+		}
 	}
 
 function loadRefAttr(people) {
