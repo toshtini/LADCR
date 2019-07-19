@@ -33,6 +33,18 @@ if (publicUser) {
 	var seStatus = people.getSalutation();
 	logDebug("Salutation:  " + seStatus);
 }
+showDebug = true
+if (!publicUser)
+	{
+	var beforeEditSocialEquity = aa.env.setValue("beforeEditSocialEquity")
+	logDebug(beforeEditSocialEquity)
+	}
+
+
+
+
+
+
 
 
 function loadRefAttr(people) {
