@@ -37,6 +37,8 @@ if (publicUser) {
 if (!publicUser)
 	{
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+	var capArray = new Array;
+	capArray = getCapIDsByRefContact(ontactModel.getContactSeqNumber());
 	var afterEditSocialEquity = people.getSalutation();
 	var refContactEmail = people.getEmail();
 	var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
@@ -45,7 +47,8 @@ if (!publicUser)
 
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
-		sendEmailNoCapId(null,refContactEmail,"","LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null); 
+		sendNotification(null,refContactEmail,"","LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null,capArray[0]); 
+
 		}
 	}
 
