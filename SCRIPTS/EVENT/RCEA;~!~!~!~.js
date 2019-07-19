@@ -33,19 +33,21 @@ if (publicUser) {
 	var seStatus = people.getSalutation();
 	logDebug("Salutation:  " + seStatus);
 }
-showDebug = true
+
 if (!publicUser)
 	{
+	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+	var afterEditSocialEquity = people.getSalutation();
+	var refContactEmail = people.getEmail();
 	var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
 	logDebug(beforeEditSocialEquity)
+	var vEParams = aa.util.newHashtable();
+	addParameter(vEParams, "$$ApplicationID$$", capIDString);
+	if(afterEditSocialEquity != beforeEditSocialEquity)
+		{
+		emailContacts_BCC(refContactEmail, "LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT", vEParams, null, vRPanullrams)
+		}
 	}
-
-
-
-
-
-
-
 
 function loadRefAttr(people) {
 
