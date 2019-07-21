@@ -156,7 +156,8 @@ try {
 		if (refConResult.getSuccess()) {
             var refPeopleModel = refConResult.getOutput();
 			if (refPeopleModel != null) {
-				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
+				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
+				if(refPeopleModel.getSalutation().indexOf("Eligib") < 0 || matches(refPeopleModel.getSalutation(),"Not Eligible"))
 					{
 					showMessage = true;
 					comment("Unable to proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
@@ -191,6 +192,3 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", debug);
 	}
 }
-
-
-
