@@ -45,7 +45,8 @@ if (!publicUser)
 	//capArray = aa.people.getCapIDsByRefContact(pSeqNumber);
 	var afterEditSocialEquity = people.getSalutation();
 	var refContactEmail = people.getEmail();
-	var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
+	//var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
+	var beforeEditSocialEquity = beforeEditSocialEquityVar
 	logDebug(beforeEditSocialEquity)
 	var vEParams = aa.util.newHashtable();
 	addParameter(vEParams, "$$oldSEStatus$$",beforeEditSocialEquity);

@@ -20,5 +20,6 @@ if (!publicUser)
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var beforeEditSocialEquity = people.getSalutation();
 	if(beforeEditSocialEquity != null)
-		{aa.env.setValue("beforeEditSocialEquity",beforeEditSocialEquity);}
+		//{aa.env.setValue("beforeEditSocialEquity",beforeEditSocialEquity);}
+		{beforeEditSocialEquityVar = beforeEditSocialEquity}
 	}
