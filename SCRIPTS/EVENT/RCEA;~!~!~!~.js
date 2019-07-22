@@ -36,6 +36,7 @@ if (publicUser) {
 
 if (!publicUser)
 	{
+	// If Agency updates the Social Equity Status email reference contact
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var capArray = new Array;
 	pSeqNumber = ContactModel.getContactSeqNumber()
@@ -55,8 +56,33 @@ if (!publicUser)
 		}
 	}
 
-function loadRefAttr(people) {
 
+// When a Reference Contact is saved update any related record's transactional contacts
+var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+var capArray = new Array;
+var pSeqNumber = ContactModel.getContactSeqNumber()
+pSeqNumber = aa.util.parseInt(pSeqNumber)
+pSeqNumber = aa.util.parseLong(pSeqNumber)
+capArray = getCapIDsByRefContactNBR(pSeqNumber)
+if(capArray.length > 0)
+	{
+	for (aCap in capArray)
+		{
+		// loop through the related Caps
+		var thisCap = capArray[aCap]
+		logDebug("thisCap " + thisCap)
+		var capContactResult = aa.people.getCapContactByCapID(thisCap);
+		if (capContactResult.getSuccess()) {
+			var Contacts = capContactResult.getOutput();
+			for (yy in Contacts) {
+				var thisContactModel = Contacts[yy].getCapContactModel();
+				var saveResult = aa.people.syncCapContactFromReference(thisContactModel, people);
+				}
+			}
+		}
+	}
+
+function loadRefAttr(people) {
 var asiObj = null;
 var asi = new Array();    // associative array of attributes
 var customFieldsObj = null;
