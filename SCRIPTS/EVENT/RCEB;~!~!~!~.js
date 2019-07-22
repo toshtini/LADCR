@@ -17,12 +17,22 @@ if (publicUser) {
 
 if (!publicUser)
 	{
-		var beforeEditSocialEquityVar = null
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var beforeEditSocialEquity = people.getSalutation();
 	if(beforeEditSocialEquity != null)
 		{
-		aa.env.setValue("beforeEditSocialEquity",beforeEditSocialEquity);
-		logDebug("beforeEditSocialEquity " + aa.env.getValue("beforeEditSocialEquity") )
+		//update standard choice value for this reference contact to be read on the RCEA event to see if it has changed
+		var refContactSeqNo = ContactModel.getContactSeqNumber();
+		var refContactSEStatus = lookup("LADCR_REFCONTACT_SOCIALEQUITY_STATUS",refContactSeqNo)
+		// if found do an edit
+		if(refContactSEStatus != undefined)
+			{
+			editLookup ("LADCR_REFCONTACT_SOCIALEQUITY_STATUS", refContactSeqNo, beforeEditSocialEquity)
+			}
+		else
+		// if not do an add
+			{
+			addLookup ("LADCR_REFCONTACT_SOCIALEQUITY_STATUS", refContactSeqNo, beforeEditSocialEquity)
+			}
 		}
 	}

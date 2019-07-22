@@ -42,19 +42,15 @@ if (!publicUser)
 	pSeqNumber = aa.util.parseInt(pSeqNumber)
 	pSeqNumber = aa.util.parseLong(pSeqNumber)
 	capArray = getCapIDsByRefContactNBR(pSeqNumber)
-	//capArray = aa.people.getCapIDsByRefContact(pSeqNumber);
 	var afterEditSocialEquity = people.getSalutation();
 	var refContactEmail = people.getEmail();
-	var beforeEditSocialEquity = aa.env.getValue("beforeEditSocialEquity")
-	//var beforeEditSocialEquity = beforeEditSocialEquityVar
-	logDebug("rea" + beforeEditSocialEquity)
+	var beforeEditSocialEquity = lookup("LADCR_REFCONTACT_SOCIALEQUITY_STATUS",ContactModel.getContactSeqNumber())
 	var vEParams = aa.util.newHashtable();
 	addParameter(vEParams, "$$oldSEStatus$$",beforeEditSocialEquity);
 	addParameter(vEParams, "$$newSEStatus$$",afterEditSocialEquity);
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
 		sendNotification(null,refContactEmail,"","LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null,capArray[0]); 
-
 		}
 	}
 
