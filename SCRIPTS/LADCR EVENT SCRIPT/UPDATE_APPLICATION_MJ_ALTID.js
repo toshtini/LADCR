@@ -18,7 +18,7 @@ var ACSPI = getAppSpecific("Adult-Use Cultivation Specialty Indoor");
 var MCSI = getAppSpecific("Medical Cultivation Small Indoor");
 var MCMI = getAppSpecific("Medical Cultivation Medium Indoor");
 var MCSPI = getAppSpecific("Medical Cultivation Specialty Indoor");
-if(ACSI != null ||  ACMI != null && ACSPI != null || MCSI != null  || MCMI != null || MCSPI != null)
+if(ACSI == "CHECKED" ||  ACMI  == "CHECKED" && ACSPI == "CHECKED" || MCSI == "CHECKED" || MCMI == "CHECKED" || MCSPI == "CHECKED")
 	{
 	thisActivityType = "C"
 	}
@@ -27,7 +27,7 @@ Adult-Use Manufacturer Level 2,Medical Manufacturer Level 2
 */
 var AML2 = getAppSpecific("Adult-Use Manufacturer Level 2");
 var MML2 = getAppSpecific("Medical Manufacturer Level 2");
-if(AML2 != null || MML2 != null)
+if(AML2  == "CHECKED" || MML2  == "CHECKED")
 	{
 	thisActivityType = "V"
 	}
@@ -37,7 +37,7 @@ Distributor Transport Only,Medical Distributor Transport Only,Adult-Use Distribu
 var DTO = getAppSpecific("Distribution Transport Only");
 var ADTO = getAppSpecific("Adult-Use Distributor Transport Only");
 var MDTO = getAppSpecific("Medical Distributor Transport Only");
-if(DTO != null || ADTO != null || MDTO != null)
+if(DTO  == "Yes" || ADTO  == "CHECKED" || MDTO  == "CHECKED")
 	{
 	thisActivityType = "D"
 	}
@@ -45,13 +45,13 @@ if(DTO != null || ADTO != null || MDTO != null)
 */
 var AR = getAppSpecific("Adult-Use Retail");
 var MR = getAppSpecific("Medical Retail");
-if(AR != null || MR != null )
+if(AR  == "CHECKED" || MR == "CHECKED" )
 	{
 	thisActivityType = "R"
 	}
 /* T - Testing 
 */
-if(getAppSpecific("Testing") != null)
+if(getAppSpecific("Testing")  == "Yes")
 	{
 	thisActivityType = "T"
 	}
@@ -66,7 +66,7 @@ var ADO = getAppSpecific("Adult-Use Delivery Only");
 var AMO = getAppSpecific("Medical Delivery Only");
 var AMB = getAppSpecific("Adult-Use Microbusiness");
 var MMB = getAppSpecific("Medical Microbusiness");
-if(AD != null || MD != null || AML1 != null || MML1 != null || ADO != null || AMO != null || AMB != null || MMB != null  )
+if(AD == "CHECKED" || MD== "CHECKED" || AML1== "CHECKED" || MML1 == "CHECKED" || ADO== "CHECKED" || AMO== "CHECKED" || AMB== "CHECKED" || MMB== "CHECKED")
 	{
 	thisActivityType = "O"
 	}
