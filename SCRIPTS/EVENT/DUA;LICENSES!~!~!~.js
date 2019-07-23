@@ -1,5 +1,5 @@
 
-if (documentUploadedFrom == "ACA" && partialCap && documentModelArray) {
+if (false && documentUploadedFrom == "ACA" && partialCap && documentModelArray) {
 	var documentModels = documentModelArray.toArray();
 	var documentModel = null;
 	var conditionNumber = 0;
