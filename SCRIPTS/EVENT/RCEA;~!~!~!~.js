@@ -76,7 +76,7 @@ if(capArray.length > 0)
 			var Contacts = capContactResult.getOutput();
 			for (yy in Contacts) {
 				var thisContactModel = Contacts[yy].getCapContactModel();
-				var saveResult = aa.people.syncCapContactFromReference(thisContactModel, people);
+				var syncResult = aa.people.syncCapContactFromReference(thisContactModel, people);
 				if(syncResult.getSuccess())
 				{
 					   aa.print("Cap contact synchronized successfully!");
