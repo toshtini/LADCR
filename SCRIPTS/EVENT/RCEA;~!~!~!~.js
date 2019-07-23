@@ -72,19 +72,21 @@ if(capArray.length > 0)
 		var thisCap = capArray[aCap]
 		logDebug("thisCap " + thisCap)
 		var capContactResult = aa.people.getCapContactByCapID(thisCap);
+		// loop through any cap contacts
 		if (capContactResult.getSuccess()) {
 			var Contacts = capContactResult.getOutput();
 			for (yy in Contacts) {
+				logDebug("getContactSeqNumber " + Contacts[yy].getCapContactModel().getContactSeqNumber());
 				var thisContactModel = Contacts[yy].getCapContactModel();
 				var syncResult = aa.people.syncCapContactFromReference(thisContactModel, people);
 				if(syncResult.getSuccess())
-				{
-					   aa.print("Cap contact synchronized successfully!");
-				}
+					{
+					logDebug("Cap contact synchronized successfully!");
+					}
 				else
-				{
-					   aa.print("Cap contact synchronized. " + syncResult.getErrorMessage());
-				}
+					{
+					logDebug("Cap contact synchronized. " + syncResult.getErrorMessage());
+					}
 				}
 			}
 		}
