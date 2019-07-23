@@ -1,6 +1,6 @@
 //
 var thisActivityType = null
-if(getAppSpecific("Retailer Commercial Cannabis Activity license in an area of Undue Concentration?") != null)
+if(getAppSpecific("Retailer Commercial Cannabis Activity license in an area of Undue Concentration?") == "Yes")
 	{
 	var thisRecType = "PCN"
 	}
