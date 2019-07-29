@@ -6,7 +6,7 @@
 	if (typeof RELATEDAPPLICATIONS != "undefined") {
 		for (var i in RELATEDAPPLICATIONS) {
 			var recString = RELATEDAPPLICATIONS[i]["Application ID"];
-			var recId = aa.cap.getCapID(recString).getOutput();
+			var recId = aa.cap.getCapID(recString.toString().trim()).getOutput();
 
 			if (recId) {
 				appId =  recId.getID1() + "-" + recId.getID2() + "-" + recId.getID3();
