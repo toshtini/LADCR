@@ -7,10 +7,10 @@
 		for (var i in RELATEDAPPLICATIONS) {
 			var recString = RELATEDAPPLICATIONS[i]["Application ID"];
 			var recId = aa.cap.getCapID(recString).getOutput();
-			appId =  recId.getID1() + "-" + recId.getID2() + "-" + recId.getID3();
-			logDebug("Linking Table Entry: " + appId);
 
 			if (recId) {
+				appId =  recId.getID1() + "-" + recId.getID2() + "-" + recId.getID3();
+				logDebug("Linking Table Entry: " + appId);
 				if (appId != parentCapId) {
 					addParent(recId);
 				}else {
