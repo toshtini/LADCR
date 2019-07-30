@@ -1,4 +1,4 @@
-
+//07/17/2019 - ghess, added Salutation debug for non-public users
 if (publicUser) {
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var seStatus = people.getSalutation();
@@ -27,11 +27,72 @@ if (publicUser) {
 		addParameter(params, "$$FullName$$", people.getFullName());
   		aa.document.sendEmailByTemplateName("dcrlicensing@lacity.org","birdsnack@gmail.com","","LADCR Social Equity Application Alert",params,[]);
 	}
+} else {
+
+	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+	var seStatus = people.getSalutation();
+	logDebug("Salutation:  " + seStatus);
 }
 
+if (!publicUser)
+	{
+	// If Agency updates the Social Equity Status email reference contact
+	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+	var capArray = new Array;
+	pSeqNumber = ContactModel.getContactSeqNumber()
+	pSeqNumber = aa.util.parseInt(pSeqNumber)
+	pSeqNumber = aa.util.parseLong(pSeqNumber)
+	capArray = getCapIDsByRefContactNBR(pSeqNumber)
+	var afterEditSocialEquity = people.getSalutation();
+	var refContactEmail = people.getEmail();
+	var beforeEditSocialEquity = lookup("LADCR_REFCONTACT_SOCIALEQUITY_STATUS",ContactModel.getContactSeqNumber())
+	var vEParams = aa.util.newHashtable();
+	addParameter(vEParams, "$$oldSEStatus$$",beforeEditSocialEquity);
+	addParameter(vEParams, "$$newSEStatus$$",afterEditSocialEquity);
+	if(afterEditSocialEquity != beforeEditSocialEquity)
+		{
+		editLookup ("LADCR_REFCONTACT_SOCIALEQUITY_STATUS", ContactModel.getContactSeqNumber(), afterEditSocialEquity)
+		sendNotification(null,refContactEmail,"","LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null,capArray[0]); 
+		}
+	}
+
+
+// When a Reference Contact is saved update any related record's transactional contacts
+var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+var capArray = new Array;
+var pSeqNumber = ContactModel.getContactSeqNumber()
+pSeqNumber = aa.util.parseInt(pSeqNumber)
+pSeqNumber = aa.util.parseLong(pSeqNumber)
+capArray = getCapIDsByRefContactNBR(pSeqNumber)
+if(capArray.length > 0)
+	{
+	for (aCap in capArray)
+		{
+		// loop through the related Caps
+		var thisCap = capArray[aCap]
+		logDebug("thisCap " + thisCap)
+		var capContactResult = aa.people.getCapContactByCapID(thisCap);
+		// loop through any cap contacts
+		if (capContactResult.getSuccess()) {
+			var Contacts = capContactResult.getOutput();
+			for (yy in Contacts) {
+				logDebug("getContactSeqNumber " + Contacts[yy].getCapContactModel().getContactSeqNumber());
+				var thisContactModel = Contacts[yy].getCapContactModel();
+				var syncResult = aa.people.syncCapContactFromReference(thisContactModel, people);
+				if(syncResult.getSuccess())
+					{
+					logDebug("Cap contact synchronized successfully!");
+					}
+				else
+					{
+					logDebug("Cap contact synchronized. " + syncResult.getErrorMessage());
+					}
+				}
+			}
+		}
+	}
 
 function loadRefAttr(people) {
-
 var asiObj = null;
 var asi = new Array();    // associative array of attributes
 var customFieldsObj = null;
