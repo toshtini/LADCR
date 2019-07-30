@@ -4,6 +4,8 @@ if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Conc
 }
 else{
 // Else assess these fees
+// Turn off for P3R1
+/*********************************************************
 updateFee("F100","CAN_BUS_APP","FINAL",1,"Y");
 
 if (AInfo["Medical Retail"] == "CHECKED") {
@@ -124,7 +126,6 @@ if (AInfo["Adult-Use Manufacturer Level 1"] == "CHECKED") {
 if (AInfo["Adult-Use Manufacturer Level 2"] == "CHECKED") {
     updateFee("J094","CAN_BUS_APP","FINAL",1,"Y");
 }
-
-
+********************************************************/
 
 }
