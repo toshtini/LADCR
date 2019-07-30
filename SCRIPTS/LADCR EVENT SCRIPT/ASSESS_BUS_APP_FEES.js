@@ -1,9 +1,11 @@
+//Test
 // If the record is a PCN then assess these fees
 if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "Yes"){
         updateFee("J097","CAN_BUS_APP","FINAL",1,"Y");
     }
 else{
 // Else assess these fees
+/***********************
     updateFee("F100","CAN_BUS_APP","FINAL",1,"Y");
 
     if (AInfo["Adult-Use Retail"] == "CHECKED" || AInfo["Medical Retail"] == "CHECKED") {
@@ -45,5 +47,5 @@ else{
     if (AInfo["Testing"] == "YES" || AInfo["Testing"] == "Yes") {
         updateFee("J040","CAN_BUS_APP","FINAL",1,"Y");
     }
+****************************************/
 }
-
