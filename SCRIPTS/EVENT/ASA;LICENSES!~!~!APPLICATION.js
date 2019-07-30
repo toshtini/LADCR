@@ -16,9 +16,9 @@ if (!appMatch("Licenses/Cannabis/Testing/Application")) {
 
 // Assess fees
 if (AInfo["Is this a Renewal?"] && AInfo["Is this a Renewal?"].substr(0, 1).toUpperCase().equals("Y")) {
-	// skip fees
+	include("ASSESS_BUS_REN_FEES");
 } else {
-	include("ASSESS_BUS_APP_FEES");
+	include("ASSESS_BUS_APP_FEES2");
 }
 // end assess fees
 
