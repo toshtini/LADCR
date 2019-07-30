@@ -13,3 +13,7 @@ include("UPDATE_APPLICATION_ACCEPTANCE");
 // Begin script to send local authorization notice. added 11/15/18
 include("SEND_LOCAL_AUTH_NOTICE");
 // End script to send local authorization notice.
+ 
+// Begin script to update App Status on full payment for PCN type records to 'Awaiting Council Determination'
+include("UPDATE_COUNCIL_DETERMINATION_ON_PRA");
+// End script
