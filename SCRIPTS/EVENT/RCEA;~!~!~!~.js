@@ -52,7 +52,7 @@ if (!publicUser)
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
 		editLookup ("LADCR_REFCONTACT_SOCIALEQUITY_STATUS", ContactModel.getContactSeqNumber(), afterEditSocialEquity)
-		sendNotification(null,refContactEmail,"","LACDR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null,capArray[0]); 
+		sendNotification(null,refContactEmail,"","LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null,capArray[0]); 
 		}
 	}
 
