@@ -142,6 +142,7 @@ logDebug("balanceDue = " + balanceDue);
 
 
 try {
+	// Check reference contact attribute SAALUTATION to see if
     var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
     pSeqNumber = aa.util.parseInt(pSeqNumber)
     pSeqNumber = aa.util.parseLong(pSeqNumber)
@@ -156,7 +157,6 @@ try {
 		if (refConResult.getSuccess()) {
             var refPeopleModel = refConResult.getOutput();
 			if (refPeopleModel != null) {
-				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
 				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified"))
 					{
 					showMessage = true;
