@@ -160,7 +160,8 @@ try {
 				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified"))
 					{
 					showMessage = true;
-					comment("Unable to proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
+					//comment("Unable to proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
+					comment("Unable to proceed. Your Social Equity Status has not been verified for this round of licensing.");
 					cancel = true;
 					}
 			}
