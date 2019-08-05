@@ -1,5 +1,6 @@
 //RCEA:*/*/*/*
 //07/17/2019 - added Salutation debug for non-public users
+//08/05/2019 - added email notification LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT
 if (publicUser) {
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var seStatus = people.getSalutation();
@@ -37,6 +38,27 @@ if (publicUser) {
 
 //slackDebug(debug);
 
+if (!publicUser)
+	{
+	// If Agency updates the Social Equity Status email reference contact
+	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+	var capArray = new Array;
+	pSeqNumber = ContactModel.getContactSeqNumber()
+	pSeqNumber = aa.util.parseInt(pSeqNumber)
+	pSeqNumber = aa.util.parseLong(pSeqNumber)
+	capArray = getCapIDsByRefContactNBR(pSeqNumber)
+	var afterEditSocialEquity = people.getSalutation();
+	var refContactEmail = people.getEmail();
+	var beforeEditSocialEquity = lookup("LADCR_REFCONTACT_SOCIALEQUITY_STATUS",ContactModel.getContactSeqNumber())
+	var vEParams = aa.util.newHashtable();
+	addParameter(vEParams, "$$oldSEStatus$$",beforeEditSocialEquity);
+	addParameter(vEParams, "$$newSEStatus$$",afterEditSocialEquity);
+	if(afterEditSocialEquity != beforeEditSocialEquity)
+		{
+		editLookup ("LADCR_REFCONTACT_SOCIALEQUITY_STATUS", ContactModel.getContactSeqNumber(), afterEditSocialEquity)
+		sendNotification(null,refContactEmail,"","LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null,capArray[0]); 
+		}
+	}
 
 
 function loadRefAttr(people) {
