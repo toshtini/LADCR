@@ -91,6 +91,37 @@ if(capArray.length > 0)
 			}
 		}
 	}
+	// now update any records Custom List with the reference contact identified in the Contact Sequence Number column
+	var table = "LIST OF OWNERS";
+	var subgroup = "CAN_BUS_APP"
+	var column = "Contact Sequence Number";
+	var value = ContactModel.getContactSeqNumber()
+	var sql = "SELECT A.B1_PER_ID1, A.B1_PER_ID2, A.B1_PER_ID3 "
+	+ " FROM BAPPSPECTABLE_VALUE A "
+	+ " WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "'"
+	+ " AND A.COLUMN_NAME = '" + column + "'"
+	+ " AND A.GROUP_NAME = '" + subgroup  + "'"
+	+ " AND TABLE_NAME = '" + table + "'"
+	+ " AND ATTRIBUTE_VALUE = '" + value + "'";
+	var x = doSQL(sql);
+	var r = [];
+	if (x) {
+		for (var i in x) {
+			var item = x[i];
+			r.push(aa.cap.getCapID(item.B1_PER_ID1, item.B1_PER_ID2, item.B1_PER_ID3).getOutput());
+		}
+	}
+	for (var i in r) {
+		logDebug("Record[" + i + "]: " + r[i].getCustomID());
+		customListColumnUpdate(r[i], table, column, value, "First Name", people.firstName)
+		customListColumnUpdate(r[i], table, column, value, "Last Name", people.lastName)
+		customListColumnUpdate(r[i], table, column, value, "Phone Number", people.phone1)
+		customListColumnUpdate(r[i], table, column, value, "Email Address", people.email)
+	}
+	
+	
+
+	
 
 function loadRefAttr(people) {
 var asiObj = null;
