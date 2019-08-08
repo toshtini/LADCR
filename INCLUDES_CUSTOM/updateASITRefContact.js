@@ -25,4 +25,4 @@ function updateASITRefContact(table,subgroup,column,value,firstName,lastName, ph
 		customListColumnUpdate(r[i], table, column, value, "Phone Number", phone1)
 		customListColumnUpdate(r[i], table, column, value, "Email Address", email)
 	}
-}
+} 
