@@ -93,9 +93,15 @@ if(capArray.length > 0)
 	}
 	
 	// now update any records Custom List with the reference contact identified in the Contact Sequence Number column
-	updateASITRefContact("LIST OF OWNERS","CAN_BUS_APP","Contact Sequence Number",ContactModel.getContactSeqNumber(),people.firstName,people.lastName,people.phone1,people.email)
+	var vAsyncScript = "SEND_ASITREFCONTACTUPDATE_ASYNC";
+	var envParameters = aa.util.newHashMap();
+	envParameters.put("table", "LIST OF OWNERS");
+	envParameters.put("subgroup", "CAN_BUS_APP");
+	envParameters.put("column", "Contact Sequence Number");	
+	envParameters.put("value", ContactModel.getContactSeqNumber());	
+	envParameters.put("firstName", people.firstName);	
+	envParameters.put("lastName", people.lastName);	
+	envParameters.put("phone1", people.phone1);	
+	envParameters.put("email", people.email);	
+	aa.runAsyncScript(vAsyncScript, envParameters);
 	
-
-
-	
-
