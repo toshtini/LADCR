@@ -1,8 +1,4 @@
 function updateASITRefContact(table,subgroup,column,value,firstName,lastName, phone1,email){
-	var table = ;
-	var subgroup = 
-	var column = ;
-	var value = 
 	var sql = "SELECT A.B1_PER_ID1, A.B1_PER_ID2, A.B1_PER_ID3 "
 	+ " FROM BAPPSPECTABLE_VALUE A "
 	+ " WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "'"
@@ -25,4 +21,4 @@ function updateASITRefContact(table,subgroup,column,value,firstName,lastName, ph
 		customListColumnUpdate(r[i], table, column, value, "Phone Number", phone1)
 		customListColumnUpdate(r[i], table, column, value, "Email Address", email)
 	}
-} 
+}
