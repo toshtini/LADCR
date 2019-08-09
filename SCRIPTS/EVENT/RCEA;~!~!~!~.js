@@ -107,7 +107,11 @@ if(capArray.length > 0)
 	
 function sendNotification2(emailFrom,emailTo,emailCC,templateName,params,reportFile){
 	var result = null;
-	result = aa.document.sendEmailAndSaveAsDocument(emailFrom, emailTo, emailCC, templateName, params, null, reportFile);
+	var id1 = ""
+	var id2 = ""
+	var id3 = ""
+	var capIDScriptModel = aa.cap.createCapIDScriptModel(id1, id2, id3);
+	result = aa.document.sendEmailAndSaveAsDocument(emailFrom, emailTo, emailCC, templateName, params, capIDScriptModel, reportFile);
 	if(result.getSuccess()){
 		logDebug("Sent email successfully!");
 		return true;
