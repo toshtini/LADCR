@@ -91,18 +91,26 @@ if(capArray.length > 0)
 			}
 		}
 	}
-	
+
 	// now update any records Custom List with the reference contact identified in the Contact Sequence Number column
 	var vAsyncScript = "SEND_ASITREFCONTACTUPDATE_ASYNC";
 	var envParameters = aa.util.newHashMap();
 	envParameters.put("table", "LIST OF OWNERS");
+	aa.env.setValue("table", "LIST OF OWNERS");
 	envParameters.put("subgroup", "CAN_BUS_APP");
+	aa.env.setValue("subgroup", "CAN_BUS_APP");
 	envParameters.put("column", "Contact Sequence Number");	
-	envParameters.put("value", ContactModel.getContactSeqNumber());	
-	envParameters.put("firstName", people.firstName);	
-	envParameters.put("lastName", people.lastName);	
-	envParameters.put("phone1", people.phone1);	
-	envParameters.put("email", people.email);	
+	aa.env.setValue("column", "Contact Sequence Number");
+	envParameters.put("value", ContactModel.getContactSeqNumber());
+	aa.env.setValue("value", ContactModel.getContactSeqNumber());
+	envParameters.put("firstName", people.firstName);
+	aa.env.setValue("firstName", people.firstName);
+	envParameters.put("lastName", people.lastName);
+	aa.env.setValue("lastName", people.lastName);
+	envParameters.put("phone1", people.phone1);
+	aa.env.setValue("phone1", people.phone1);
+	envParameters.put("email", people.email);
+	aa.env.setValue("email", people.email);
 	aa.runAsyncScript(vAsyncScript, envParameters);
 	
 function sendNotification2(emailFrom,emailTo,emailCC,templateName,params,reportFile){
