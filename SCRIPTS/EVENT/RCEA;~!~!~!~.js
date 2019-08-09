@@ -59,7 +59,7 @@ if (!publicUser)
 		}
 	}
 
-/********************************************8
+
 // When a Reference Contact is saved update any related record's transactional contacts
 var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 var capArray = new Array;
@@ -94,7 +94,6 @@ if(capArray.length > 0)
 			}
 		}
 	}
-***************************************/
 
 	// now update any records Custom List with the reference contact identified in the Contact Sequence Number column
 	/*
@@ -110,7 +109,6 @@ if(capArray.length > 0)
 	aa.env.setValue("email", people.email.toString());
 	aa.includeScript(vAsyncScript);
 	*/
-	
 function sendNotification2(emailFrom,emailTo,emailCC,templateName,params,reportFile){
 	var result = null;
 	var id1 = ""
