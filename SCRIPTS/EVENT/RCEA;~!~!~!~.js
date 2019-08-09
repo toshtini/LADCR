@@ -52,7 +52,7 @@ if (!publicUser)
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
 		editLookup ("LADCR_REFCONTACT_SOCIALEQUITY_STATUS", ContactModel.getContactSeqNumber(), afterEditSocialEquity)
-		sendNotification(null,refContactEmail,"","LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null); 
+		sendNotification2(null,refContactEmail,"","LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null); 
 		}
 	}
 
@@ -105,3 +105,15 @@ if(capArray.length > 0)
 	envParameters.put("email", people.email);	
 	aa.runAsyncScript(vAsyncScript, envParameters);
 	
+function sendNotification2(emailFrom,emailTo,emailCC,templateName,params,reportFile){
+	var result = null;
+	result = aa.document.sendEmailAndSaveAsDocument(emailFrom, emailTo, emailCC, templateName, params, null, reportFile);
+	if(result.getSuccess()){
+		logDebug("Sent email successfully!");
+		return true;
+	}
+	else{
+		logDebug("Failed to send mail. - " + result.getErrorType());
+		return false;
+	}
+}
