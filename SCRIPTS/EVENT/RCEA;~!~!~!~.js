@@ -1,7 +1,7 @@
 //RCEA:*/*/*/*
 //07/17/2019 - added Salutation debug for non-public users
 //08/05/2019 - added email notification LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT
-//08/09/2017 - Don, sendNotification2() fix.
+//08/09/2017 - Don, sendNotification2() fix. Commnted out record caontact updates
 if (publicUser) {
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var seStatus = people.getSalutation();
@@ -59,7 +59,7 @@ if (!publicUser)
 		}
 	}
 
-
+/********************************************8
 // When a Reference Contact is saved update any related record's transactional contacts
 var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 var capArray = new Array;
@@ -94,6 +94,7 @@ if(capArray.length > 0)
 			}
 		}
 	}
+***************************************/
 
 	// now update any records Custom List with the reference contact identified in the Contact Sequence Number column
 	/*
@@ -109,6 +110,7 @@ if(capArray.length > 0)
 	aa.env.setValue("email", people.email.toString());
 	aa.includeScript(vAsyncScript);
 	*/
+	
 function sendNotification2(emailFrom,emailTo,emailCC,templateName,params,reportFile){
 	var result = null;
 	var id1 = ""
