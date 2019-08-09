@@ -38,7 +38,7 @@ if (!publicUser)
 	{
 	// If Agency updates the Social Equity Status email reference contact
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
-	var capArray = new Array;
+	var capArray = new Array; 
 	pSeqNumber = ContactModel.getContactSeqNumber()
 	pSeqNumber = aa.util.parseInt(pSeqNumber)
 	pSeqNumber = aa.util.parseLong(pSeqNumber)
@@ -52,7 +52,7 @@ if (!publicUser)
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
 		editLookup ("LADCR_REFCONTACT_SOCIALEQUITY_STATUS", ContactModel.getContactSeqNumber(), afterEditSocialEquity)
-		sendNotification(null,refContactEmail,"","LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null,capArray[0]); 
+		sendNotification(null,refContactEmail,"","LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null); 
 		}
 	}
 
