@@ -104,14 +104,15 @@ if(capArray.length > 0)
 	envParameters.put("value", ContactModel.getContactSeqNumber());
 	aa.env.setValue("value", ContactModel.getContactSeqNumber());
 	envParameters.put("firstName", people.firstName);
-	aa.env.setValue("firstName", people.firstName);
+	aa.env.setValue("firstName", people.firstName.toString());
 	envParameters.put("lastName", people.lastName);
-	aa.env.setValue("lastName", people.lastName);
+	aa.env.setValue("lastName", people.lastName.toString());
 	envParameters.put("phone1", people.phone1);
-	aa.env.setValue("phone1", people.phone1);
+	aa.env.setValue("phone1", people.phone1.toString());
 	envParameters.put("email", people.email);
-	aa.env.setValue("email", people.email);
-	aa.runAsyncScript(vAsyncScript, envParameters);
+	aa.env.setValue("email", people.email.toString());
+	aa.includeScript(vAsyncScript);
+	//aa.runAsyncScript(vAsyncScript, envParameters);
 	
 function sendNotification2(emailFrom,emailTo,emailCC,templateName,params,reportFile){
 	var result = null;
