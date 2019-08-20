@@ -38,7 +38,7 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 }
 
 // script 60
-if (balanceDue > 0) {
+//if (balanceDue > 0) {
 	include("SEND_INVOICE");
-}
+//}
 // End script
