@@ -36,4 +36,9 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 	include("ACA_SAVE_PUBLICUSER_REFCONTACT_REFNO_TO_APP");
 }
+
+// script 60
+//if (balanceDue > 0) {
+	include("SEND_INVOICE");
+//}
 // End script
