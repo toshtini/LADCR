@@ -39,6 +39,7 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 
 // script 60
 //if (balanceDue > 0) {
+if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "Yes"){
 	include("SEND_INVOICE");
-//}
+}
 // End script
