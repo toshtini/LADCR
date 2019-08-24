@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APPLICATION_DOC_BEFORE.js 
+| Program : ACA_APP_CHECK_REFCONTACT_SOCIALELE.js
 | Event   : ACA Page Flow attachments before event
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
@@ -7,7 +7,7 @@
 | Client  : N/A
 | Action# : N/A
 |
-| Notes   :
+| Notes   : 08/23/2019, ghess - added check for Earliest Temporary License  (Preferred Channel)
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -142,8 +142,7 @@ logDebug("balanceDue = " + balanceDue);
 
 
 try {
-	// Check reference contact attribute SAALUTATION to see if
-    var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
+    var pSeqNumber = publicUserID.replace("PUBLICUSER","");
     pSeqNumber = aa.util.parseInt(pSeqNumber)
     pSeqNumber = aa.util.parseLong(pSeqNumber)
     publicUserResult = aa.publicUser.getPublicUser(pSeqNumber);
@@ -157,7 +156,10 @@ try {
 		if (refConResult.getSuccess()) {
             var refPeopleModel = refConResult.getOutput();
 			if (refPeopleModel != null) {
-				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified"))
+				var asiEarliestTemporaryLicense = refPeopleModel.getPreferredChannel();
+				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
+				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified"))
+				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified")|| (aa.util.parseInt(asiEarliestTemporaryLicense) <= 1))
 					{
 					showMessage = true;
 					//comment("Unable to proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
@@ -167,8 +169,8 @@ try {
 			}
         }
     }
-		
-} catch (err) { 
+
+} catch (err) {
 
 logDebug(err)	}
 
