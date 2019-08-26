@@ -159,7 +159,7 @@ try {
 				var asiEarliestTemporaryLicense = refPeopleModel.getPreferredChannel();
 				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
 				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified"))
-				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified")|| (aa.util.parseInt(asiEarliestTemporaryLicense) <= 1))
+				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified")|| (aa.util.parseInt(asiEarliestTemporaryLicense) == 1))
 					{
 					showMessage = true;
 					//comment("Unable to proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
