@@ -152,6 +152,7 @@ try {
     contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
 	if (contrPeopleModel != null) {
         refNum = contrPeopleModel.getContactSeqNumber();
+		// test 1 social equity
         var refConResult = aa.people.getPeople(refNum);
 		if (refConResult.getSuccess()) {
             var refPeopleModel = refConResult.getOutput();
@@ -168,6 +169,22 @@ try {
 					}
 			}
         }
+		// test 2 applications in progress
+		var existingRecs = getCapIDsByRefContactNBR(refNum);
+		if (existingRecs && existingRecs.length > 0) {
+			var existingBiz = [];
+			for (var i in existingRecs) {
+				if (appMatch("Licenses/Cannabis/Business/Application",existingRecs[i])) {
+					var existingId = aa.cap.getCapID(existingRecs[i].getID1(),existingRecs[i].getID2(),existingRecs[i].getID3()).getOutput();
+					existingBiz.push(existingId.getCustomID());
+				}
+			}
+			if (existingBiz.length > 0) {
+				showMessage = true;
+				comment("Unable to proceed. One or more applications are in progress or have been submitted (" + existingBiz.join(",") + ")");
+				cancel = true;				
+			}
+		}
     }
 
 } catch (err) {
