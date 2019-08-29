@@ -37,9 +37,9 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 	include("ACA_SAVE_PUBLICUSER_REFCONTACT_REFNO_TO_APP");
 }
 
-// script 60
+// script 60, 8/29/2019, per Jason, invoice not ready to distribute. Commenting out code.
 //if (balanceDue > 0) {
-if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "Yes"){
-	include("SEND_INVOICE");
-}
+//if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "Yes"){
+//	include("SEND_INVOICE");
+//}
 // End script
