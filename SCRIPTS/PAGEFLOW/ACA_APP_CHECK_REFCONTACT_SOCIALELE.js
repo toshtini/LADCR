@@ -175,8 +175,11 @@ try {
 			var existingBiz = [];
 			for (var i in existingRecs) {
 				if (appMatch("Licenses/Cannabis/Business/Application",existingRecs[i])) {
-					var existingId = aa.cap.getCapID(existingRecs[i].getID1(),existingRecs[i].getID2(),existingRecs[i].getID3()).getOutput();
-					existingBiz.push(existingId.getCustomID());
+					var existingCap = aa.cap.getCap(existingRecs[i]).getOutput();
+					if (!existingCap.isCompleteCap()) {
+						var existingId = aa.cap.getCapID(existingRecs[i].getID1(),existingRecs[i].getID2(),existingRecs[i].getID3()).getOutput();
+						existingBiz.push(existingId.getCustomID());
+					}
 				}
 			}
 			if (existingBiz.length > 0) {
