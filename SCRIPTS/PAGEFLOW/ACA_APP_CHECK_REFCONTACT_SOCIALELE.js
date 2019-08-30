@@ -184,7 +184,7 @@ try {
 			}
 			if (existingBiz.length > 0) {
 				showMessage = true;
-				comment("Unable to proceed. One or more applications are in progress or have been submitted (" + existingBiz.join(",") + ")");
+				comment("Unable to proceed. One or more applications are already in progress (" + existingBiz.join(",") + ")");
 				cancel = true;				
 			}
 		}
