@@ -169,27 +169,27 @@ try {
 					}
 			}
         }
-		// test 2 applications in progress
-		var existingRecs = getCapIDsByRefContactNBR(refNum);
-		if (existingRecs && existingRecs.length > 0) {
-			var existingBiz = [];
-			for (var i in existingRecs) {
-				if (appMatch("Licenses/Cannabis/Business/Application",existingRecs[i])) {
-					var existingCap = aa.cap.getCap(existingRecs[i]).getOutput();
-					if (!existingCap.isCompleteCap()) {
-						var existingId = aa.cap.getCapID(existingRecs[i].getID1(),existingRecs[i].getID2(),existingRecs[i].getID3()).getOutput();
-						existingBiz.push(existingId.getCustomID());
-					}
+	}
+	// test 2 applications in progress
+	var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from B1PERMIT WHERE B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "'";
+	var existingRecs = doSQLQuery(sql);
+	if (existingRecs && existingRecs.length > 0) {
+		var existingBiz = [];
+		for (var i in existingRecs) {
+			var existingId = aa.cap.getCapID(existingRecs[i].B1_PER_ID1,existingRecs[i].B1_PER_ID2,existingRecs[i].B1_PER_ID3).getOutput();
+			if (existingId) {
+				var existingCap = aa.cap.getCap(existingId).getOutput();
+				if (existingCap && !existingCap.isCompleteCap()) {
+					existingBiz.push(existingId.getCustomID());
 				}
 			}
-			if (existingBiz.length > 0) {
-				showMessage = true;
-				comment("Unable to proceed. One or more applications are already in progress (" + existingBiz.join(",") + ")");
-				cancel = true;				
-			}
 		}
-    }
-
+		if (existingBiz.length > 0) {
+			showMessage = true;
+			comment("Unable to proceed. One or more applications are already in progress (" + existingBiz.join(",") + ")");
+			cancel = true;				
+		}
+	}
 } catch (err) {
 
 logDebug(err)	}
@@ -213,5 +213,41 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", message);
 		if (showDebug)
 			aa.env.setValue("ErrorMessage", debug);
+	}
+}
+
+
+function doSQLQuery(sql) {
+
+	try {
+		var array = [];
+		var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+		var ds = initialContext.lookup("java:/AA");
+		var conn = ds.getConnection();
+		var sStmt = conn.prepareStatement(sql);
+
+		if (sql.toUpperCase().indexOf("SELECT") == 0) {
+			aa.print("(doSQL) executing : " + sql);
+			var rSet = sStmt.executeQuery();
+			while (rSet.next()) {
+				var obj = {};
+				var md = rSet.getMetaData();
+				var columns = md.getColumnCount();
+				for (i = 1; i <= columns; i++) {
+					obj[md.getColumnName(i)] = String(rSet.getString(md.getColumnName(i)));
+				}
+				obj.count = rSet.getRow();
+				array.push(obj);
+			}
+			aa.print("(doSQL) number of rows returned : " + array.length);
+			aa.print(JSON.stringify(array));
+			rSet.close();
+		} 
+
+		sStmt.close();
+		conn.close();
+		return array;
+	} catch (err) {
+		aa.print(err.message);
 	}
 }
