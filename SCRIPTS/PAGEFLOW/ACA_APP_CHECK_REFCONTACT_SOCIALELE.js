@@ -171,7 +171,7 @@ try {
         }
 	}
 	// test 2 applications in progress
-	var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from B1PERMIT WHERE B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "'";
+	var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from B1PERMIT WHERE B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "' AND REC_STATUS = 'A'";
 	var existingRecs = doSQL(sql);
 	if (existingRecs && existingRecs.length > 0) {
 		var existingBiz = [];
