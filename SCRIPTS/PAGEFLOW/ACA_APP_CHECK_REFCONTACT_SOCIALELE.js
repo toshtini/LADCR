@@ -182,7 +182,7 @@ try {
 				var existingCap = aa.cap.getCap(existingId).getOutput();
 				var finishedCap = aa.cap.getProjectByMasterID(existingId,"EST",null).getOutput();
 				// only include tmps that aren't finished
-				if (!finishedCap && existingCap && !existingCap.isCompleteCap()) {
+				if ((!capIDString.equals(existingId.getCustomID()) && !finishedCap && existingCap && !existingCap.isCompleteCap()) {
 					existingBiz.push(existingId.getCustomID());
 				}
 			}
