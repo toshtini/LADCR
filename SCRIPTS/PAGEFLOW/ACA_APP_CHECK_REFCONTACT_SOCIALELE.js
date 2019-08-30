@@ -172,14 +172,17 @@ try {
 	}
 	// test 2 applications in progress
 	var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from B1PERMIT WHERE B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "'";
-	var existingRecs = doSQLQuery(sql);
+	var existingRecs = doSQL(sql);
 	if (existingRecs && existingRecs.length > 0) {
 		var existingBiz = [];
 		for (var i in existingRecs) {
+			aa.print(existingRecs[i].B1_PER_ID1 + " " +  existingRecs[i].B1_PER_ID2 + " " + existingRecs[i].B1_PER_ID3);
 			var existingId = aa.cap.getCapID(existingRecs[i].B1_PER_ID1,existingRecs[i].B1_PER_ID2,existingRecs[i].B1_PER_ID3).getOutput();
 			if (existingId) {
 				var existingCap = aa.cap.getCap(existingId).getOutput();
-				if (existingCap && !existingCap.isCompleteCap()) {
+				var finishedCap = aa.cap.getProjectByMasterID(existingId,"EST",null).getOutput();
+				// only include tmps that aren't finished
+				if (!finishedCap && existingCap && !existingCap.isCompleteCap()) {
 					existingBiz.push(existingId.getCustomID());
 				}
 			}
