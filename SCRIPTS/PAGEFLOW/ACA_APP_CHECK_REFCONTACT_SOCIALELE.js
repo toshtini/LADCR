@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APPLICATION_DOC_BEFORE.js 
+| Program : ACA_APP_CHECK_REFCONTACT_SOCIALELE.js
 | Event   : ACA Page Flow attachments before event
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
@@ -7,7 +7,7 @@
 | Client  : N/A
 | Action# : N/A
 |
-| Notes   :
+| Notes   : 08/23/2019, ghess - added check for Earliest Temporary License  (Preferred Channel)
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -142,8 +142,7 @@ logDebug("balanceDue = " + balanceDue);
 
 
 try {
-	// Check reference contact attribute SAALUTATION to see if
-    var pSeqNumber = publicUserID.replace("PUBLICUSER","");  
+    var pSeqNumber = publicUserID.replace("PUBLICUSER","");
     pSeqNumber = aa.util.parseInt(pSeqNumber)
     pSeqNumber = aa.util.parseLong(pSeqNumber)
     publicUserResult = aa.publicUser.getPublicUser(pSeqNumber);
@@ -153,11 +152,15 @@ try {
     contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
 	if (contrPeopleModel != null) {
         refNum = contrPeopleModel.getContactSeqNumber();
+		// test 1 social equity
         var refConResult = aa.people.getPeople(refNum);
 		if (refConResult.getSuccess()) {
             var refPeopleModel = refConResult.getOutput();
 			if (refPeopleModel != null) {
-				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified"))
+				var asiEarliestTemporaryLicense = refPeopleModel.getPreferredChannel();
+				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
+				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified"))
+				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified")|| (aa.util.parseInt(asiEarliestTemporaryLicense) == 1))
 					{
 					showMessage = true;
 					//comment("Unable to proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
@@ -166,9 +169,30 @@ try {
 					}
 			}
         }
-    }
-		
-} catch (err) { 
+	}
+	// test 2 applications in progress.  fail if any incompletes
+	var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from B1PERMIT WHERE B1_APPL_CLASS = 'INCOMPLETE CAP' AND B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "' AND REC_STATUS = 'A'";
+	var existingRecs = doSQLQuery(sql);
+	if (existingRecs && existingRecs.length > 0) {
+		var existingBiz = [];
+		for (var i in existingRecs) {
+			aa.print(existingRecs[i].B1_PER_ID1 + " " +  existingRecs[i].B1_PER_ID2 + " " + existingRecs[i].B1_PER_ID3);
+			var existingId = aa.cap.getCapID(existingRecs[i].B1_PER_ID1,existingRecs[i].B1_PER_ID2,existingRecs[i].B1_PER_ID3).getOutput();
+			if (existingId) {
+				var finishedCap = aa.cap.getProjectByMasterID(existingId,"EST",null).getOutput();
+				// only include tmps that aren't finished
+				if ((!capIDString.equals(existingId.getCustomID())) && !finishedCap) {
+					existingBiz.push(existingId.getCustomID());
+				}
+			}
+		}
+		if (existingBiz.length > 0) {
+			showMessage = true;
+			comment("Unable to proceed. One or more applications are already in progress (" + existingBiz.join(",") + ")");
+			cancel = true;				
+		}
+	}
+} catch (err) {
 
 logDebug(err)	}
 
@@ -191,5 +215,41 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", message);
 		if (showDebug)
 			aa.env.setValue("ErrorMessage", debug);
+	}
+}
+
+
+function doSQLQuery(sql) {
+
+	try {
+		var array = [];
+		var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+		var ds = initialContext.lookup("java:/AA");
+		var conn = ds.getConnection();
+		var sStmt = conn.prepareStatement(sql);
+
+		if (sql.toUpperCase().indexOf("SELECT") == 0) {
+			aa.print("(doSQL) executing : " + sql);
+			var rSet = sStmt.executeQuery();
+			while (rSet.next()) {
+				var obj = {};
+				var md = rSet.getMetaData();
+				var columns = md.getColumnCount();
+				for (i = 1; i <= columns; i++) {
+					obj[md.getColumnName(i)] = String(rSet.getString(md.getColumnName(i)));
+				}
+				obj.count = rSet.getRow();
+				array.push(obj);
+			}
+			aa.print("(doSQL) number of rows returned : " + array.length);
+			aa.print(JSON.stringify(array));
+			rSet.close();
+		} 
+
+		sStmt.close();
+		conn.close();
+		return array;
+	} catch (err) {
+		aa.print(err.message);
 	}
 }
