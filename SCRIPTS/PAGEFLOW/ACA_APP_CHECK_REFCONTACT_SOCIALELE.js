@@ -197,7 +197,7 @@ try {
 	// test 3 Only allow applications where undue concentration (9/10/2019)
 	if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "No"){
 		showMessage = true;
-		comment("Unable to proceed. Only accepting applictions for areas of undue concentration.");
+		comment("Unable to proceed. Only accepting applications for areas of undue concentration.");
 		cancel = true;
 	}
 	
