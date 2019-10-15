@@ -1,6 +1,52 @@
 //SEND_EMAIL_TO_INTERESTED_PARTIES
 //created 04/05/2019, ghess
-//updated 10/08/2019
+//updated 10/15/2019
+
+function notifyIPByList(etemplate) {
+try{
+
+	var stdChoice = "INTERESTED_PARTIES_LIST";
+	var NotifyTemplate = "";
+	
+	var bizDomScriptResult = aa.bizDomain.getBizDomain(stdChoice);
+	
+	if (bizDomScriptResult.getSuccess())
+	{
+		bizDomScriptArray = bizDomScriptResult.getOutput().toArray()
+		
+		for (var i in bizDomScriptArray)
+		{
+			// this list is sorted the same as the UI, no reason to re-sort
+			
+			ipName = bizDomScriptArray[i].getBizdomainValue();
+			ipEmail = bizDomScriptArray[i].getDescription();
+			
+			if (bizDomScriptArray[i].getAuditStatus() != 'I') {
+				logDebug("getBizdomainValue = " + ipName);
+				logDebug("getDescription = " + ipEmail);
+				logDebug("licenseType = " + cap.getCapType().getAlias());
+				logDebug("altID = " + capIDString);
+				
+				var params = aa.util.newHashtable();
+				//getACARecordParam4Notification(params,acaUrl);
+				addParameter(params, "$$licenseType$$", cap.getCapType().getAlias());
+				addParameter(params,"$$altID$$",capIDString);
+				addParameter(params,"$$notificationName$$",ipName)
+	  
+				// params name, altid, 
+				var sysFromEmail = "dcrlicensing@lacity.org";
+				sendNotification(sysFromEmail,ipEmail,"",etemplate,params,null);
+				
+			}
+		}
+	}
+
+
+}
+catch(err){
+	logDebug("A JavaScript Error occured in function notifyIPByList(): " + err.message + " at line " + err.lineNumber + " stack: "+ err.stack);
+}
+}
 
 function notifyByArea(pFieldName, pFieldValue, pMailFrom, pEmailTemplate, vEParamsToSend, capId4Email, partyEmailsArr){
 
@@ -177,8 +223,7 @@ try{
 
 }
 catch(err){
-	aa.print("Error:" + err);
-	//comment("Error:" + err);
+	logDebug("A JavaScript Error occured in function notifyIPByArea(): " + err.message + " at line " + err.lineNumber + " stack: "+ err.stack);
 }
 }
 
@@ -192,9 +237,8 @@ try {
 	//
 	notifyIPByArea("LADCR INTERESTED PARTIES BY AREA");	
 
-
 	
 	}
 catch (err) {
-	logDebug("A JavaScript Error occured: " + err.message + " at line " + err.lineNumber + " stack: "+ err.stack);
+	logDebug("A JavaScript Error occured in event script SEND_EMAIL_TO_INTERESTED_PARTIES: " + err.message + " at line " + err.lineNumber + " stack: "+ err.stack);
 	}
