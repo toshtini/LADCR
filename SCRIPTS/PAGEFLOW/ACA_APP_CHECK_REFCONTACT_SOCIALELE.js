@@ -8,7 +8,7 @@
 | Action# : N/A
 |
 | Notes   : 08/23/2019, ghess - added check for Earliest Temporary License  (Preferred Channel)
-|
+|         : 09/10/2019, ghess - included check for multiple sessions but not implementing. Added undue concentration check.
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 | START User Configurable Parameters
@@ -152,7 +152,7 @@ try {
     contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
 	if (contrPeopleModel != null) {
         refNum = contrPeopleModel.getContactSeqNumber();
-		// test 1 social equity
+        // test 1 social equity
         var refConResult = aa.people.getPeople(refNum);
 		if (refConResult.getSuccess()) {
             var refPeopleModel = refConResult.getOutput();
@@ -170,9 +170,10 @@ try {
 			}
         }
 	}
+	/************************************************************** currently not in use...
 	// test 2 applications in progress.  fail if any incompletes
 	var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from B1PERMIT WHERE B1_APPL_CLASS = 'INCOMPLETE CAP' AND B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "' AND REC_STATUS = 'A'";
-	var existingRecs = doSQL(sql);
+	var existingRecs = doSQLQuery(sql);
 	if (existingRecs && existingRecs.length > 0) {
 		var existingBiz = [];
 		for (var i in existingRecs) {
@@ -192,6 +193,14 @@ try {
 			cancel = true;				
 		}
 	}
+	**************************************************************/
+	// test 3 Only allow applications where undue concentration (9/10/2019)
+	if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "No"){
+		showMessage = true;
+		comment("Unable to proceed. Applicants may only submit Public Convenience or Necessity requests for Retail Storefront Commercial Cannabis Activity licenses that would be located in an Area of Undue Concentration.");
+		cancel = true;
+	}
+	
 } catch (err) {
 
 logDebug(err)	}
