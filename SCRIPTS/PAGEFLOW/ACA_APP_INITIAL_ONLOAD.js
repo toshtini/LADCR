@@ -161,8 +161,8 @@ try {
 
 if (parentCapId){
 	//editAppSpecific4ACA("Person In Charge - Title", parentCapId);
-	//editAppSpecific4ACA("Is this a Renewal?", "Y");
-	editAppSpecific4ACA("Business Organizational Structure", " Corporation");
+	editAppSpecific4ACA("Is this a Renewal?", "Y");
+	//editAppSpecific4ACA("Business Organizational Structure", " Corporation");
 	aa.env.setValue("CapModel", cap);
 }
 
