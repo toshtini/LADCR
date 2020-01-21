@@ -10,6 +10,7 @@
 | Notes   : 08/23/2019, ghess - added check for Earliest Temporary License  (Preferred Channel)
 |         : 09/10/2019, ghess - included check for multiple sessions but not implementing. Added undue concentration check.
 |         : 01/14/2020, ghess - added check for renewal.
+|         : 01/21/2020, ghess - removed check for undo concentration.
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 | START User Configurable Parameters
@@ -197,11 +198,11 @@ try {
 		}
 		**************************************************************/
 		// test 3 Only allow applications where undue concentration (9/10/2019)
-		if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "No"){
-			showMessage = true;
-			comment("Unable to proceed. Applicants may only submit Public Convenience or Necessity requests for Retail Storefront Commercial Cannabis Activity licenses that would be located in an Area of Undue Concentration.");
-			cancel = true;
-		}
+		//if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "No"){
+		//	showMessage = true;
+		//	comment("Unable to proceed. Applicants may only submit Public Convenience or Necessity requests for Retail Storefront Commercial Cannabis Activity licenses that would be located in an Area of Undue Concentration.");
+		//	cancel = true;
+		//} //commented out 1/21/2020
     }
 } catch (err) {
 
