@@ -1,7 +1,7 @@
 //RCEA:*/*/*/*
 //07/17/2019 - added Salutation debug for non-public users
 //08/05/2019 - added email notification LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT
-//08/09/2019 - Don's fix sendNotification2()
+//08/09/2017 - Don, sendNotification2() fix.
 if (publicUser) {
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var seStatus = people.getSalutation();
@@ -28,7 +28,7 @@ if (publicUser) {
 		addParameter(params, "$$Fax$$", people.getFax());
 		addParameter(params, "$$Country$$", people.getCompactAddress().getCountry());
 		addParameter(params, "$$FullName$$", people.getFullName());
-  		aa.document.sendEmailByTemplateName("dcrlicensing@lacity.org","DCRSEPVerification@lacity.org","","LADCR Social Equity Application Alert",params,[]);
+  		aa.document.sendEmailByTemplateName("dcrlicensing@lacity.org","birdsnack@gmail.com","","LADCR Social Equity Application Alert",params,[]);
 	}
 } else {
 
@@ -37,13 +37,11 @@ if (publicUser) {
 	logDebug("Salutation:  " + seStatus);
 }
 
-//slackDebug(debug);
-
 if (!publicUser)
 	{
 	// If Agency updates the Social Equity Status email reference contact
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
-	var capArray = new Array;
+	var capArray = new Array; 
 	pSeqNumber = ContactModel.getContactSeqNumber()
 	pSeqNumber = aa.util.parseInt(pSeqNumber)
 	pSeqNumber = aa.util.parseLong(pSeqNumber)
@@ -57,10 +55,60 @@ if (!publicUser)
 	if(afterEditSocialEquity != beforeEditSocialEquity)
 		{
 		editLookup ("LADCR_REFCONTACT_SOCIALEQUITY_STATUS", ContactModel.getContactSeqNumber(), afterEditSocialEquity)
-		sendNotification2(null,refContactEmail,"","LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null,capArray[0]); 
+		sendNotification2(null,refContactEmail,"","LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT",vEParams,null); 
 		}
 	}
 
+
+// When a Reference Contact is saved update any related record's transactional contacts
+var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
+var capArray = new Array;
+var pSeqNumber = ContactModel.getContactSeqNumber()
+pSeqNumber = aa.util.parseInt(pSeqNumber)
+pSeqNumber = aa.util.parseLong(pSeqNumber)
+capArray = getCapIDsByRefContactNBR(pSeqNumber)
+if(capArray.length > 0)
+	{
+	for (aCap in capArray)
+		{
+		// loop through the related Caps
+		var thisCap = capArray[aCap]
+		logDebug("thisCap " + thisCap)
+		var capContactResult = aa.people.getCapContactByCapID(thisCap);
+		// loop through any cap contacts
+		if (capContactResult.getSuccess()) {
+			var Contacts = capContactResult.getOutput();
+			for (yy in Contacts) {
+				logDebug("getContactSeqNumber " + Contacts[yy].getCapContactModel().getContactSeqNumber());
+				var thisContactModel = Contacts[yy].getCapContactModel();
+				var syncResult = aa.people.syncCapContactFromReference(thisContactModel, people);
+				if(syncResult.getSuccess())
+					{
+					logDebug("Cap contact synchronized successfully!");
+					}
+				else
+					{
+					logDebug("Cap contact synchronized. " + syncResult.getErrorMessage());
+					}
+				}
+			}
+		}
+	}
+
+	// now update any records Custom List with the reference contact identified in the Contact Sequence Number column
+	/*
+	var vAsyncScript = "SEND_ASITREFCONTACTUPDATE_ASYNC";
+	var envParameters = aa.util.newHashMap();
+	aa.env.setValue("table", "LIST OF OWNERS");
+	aa.env.setValue("subgroup", "CAN_BUS_APP");	
+	aa.env.setValue("column", "Contact Sequence Number");
+	aa.env.setValue("value", ContactModel.getContactSeqNumber());
+	aa.env.setValue("firstName", people.firstName.toString());
+	aa.env.setValue("lastName", people.lastName.toString());
+	aa.env.setValue("phone1", people.phone1.toString());
+	aa.env.setValue("email", people.email.toString());
+	aa.includeScript(vAsyncScript);
+	*/
 function sendNotification2(emailFrom,emailTo,emailCC,templateName,params,reportFile){
 	var result = null;
 	var id1 = ""
@@ -76,51 +124,4 @@ function sendNotification2(emailFrom,emailTo,emailCC,templateName,params,reportF
 		logDebug("Failed to send mail. - " + result.getErrorType());
 		return false;
 	}
-}
-
-function loadRefAttr(people) {
-
-var asiObj = null;
-var asi = new Array();    // associative array of attributes
-var customFieldsObj = null;
-var customFields = new Array();
-var customTablesObj = null;
-var customTables = new Array();
-
-//Attributes
-if (people.getAttributes() != null) {
-	asiObj = people.getAttributes().toArray();
-	if (asiObj != null) {
-		for (var xx1 in asiObj) {
-			logDebug("ATT : " + asiObj[xx1].attributeName + " = " + asiObj[xx1]);
-			asi[asiObj[xx1].attributeName] = asiObj[xx1];
-		}   
-	}
-}
-
-// contact ASI
-var tm = people.getTemplate();
-if (tm)	{
-	var templateGroups = tm.getTemplateForms();
-	var gArray = new Array();
-	if (!(templateGroups == null || templateGroups.size() == 0)) {
-		var subGroups = templateGroups.get(0).getSubgroups();
-		if (!(subGroups == null || subGroups.size() == 0)) {
-			for (var subGroupIndex = 0; subGroupIndex < subGroups.size(); subGroupIndex++) {
-				var subGroup = subGroups.get(subGroupIndex);
-				var fields = subGroup.getFields();
-				if (!(fields == null || fields.size() == 0)) {
-					for (var fieldIndex = 0; fieldIndex < fields.size(); fieldIndex++) {
-						var field = fields.get(fieldIndex);
-						logDebug("ASI : " + field.getDisplayFieldName() + " = " + field.getDefaultValue());
-						asi[field.getDisplayFieldName()] = field.getDefaultValue();
-					}
-				}
-			}
-		}
-	}
-}
-
-	
-	return asi;
 }
