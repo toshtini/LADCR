@@ -10,6 +10,10 @@ include("UPDATE_APPLICATION_ISSUANCE");
 include("UPDATE_APPLICATION_ACCEPTANCE");
 // End script to move workflow task Application Acceptance to Submitted once payment has been recieved. Runs thr WTUA event.
 
-// Begin script to send local authorization notice. added 11/15/18
-include("SEND_LOCAL_AUTH_NOTICE");
+// Begin script to send local authorization notice. added 11/15/18, removed 12/13/2019 per Aaron
+//include("SEND_LOCAL_AUTH_NOTICE");
 // End script to send local authorization notice.
+ 
+// Begin script to update App Status on full payment for PCN type records to 'Awaiting Council Determination'
+include("UPDATE_COUNCIL_DETERMINATION_ON_PRA");
+// End script
