@@ -1,7 +1,7 @@
 //RCEA:*/*/*/*
 //07/17/2019 - added Salutation debug for non-public users
 //08/05/2019 - added email notification LADCR_SOCIAL_EQUITY_STATUS_CHANGE_ALERT
-//08/09/2017 - Don, sendNotification2() fix.
+//08/09/2019 - Don, sendNotification2() fix.
 if (publicUser) {
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var seStatus = people.getSalutation();
