@@ -11,6 +11,7 @@
 |         : 09/10/2019, ghess - included check for multiple sessions but not implementing. Added undue concentration check.
 |         : 01/14/2020, ghess - added check for renewal.
 |         : 01/21/2020, ghess - removed check for undo concentration.
+|         : 01/23/2020, ghess - changed check for SE status from renewal to PCN.
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 | START User Configurable Parameters
@@ -144,7 +145,8 @@ logDebug("balanceDue = " + balanceDue);
 
 
 try {
-    if (AInfo["Is this a Renewal?"] == "No") {
+    //if (AInfo["Is this a Renewal?"] == "No") {
+    if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "Yes"){
 	    var pSeqNumber = publicUserID.replace("PUBLICUSER","");
 	    pSeqNumber = aa.util.parseInt(pSeqNumber)
 	    pSeqNumber = aa.util.parseLong(pSeqNumber)
