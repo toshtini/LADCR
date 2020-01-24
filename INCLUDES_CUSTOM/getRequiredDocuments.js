@@ -1,4 +1,5 @@
 function getRequiredDocuments(isPageFlow) {
+// 01/24/20: Removed check for MANAGEMENT COMPANIES table entry
 	
 	logDebug("start getRequiredDocuments(" + [].slice.call(arguments) + ")");
 
@@ -271,11 +272,11 @@ function getRequiredDocuments(isPageFlow) {
 		if (isChecked("Indemnification Agreement")) requirementArray.push(indemnificationAgreement);
 
 		// added 2/28/2019 - check if entry in table for document requirement
-		
-		var relASIT = isPageFlow ? loadASITable4ACA("MANAGEMENT COMPANIES", capToUse) : loadASITable("MANAGEMENT COMPANIES",capToUse);
-		if (relASIT && relASIT.length > 0) {
-			requirementArray.push(managementCompanies);
-		} 
+		// commented out 1/24/2019
+		//var relASIT = isPageFlow ? loadASITable4ACA("MANAGEMENT COMPANIES", capToUse) : loadASITable("MANAGEMENT COMPANIES",capToUse);
+		//if (relASIT && relASIT.length > 0) {
+		//	requirementArray.push(managementCompanies);
+		//} 
 
 	}
 	logDebug("Num of Req Docs:" + requirementArray.length + " docs.");
