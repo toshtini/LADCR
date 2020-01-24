@@ -9,6 +9,7 @@
 |
 | Notes   : Created 06/05/2019, Ghess -  check for parent to flag whether the app is a renewal.
 |           This will drive what business activities to offer
+|         : 01/24/2020 - added copy ASI from parent
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -161,8 +162,13 @@ try {
 
 if (parentCapId){
 	//editAppSpecific4ACA("Person In Charge - Title", parentCapId);
-	editAppSpecific4ACA("Is this a Renewal?", "Y");
 	//editAppSpecific4ACA("Business Organizational Structure", " Corporation");
+
+	//Copy ASI
+	parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
+	copyAppSpecific4ACA(parentCap);	
+	
+	editAppSpecific4ACA("Is this a Renewal?", "Y");
 	aa.env.setValue("CapModel", cap);
 }
 
