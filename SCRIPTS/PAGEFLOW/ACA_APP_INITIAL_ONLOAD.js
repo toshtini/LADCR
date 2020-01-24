@@ -169,6 +169,7 @@ if (parentCapId){
 	copyAppSpecific4ACA(parentCap);	
 	
 	editAppSpecific4ACA("Is this a Renewal?", "Y");
+	editAppSpecific4ACA("Retailer Commercial Cannabis Activity license in an area of Undue Concentration?", "N");
 	aa.env.setValue("CapModel", cap);
 }
 
