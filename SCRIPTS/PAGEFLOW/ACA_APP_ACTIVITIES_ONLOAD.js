@@ -1,4 +1,3 @@
-//ACA_BUS_APP_AGENT_ONLOAD
 /*------------------------------------------------------------------------------------------------------/
 | Program : ACA_APP_ACTIVITIES_ONLOAD
 | Event   : ACA Page Flow onload
@@ -8,7 +7,7 @@
 | Client  : N/A
 | Action# : N/A
 |
-| Notes   : hide current page if renewal - 1/23/2020
+| Notes   : hide current page if renewal or Activity Use selection - 1/24/2020
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -161,7 +160,7 @@ try {
 
 	var isRenewal = isASITrue(AInfo["Is this a Renewal?"]); 
 
-	if (isRenewal) {
+	if (isRenewal || AInfo["Use"] == "Testing") {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
 	
