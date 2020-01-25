@@ -172,8 +172,7 @@ try {
 			editAppSpecific4ACA("Adult-Use Distributor Transport Only", "CHECKED");
 	    }
 	}
-  }
-
+ 
   	if (AInfo["Use"] == "Medical" ||  AInfo["Use"] == "Adult and Medical") {
 	    if (isTrue(AInfo["Retail"]) {
 			editAppSpecific4ACA("Medical-Use Retail", "CHECKED");
@@ -197,15 +196,19 @@ try {
 			editAppSpecific4ACA("Medical-Use Distributor Transport Only", "CHECKED");
 	    }
 	}
-  }
+  
 
   	if (AInfo["Use"] == "Testing") {
 		editAppSpecific4ACA("Testing","Y");
 	}
+	
+	aa.env.setValue("CapModel", cap);
+ }
     
 } catch (err) {
 	logDebug(err);
 }
+
 // page flow custom code end
 
 if (debug.indexOf("**ERROR") > 0) {
