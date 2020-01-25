@@ -150,49 +150,49 @@ try {
 
   if (isTrue(AInfo["Is this a Renewal?"])) {
   	if (AInfo["Use"] == "Adult" ||  AInfo["Use"] == "Adult and Medical") {
-	    if (isTrue(AInfo["Retail"]) {
+	    if (isTrue(AInfo["Retail"])) {
 			editAppSpecific4ACA("Adult-Use Retail", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Manufacturer"]) {
+	    if (isTrue(AInfo["Manufacturer"])) {
 			editAppSpecific4ACA("Adult-Use Manufacturer Level 1", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Cultivation Small Indoor"]) {
+	    if (isTrue(AInfo["Cultivation Small Indoor"])) {
 			editAppSpecific4ACA("Adult-Use Cultivation Small Indoor", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Cultivation Medium Indoor"]) {
+	    if (isTrue(AInfo["Cultivation Medium Indoor"])) {
 			editAppSpecific4ACA("Adult-Use Cultivation Medium Indoor", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Cultivation Specialty Indoor"]) {
+	    if (isTrue(AInfo["Cultivation Specialty Indoor"])) {
 			editAppSpecific4ACA("Adult-Use Cultivation Specialty Indoor", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Delivery Only"]) {
+	    if (isTrue(AInfo["Delivery Only"])) {
 			editAppSpecific4ACA("Adult-Use Delivery Only", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Distributor Transport Only"]) {
+	    if (isTrue(AInfo["Distributor Transport Only"])) {
 			editAppSpecific4ACA("Adult-Use Distributor Transport Only", "CHECKED");
 	    }
 	}
  
   	if (AInfo["Use"] == "Medical" ||  AInfo["Use"] == "Adult and Medical") {
-	    if (isTrue(AInfo["Retail"]) {
+	    if (isTrue(AInfo["Retail"])) {
 			editAppSpecific4ACA("Medical-Use Retail", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Manufacturer"]) {
+	    if (isTrue(AInfo["Manufacturer"])) {
 			editAppSpecific4ACA("Medical-Use Manufacturer Level 1", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Cultivation Small Indoor"]) {
+	    if (isTrue(AInfo["Cultivation Small Indoor"])) {
 			editAppSpecific4ACA("Medical-Use Cultivation Small Indoor", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Cultivation Medium Indoor"]) {
+	    if (isTrue(AInfo["Cultivation Medium Indoor"])) {
 			editAppSpecific4ACA("Medical-Use Cultivation Medium Indoor", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Cultivation Specialty Indoor"]) {
+	    if (isTrue(AInfo["Cultivation Specialty Indoor"])) {
 			editAppSpecific4ACA("Medical-Use Cultivation Specialty Indoor", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Delivery Only"]) {
+	    if (isTrue(AInfo["Delivery Only"])) {
 			editAppSpecific4ACA("Medical-Use Delivery Only", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Distributor Transport Only"]) {
+	    if (isTrue(AInfo["Distributor Transport Only"])) {
 			editAppSpecific4ACA("Medical-Use Distributor Transport Only", "CHECKED");
 	    }
 	}
@@ -233,5 +233,3 @@ if (debug.indexOf("**ERROR") > 0) {
 function isTrue(o) {
 	return o == "CHECKED" || o == "YES" || o == "Yes";
 }
-
-/////////////////////////////////////
