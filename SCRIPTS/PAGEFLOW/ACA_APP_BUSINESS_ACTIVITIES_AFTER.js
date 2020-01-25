@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APP_ASI_OPTIONS_ONLOAD.js
+| Program : ACA_APP_BUSINESS_ACTIVITIES_AFTER.js
 | Event   : ACA Page Flow onload
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
@@ -7,7 +7,7 @@
 | Client  : N/A
 | Action# : N/A
 |
-| Notes   :
+| Notes   : 01/24/202 - in development
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -148,48 +148,65 @@ logDebug("balanceDue = " + balanceDue);
 
 try {
 
-  if (AINFO["Is this a Renewal?"] == )) {
-  
+  if (isTrue(AInfo["Is this a Renewal?"])) {
+  	if (AInfo["Use"] == "Adult" ||  AInfo["Use"] == "Adult and Medical") {
+	    if (isTrue(AInfo["Retail"]) {
+			editAppSpecific4ACA("Adult-Use Retail", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Manufacturer"]) {
+			editAppSpecific4ACA("Adult-Use Manufacturer Level 1", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Cultivation Small Indoor"]) {
+			editAppSpecific4ACA("Adult-Use Cultivation Small Indoor", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Cultivation Medium Indoor"]) {
+			editAppSpecific4ACA("Adult-Use Cultivation Medium Indoor", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Cultivation Specialty Indoor"]) {
+			editAppSpecific4ACA("Adult-Use Cultivation Specialty Indoor", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Delivery Only"]) {
+			editAppSpecific4ACA("Adult-Use Delivery Only", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Distributor Transport Only"]) {
+			editAppSpecific4ACA("Adult-Use Distributor Transport Only", "CHECKED");
+	    }
+	}
   }
-  
-  /*************
-	parentCapIdString = "" + cap.getParentCapID();
-	if (parentCapIdString) {
-		pca = parentCapIdString.split("-");
-		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
-	}
 
-	if (parentCapId) {
-		//Check to see if existing ATT amendment exists and is in a status other then "Completed". If so cancel new ATT Amendment.
-		var vChildAmd = getChildren("Licenses/*/*/Incomplete Attestation", parentCapId, capId);
-		if (vChildAmd.length > 0) {
-			var z = 0;
-			for (z in vChildAmd) {
-				var vChildId = vChildAmd[z];
-				var vChildIdString = vChildId + "";
-				if (vChildIdString.indexOf("TMP") == -1 && vChildIdString.indexOf("EST") == -1) {
-					var vChildCap = aa.cap.getCap(vChildId).getOutput();
-					var vChildStatus = vChildCap.getCapStatus();
-					if (vChildStatus != "Abandoned" && vChildStatus != "Completed" && vChildStatus != "Void" && vChildStatus != "Withdrawn") {
-						showMessage = true;
-						comment("An open attestation amendment (" + vChildId.getCustomID() + ") already exists. You may not submit another attestation amendment until the existing one is processed by LADCR");
-						cancel = true;
-						break;
-					}
-				}
-			}
-		}
+  	if (AInfo["Use"] == "Medical" ||  AInfo["Use"] == "Adult and Medical") {
+	    if (isTrue(AInfo["Retail"]) {
+			editAppSpecific4ACA("Medical-Use Retail", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Manufacturer"]) {
+			editAppSpecific4ACA("Medical-Use Manufacturer Level 1", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Cultivation Small Indoor"]) {
+			editAppSpecific4ACA("Medical-Use Cultivation Small Indoor", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Cultivation Medium Indoor"]) {
+			editAppSpecific4ACA("Medical-Use Cultivation Medium Indoor", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Cultivation Specialty Indoor"]) {
+			editAppSpecific4ACA("Medical-Use Cultivation Specialty Indoor", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Delivery Only"]) {
+			editAppSpecific4ACA("Medical-Use Delivery Only", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Distributor Transport Only"]) {
+			editAppSpecific4ACA("Medical-Use Distributor Transport Only", "CHECKED");
+	    }
 	}
-  *******/
-  
+  }
+
+  	if (AInfo["Use"] == "Testing") {
+		editAppSpecific4ACA("Testing","Y");
+	}
+    
 } catch (err) {
-
 	logDebug(err);
-
 }
-
 // page flow custom code end
-
 
 if (debug.indexOf("**ERROR") > 0) {
 	aa.env.setValue("ErrorCode", "1");
@@ -208,6 +225,10 @@ if (debug.indexOf("**ERROR") > 0) {
 		if (showDebug)
 			aa.env.setValue("ErrorMessage", debug);
 	}
+}
+
+function isTrue(o) {
+	return o == "CHECKED" || o == "YES" || o == "Yes";
 }
 
 /////////////////////////////////////
