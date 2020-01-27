@@ -168,11 +168,11 @@ try {
 	    if (isTrue(AInfo["Delivery Only"])) {
 			editAppSpecific4ACA("Adult-Use Delivery Only", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Distributor"])) {
-			editAppSpecific4ACA("Adult-Use Distributor", "CHECKED");
-	    }
 	    if (isTrue(AInfo["Distributor Transport Only"])) {
 			editAppSpecific4ACA("Adult-Use Distributor Transport Only", "CHECKED");
+	    }
+	    if (isTrue(AInfo["Distributor"])) {
+			editAppSpecific4ACA("Adult-Use Distributor", "CHECKED");
 	    }
 	}
  
