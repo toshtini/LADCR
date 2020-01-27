@@ -178,28 +178,28 @@ try {
  
   	if (AInfo["Use"] == "Medical" ||  AInfo["Use"] == "Adult and Medical") {
 	    if (isTrue(AInfo["Retail"])) {
-			editAppSpecific4ACA("Medical-Use Retail", "CHECKED");
+			editAppSpecific4ACA("Medical Retail", "CHECKED");
 	    }
 	    if (isTrue(AInfo["Manufacturer"])) {
-			editAppSpecific4ACA("Medical-Use Manufacturer Level 1", "CHECKED");
+			editAppSpecific4ACA("Medical Manufacturer Level 1", "CHECKED");
 	    }
 	    if (isTrue(AInfo["Cultivation Small Indoor"])) {
-			editAppSpecific4ACA("Medical-Use Cultivation Small Indoor", "CHECKED");
+			editAppSpecific4ACA("Medical Cultivation Small Indoor", "CHECKED");
 	    }
 	    if (isTrue(AInfo["Cultivation Medium Indoor"])) {
-			editAppSpecific4ACA("Medical-Use Cultivation Medium Indoor", "CHECKED");
+			editAppSpecific4ACA("Medical Cultivation Medium Indoor", "CHECKED");
 	    }
 	    if (isTrue(AInfo["Cultivation Specialty Indoor"])) {
-			editAppSpecific4ACA("Medical-Use Cultivation Specialty Indoor", "CHECKED");
+			editAppSpecific4ACA("Medical Cultivation Specialty Indoor", "CHECKED");
 	    }
 	    if (isTrue(AInfo["Delivery Only"])) {
-			editAppSpecific4ACA("Medical-Use Delivery Only", "CHECKED");
+			editAppSpecific4ACA("Medical Delivery Only", "CHECKED");
 	    }
 	    if (isTrue(AInfo["Distributor"])) {
-			editAppSpecific4ACA("Medical-Use Distributor", "CHECKED");
+			editAppSpecific4ACA("Medical Distributor", "CHECKED");
 	    }
 	    if (isTrue(AInfo["Distributor Transport Only"])) {
-			editAppSpecific4ACA("Medical-Use Distributor Transport Only", "CHECKED");
+			editAppSpecific4ACA("Medical Distributor Transport Only", "CHECKED");
 	    }
 	}
   
