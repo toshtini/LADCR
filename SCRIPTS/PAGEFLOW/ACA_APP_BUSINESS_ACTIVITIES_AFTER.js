@@ -148,7 +148,9 @@ logDebug("balanceDue = " + balanceDue);
 
 try {
 
-  // reset all fields
+ if (!isTrue(AInfo["Is this a Renewal?"])) {
+  
+	// reset all fields
 	editAppSpecific4ACA("Adult-Use Cultivation Medium Indoor", "UNCHECKED");
 	editAppSpecific4ACA("Adult-Use Cultivation Small Indoor", "UNCHECKED");
 	editAppSpecific4ACA("Adult-Use Cultivation Specialty Indoor", "UNCHECKED");
@@ -166,8 +168,7 @@ try {
 	editAppSpecific4ACA("Medical Manufacturer Level 1", "UNCHECKED");
 	editAppSpecific4ACA("Medical Retail", "UNCHECKED");
 	editAppSpecific4ACA("Testing","N");
-
-  if (!isTrue(AInfo["Is this a Renewal?"])) {
+   
   	if (AInfo["Use"] == "Adult" ||  AInfo["Use"] == "Adult and Medical") {
 	    if (isTrue(AInfo["Retail"])) {
 			editAppSpecific4ACA("Adult-Use Retail", "CHECKED");
