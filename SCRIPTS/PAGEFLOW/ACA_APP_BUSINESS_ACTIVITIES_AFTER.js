@@ -148,7 +148,7 @@ logDebug("balanceDue = " + balanceDue);
 
 try {
 
-  if (isTrue(AInfo["Is this a Renewal?"])) {
+  if (!isTrue(AInfo["Is this a Renewal?"])) {
   	if (AInfo["Use"] == "Adult" ||  AInfo["Use"] == "Adult and Medical") {
 	    if (isTrue(AInfo["Retail"])) {
 			editAppSpecific4ACA("Adult-Use Retail", "CHECKED");
