@@ -148,6 +148,25 @@ logDebug("balanceDue = " + balanceDue);
 
 try {
 
+  // reset all fields
+	editAppSpecific4ACA("Adult-Use Cultivation Medium Indoor", "UNCHECKED");
+	editAppSpecific4ACA("Adult-Use Cultivation Small Indoor", "UNCHECKED");
+	editAppSpecific4ACA("Adult-Use Cultivation Specialty Indoor", "UNCHECKED");
+	editAppSpecific4ACA("Adult-Use Delivery Only", "UNCHECKED");
+	editAppSpecific4ACA("Adult-Use Distributor Transport Only", "UNCHECKED");
+	editAppSpecific4ACA("Adult-Use Distributor", "UNCHECKED");
+	editAppSpecific4ACA("Adult-Use Manufacturer Level 1", "UNCHECKED");
+	editAppSpecific4ACA("Adult-Use Retail", "UNCHECKED");
+	editAppSpecific4ACA("Medical Cultivation Medium Indoor", "UNCHECKED");
+	editAppSpecific4ACA("Medical Cultivation Small Indoor", "UNCHECKED");
+	editAppSpecific4ACA("Medical Cultivation Specialty Indoor", "UNCHECKED");
+	editAppSpecific4ACA("Medical Delivery Only", "UNCHECKED");
+	editAppSpecific4ACA("Medical Distributor Transport Only", "UNCHECKED");
+	editAppSpecific4ACA("Medical Distributor", "UNCHECKED");
+	editAppSpecific4ACA("Medical Manufacturer Level 1", "UNCHECKED");
+	editAppSpecific4ACA("Medical Retail", "UNCHECKED");
+	editAppSpecific4ACA("Testing","N");
+
   if (!isTrue(AInfo["Is this a Renewal?"])) {
   	if (AInfo["Use"] == "Adult" ||  AInfo["Use"] == "Adult and Medical") {
 	    if (isTrue(AInfo["Retail"])) {
