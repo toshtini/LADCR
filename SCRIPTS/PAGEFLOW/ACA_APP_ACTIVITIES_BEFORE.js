@@ -166,6 +166,7 @@ try {
 		if (i.match("ACA BUSINESS ACTIVITIES")) {
 			if (BInfo[i] == "CHECKED" || BInfo[i] == "YES" || BInfo[i] == "Yes") {
 				valueFound = true;
+				break;
 			}
 		}
 	}
@@ -174,7 +175,6 @@ try {
 		showMessage = true;
 		comment("You must select at least one activity.");
 		cancel = true;
-		break;
 	}
 	useAppSpecificGroupName = false;
 	
