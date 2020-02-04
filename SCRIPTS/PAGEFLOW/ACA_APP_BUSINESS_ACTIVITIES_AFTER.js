@@ -188,7 +188,7 @@ try {
 	    if (isTrue(AInfo["Delivery Only"])) {
 			editAppSpecific4ACA("Adult-Use Delivery Only", "CHECKED");
 	    }
-	    if (isTrue(AInfo["Distributor Transport Only"])) {
+	    if (isTrue(AInfo["Distribution Transport Only"])) {
 			editAppSpecific4ACA("Adult-Use Distributor Transport Only", "CHECKED");
 	    }
 	    if (isTrue(AInfo["Distributor"])) {
@@ -215,11 +215,11 @@ try {
 	    if (isTrue(AInfo["Delivery Only"])) {
 			editAppSpecific4ACA("Medical Delivery Only", "CHECKED");
 	    }
+	    if (isTrue(AInfo["Distribution Transport Only"])) {
+			editAppSpecific4ACA("Medical Distributor Transport Only", "CHECKED");
+	    }
 	    if (isTrue(AInfo["Distributor"])) {
 			editAppSpecific4ACA("Medical Distributor", "CHECKED");
-	    }
-	    if (isTrue(AInfo["Distributor Transport Only"])) {
-			editAppSpecific4ACA("Medical Distributor Transport Only", "CHECKED");
 	    }
 	}
   
