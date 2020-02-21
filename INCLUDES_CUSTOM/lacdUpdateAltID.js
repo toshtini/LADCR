@@ -1,4 +1,4 @@
-function lacdUpdateAltID_1(capIdToUpdate, recType, altId, ActivityType) {
+function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 // Last Update: 02/21/2020, ghess
 	var returnAltID;
 
