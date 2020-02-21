@@ -53,7 +53,14 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 	}
 	
 	if (returnAltID) {
-		aa.cap.updateCapAltID(capIdToUpdate, returnAltID);
+		var updResult = aa.cap.updateCapAltID(capIdToUpdate, returnAltID);
+		//in case of duplicates...
+		var capCount = 0;
+		while(!updResult.getSuccess()){
+			capCount = capCount + 1;
+			returnAltID = returnAltID + "-" + capCount;
+			updResult = aa.cap.updateCapAltID(capIdToUpdate, returnAltID);
+		}
 		logDebug("returnAltID is " + returnAltID);
 		// update global var
 		capIDString = returnAltID;
