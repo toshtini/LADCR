@@ -4,9 +4,10 @@ var altId = capId.getCustomID();
 
 if(getAppSpecific("Is this a Renewal?") == "Yes") {
 	var thisRecType = "APPRENEW";
-	var parentId = getParent();
-	var parentAltId = parentId.getCustomID()
-	altId = parentAltId;
+	//var parentId = getParent();
+	//var parentAltId = parentId.getCustomID()
+	//altId = parentAltId;
+	altId = parentCapId;
 	
 } else {
 
