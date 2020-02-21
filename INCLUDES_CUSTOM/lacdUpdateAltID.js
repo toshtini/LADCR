@@ -1,4 +1,5 @@
-function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
+function lacdUpdateAltID_1(capIdToUpdate, recType, altId, ActivityType) {
+// Last Update: 02/21/2020, ghess
 	var returnAltID;
 
 	if (recType == "PCN") {
@@ -21,7 +22,7 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 			var remainder = initialAltId.slice(4, 14);
 		var APP = initialAltId.slice(14, 18);
 		// Construct new Alt ID
-		var returnAltID = LA + "-C" + remainder + "-" + activityLetter + APP;
+		returnAltID = LA + "-C" + remainder + "-" + activityLetter + APP;
 	}
 	if (recType == "RENEWAL") {
 		// like LA-C-YY-######-TYPE-RENYY
@@ -35,14 +36,27 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 		lenOfStr = initialAltId.length() - 3;
 		var AltIdSlice = initialAltId.slice(0, lenOfStr);
 		// Construct new Alt ID
-		var returnAltID = AltIdSlice + "REN" + yearOfRen;
+		returnAltID = AltIdSlice + "REN" + yearOfRen;
 	}
 
+	if (recType == "APPRENEW") {
+		// Phase 1 - LA-C-19-1#####-APP
+		if (altId.indexOf("LA-C-19-0") == 0) {
+			returnAltID = altId.replace("LA-C-19-0","LA-C-19-1");
+			//logDebug("Phase 1 returnAltID is " + returnAltID);
+		}
+		// Phase 2 - LA-C-18-1#####-APP
+		if (altId.indexOf("LA-C-18-0") == 0) {
+			returnAltID = altId.replace("LA-C-18-0","LA-C-18-1");
+			//logDebug("Phase 2 returnAltID is " + returnAltID);
+		}
+	}
+	
 	if (returnAltID) {
 		aa.cap.updateCapAltID(capIdToUpdate, returnAltID);
 		logDebug("returnAltID is " + returnAltID);
 		// update global var
 		capIDString = returnAltID;
 	}
-
+	return(returnAltID);
 }
