@@ -83,5 +83,5 @@ if(getAppSpecific("Is this a Renewal?") == "Yes") {
 }
 
 // Update the AltID
-var newId = lacdUpdateAltID_1(capId,thisRecType,altId,thisActivityType);
+var newId = lacdUpdateAltID(capId,thisRecType,altId,thisActivityType);
 //logDebug("newId = " + newId);
