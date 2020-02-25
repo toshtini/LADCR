@@ -189,8 +189,8 @@ function getRequiredDocuments(isPageFlow) {
 		// add for temp and annual
 		// add always...
 		requirementArray.push(DiagramOfPremises); //added 2/15/2019 per Alex
-		requirementArray.push(PropertyMortgageLease); //added 2/15/2019 per Alex
-		requirementArray.push(GovernmentIssuedIdentification); //added 7/16/2019 by request
+		//requirementArray.push(PropertyMortgageLease); //added 2/15/2019 per Alex
+		//requirementArray.push(GovernmentIssuedIdentification); //added 7/16/2019 by request
 		
 		if (!isTesting) {
 			//requirementArray.push(DeclarationEngagedActivities);
@@ -230,7 +230,7 @@ function getRequiredDocuments(isPageFlow) {
 			}
 		} else {
 			// only add temp requirements
-			requirementArray.push(DocOfLocalCompliance);
+			//requirementArray.push(DocOfLocalCompliance);
 			//requirementArray.push(DiagramOfPremises); //moved above
 			//requirementArray.push(BusinessTaxRegistrationCertificate);
 		}
