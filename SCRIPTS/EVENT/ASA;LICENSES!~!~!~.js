@@ -11,3 +11,6 @@ if (!publicUser) {
 }
 // End Story 5135, 6083
 
+// Entity protoype
+include("UPDATE_ENTITY_ALT_ID");
+// End Entity prototype
