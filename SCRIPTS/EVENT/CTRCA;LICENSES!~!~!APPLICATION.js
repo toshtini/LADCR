@@ -42,3 +42,8 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 //	include("SEND_INVOICE");
 //}
 // End script
+
+// use the address to populate data from ZIMAS layers
+if(publicUser){
+	include("POPULATE_ZIMAS_DATA");
+}

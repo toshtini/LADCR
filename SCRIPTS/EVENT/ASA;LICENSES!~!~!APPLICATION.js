@@ -29,3 +29,8 @@ if(!publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 	include("UPDATE_APPLICATION_MJ_ALTID");
 }
 // End script to update the Application AltID based on Business Activity
+
+// use the address to populate data from ZIMAS layers
+if(!publicUser){
+	include("POPULATE_ZIMAS_DATA");
+}
