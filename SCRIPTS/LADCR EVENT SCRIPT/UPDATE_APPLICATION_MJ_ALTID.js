@@ -42,10 +42,11 @@ if(getAppSpecific("Is this a Renewal?") == "Yes") {
 	/* D - Distribution Transport Only
 	Distributor Transport Only,Medical Distributor Transport Only,Adult-Use Distributor Transport Only 
 	*/
-	var DTO = getAppSpecific("Distribution Transport Only");
+	//var DTO = getAppSpecific("Distribution Transport Only");
 	var ADTO = getAppSpecific("Adult-Use Distributor Transport Only");
 	var MDTO = getAppSpecific("Medical Distributor Transport Only");
-	if(DTO  == "Yes" || ADTO  == "CHECKED" || MDTO  == "CHECKED")
+	//if(DTO  == "Yes" || ADTO  == "CHECKED" || MDTO  == "CHECKED")
+	if(ADTO  == "CHECKED" || MDTO  == "CHECKED")
 		{
 		thisActivityType = "D"
 		}
@@ -69,7 +70,7 @@ if(getAppSpecific("Is this a Renewal?") == "Yes") {
 	var AD = getAppSpecific("Adult-Use Distributor");
 	var MD = getAppSpecific("Medical Distributor");
 	var AML1 = getAppSpecific("Adult-Use Manufacturer Level 1");
-	var MML1 = getAppSpecific("Adult-Use Manufacturer Level 1");
+	var MML1 = getAppSpecific("Medical Manufacturer Level 1");
 	var ADO = getAppSpecific("Adult-Use Delivery Only");
 	var AMO = getAppSpecific("Medical Delivery Only");
 	var AMB = getAppSpecific("Adult-Use Microbusiness");
