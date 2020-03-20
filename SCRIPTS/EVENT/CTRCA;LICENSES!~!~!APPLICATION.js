@@ -26,6 +26,12 @@ if (publicUser) {
 }
 // End functionality to set inital workflow status.
 
+// Begin script to update the Business Activities selected in ACA
+if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
+	include("UPDATE_ACTIVITIES_FROM_ACA");
+}
+// End script to update the Business Activities selected in ACA
+
 // Begin script to update the Application AltID based on Business Activity
 if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 	include("UPDATE_APPLICATION_MJ_ALTID");
