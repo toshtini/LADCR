@@ -81,3 +81,6 @@ if (!isTrue(AInfo["Is this a Renewal?"])) {
 		editAppSpecific("Testing","Y");
 	}
 }
+function isTrue(o) {
+	return o == "CHECKED" || o == "YES" || o == "Yes";
+}
