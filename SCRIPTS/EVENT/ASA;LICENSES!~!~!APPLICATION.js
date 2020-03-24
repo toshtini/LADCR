@@ -14,12 +14,12 @@ if (!appMatch("Licenses/Cannabis/Testing/Application")) {
 }
 // end check for fein/ssn
 
-// Assess fees
-if (AInfo["Is this a Renewal?"] && AInfo["Is this a Renewal?"].substr(0, 1).toUpperCase().equals("Y")) {
-	include("ASSESS_BUS_REN_FEES");
-} else {
-	include("ASSESS_BUS_APP_FEES2");
-}
+// Assess fees - commented out for temp renewal processing 3/24/2020
+//if (AInfo["Is this a Renewal?"] && AInfo["Is this a Renewal?"].substr(0, 1).toUpperCase().equals("Y")) {
+//	include("ASSESS_BUS_REN_FEES");
+//} else {
+//	include("ASSESS_BUS_APP_FEES2");
+//}
 // end assess fees
 
 // Begin script to update the Application AltID based on Business Activity
