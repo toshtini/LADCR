@@ -71,6 +71,52 @@ function getScriptText(vScriptName, servProvCode, useProductScripts) {
 		return "";
 	}
 }
+function copyPeople(srcCapId, targetCapId){
+try{
+  //1. Get people with source CAPID.
+  var capPeoples = getPeople(srcCapId);
+  logDebug("Source Cap ID:" + srcCapId);
+  if (capPeoples == null || capPeoples.length == 0){
+    logDebug("Didn't get the source peoples!");
+    return false;
+  }
+  //2. Get people with target CAPID.
+  var targetPeople = getPeople(targetCapId);
+  //3. Check to see which people is matched in both source and target.
+  for (loopk in capPeoples){
+    sourcePeopleModel = capPeoples[loopk];
+    //3.1 Set target CAPID to source people.
+    sourcePeopleModel.getCapContactModel().setCapID(targetCapId);
+    targetPeopleModel = null;
+    //3.2 Check to see if sourcePeople exist.
+    if (targetPeople != null && targetPeople.length > 0){
+      for (loop2 in targetPeople){
+        if (isMatchPeople(sourcePeopleModel, targetPeople[loop2])){
+          targetPeopleModel = targetPeople[loop2];
+          break;
+        }
+      }
+    }else{
+		logDebug("Target contacts found.");
+	}
+    //3.3 It is a matched people model.
+    if (targetPeopleModel != null){
+		logDebug("Matched person found.");
+		//3.3.1 Copy information from source to target.
+		aa.people.copyCapContactModel(sourcePeopleModel.getCapContactModel(), 
+		targetPeopleModel.getCapContactModel());
+		//3.3.2 Edit People with source People information. 
+		aa.people.editCapContactWithAttribute(targetPeopleModel.getCapContactModel());
+    }else{
+    //3.4 It is new People model.
+	//3.4.1 Create new people.
+		logDebug("Creating new people.");
+		aa.people.createCapContactWithAttribute(sourcePeopleModel.getCapContactModel());
+    }
+  }
+} catch (err) {
+	handleError(err, "copyPeople");
+}}
 
 var cap = aa.env.getValue("CapModel");
 var capId = cap.getCapID();
@@ -164,8 +210,7 @@ if (parentCapId){
 	//editAppSpecific4ACA("Is this a Renewal?", "Y");
 	editAppSpecific4ACA("Business Organizational Structure", " Corporation");
 	//  copy from amendment to parent added 3/24/2020
-	copyContacts(capId, parentCapId);
-
+	copyPeople(parentId, capId);
 	aa.env.setValue("CapModel", cap);
 }
 
