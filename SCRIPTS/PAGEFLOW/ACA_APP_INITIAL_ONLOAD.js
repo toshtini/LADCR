@@ -163,6 +163,9 @@ if (parentCapId){
 	//editAppSpecific4ACA("Person In Charge - Title", parentCapId);
 	//editAppSpecific4ACA("Is this a Renewal?", "Y");
 	editAppSpecific4ACA("Business Organizational Structure", " Corporation");
+	//  copy from amendment to parent added 3/24/2020
+	copyContacts(capId, parentCapId);
+
 	aa.env.setValue("CapModel", cap);
 }
 
