@@ -18,7 +18,7 @@
 |     changes are made, please add notes above.
 /------------------------------------------------------------------------------------------------------*/
 var showMessage = false; // Set to true to see results in popup window
-var showDebug = false; // Set to true to see debug messages in popup window
+var showDebug = true; // Set to true to see debug messages in popup window
 var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
 var useTaskSpecificGroupName = false; // Use Group name when populating Task Specific Info Values
 var cancel = false;
@@ -145,11 +145,12 @@ try {
     if (typeof(RELATEDAPPLICATIONS) == "object") {
         for (var j in RELATEDAPPLICATIONS) {
             thisRow = RELATEDAPPLICATIONS[j];
+			logDebug("testing " + thisRow["Application ID"]);
             var licId = aa.cap.getCapID(trim(thisRow["Application ID"]));
             if (!licId.getOutput()) {
                 cancel = true;
                 showMessage = true;
-                showDebug = false;
+                //showDebug = false;
                 comment(thisRow["Application ID"] + " is not valid.  Please enter a valid application ID");
             }
         }
