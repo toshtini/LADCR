@@ -4,7 +4,7 @@
 if (AInfo["Agent of Service"] == "Yes") {
 	include("COPY_PUBLIC_USER_TO_AGENT_OF_SERVICE");
 } else {
-	include("COPY_PUBLIC_USER_TO_OWNER_APPLICANT");
+	//include("COPY_PUBLIC_USER_TO_OWNER_APPLICANT"); //for cleanup 3/25/2020
 }
 
 // Begin script to set the Owner Applicant information in the Owners ASIT to Read Only.
