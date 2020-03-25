@@ -142,9 +142,11 @@ logDebug("balanceDue = " + balanceDue);
 
 try {
 
-    if (typeof(RELATEDAPPLICATIONS) == "object") {
-        for (var j in RELATEDAPPLICATIONS) {
-            thisRow = RELATEDAPPLICATIONS[j];
+	var vTableName = "RELATED APPLICATIONS";
+	var tmpTable = loadASITable4ACA(vTableName, cap);
+    if (typeof(tmpTable) == "object") {
+        for (var j in tmpTable) {
+            thisRow = tmpTable[j];
 			logDebug("testing " + thisRow["Application ID"]);
             var licId = aa.cap.getCapID(trim(thisRow["Application ID"]));
             if (!licId.getOutput()) {
