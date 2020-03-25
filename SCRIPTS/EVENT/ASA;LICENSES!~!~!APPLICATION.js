@@ -25,9 +25,9 @@ if (AInfo["Is this a Renewal?"] && AInfo["Is this a Renewal?"].substr(0, 1).toUp
 // end assess fees
 
 // Begin script to update the Application AltID based on Business Activity
-//if(!publicUser && appMatch("Licenses/Cannabis/Business/Application")){
-//	include("UPDATE_APPLICATION_MJ_ALTID");
-//}
+if(!publicUser && appMatch("Licenses/Cannabis/Business/Application")){
+	include("UPDATE_APPLICATION_MJ_ALTID");
+}
 // End script to update the Application AltID based on Business Activity
 
 // use the address to populate data from ZIMAS layers
