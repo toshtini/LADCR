@@ -27,3 +27,33 @@ if (!appMatch("Licenses/Cannabis/Testing/Application")) {
 //	include("UPDATE_APPLICATION_MJ_ALTID");
 //}
 // End script to update the Application AltID based on Business Activity
+
+//Start Core Renewal Functionality 03/25/2020
+if (parentCapId == "undefined" || parentCapId == null) {
+	parentCapId = aa.env.getValue("ParentCapID");
+}
+
+if (parentCapId != null) {
+		
+	//Copy Parcels from license to renewal
+	copyParcels(parentCapId,capId);
+	
+	//Copy addresses from license to renewal
+	copyAddress(parentCapId,capId);
+	
+	//copy ASI Info from license to renewal
+	copyASIInfo(parentCapId,capId);
+
+	//Copy ASIT from license to renewal (exclude Permit Information)
+	copyASITables(parentCapId,capId);
+
+	//Copy Contacts from license to renewal
+	copyContacts3_0(parentCapId,capId);
+	
+	//Copy Work Description from license to renewal
+	aa.cap.copyCapWorkDesInfo(parentCapId,capId);
+
+	//Copy application name from license to renewal
+	editAppName(getAppName(parentCapId),capId);
+}
+//End Core Renewal Functionality
