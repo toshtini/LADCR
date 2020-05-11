@@ -3,7 +3,7 @@
 // This relies on AInfo[] being populated with custom fields.
 
 if (!isTrue(AInfo["Is this a Renewal?"])) {
-  
+	logDebug("Not a Renewal");
 	// reset all fields
 	editAppSpecific("Adult-Use Cultivation Medium Indoor", "UNCHECKED");
 	editAppSpecific("Adult-Use Cultivation Small Indoor", "UNCHECKED");
@@ -23,9 +23,11 @@ if (!isTrue(AInfo["Is this a Renewal?"])) {
 	editAppSpecific("Medical Retail", "UNCHECKED");
 	editAppSpecific("Testing","N");
    
-  	if (AInfo["Use"] == "Adult" ||  AInfo["Use"] == "Adult and Medical") {
+  	if (String(AInfo["Use"]) == "Adult" ||  String(AInfo["Use"]) == "Adult and Medical") {
+		logDebug("adult");
 	    if (isTrue(AInfo["Retail"])) {
 			editAppSpecific("Adult-Use Retail", "CHECKED");
+			logDebug("retail");
 	    }
 	    if (isTrue(AInfo["Manufacturer"])) {
 			editAppSpecific("Adult-Use Manufacturer Level 1", "CHECKED");
@@ -50,7 +52,7 @@ if (!isTrue(AInfo["Is this a Renewal?"])) {
 	    }
 	}
  
-  	if (AInfo["Use"] == "Medical" ||  AInfo["Use"] == "Adult and Medical") {
+  	if (String(AInfo["Use"]) == "Medical" ||  String(AInfo["Use"]) == "Adult and Medical") {
 	    if (isTrue(AInfo["Retail"])) {
 			editAppSpecific("Medical Retail", "CHECKED");
 	    }
@@ -77,10 +79,10 @@ if (!isTrue(AInfo["Is this a Renewal?"])) {
 	    }
 	}
   
-  	if (AInfo["Use"] == "Testing") {
+  	if (String(AInfo["Use"]) == "Testing") {
 		editAppSpecific("Testing","Y");
 	}
 }
 function isTrue(o) {
-	return o == "CHECKED" || o == "YES" || o == "Yes";
+	return String(o) == "CHECKED" || String(o) == "YES" || String(o) == "Yes";
 }
