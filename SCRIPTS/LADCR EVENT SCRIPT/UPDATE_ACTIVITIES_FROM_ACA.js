@@ -28,12 +28,9 @@ if (!isTrue(AInfo["Is this a Renewal?"])) {
 	editAppSpecific("Distribution Only","N");
 	editAppSpecific("Testing","N");
    
-   	if (String(AInfo["Use"]) == "Adult") {
-		editAppSpecific("Adult Use", "Y");
-	}
-
  	if (String(AInfo["Use"]) == "Adult" ||  String(AInfo["Use"]) == "Adult and Medical") {
 		logDebug("adult");
+	    editAppSpecific("Adult Use", "Y");
 	    if (isTrue(AInfo["Retail"])) {
 			editAppSpecific("Adult-Use Retail", "CHECKED");
 			logDebug("retail");
@@ -61,11 +58,8 @@ if (!isTrue(AInfo["Is this a Renewal?"])) {
 	    }
 	}
  
-   	if (String(AInfo["Use"]) == "Medical") {
-		editAppSpecific("Medical Use", "Y");
-	}
-
   	if (String(AInfo["Use"]) == "Medical" ||  String(AInfo["Use"]) == "Adult and Medical") {
+	    editAppSpecific("Medical Use", "Y");
 	    if (isTrue(AInfo["Retail"])) {
 			editAppSpecific("Medical Retail", "CHECKED");
 	    }
