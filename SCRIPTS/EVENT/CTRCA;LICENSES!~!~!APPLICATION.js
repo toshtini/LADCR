@@ -38,6 +38,12 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 }
 // End script to update the Application AltID based on Business Activity
 
+// Begin script to set renewal parent and child application status
+if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
+	include("SET_APP_RENEWAL_STATUSES");
+}
+// End script to set renewal parent and child application status
+
 // Begin script to update the Application field Social Equity Applicants Reference Contact ID with the public users refcontactno
 if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 	include("ACA_SAVE_PUBLICUSER_REFCONTACT_REFNO_TO_APP");
