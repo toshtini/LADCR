@@ -160,7 +160,7 @@ try {
 
 	var isRenewal = isASITrue(AInfo["Is this a Renewal?"]); 
 
-	if (isRenewal || AInfo["Use"] == "Testing") {
+	if (isRenewal || AInfo["Use"] == "Testing" || AInfo["Use"] == "Distribution Only") {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
 	
