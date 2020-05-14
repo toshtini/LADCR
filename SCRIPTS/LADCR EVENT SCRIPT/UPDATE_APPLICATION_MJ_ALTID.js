@@ -1,4 +1,4 @@
-// Last Update: 02/21/2020, ghess
+// Last Update: 05/13/2020, ghess
 var thisActivityType = null;
 var altId = capId.getCustomID();
 
@@ -39,9 +39,9 @@ if(getAppSpecific("Is this a Renewal?") == "Yes") {
 		{
 		thisActivityType = "V"
 		}
-	/* D - Distribution Transport Only
+	/********** D - Distribution Transport Only - no longer applicable (5/13/2020)
 	Distributor Transport Only,Medical Distributor Transport Only,Adult-Use Distributor Transport Only 
-	*/
+	
 	//var DTO = getAppSpecific("Distribution Transport Only");
 	var ADTO = getAppSpecific("Adult-Use Distributor Transport Only");
 	var MDTO = getAppSpecific("Medical Distributor Transport Only");
@@ -50,6 +50,15 @@ if(getAppSpecific("Is this a Renewal?") == "Yes") {
 		{
 		thisActivityType = "D"
 		}
+	*************/
+	/* Distribution Only
+	*/
+	var DO = getAppSpecific("Distribution Only");
+	if(DO  == "Yes")
+		{
+		thisActivityType = "D"
+		}
+	
 	/* R - Retail Adult-Use Retail,Medical Retail
 	*/
 	var AR = getAppSpecific("Adult-Use Retail");
