@@ -8,7 +8,7 @@
 | Action# : N/A
 |
 | Notes   : Created 05/14/2020, Ghess -  check for parent to flag whether the app is a renewal.
-|           Copy contacts from parent
+|           Copy contacts from parent, copy to Custom List component
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -163,11 +163,14 @@ if (parentCapId){
 	//editAppSpecific4ACA("Person In Charge - Title", parentCapId);
 	//editAppSpecific4ACA("Business Organizational Structure", " Corporation");
 	
+	parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
+
 	//Copy Contacts
  	 copyContacts(parentCapId, capId);
+	var contactList = parentCap.getContactsGroup();
+	cap.setContactsGroup(contactList);
 
 	//Copy ASI
-	parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
 	copyAppSpecific4ACA(parentCap);	
 	
 	editAppSpecific4ACA("Is this a Renewal?", "Y");
