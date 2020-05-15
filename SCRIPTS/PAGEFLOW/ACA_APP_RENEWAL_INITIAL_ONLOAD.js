@@ -160,7 +160,22 @@ try {
 	//cancel = true;
 
 if (parentCapId){
-  copyContacts(parentCapId, capId)
+	//editAppSpecific4ACA("Person In Charge - Title", parentCapId);
+	//editAppSpecific4ACA("Business Organizational Structure", " Corporation");
+	
+	//Copy Contacts
+ 	 copyContacts(parentCapId, capId);
+
+	//Copy ASI
+	parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
+	copyAppSpecific4ACA(parentCap);	
+	
+	editAppSpecific4ACA("Is this a Renewal?", "Y");
+	editAppSpecific4ACA("Retailer Commercial Cannabis Activity license in an area of Undue Concentration?", "N");
+	aa.env.setValue("CapModel", cap);
+}
+
+if (parentCapId){
 	editAppSpecific4ACA("Is this a Renewal?", "Y");
 	aa.env.setValue("CapModel", cap);
 }
