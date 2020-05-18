@@ -53,9 +53,7 @@ if(getAppSpecific("Is this a Renewal?") == "Yes") {
 	*************/
 	/* Distribution Only
 	*/
-	var DO = getAppSpecific("Distribution Only");
-	if(DO  == "Yes")
-		{
+	if("Y".equals(String(getAppSpecific("Distribution Only")).toUpperCase().substr(0,1))) {
 		thisActivityType = "D"
 		}
 	
@@ -69,8 +67,7 @@ if(getAppSpecific("Is this a Renewal?") == "Yes") {
 		}
 	/* T - Testing 
 	*/
-	if(getAppSpecific("Testing")  == "Yes")
-		{
+	if("Y".equals(String(getAppSpecific("Testing")).toUpperCase().substr(0,1))) {
 		thisActivityType = "T"
 		}
 	/* O - Other
