@@ -57,8 +57,8 @@ if (wfTask.equals("Application Acceptance") && wfStatus.equals("Application Rece
 	// End Story 5135, 6083
 }
 
-//Begin script to send email to all owners in the Owner table
-include("SEND_OWNER_EMAILS");
+//Begin script to send email to all owners in the Owner table - commented out 5/18/20 per Aaron email
+//include("SEND_OWNER_EMAILS");
 //End script to send email to all owners in the Owner table
 
 // Begin script to set 'Awaiting Review'. Runs the WTUA event for Initial Review - Awaiting Review
