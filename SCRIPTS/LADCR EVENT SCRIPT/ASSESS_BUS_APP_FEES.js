@@ -1,6 +1,6 @@
 // If the record is a PCN then assess these fees
 if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "Yes"){
-        updateFee("J097","CAN_BUS_APP","FINAL",1,"Y");
+        updateFee("J097","CAN_BUS_APP","FINAL",1,"N");
     }
 else{
 // Else assess these fees
