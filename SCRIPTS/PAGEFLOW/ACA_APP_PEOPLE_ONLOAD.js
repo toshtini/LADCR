@@ -155,8 +155,8 @@ try {
 		parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
 	}
 
-	showDebug = true;
-	showMessage = true;
+	//showDebug = true;
+	//showMessage = true;
 	//cancel = true;
 
 if (parentCapId){
