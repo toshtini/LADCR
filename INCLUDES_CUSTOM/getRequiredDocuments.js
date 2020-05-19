@@ -225,14 +225,17 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(BusinessTaxRegistrationCertificate);
 			requirementArray.push(CannabisWasteManagementPlan);
 			requirementArray.push(CEQAComplianceExemption);
-			requirementArray.push(CUPAPermit);
-			requirementArray.push(TestingISO17025);    
+			//requirementArray.push(CUPAPermit);
 			requirementArray.push(LaborPeaceAgreement); 
 			requirementArray.push(managementCompanies);
 			requirementArray.push(OrganizationalChart);
 			requirementArray.push(ownDisclosure);  
 			requirementArray.push(ProofOfBondOrIns);
 			requirementArray.push(StandardOperatingProcedures);
+			
+			if (isTesting) {
+				requirementArray.push(TestingISO17025);    
+			}
 		}
 		
 		
