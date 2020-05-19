@@ -206,7 +206,7 @@ function getRequiredDocuments(isPageFlow) {
 		// add for temp and annual
 		// add always...
 		//updated 5/8/2020
-		if (true) { // for testing purposes - set to false to bypass
+		if (false) { // for testing purposes - set to false to bypass
 			requirementArray.push(BusinessPremisesDiagram); 		
 			requirementArray.push(CertificateOfOccupancy); 			
 			requirementArray.push(CommercialCannabisActivityPlan); 	
