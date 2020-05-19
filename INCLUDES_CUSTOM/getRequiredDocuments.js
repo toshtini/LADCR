@@ -31,7 +31,7 @@ function getRequiredDocuments(isPageFlow) {
 	//var ProofOfBondInsurance = {condition : "Proof of Bond / Insurance",document :  "Proof of Bond / Insurance"};
 	//var IndemnificationAgreement = {condition : "Indemnification Agreement",document : "Indemnification Agreement"};
 	//var CommunityBenefitAgreement = {condition : "Community Benefit Agreement",document : "Community Benefit Agreement"};
-	//var BusinessTaxRegistrationCertificate = {condition: "Business Tax Registration Certificate",document: "Business Tax Registration Certificate"};
+	var BusinessTaxRegistrationCertificate = {condition: "Business Tax Registration Certificate",document: "Business Tax Registration Certificate"};
 	var CannabisWasteManagementPlan = {condition: "Cannabis Waste Management Plan",document: "Cannabis Waste Management Plan"}; 
 	var DiversityPlan = {condition: "Diversity Plan",document: "Diversity Plan"}; 
 	//var CUPAPermit = {condition : "CUPA Permit",document : "CUPA Permit"};
@@ -127,7 +127,9 @@ function getRequiredDocuments(isPageFlow) {
 	var SecurityPlan = {condition: "Security Plan",document: "Security Plan"}; 
 	var SitePlan = {condition: "Site Plan",document: "Site Plan"}; 
 	var StaffingPlan = {condition: "Staffing Plan",document: "Staffing Plan"}; 
-
+	// added requirements 5/18/2020 GH
+	var CEQAComplianceExemption = {condition: "CEQA Compliance/Exemption",document: "CEQA Compliance/Exemption"};
+	var CUPAPermit = {condition : "CUPA Permit (If Applicable)",document : "CUPA Permit (If Applicable)"};
 
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Conditionals from Record
@@ -203,19 +205,36 @@ function getRequiredDocuments(isPageFlow) {
 	if ((isApplication || isAttestationAmendment) && !isOwnerAttestation) {
 		// add for temp and annual
 		// add always...
-		requirementArray.push(BusinessPremisesDiagram); 		//added 5/8/2020
-		requirementArray.push(CertificateOfOccupancy); 			//added 5/8/2020
-		requirementArray.push(CommercialCannabisActivityPlan); 	//added 5/8/2020
-		requirementArray.push(DatedRadiusMap); 					//added 5/8/2020
-		requirementArray.push(EquityShareDocuments); 			//added 5/8/2020
-		requirementArray.push(EvidenceOfLegalRightToOccupy); 	//added 5/8/2020
-		requirementArray.push(ExecutedLeaseOrPropertyDeed); 	//added 5/8/2020
-		requirementArray.push(FinancialInformation); 			//added 5/8/2020
-		requirementArray.push(IndemnificationAgreement); 		//added 5/8/2020
-		requirementArray.push(SecurityPlan); 					//added 5/8/2020
-		requirementArray.push(SitePlan); 						//added 5/8/2020
-		requirementArray.push(StaffingPlan); 					//added 5/8/2020
-		requirementArray.push(bizFormOrg); 						//added 5/8/2020
+		//updated 5/8/2020
+		if (true) { // for testing purposes - set to false to bypass
+			requirementArray.push(BusinessPremisesDiagram); 		
+			requirementArray.push(CertificateOfOccupancy); 			
+			requirementArray.push(CommercialCannabisActivityPlan); 	
+			requirementArray.push(DatedRadiusMap); 					
+			requirementArray.push(EquityShareDocuments); 			
+			requirementArray.push(EvidenceOfLegalRightToOccupy); 	
+			requirementArray.push(ExecutedLeaseOrPropertyDeed); 	
+			requirementArray.push(FinancialInformation); 			
+			requirementArray.push(IndemnificationAgreement); 		
+			requirementArray.push(SecurityPlan); 					
+			requirementArray.push(SitePlan); 						
+			requirementArray.push(StaffingPlan); 					
+			requirementArray.push(bizFormOrg); 		
+
+			//updated 5/18/2020
+			requirementArray.push(BusinessTaxRegistrationCertificate);
+			requirementArray.push(CannabisWasteManagementPlan);
+			requirementArray.push(CEQAComplianceExemption);
+			requirementArray.push(CUPAPermit);
+			requirementArray.push(TestingISO17025);    
+			requirementArray.push(LaborPeaceAgreement); 
+			requirementArray.push(managementCompanies);
+			requirementArray.push(OrganizationalChart);
+			requirementArray.push(ownDisclosure);  
+			requirementArray.push(ProofOfBondOrIns);
+			requirementArray.push(StandardOperatingProcedures);
+		}
+		
 		
 		if (!isTesting) {
 			//requirementArray.push(DeclarationEngagedActivities);
