@@ -19,11 +19,11 @@ if (Info["Medical Distributor"] == "CHECKED") {
 
 if (Info["Medical Retail"] == "CHECKED") {
     updateFee("J010","CAN_BUS_REN","FINAL",1,"Y");
-}  
+}
 
 if (Info["Adult-Use Retail"] == "CHECKED") {
     updateFee("J020","CAN_BUS_REN","FINAL",1,"Y");
-}   
+}
 
 if (Info["Medical Delivery"] == "CHECKED") {
     updateFee("J030","CAN_BUS_REN","FINAL",1,"Y");
@@ -76,7 +76,7 @@ if (Info["Medical Cultivation Medium Indoor"] == "CHECKED") {
 //J067 Medical Cultivation Medium Mixed-Light
 /// NO ASI FOR THIS!
 
-//J068 Medical Cultivation Nursery 
+//J068 Medical Cultivation Nursery
 /// NO ASI FOR THIS!
 
 //J069  Medical Cultivation Large Indoor
@@ -104,7 +104,7 @@ if (Info["Adult-Use Cultivation Small Indoor"] == "CHECKED") {
 //J075 Adult-Use Cultivation Small Mixed-Light
 /// NO ASI FOR THIS!
 
-//J077  Adult-Use Cultivation Medium Mixed-Light 
+//J077  Adult-Use Cultivation Medium Mixed-Light
 /// NO ASI FOR THIS!
 
 //J079 Adult-Use Cultivation Large Indoor
@@ -130,7 +130,7 @@ if (Info["Adult-Use Manufacturer Level 2"] == "CHECKED") {
     updateFee("J094","CAN_BUS_REN","FINAL",1,"Y");
 }
 
-//Adult-Use Distributor Transport Only  
+//Adult-Use Distributor Transport Only
 /// NO FEE FOR THIS IN  THE CAN_BUS_REN Schedule
 
 }
