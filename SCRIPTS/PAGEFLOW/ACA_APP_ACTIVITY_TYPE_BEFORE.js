@@ -151,7 +151,7 @@ try {
 	//Limit selection when PCN request
 	activityUse = AInfo["Use"];
 	requestPCN = AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"];
-	if ((requestPCN == "Yes || requestPCN == "YES") && (activityUse == "Distribution Only" || activityUse == "Testing")) {
+	if ((requestPCN == "Yes" || requestPCN == "YES") && (activityUse == "Distribution Only" || activityUse == "Testing")) {
 		cancel = true;
 		showMessage = true;
 		comment("Please select Adult and/or Medical when applying for a Type 10 license.");
