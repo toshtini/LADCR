@@ -243,7 +243,6 @@ if (parentCapId){
 }
 
 	
-}
 
 	
 } catch (err) {
