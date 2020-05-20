@@ -50,7 +50,7 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 }
 
 // script 60, 8/29/2019
-if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] != "Yes"){
+if(AInfo["Is this a Renewal?"] != "Yes" && AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] != "Yes"){
 	include("SEND_INVOICE");
 }
 // End script
