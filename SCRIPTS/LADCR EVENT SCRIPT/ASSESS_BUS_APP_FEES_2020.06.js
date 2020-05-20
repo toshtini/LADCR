@@ -33,7 +33,6 @@ if (!isTrue(AInfo["Is this a Renewal?"])) {
 
 }
 
-}
 function isTrue(o) {
 	return String(o) == "CHECKED" || String(o) == "YES" || String(o) == "Yes";
 }
