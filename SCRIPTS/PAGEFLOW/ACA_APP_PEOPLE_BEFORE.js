@@ -167,9 +167,9 @@ try {
 		var contactModel = contactList.get(i-1);
 		logDebug("Found contact with type: " + contactModel.contactType);
 		
-		if contactModel.contactType == "Business Entity" ) foundBusinessEntity = true;
-		if contactModel.contactType == "Owner" ) foundOwner = true;
-		if contactModel.contactType == "Social Equity Owner" ) foundSocialEquityOwner = true;
+		if (contactModel.contactType == "Business Entity") foundBusinessEntity = true;
+		if (contactModel.contactType == "Owner") foundOwner = true;
+		if (contactModel.contactType == "Social Equity Owner") foundSocialEquityOwner = true;
 	}
 
 	if (AInfo["Business Organizational Structure"] != "Sole Proprietor" && !foundBusinessEntity) {
@@ -217,5 +217,3 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", debug);
 	}
 }
-
-
