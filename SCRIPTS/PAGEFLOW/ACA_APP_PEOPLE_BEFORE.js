@@ -172,7 +172,7 @@ try {
 		if (contactModel.contactType == "Social Equity Owner") foundSocialEquityOwner = true;
 	}
 
-	if (AInfo["Business Organizational Structure"] != "Sole Proprietor" && !foundBusinessEntity) {
+	if (AInfo["Business Organizational Structure"] != "Sole Proprietorship" && !foundBusinessEntity) {
 		cancel = true;
 		showMessage = true;
 		comment("Business Entity contact is required for Business Organizational Structure of " + AInfo["Business Organizational Structure"]);
