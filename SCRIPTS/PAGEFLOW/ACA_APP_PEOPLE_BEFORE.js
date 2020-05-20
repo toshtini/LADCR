@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_APP_CONTACT_LIST_BEFORE.js 
+| Program : ACA_APP_PEOPLE_BEFORE.js 
 | Event   : ACA Page Flow attachments before event
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
@@ -158,14 +158,31 @@ try {
 	}
 
 	//look for contact types
+	var foundBusinessEntity = false;
+	var foundOwner  = false;
+	var foundSocialEquityOwner = false;
+	
 	for(var i=contactList.size(); i > 0; i--)
 	{
 		var contactModel = contactList.get(i-1);
-		//contactModel.setComponentName("Contact List");
-		logDebug("Setting component for " + contactModel.contactType);
+		logDebug("Found contact with type: " + contactModel.contactType);
+		
+		if contactModel.contactType == "Business Entity" ) foundBusinessEntity = true;
+		if contactModel.contactType == "Owner" ) foundOwner = true;
+		if contactModel.contactType == "Social Equity Owner" ) foundSocialEquityOwner = true;
 	}
 
+	if (AInfo["Business Organizational Structure"] != "Sole Proprietor" && !foundBusinessEntity) {
+		cancel = true;
+		showMessage = true;
+		comment("Business Entity contact is required for Business Organizational Structure of " + AInfo["Business Organizational Structure"]);
+	}
 
+	if (!foundOwner && !foundSocialEquityOwner) {
+		cancel = true;
+		showMessage = true;
+		comment("Must enter an Owner or Social Equity Owner");
+	}
 		
 } catch (err) { 
 
@@ -200,3 +217,5 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", debug);
 	}
 }
+
+
