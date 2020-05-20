@@ -136,7 +136,8 @@ function getRequiredDocuments(isPageFlow) {
 	/------------------------------------------------------------------------------------------------------*/
 	var isMedical =  AInfo["Medical"] == "YES" || AInfo["Medical"] == "Yes"; 
 	var isAdultUse =  AInfo["Adult Use"] == "YES" || AInfo["Adult Use"] == "Yes"; 
-	var isTesting = AInfo["Testing"] == "YES" || AInfo["Testing"] == "Yes"; 
+	//var isTesting = AInfo["Testing"] == "YES" || AInfo["Testing"] == "Yes"; 
+	var isTesting = AInfo["Testing"] == "YES" || AInfo["Testing"] == "Yes" || AInfo["Use"] == "Testing"; //added 5/19/2020
 	var isCultivation = AInfo["Adult-Use Cultivation Medium Indoor"] == "CHECKED" || AInfo["Adult-Use Cultivation Small Indoor"]  == "CHECKED" || AInfo["Adult-Use Cultivation Specialty Cottage Indoor"]  == "CHECKED" || 	AInfo["Adult-Use Cultivation Specialty Indoor"] == "CHECKED" || AInfo["Medical Cultivation Medium Indoor"] == "CHECKED" || AInfo["Medical Cultivation Small Indoor"] == "CHECKED" || AInfo["Medical Cultivation Specialty Cottage Indoor"] == "CHECKED" || AInfo["Medical Cultivation Specialty Indoor"] == "CHECKED";	
 	var isTemporaryRequest = isASITrue(AInfo["Are you requesting a temporary license?"]); 
 	//set isTemporaryRequest = true if ASI field is null or ""
@@ -225,14 +226,17 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(BusinessTaxRegistrationCertificate);
 			requirementArray.push(CannabisWasteManagementPlan);
 			requirementArray.push(CEQAComplianceExemption);
-			requirementArray.push(CUPAPermit);
-			requirementArray.push(TestingISO17025);    
+			//requirementArray.push(CUPAPermit);
 			requirementArray.push(LaborPeaceAgreement); 
 			requirementArray.push(managementCompanies);
 			requirementArray.push(OrganizationalChart);
 			requirementArray.push(ownDisclosure);  
 			requirementArray.push(ProofOfBondOrIns);
 			requirementArray.push(StandardOperatingProcedures);
+			
+			if (isTesting) {
+				requirementArray.push(TestingISO17025);    
+			}
 		}
 		
 		
