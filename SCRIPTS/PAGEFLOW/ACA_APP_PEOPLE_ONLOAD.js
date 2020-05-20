@@ -238,7 +238,7 @@ if (parentCapId){
 } else {
 	// add the ref contact from public userAgent
 	if (capId) {
-		addPublicUserToRecordAsContact(publicUserId, capId, "Owner");
+		addPublicUserToRecordAsContact(publicUserID, capId, "Owner");
 	}
 }
 
