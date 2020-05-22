@@ -237,7 +237,7 @@ if (parentCapId){
 	aa.env.setValue("CapModel", cap);
 } else {
 	// add the ref contact from public userAgent
-	if (capId) {
+	if (capId && "Y".equals(String(AInfo["Social Equity Requested"]).toUpperCase().substr(0,1))) {
 		addPublicUserToRecordAsContact(publicUserID, capId, "Social Equity Owner");
 	}
 }
