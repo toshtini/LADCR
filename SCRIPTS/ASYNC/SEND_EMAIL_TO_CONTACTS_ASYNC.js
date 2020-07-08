@@ -155,7 +155,7 @@ else {
 		conType = conTypeArray[z];
 		conEmail = null;
 		peopTemp = null;
-		//logDebug("          Searching for " + conTypeArray[z]);
+		logDebug("          Searching for " + conTypeArray[z]);
 		//Determine capId from which to get contacts
 		if (vContactCapId == null || vContactCapId == "" || vContactCapId == false){
 			vContactCapId = capId;
@@ -173,6 +173,7 @@ else {
 				conEmail = vConObj.people.getEmail();
 				if (conEmail && conEmail != null && conEmail != "") {
 					conEmail = conEmail.toUpperCase();
+					logDebug("found email " + conEmail);
 				}
 			}
 			//Save contact email to array (primary)
