@@ -103,7 +103,7 @@ else {
 	validConTypes = getContactTypes_BCC();
 
 	//Add standard email variables from record information
-	vEParams = addStdVarsToEmail(vEParams, capId);
+	//vEParams = addStdVarsToEmail(vEParams, capId);
 
 	//Set Ad-Hoc Task Information
 	if (vAddAdHocTask) {
