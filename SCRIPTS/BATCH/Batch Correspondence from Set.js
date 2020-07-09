@@ -24,6 +24,7 @@ var sysDate = aa.date.getCurrentDate();
 var batchJobResult = aa.batchJob.getJobID();
 var batchJobName = "" + aa.env.getValue("BatchJobName");
 var batchJobID = 0;
+var capId;
 
 SCRIPT_VERSION = 3.0
 
