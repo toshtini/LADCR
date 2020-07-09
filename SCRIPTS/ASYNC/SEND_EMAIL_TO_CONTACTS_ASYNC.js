@@ -128,6 +128,7 @@ else {
 	//Check to see if provided contact type(s) is/are valid
 	if (sendEmailToContactTypes != "All" && sendEmailToContactTypes != null && sendEmailToContactTypes != '') {
 		conTypeArray = sendEmailToContactTypes.split(",");
+		logDebug("splitting sendEmailToContactTypes into " + conTypeArray.length + " pieces, first one is " + conTypeArray[0]);
 	}
 	for (x in conTypeArray) {
 		//check all that are not "Primary"
