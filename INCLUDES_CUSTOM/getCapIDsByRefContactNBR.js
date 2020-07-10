@@ -2,7 +2,7 @@ function getCapIDsByRefContactNBR(conNbr){
 	var resArr = new Array();
 	var servProvCode=aa.getServiceProviderCode();
 	var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-	var ds = initialContext.lookup("java:/AA");
+	var ds = initialContext.lookup("java:/LADCR");
 	var conn = ds.getConnection();
 	var selectString = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from B3CONTACT WHERE SERV_PROV_CODE= ? AND G1_CONTACT_NBR = ? AND REC_STATUS='A'";
 	var sStmt = conn.prepareStatement(selectString);
