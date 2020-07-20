@@ -161,7 +161,7 @@ function mainProcess() {
 		var vRParams = aa.util.newHashtable();
 		addParameter(vRParams, "p1Value", capId.getCustomID());
 		 */
-		var vEParams = aa.util.newHashtable();
+		var eParams = aa.util.newHashtable();
 		var vRParams = aa.util.newHashtable();
 		addParameter(vRParams, "p1Value", capId.getCustomID());
 		
@@ -172,7 +172,7 @@ function mainProcess() {
 
 		if (sendEmailToContactTypes.length > 0 && emailTemplate.length > 0) {
 			//sendNotification(sysFromEmail,conEmail,"",emailTemplate,eParams, [],capId);
-			emailContacts_LADCR(sendEmailToContactTypes, emailTemplate, eParams, null, rParams)
+			emailContacts_LADCR(sendEmailToContactTypes, emailTemplate, eParams, null, vRParams)
 		}
 		}
 	}
