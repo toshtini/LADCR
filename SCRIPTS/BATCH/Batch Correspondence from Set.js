@@ -27,9 +27,9 @@ var batchJobName = "" + aa.env.getValue("BatchJobName");
 var batchJobID = 0;
 var capId;
 
-SCRIPT_VERSION = 3.0
+SCRIPT_VERSION = 3.0;
 
-	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS", null, true));
+eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS", null, true));
 eval(getScriptText("INCLUDES_BATCH"));
 eval(getScriptText("INCLUDES_CUSTOM", null, true));
 
@@ -162,12 +162,17 @@ function mainProcess() {
 		addParameter(vRParams, "p1Value", capId.getCustomID());
 		 */
 		var vEParams = aa.util.newHashtable();
+		var vRParams = aa.util.newHashtable();
+		addParameter(vRParams, "p1Value", capId.getCustomID());
+		
+		if (reportTemplate.length > 0) {
+			var vReportName = generateReportForEmail_BCC(capId, reportTemplate, aa.getServiceProviderCode(), vRParams);
+			logDebug(vReportName + " generated for record " + capId.getCustomID());
+		}
+
 		if (sendEmailToContactTypes.length > 0 && emailTemplate.length > 0) {
-			eParams = aa.util.newHashtable();
-			rParams = aa.util.newHashtable();
-			addParameter(rParams, "p1Value", altId);
 			//sendNotification(sysFromEmail,conEmail,"",emailTemplate,eParams, [],capId);
-			emailContacts_LADCR(sendEmailToContactTypes, emailTemplate, eParams, reportTemplate, rParams)
+			emailContacts_LADCR(sendEmailToContactTypes, emailTemplate, eParams, null, rParams)
 		}
 		}
 	}
