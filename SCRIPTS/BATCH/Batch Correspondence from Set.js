@@ -1,6 +1,7 @@
 /*------------------------------------------------------------------------------------------------------/
 | Program: LADCR CORRESPONDENCE FROM SET.js  Trigger: Batch
 | Client:
+| Update: 7/27/2020
 |
 | REQUIRED: CORRESPONDENCE SCRIPT PARAMS std choice
 /------------------------------------------------------------------------------------------------------*/
@@ -125,7 +126,8 @@ var startTime = startDate.getTime(); // Start timer
 
 logDebug("*** Start of Job ***");
 
-if (emailTemplate && emailTemplate != "" && sendEmailToContactTypes && sendEmailToContactTypes != "" && SetMemberArray.length > 0) {
+//if (emailTemplate && emailTemplate != "" && sendEmailToContactTypes && sendEmailToContactTypes != "" && SetMemberArray.length > 0) {
+if (SetMemberArray.length > 0) {
 	mainProcess();
 
 } else {
