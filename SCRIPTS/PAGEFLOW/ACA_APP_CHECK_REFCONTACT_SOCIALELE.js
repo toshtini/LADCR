@@ -9,6 +9,9 @@
 |
 | Notes   : 08/23/2019, ghess - added check for Earliest Temporary License  (Preferred Channel)
 |         : 09/10/2019, ghess - included check for multiple sessions but not implementing. Added undue concentration check.
+|         : 01/14/2020, ghess - added check for renewal.
+|         : 01/21/2020, ghess - removed check for undo concentration.
+|         : 01/23/2020, ghess - changed check for SE status from renewal to PCN.
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 | START User Configurable Parameters
@@ -142,65 +145,67 @@ logDebug("balanceDue = " + balanceDue);
 
 
 try {
-    var pSeqNumber = publicUserID.replace("PUBLICUSER","");
-    pSeqNumber = aa.util.parseInt(pSeqNumber)
-    pSeqNumber = aa.util.parseLong(pSeqNumber)
-    publicUserResult = aa.publicUser.getPublicUser(pSeqNumber);
-    if (publicUserResult.getSuccess()) {
-    	publicUser = publicUserResult.getOutput();
-    }
-    contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
-	if (contrPeopleModel != null) {
-        refNum = contrPeopleModel.getContactSeqNumber();
-        // test 1 social equity
-        var refConResult = aa.people.getPeople(refNum);
-		if (refConResult.getSuccess()) {
-            var refPeopleModel = refConResult.getOutput();
-			if (refPeopleModel != null) {
-				var asiEarliestTemporaryLicense = refPeopleModel.getPreferredChannel();
-				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
-				//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified"))
-				if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified")|| (aa.util.parseInt(asiEarliestTemporaryLicense) == 1))
-					{
-					showMessage = true;
-					//comment("Unable to proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
-					comment("Unable to proceed. Your Social Equity Status has not been verified for this round of licensing.");
-					cancel = true;
+    //if (AInfo["Is this a Renewal?"] == "No") {
+    if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "Yes"){
+	    var pSeqNumber = publicUserID.replace("PUBLICUSER","");
+	    pSeqNumber = aa.util.parseInt(pSeqNumber)
+	    pSeqNumber = aa.util.parseLong(pSeqNumber)
+	    publicUserResult = aa.publicUser.getPublicUser(pSeqNumber);
+	    if (publicUserResult.getSuccess()) {
+		publicUser = publicUserResult.getOutput();
+	    }
+	    contrPeopleModel = getRefContactForPublicUser(pSeqNumber);
+		if (contrPeopleModel != null) {
+		refNum = contrPeopleModel.getContactSeqNumber();
+		// test 1 social equity
+		var refConResult = aa.people.getPeople(refNum);
+			if (refConResult.getSuccess()) {
+		    var refPeopleModel = refConResult.getOutput();
+				if (refPeopleModel != null) {
+					var asiEarliestTemporaryLicense = refPeopleModel.getPreferredChannel();
+					//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Eligible","SEP Tier 1 Eligible","SEP Tier 1 and Tier 2 Eligibil","SEP Tier 2 Eligible"))
+					//if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified"))
+					if(!matches(refPeopleModel.getSalutation(),"SEP Tier 1 & 2 Qualified","SEP Tier 1 Qualified","SEP Tier 2 Qualified")|| (aa.util.parseInt(asiEarliestTemporaryLicense) == 1))
+						{
+						showMessage = true;
+						//comment("Unable to proceed. You are not eligible for the Social Equity Status. Your current status is " + refPeopleModel.getSalutation() + ".");
+						comment("Unable to proceed. Your Social Equity Status has not been verified for this round of licensing.");
+						cancel = true;
+						}
+				}
+		}
+		}
+		/************************************************************** currently not in use...
+		// test 2 applications in progress.  fail if any incompletes
+		var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from dbo.B1PERMIT WHERE B1_APPL_CLASS = 'INCOMPLETE CAP' AND B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "' AND REC_STATUS = 'A'";
+		var existingRecs = doSQLQuery(sql);
+		if (existingRecs && existingRecs.length > 0) {
+			var existingBiz = [];
+			for (var i in existingRecs) {
+				aa.print(existingRecs[i].B1_PER_ID1 + " " +  existingRecs[i].B1_PER_ID2 + " " + existingRecs[i].B1_PER_ID3);
+				var existingId = aa.cap.getCapID(existingRecs[i].B1_PER_ID1,existingRecs[i].B1_PER_ID2,existingRecs[i].B1_PER_ID3).getOutput();
+				if (existingId) {
+					var finishedCap = aa.cap.getProjectByMasterID(existingId,"EST",null).getOutput();
+					// only include tmps that aren't finished
+					if ((!capIDString.equals(existingId.getCustomID())) && !finishedCap) {
+						existingBiz.push(existingId.getCustomID());
 					}
-			}
-        }
-	}
-	/************************************************************** currently not in use...
-	// test 2 applications in progress.  fail if any incompletes
-	var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from B1PERMIT WHERE B1_APPL_CLASS = 'INCOMPLETE CAP' AND B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "' AND REC_STATUS = 'A'";
-	var existingRecs = doSQLQuery(sql);
-	if (existingRecs && existingRecs.length > 0) {
-		var existingBiz = [];
-		for (var i in existingRecs) {
-			aa.print(existingRecs[i].B1_PER_ID1 + " " +  existingRecs[i].B1_PER_ID2 + " " + existingRecs[i].B1_PER_ID3);
-			var existingId = aa.cap.getCapID(existingRecs[i].B1_PER_ID1,existingRecs[i].B1_PER_ID2,existingRecs[i].B1_PER_ID3).getOutput();
-			if (existingId) {
-				var finishedCap = aa.cap.getProjectByMasterID(existingId,"EST",null).getOutput();
-				// only include tmps that aren't finished
-				if ((!capIDString.equals(existingId.getCustomID())) && !finishedCap) {
-					existingBiz.push(existingId.getCustomID());
 				}
 			}
+			if (existingBiz.length > 0) {
+				showMessage = true;
+				comment("Unable to proceed. One or more applications are already in progress (" + existingBiz.join(",") + ")");
+				cancel = true;				
+			}
 		}
-		if (existingBiz.length > 0) {
-			showMessage = true;
-			comment("Unable to proceed. One or more applications are already in progress (" + existingBiz.join(",") + ")");
-			cancel = true;				
-		}
-	}
-	**************************************************************/
-	// test 3 Only allow applications where undue concentration (9/10/2019)
-	if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "No"){
-		showMessage = true;
-		comment("Unable to proceed. Applicants may only submit Public Convenience or Necessity requests for Retail Storefront Commercial Cannabis Activity licenses that would be located in an Area of Undue Concentration.");
-		cancel = true;
-	}
-	
+		**************************************************************/
+		// test 3 Only allow applications where undue concentration (9/10/2019)
+		//if(AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "No"){
+		//	showMessage = true;
+		//	comment("Unable to proceed. Applicants may only submit Public Convenience or Necessity requests for Retail Storefront Commercial Cannabis Activity licenses that would be located in an Area of Undue Concentration.");
+		//	cancel = true;
+		//} //commented out 1/21/2020
+    }
 } catch (err) {
 
 logDebug(err)	}
@@ -233,9 +238,9 @@ function doSQLQuery(sql) {
 	try {
 		var array = [];
 		var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-		var ds = initialContext.lookup("java:/AA");
+		var ds = initialContext.lookup("java:/LADCR");
 		var conn = ds.getConnection();
-		var sStmt = conn.prepareStatement(sql);
+		var sStmt = aa.db.prepareStatement(conn, sql);
 
 		if (sql.toUpperCase().indexOf("SELECT") == 0) {
 			aa.print("(doSQL) executing : " + sql);
@@ -262,3 +267,4 @@ function doSQLQuery(sql) {
 		aa.print(err.message);
 	}
 }
+
