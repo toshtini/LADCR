@@ -177,7 +177,7 @@ try {
 		}
 		/************************************************************** currently not in use...
 		// test 2 applications in progress.  fail if any incompletes
-		var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from B1PERMIT WHERE B1_APPL_CLASS = 'INCOMPLETE CAP' AND B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "' AND REC_STATUS = 'A'";
+		var sql = "select DISTINCT B1_PER_ID1, B1_PER_ID2, B1_PER_ID3 from dbo.B1PERMIT WHERE B1_APPL_CLASS = 'INCOMPLETE CAP' AND B1_CREATED_BY = '" + publicUserID + "' AND SERV_PROV_CODE= '" + aa.getServiceProviderCode() + "' AND REC_STATUS = 'A'";
 		var existingRecs = doSQLQuery(sql);
 		if (existingRecs && existingRecs.length > 0) {
 			var existingBiz = [];
@@ -238,9 +238,9 @@ function doSQLQuery(sql) {
 	try {
 		var array = [];
 		var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-		var ds = initialContext.lookup("java:/AA");
+		var ds = initialContext.lookup("java:/LADCR");
 		var conn = ds.getConnection();
-		var sStmt = conn.prepareStatement(sql);
+		var sStmt = aa.db.prepareStatement(conn, sql);
 
 		if (sql.toUpperCase().indexOf("SELECT") == 0) {
 			aa.print("(doSQL) executing : " + sql);
@@ -267,3 +267,4 @@ function doSQLQuery(sql) {
 		aa.print(err.message);
 	}
 }
+
