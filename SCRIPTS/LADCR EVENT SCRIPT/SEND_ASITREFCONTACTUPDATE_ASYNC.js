@@ -13,7 +13,7 @@ var email = aa.env.getValue("email");
 // Update the custom list data based on Ref Contact ID
 try {
 	var sql = "SELECT A.B1_PER_ID1, A.B1_PER_ID2, A.B1_PER_ID3 "
-	+ " FROM BAPPSPECTABLE_VALUE A "
+	+ " FROM dbo.BAPPSPECTABLE_VALUE A "
 	+ " WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "'"
 	+ " AND A.COLUMN_NAME = '" + column + "'"
 	+ " AND A.GROUP_NAME = '" + subgroup  + "'"
@@ -37,3 +37,4 @@ try {
 } catch (err) {
 	logDebug("Error in SEND_ASITREFCONTACTUPDATE_ASYNC.js");
 }
+
