@@ -1,3 +1,4 @@
+
 var getUserResult = aa.publicUser.getPublicUserByPUser(publicUserID);
 if (getUserResult.getSuccess() && getUserResult.getOutput()) {
     userModel = getUserResult.getOutput();
