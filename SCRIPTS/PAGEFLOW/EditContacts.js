@@ -46,7 +46,7 @@ try {
 
 	//cancel = true;
 	//showMessage = true;
-	//showDebug = 3;
+	//showDebug = 1;
 
 	var vParentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
 	var vParentCapType = vParentCap.getCapType();
