@@ -1,4 +1,3 @@
-
 if (publicUser) {
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var seStatus = people.getSalutation();
@@ -25,11 +24,11 @@ if (publicUser) {
 		addParameter(params, "$$Fax$$", people.getFax());
 		addParameter(params, "$$Country$$", people.getCompactAddress().getCountry());
 		addParameter(params, "$$FullName$$", people.getFullName());
-  		aa.document.sendEmailByTemplateName("dcrlicensing@lacity.org","birdsnack@gmail.com","","LADCR Social Equity Application Alert",params,[]);
+  		aa.document.sendEmailByTemplateName("dcrlicensing@lacity.org","DCRSEPVerification@lacity.org","","LADCR Social Equity Application Alert",params,[]);
 	}
 }
 
-slackDebug(debug);
+//slackDebug(debug);
 
 
 
