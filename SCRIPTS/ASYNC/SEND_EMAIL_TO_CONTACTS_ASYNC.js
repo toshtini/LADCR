@@ -9,7 +9,6 @@ var vRParams = aa.env.getValue("vRParams");
 var vChangeReportName = aa.env.getValue("vChangeReportName");
 var capId = aa.env.getValue("CapId");
 var vAddAdHocTask = aa.env.getValue("vAddAdHocTask");
-var vContactCapId = aa.env.getValue("vContactCapId");
 
 aa.print("2) sendEmailToContactTypes: " + sendEmailToContactTypes);
 aa.print("3) emailTemplate: " + emailTemplate);
@@ -129,6 +128,9 @@ else {
 	if (sendEmailToContactTypes != "All" && sendEmailToContactTypes != null && sendEmailToContactTypes != '') {
 		conTypeArray = sendEmailToContactTypes.split(",");
 	}
+	
+	logDebug("We have " + conTypeArray.length  + " valid contact types");
+	
 	for (x in conTypeArray) {
 		//check all that are not "Primary"
 		vConType = conTypeArray[x];
@@ -155,20 +157,19 @@ else {
 		conType = conTypeArray[z];
 		conEmail = null;
 		peopTemp = null;
-		//logDebug("          Searching for " + conTypeArray[z]);
-		//Determine capId from which to get contacts
-		if (vContactCapId == null || vContactCapId == "" || vContactCapId == false){
-			vContactCapId = capId;
-		}
+		logDebug("          Searching for " + conTypeArray[z]);
 		if (conType == "Primary") {
-			vConObjArry = getContactObjsByCap_BCC(vContactCapId);
+			vConObjArry = getContactObjsByCap_BCC(capId);
+			logDebug("          found " + vConObjArry);
 		} else {
-			vConObjArry = getContactObjsByCap_BCC(vContactCapId, conTypeArray[z]);
+			vConObjArry = getContactObjsByCap_BCC(capId, conTypeArray[z]);
+			logDebug("          found " + vConObjArry);
 		}
 		for (x in vConObjArry) {
 			vConObj = vConObjArry[x];
 			vConRefSeqNbr = vConObj.refSeqNumber;
 			//Get contact email
+			logDebug("          looking at Contact Object " + vConObj.refSeqNumber);
 			if (vConObj) {
 				conEmail = vConObj.people.getEmail();
 				if (conEmail && conEmail != null && conEmail != "") {
