@@ -7,5 +7,8 @@ if ((publicUser && wfTask == "Application Acceptance" && wfStatus == "Submitted"
 	vTaskStepNum = getTaskStepNumber(vProcessCode, "Application Acceptance", capId);
 	resultWorkflowTask("Application Acceptance", "Awaiting Owner Submittals", "Update by DO_APPLICATION_SUBMITTED_ACTIONS", "Update by DO_APPLICATION_SUBMITTED_ACTIONS");
 	runWTUAForWFTaskWFStatus("Application Acceptance", vProcessID, vTaskStepNum, "Awaiting Owner Submittals", capId);
+	
+	// set initial ACA permissions by contact:
+	include("UPDATE_ACA_VISIBILITY_BY_CONTACT");
 }
 // End script to do application submittal actions
