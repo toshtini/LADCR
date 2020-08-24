@@ -7,11 +7,11 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 		var initialAltId = altId;
 		var activityLetter = ActivityType;
 		// Split out parts of the number
-		var LA = initialAltId.slice(0, 2)
-			var remainder = initialAltId.slice(4, 14);
-		var APP = initialAltId.slice(14, 18);
+		var LA = initialAltId.slice(0, 2);
+		var remainder = initialAltId.slice(4, 14);
+		//var APP = initialAltId.slice(14, 18);
 		// Construct new Alt ID
-		returnAltID = LA + "-P" + remainder + "-" + activityLetter + APP;
+		returnAltID = LA + "-P" + remainder + "-APP-PREAPP";
 	}
 	if (recType == "ACTIVITY") {
 		// like LA-C-YY-######-TYPE-APP
@@ -30,10 +30,10 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 		var activityLetter = ActivityType;
 		// Split out parts of the number
 		var LA = initialAltId.slice(0, 2)
-			var remainder = initialAltId.slice(4, 14);
-		var APP = initialAltId.slice(14, 18);
+		var remainder = initialAltId.slice(4, 14);
+		//var APP = initialAltId.slice(14, 18);
 		// Construct new Alt ID
-		returnAltID = LA + "-C" + remainder + "-" + activityLetter + APP;
+		returnAltID = LA + "-C" + remainder + "-APP-PREAPP";
 	}
 	if (recType == "RENEWAL") {
 		// like LA-C-YY-######-TYPE-RENYY
