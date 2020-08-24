@@ -9,7 +9,6 @@ var vRParams = aa.env.getValue("vRParams");
 var vChangeReportName = aa.env.getValue("vChangeReportName");
 var capId = aa.env.getValue("CapId");
 var vAddAdHocTask = aa.env.getValue("vAddAdHocTask");
-var vContactCapId = aa.env.getValue("vContactCapId");
 
 aa.print("2) sendEmailToContactTypes: " + sendEmailToContactTypes);
 aa.print("3) emailTemplate: " + emailTemplate);
@@ -86,24 +85,24 @@ else {
 }
 /* End Code needed to call master script functions -----------------------------------------------------*/
 
-aa.print("1) Here in SEND_EMAIL_TO_CONTACTS_ASYNC: " + aa.env.getValue("eventType"));
-aa.print("2) sendEmailToContactTypes: " + sendEmailToContactTypes);
-aa.print("3) emailTemplate: " + emailTemplate);
-aa.print("4) reportTemplate: " + reportTemplate);
+logDebug("1) Here in SEND_EMAIL_TO_CONTACTS_ASYNC: " + aa.env.getValue("eventType"));
+logDebug("2) sendEmailToContactTypes: " + sendEmailToContactTypes);
+logDebug("3) emailTemplate: " + emailTemplate);
+logDebug("4) reportTemplate: " + reportTemplate);
 
 /* Begin SDOT work-around to prevent payment notices on auto-approved (paid) ACA submissions */
 
 if (reportTemplate == "Payment Reminder" && balanceDue == '0') {
-	aa.print("Cancelling sendEmailToContactsASync. Report is a Payment Reminder and balanceDue is 0.")
+	logDebug("Cancelling sendEmailToContactsASync. Report is a Payment Reminder and balanceDue is 0.")
 }
 else {
-	aa.print("5) balanceDue: " + balanceDue);
+	logDebug("5) balanceDue: " + balanceDue);
 /* End SDOT work-around to prevent payment notices on auto-approved (paid) ACA submissions */
 	//Get valid array of contact types
 	validConTypes = getContactTypes_BCC();
 
 	//Add standard email variables from record information
-	//vEParams = addStdVarsToEmail(vEParams, capId);
+	vEParams = addStdVarsToEmail(vEParams, capId);
 
 	//Set Ad-Hoc Task Information
 	if (vAddAdHocTask) {
@@ -128,13 +127,15 @@ else {
 	//Check to see if provided contact type(s) is/are valid
 	if (sendEmailToContactTypes != "All" && sendEmailToContactTypes != null && sendEmailToContactTypes != '') {
 		conTypeArray = sendEmailToContactTypes.split(",");
-		aa.print("splitting sendEmailToContactTypes into " + conTypeArray.length + " pieces, first one is " + conTypeArray[0]);
 	}
+	
+	logDebug("We have " + conTypeArray.length  + " valid contact types");
+	
 	for (x in conTypeArray) {
 		//check all that are not "Primary"
 		vConType = conTypeArray[x];
 		if (vConType != "Primary" && !exists(vConType, validConTypes)) {
-			aa.print(vConType + " is not a valid contact type. No actions will be taken for this type.");
+			logDebug(vConType + " is not a valid contact type. No actions will be taken for this type.");
 			//Drop bad contact type from array;
 			conTypeArray.splice(x, (x + 1));
 		}
@@ -156,36 +157,34 @@ else {
 		conType = conTypeArray[z];
 		conEmail = null;
 		peopTemp = null;
-		aa.print("          Searching for " + conTypeArray[z]);
-		//Determine capId from which to get contacts
-		if (vContactCapId == null || vContactCapId == "" || vContactCapId == false){
-			vContactCapId = capId;
-		}
+		logDebug("          Searching for " + conTypeArray[z]);
 		if (conType == "Primary") {
-			vConObjArry = getContactObjsByCap_BCC(vContactCapId);
+			vConObjArry = getContactObjsByCap_BCC(capId);
+			logDebug("          found " + vConObjArry);
 		} else {
-			vConObjArry = getContactObjsByCap_BCC(vContactCapId, conTypeArray[z]);
+			vConObjArry = getContactObjsByCap_BCC(capId, conTypeArray[z]);
+			logDebug("          found " + vConObjArry);
 		}
 		for (x in vConObjArry) {
 			vConObj = vConObjArry[x];
 			vConRefSeqNbr = vConObj.refSeqNumber;
 			//Get contact email
+			logDebug("          looking at Contact Object " + vConObj.refSeqNumber);
 			if (vConObj) {
 				conEmail = vConObj.people.getEmail();
 				if (conEmail && conEmail != null && conEmail != "") {
 					conEmail = conEmail.toUpperCase();
-					aa.print("found email " + conEmail);
 				}
 			}
 			//Save contact email to array (primary)
 			if (conEmail && conEmail != "" && conType == "Primary" && vConObj.capContact.getPrimaryFlag() == 'Y' && !exists(conEmail, conObjEmailCompareArray)) {
-				aa.print("          Adding (Primary) " + conEmail + " to email array");
+				logDebug("          Adding (Primary) " + conEmail + " to email array");
 				conObjEmailArray.push(vConObj);
 				conObjEmailCompareArray.push(conEmail); //Needed to make sure contact is only send one email if they have more than one role
 			}
 			//Save contact email to array (All or specified)
 			else if (conEmail && conEmail != "" && conType != "Primary" && !exists(conEmail, conObjEmailCompareArray)) {
-				aa.print("          Adding " + conEmail + " to email array");
+				logDebug("          Adding " + conEmail + " to email array");
 				conObjEmailArray.push(vConObj);
 				conObjEmailCompareArray.push(conEmail); //Needed to make sure contact is only sent one email if they have more than one role
 			}
@@ -218,7 +217,7 @@ else {
 
 		//update the report name if one was provided. this will be used to update the saved report's name
 		if (vReportName != false && vChangeReportName != null && vChangeReportName != "") {
-			aa.print("Renaming generated report document name from " + vReportName + " to " + vChangeReportName);
+			logDebug("Renaming generated report document name from " + vReportName + " to " + vChangeReportName);
 			if (editDocumentName(vReportName, vChangeReportName) == true) {
 				vReportName = vChangeReportName;
 			}
@@ -240,7 +239,7 @@ else {
 			if (vDocumentName == vReportName) {
 				//Add the document url to the email paramaters using the name: $$acaDocDownloadUrl$$
 				getACADocDownloadParam4Notification(vEParams, vACAUrl, vDocumentModel);
-				aa.print("including document url: " + vEParams.get('$$acaDocDownloadUrl$$'));
+				logDebug("including document url: " + vEParams.get('$$acaDocDownloadUrl$$'));
 				aa.print("including document url: " + vEParams.get('$$acaDocDownloadUrl$$'));
 				break;
 			}
@@ -281,7 +280,7 @@ else {
 	//Add Email Template to Note
 	vAdHocNote = emailTemplate + ", " + vAdHocNote;
 
-	aa.print("Create AddHocTask: " + vAddAdHocTask);
+	logDebug("Create AddHocTask: " + vAddAdHocTask);
 
 	//Add Ad-Hoc if needed
 	if (vAddAdHocTask == true && conObjNonEmailArray.length > 0) {
