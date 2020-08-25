@@ -3,6 +3,7 @@
 | Client:
 |
 | REQUIRED: CORRESPONDENCE SCRIPT PARAMS std choice
+| 08/24/20: added more email template parameters
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 | BEGIN Initialize Variables
@@ -166,6 +167,10 @@ function mainProcess() {
 		var vRParams = aa.util.newHashtable();
 		addParameter(vRParams, "p1Value", capId.getCustomID());
 		*/
+		//aa.print("Legal Business Name = " + getAppName());
+		//aa.print("DBA Name = " + getShortNotes());
+		//aa.print("Address = " + getAddressInALine());
+		
 		var vEParams = aa.util.newHashtable();		
 		if (sendEmailToContactTypes.length > 0 && emailTemplate.length > 0) {
 			var conTypeArray = sendEmailToContactTypes.split(",");
@@ -182,6 +187,9 @@ function mainProcess() {
 								addParameter(eParams,"$$AltId$$",altId);
 								addParameter(eParams,"$$firstName$$",thisContact["firstName"]);
 								addParameter(eParams,"$$lastName$$",thisContact["lastName"]);
+								addParameter(eParams,"$$LegalBusinessName$$",getAppName()); //new
+								addParameter(eParams,"$$DBAName$$",getShortNotes()); //new
+								addParameter(eParams,"$$address$$",getAddressInALine()); //new
 								addParameter(eParams,"$$todayplus14$$",dateAdd(null,14));
 								addParameter(eParams,"$$todaysDate$$",dateAdd(null,0));
 								sendNotification(sysFromEmail,conEmail,"",emailTemplate,eParams, [],capId);
