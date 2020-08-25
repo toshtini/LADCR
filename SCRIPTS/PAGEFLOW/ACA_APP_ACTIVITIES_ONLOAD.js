@@ -8,7 +8,7 @@
 | Action# : N/A
 |
 | Notes   : hide current page if renewal or Activity Use selection - 1/24/2020
-|         :added Nursery
+|         :added Nursery, Distribution -> Distributor Transport Only
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 | START User Configurable Parameters
@@ -160,7 +160,7 @@ try {
 
 	var isRenewal = isASITrue(AInfo["Is this a Renewal?"]); 
 
-	if (isRenewal || AInfo["Use"] == "Testing" || AInfo["Use"] == "Distribution Only" || AInfo["Use"] == "Nursery") {
+	if (isRenewal || AInfo["Use"] == "Testing" || AInfo["Use"] == "Distributor Transport Only" || AInfo["Use"] == "Nursery") {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
 	
