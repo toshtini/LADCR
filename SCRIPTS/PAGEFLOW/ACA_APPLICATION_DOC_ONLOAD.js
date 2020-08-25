@@ -7,7 +7,7 @@
 | Client  : N/A
 | Action# : N/A
 |
-| Notes   :
+| Notes   :08/25/2020 - hide page if renewal
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -147,79 +147,86 @@ logDebug("balanceDue = " + balanceDue);
 // page flow custom code begin
 
 try {
-
-	conditionType = "License Required Documents";
 	showDebug = false;
-	docsMissing = false;
-	showList = false;
-	addConditions = true;
-	addTableRows = false;
 	cancel = false;
 	showMessage = false;
-	capIdString = capId.getID1() + "-" + capId.getID2() + "-" + capId.getID3();
-	r = getRequiredDocuments(true);
-	submittedDocList = aa.document.getDocumentListByEntity(capIdString, "TMP_CAP").getOutput().toArray();
-	uploadedDocs = new Array();
-
-	for (var i in submittedDocList) {
-		uploadedDocs[submittedDocList[i].getDocCategory()] = true;
-	}
 	
-	// remove all conditions without a doc
+	// Display Page? Only new applications...
+	var isRenewal = isASITrue(AInfo["Is this a Renewal?"]); 
 
-	var capCondResult = aa.capCondition.getCapConditions(capId,conditionType);
+	if (isRenewal) {
+		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
+	} else {
+	
+		// initialize required docs types
+		conditionType = "License Required Documents";
+		docsMissing = false;
+		showList = false;
+		addConditions = true;
+		addTableRows = false;
+		capIdString = capId.getID1() + "-" + capId.getID2() + "-" + capId.getID3();
+		r = getRequiredDocuments(true);
+		submittedDocList = aa.document.getDocumentListByEntity(capIdString, "TMP_CAP").getOutput().toArray();
+		uploadedDocs = new Array();
 
-	if (capCondResult.getSuccess()) {
-		var ccs = capCondResult.getOutput();
-		for (var pc1 in ccs) {
-			if(uploadedDocs["" + ccs[pc1].getConditionDescription()] == undefined) {
-				var rmCapCondResult = aa.capCondition.deleteCapCondition(capId,ccs[pc1].getConditionNumber());
-			}
+		for (var i in submittedDocList) {
+			uploadedDocs[submittedDocList[i].getDocCategory()] = true;
 		}
-	}
+		
+		// remove all conditions without a doc
+		var capCondResult = aa.capCondition.getCapConditions(capId,conditionType);
 
-	if (r.length > 0) {
-		for (x in r) {
-			if (uploadedDocs[r[x].document] == undefined) {
-				showMessage = true;
-				if (!docsMissing && showList) {
-					comment("<div class='docList'><span class='fontbold font14px ACA_Title_Color'>The following documents are required based on the information you have provided: </span><ol>");
-					docsMissing = true;
-				}
-	
-				dr = r[x].condition;
-				publicDisplayCond = null;
-				if (dr) {
-					ccr = aa.capCondition.getStandardConditions(conditionType, dr).getOutput();
-					for (var i = 0;
-						i < ccr.length;
-						i++)
-						if (ccr[i].getConditionDesc().toUpperCase() == dr.toUpperCase())
-							publicDisplayCond = ccr[i];
-				}
-
-				if (dr && ccr.length > 0 && showList && publicDisplayCond) {
-					message += "<li><span>" + dr + "</span>: " + publicDisplayCond.getPublicDisplayMessage() + "</li>";
-				}
-
-				if (dr && ccr.length > 0 && addConditions && !appHasCondition(conditionType, null, dr, null)) {
-					addStdCondition(conditionType, dr);
-				}
-
-				if (dr && ccr.length > 0 && addTableRows) {
-					row = new Array();
-					row["Document Type"] = new asiTableValObj("Document Type", dr, "Y");
-					row["Description"] = new asiTableValObj("Description", publicDisplayCond.getPublicDisplayMessage(), "Y");
-					conditionTable.push(row);
+		if (capCondResult.getSuccess()) {
+			var ccs = capCondResult.getOutput();
+			for (var pc1 in ccs) {
+				if(uploadedDocs["" + ccs[pc1].getConditionDescription()] == undefined) {
+					var rmCapCondResult = aa.capCondition.deleteCapCondition(capId,ccs[pc1].getConditionNumber());
 				}
 			}
 		}
-	}
 
-	if (r.length > 0 && showList && docsMissing) {
-		comment("</ol></div>");
-	}
+		if (r.length > 0) {
+			for (x in r) {
+				if (uploadedDocs[r[x].document] == undefined) {
+					showMessage = true;
+					if (!docsMissing && showList) {
+						comment("<div class='docList'><span class='fontbold font14px ACA_Title_Color'>The following documents are required based on the information you have provided: </span><ol>");
+						docsMissing = true;
+					}
+		
+					dr = r[x].condition;
+					publicDisplayCond = null;
+					if (dr) {
+						ccr = aa.capCondition.getStandardConditions(conditionType, dr).getOutput();
+						for (var i = 0;
+							i < ccr.length;
+							i++)
+							if (ccr[i].getConditionDesc().toUpperCase() == dr.toUpperCase())
+								publicDisplayCond = ccr[i];
+					}
 
+					if (dr && ccr.length > 0 && showList && publicDisplayCond) {
+						message += "<li><span>" + dr + "</span>: " + publicDisplayCond.getPublicDisplayMessage() + "</li>";
+					}
+
+					if (dr && ccr.length > 0 && addConditions && !appHasCondition(conditionType, null, dr, null)) {
+						addStdCondition(conditionType, dr);
+					}
+
+					if (dr && ccr.length > 0 && addTableRows) {
+						row = new Array();
+						row["Document Type"] = new asiTableValObj("Document Type", dr, "Y");
+						row["Description"] = new asiTableValObj("Description", publicDisplayCond.getPublicDisplayMessage(), "Y");
+						conditionTable.push(row);
+					}
+				}
+			}
+		}
+
+		if (r.length > 0 && showList && docsMissing) {
+			comment("</ol></div>");
+		}
+	}
 
 
 } catch (err) {
