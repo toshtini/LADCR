@@ -212,7 +212,6 @@ function getRequiredDocuments(isPageFlow) {
 			// Pre-App requirements 8/26/2020
 			requirementArray.push(BusinessPremisesDiagram); 		
 			requirementArray.push(DatedRadiusMap); 					
-			requirementArray.push(Ownership Disclosure Form); 					
 			requirementArray.push(ownDisclosure);  
 			requirementArray.push(SitePlan); 						
 
