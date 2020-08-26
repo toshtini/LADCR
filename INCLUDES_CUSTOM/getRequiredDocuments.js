@@ -1,6 +1,7 @@
 function getRequiredDocuments(isPageFlow) {
 // 01/24/20: Removed check for MANAGEMENT COMPANIES table entry
 // 05/08/20: Updated for next phase of license applications and renewals
+// 08/26/20: updated for Pre-App
 	
 	logDebug("start getRequiredDocuments(" + [].slice.call(arguments) + ")");
 
@@ -206,8 +207,17 @@ function getRequiredDocuments(isPageFlow) {
 	if ((isApplication || isAttestationAmendment) && !isOwnerAttestation) {
 		// add for temp and annual
 		// add always...
-		//updated 5/8/2020
 		if (true) { // for testing purposes - set to false to bypass
+
+			// Pre-App requirements 8/26/2020
+			requirementArray.push(BusinessPremisesDiagram); 		
+			requirementArray.push(DatedRadiusMap); 					
+			requirementArray.push(Ownership Disclosure Form); 					
+			requirementArray.push(ownDisclosure);  
+			requirementArray.push(SitePlan); 						
+
+			/*************************************************
+			//updated 5/8/2020
 			requirementArray.push(BusinessPremisesDiagram); 		
 			requirementArray.push(CertificateOfOccupancy); 			
 			requirementArray.push(CommercialCannabisActivityPlan); 	
@@ -237,6 +247,7 @@ function getRequiredDocuments(isPageFlow) {
 			if (isTesting) {
 				requirementArray.push(TestingISO17025);    
 			}
+			*****************************************************/
 		}
 		
 		
