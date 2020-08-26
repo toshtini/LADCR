@@ -131,6 +131,9 @@ function getRequiredDocuments(isPageFlow) {
 	// added requirements 5/18/2020 GH
 	var CEQAComplianceExemption = {condition: "CEQA Compliance/Exemption",document: "CEQA Compliance/Exemption"};
 	var CUPAPermit = {condition : "CUPA Permit (If Applicable)",document : "CUPA Permit (If Applicable)"};
+	// added requirements 8/26/2020 GH
+	var Attest = {condition: "Attestation",document: "Attestation"};
+
 
 	/*------------------------------------------------------------------------------------------------------/
 	| Load up Conditionals from Record
@@ -210,6 +213,7 @@ function getRequiredDocuments(isPageFlow) {
 		if (true) { // for testing purposes - set to false to bypass
 
 			// Pre-App requirements 8/26/2020
+			requirementArray.push(Attest); 		
 			requirementArray.push(BusinessPremisesDiagram); 		
 			requirementArray.push(DatedRadiusMap); 					
 			requirementArray.push(ownDisclosure);  
