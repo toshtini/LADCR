@@ -32,9 +32,14 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 }
 // End script to update the Business Activities selected in ACA
 
-// Begin script to update the Application AltID based on Business Activity
+// Begin script to update the Application AltID based on Business Activity,
+// updated 8/26/20 to include creating activity children
 if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
-	include("UPDATE_APPLICATION_MJ_ALTID");
+	if (AInfo["Is this a Renewal?"] == "Yes") {
+		include("CREATE_ACTIVITY_RECS_FROM_PREAPP");
+	} else {
+		include("UPDATE_APPLICATION_MJ_ALTID");
+	}
 }
 // End script to update the Application AltID based on Business Activity
 
