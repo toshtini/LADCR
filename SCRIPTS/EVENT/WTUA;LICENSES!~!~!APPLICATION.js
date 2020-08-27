@@ -60,9 +60,9 @@ if (wfTask.equals("Application Acceptance") && wfStatus.equals("Application Rece
 }
 
 // Interested Parites Notification - test
-if (wfTask.equals("Initial Review") && wfStatus.equals("Recommend Annual Approved")) {
-	include("SEND_EMAIL_TO_INTERESTED_PARTIES");
-}
+//if (wfTask.equals("Initial Review") && wfStatus.equals("Recommend Annual Approved")) {
+//	include("SEND_EMAIL_TO_INTERESTED_PARTIES");
+//}
 
 //Begin script to send email to all owners in the Owner table
 include("SEND_OWNER_EMAILS");
