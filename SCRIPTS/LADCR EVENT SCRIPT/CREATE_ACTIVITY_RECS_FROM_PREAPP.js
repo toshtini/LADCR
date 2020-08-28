@@ -1,5 +1,5 @@
 //Start - License Creation/Update Script
-// Update: 08/27/2020
+//Update: 08/27/2020 ; 05:51
 
 //if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally Issued" || wfStatus == "Temporarily Issued"))
 
@@ -21,7 +21,7 @@ if (matches("CHECKED", AInfo["Medical Cultivation Medium Indoor"], AInfo["Medica
 }
 
 // Distributor
-if (matches("CHECKED", AInfo["Distributor Transport Only"])) {
+if (matches("CHECKED", AInfo["Distributor"])) {
     childSuffixArray.push("D");
 }
 if (matches("CHECKED", AInfo["Adult-Use Distributor"], AInfo["Medical Distributor"])) {
@@ -57,10 +57,10 @@ if (matches("CHECKED", AInfo["Adult-Use Retail"], AInfo["{Medical Retail"], AInf
 
 // Misc Y/N selections
 if (matches("Yes", AInfo["Distributor Transport Only"])) {
-    childSuffixArray.push("T");
+    childSuffixArray.push("D");
 }
 if (matches("Yes", AInfo["Nursery"])) {
-    childSuffixArray.push("T");
+    childSuffixArray.push("N");
 }
 if (matches("Yes", AInfo["Testing"])) {
     childSuffixArray.push("T");
