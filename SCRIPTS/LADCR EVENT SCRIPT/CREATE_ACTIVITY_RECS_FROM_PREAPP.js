@@ -43,7 +43,7 @@ if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 2"], AInfo["Medical M
 if (matches("CHECKED", AInfo["Delivery Only"])) {
     childSuffixArray.push("Q");
 }
-if (matches("CHECKED", Ainfo["Adult-Use Delivery Only"], AInfo["Medical Delivery Only"])) {
+if (matches("CHECKED", AInfo["Adult-Use Delivery Only"], AInfo["Medical Delivery Only"])) {
     childSuffixArray.push("Q");
 }
 
