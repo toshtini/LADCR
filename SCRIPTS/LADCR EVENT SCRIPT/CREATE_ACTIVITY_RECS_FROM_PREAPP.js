@@ -1,5 +1,5 @@
 //Start - License Creation/Update Script
-//Update: 08/27/2020 ; 05:51
+//Update: 08/27/2020:06:05
 
 //if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally Issued" || wfStatus == "Temporarily Issued"))
 
@@ -11,54 +11,56 @@ var rt = ["Licenses", "Cannabis", "Business", "Application"];
 // Cultivation
 if (matches("CHECKED", AInfo["Cultivation Small Indoor"], AInfo["Cultivation Medium Indoor"], AInfo["Cultivation Specialty Indoor"])) {
     childSuffixArray.push("C");
-}
+} else {
 
 if (matches("CHECKED", AInfo["Adult-Use Cultivation Medium Indoor"], AInfo["Adult-Use Cultivation Small Indoor"], AInfo["Adult-Use Cultivation Specialty Indoor"], AInfo["Adult-Use Cultivation Specialty Cottage Indoor"])) {
     childSuffixArray.push("C");
-}
+} else {
 if (matches("CHECKED", AInfo["Medical Cultivation Medium Indoor"], AInfo["Medical Cultivation Small Indoor"], AInfo["Medical Cultivation Specialty Indoor"], AInfo["Medical Cultivation Specialty Cottage Indoor"])) {
     childSuffixArray.push("C");
-}
+}}}
 
 // Distributor
 if (matches("CHECKED", AInfo["Distributor"])) {
     childSuffixArray.push("D");
-}
+} else {
 if (matches("CHECKED", AInfo["Adult-Use Distributor"], AInfo["Medical Distributor"])) {
     childSuffixArray.push("D");
-}
+} else {
+if (matches("Yes", AInfo["Distributor Transport Only"])) {
+    childSuffixArray.push("D");
+}}}
 
 // Manufacturer
 if (matches("CHECKED", AInfo["Manufacturer"])) {
     childSuffixArray.push("V");
-}
-if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical Manufacturer Level 1"])) {
-    childSuffixArray.push("M");
-}
+} else {
 if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 2"], AInfo["Medical Manufacturer Level 2"])) {
     childSuffixArray.push("V");
+}}
+
+if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical Manufacturer Level 1"])) {
+    childSuffixArray.push("M");
 }
 
 // Delivery
 if (matches("CHECKED", AInfo["Delivery Only"])) {
     childSuffixArray.push("Q");
 }
+} else {
 if (matches("CHECKED", AInfo["Adult-Use Delivery Only"], AInfo["Medical Delivery Only"])) {
     childSuffixArray.push("Q");
-}
+}}
 
 // Retail
 if (matches("CHECKED", AInfo["Retail"])) {
     childSuffixArray.push("R");
-}
+} else {
 if (matches("CHECKED", AInfo["Adult-Use Retail"], AInfo["{Medical Retail"], AInfo["{Adult-Use Microbusiness"], AInfo["{Medical Microbusiness"])) {
     childSuffixArray.push("R");
-}
+}}
 
 // Misc Y/N selections
-if (matches("Yes", AInfo["Distributor Transport Only"])) {
-    childSuffixArray.push("D");
-}
 if (matches("Yes", AInfo["Nursery"])) {
     childSuffixArray.push("N");
 }
