@@ -1,40 +1,68 @@
 //Start - License Creation/Update Script
-//if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally Issued" || wfStatus == "Temporarily Issued"))  // modified (11/28/18)
+// Update: 08/27/2020
+
+//if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally Issued" || wfStatus == "Temporarily Issued"))
 
 var childSuffixArray = [];
 
 // CREATE CHILD RECORDS HERE
 var rt = ["Licenses", "Cannabis", "Business", "Application"];
 
-if (matches("CHECKED", AInfo["Cultivation Small Indoor"], AInfo["Cultivation Medium Indoor"], AInfo["Cultivation Specialty Indoor"], AInfo["Adult-Use Cultivation Medium Indoor"], AInfo["Adult-Use Cultivation Small Indoor"], AInfo["Adult-Use Cultivation Specialty Indoor"], AInfo["Medical Cultivation Medium Indoor"], AInfo["Medical Cultivation Small Indoor"], AInfo["Medical Cultivation Specialty Indoor"])) {
+// Cultivation
+if (matches("CHECKED", AInfo["Cultivation Small Indoor"], AInfo["Cultivation Medium Indoor"], AInfo["Cultivation Specialty Indoor"])) {
     childSuffixArray.push("C");
 }
 
-if (matches("CHECKED", AInfo["Medical Manufacturer Level 2"], AInfo["Adult-Use Manufacturer Level 2"])) {
-    childSuffixArray.push("V");
+if (matches("CHECKED", AInfo["Adult-Use Cultivation Medium Indoor"], AInfo["Adult-Use Cultivation Small Indoor"], AInfo["Adult-Use Cultivation Specialty Indoor"], AInfo["Adult-Use Cultivation Specialty Cottage Indoor"])) {
+    childSuffixArray.push("C");
+}
+if (matches("CHECKED", AInfo["Medical Cultivation Medium Indoor"], AInfo["Medical Cultivation Small Indoor"], AInfo["Medical Cultivation Specialty Indoor"], AInfo["Medical Cultivation Specialty Cottage Indoor"])) {
+    childSuffixArray.push("C");
 }
 
-if (matches("CHECKED", AInfo["Medical Delivery Only"], AInfo["Adult-Use Delivery Only"])) {
-    childSuffixArray.push("Q");
+// Distributor
+if (matches("CHECKED", AInfo["Distributor Transport Only"])) {
+    childSuffixArray.push("D");
 }
-
-if (matches("CHECKED", AInfo["Distributor Transport Only"], AInfo["Adult-Use Distributor Transport Only"], AInfo["Medical Distributor Transport Only"])) {
+if (matches("CHECKED", AInfo["Adult-Use Distributor"], AInfo["Medical Distributor"])) {
     childSuffixArray.push("D");
 }
 
-if (matches("CHECKED", AInfo["Medical Manufacturer Level 1"], AInfo["Adult-Use Manufacturer Level 1"])) {
+// Manufacturer
+if (matches("CHECKED", AInfo["Manufacturer"])) {
+    childSuffixArray.push("V");
+}
+if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical Manufacturer Level 1"])) {
     childSuffixArray.push("M");
 }
-
-if (matches("CHECKED", AInfo["Medical Manufacturer Level 2"], AInfo["Adult-Use Manufacturer Level 2"])) {
+if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 2"], AInfo["Medical Manufacturer Level 2"])) {
     childSuffixArray.push("V");
 }
 
-if (matches("CHECKED", AInfo["Retail"], AInfo["Adult-Use Retail"], AInfo["{Medical Retail"], AInfo["{Adult-Use Microbusiness"], AInfo["{Medical Microbusiness"])) {
+// Delivery
+if (matches("CHECKED", AInfo["Delivery Only"])) {
+    childSuffixArray.push("Q");
+}
+if (matches("CHECKED", Ainfo["Adult-Use Delivery Only"], AInfo["Medical Delivery Only"])) {
+    childSuffixArray.push("Q");
+}
+
+// Retail
+if (matches("CHECKED", AInfo["Retail"])) {
+    childSuffixArray.push("R");
+}
+if (matches("CHECKED", AInfo["Adult-Use Retail"], AInfo["{Medical Retail"], AInfo["{Adult-Use Microbusiness"], AInfo["{Medical Microbusiness"])) {
     childSuffixArray.push("R");
 }
 
-if (matches("CHECKED", AInfo["Testing"])) {
+// Misc Y/N selections
+if (matches("Yes", AInfo["Distributor Transport Only"])) {
+    childSuffixArray.push("T");
+}
+if (matches("Yes", AInfo["Nursery"])) {
+    childSuffixArray.push("T");
+}
+if (matches("Yes", AInfo["Testing"])) {
     childSuffixArray.push("T");
 }
 
