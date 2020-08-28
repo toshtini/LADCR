@@ -1,5 +1,5 @@
 //Start - License Creation/Update Script
-//Update: 08/27/2020:06:05
+//Update: 08/27/2020:06:16
 
 //if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally Issued" || wfStatus == "Temporarily Issued"))
 
@@ -46,7 +46,6 @@ if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical M
 // Delivery
 if (matches("CHECKED", AInfo["Delivery Only"])) {
     childSuffixArray.push("Q");
-}
 } else {
 if (matches("CHECKED", AInfo["Adult-Use Delivery Only"], AInfo["Medical Delivery Only"])) {
     childSuffixArray.push("Q");
