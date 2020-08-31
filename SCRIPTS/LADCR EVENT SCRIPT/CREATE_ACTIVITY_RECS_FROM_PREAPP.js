@@ -77,6 +77,8 @@ for (var i in childSuffixArray) {
     //Copy ASIT from child to license
     copyASITables(capId, childId);
 
+	editAppSpecific("Is this a Renewal?","N", childId);
+
     //Copy Contacts from child to license
     copyContacts3_0(capId, childId);
 
