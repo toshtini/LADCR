@@ -1,5 +1,5 @@
 function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
-// Last Update: 02/21/2020, ghess
+// Last Update: 08/30/2020, ghess
 	var returnAltID;
 
 	if (recType == "PCN") {
@@ -15,14 +15,16 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 	}
 	if (recType == "ACTIVITY") {
 		// like LA-C-YY-######-TYPE-APP
-		var initialAltId = altId;
 		var activityLetter = ActivityType;
+		var initialAltId = altId;
 		// Split out parts of the number
-		var LA = initialAltId.slice(0, 2);
-		var remainder = initialAltId.slice(4, 14);
-		var APP = initialAltId.slice(14, 18);
+		var parentInitId = initialAltId.slice(0,8);
+		var lenOfStr = initialAltId.length();
+		var parentEndId = initialAltId.slice(-3,lenOfStr);
+		var childId = capIdToUpdate.slice(8,14);
 		// Construct new Alt ID
-		returnAltID = LA + "-P" + remainder + "-" + activityLetter + "-APP";
+		returnAltID = parentInitId + childId + "-" + activityLetter + "-" + parentEndId;
+		
 	}
 	if (recType == "NONPCN") {
 		// like LA-C-YY-######-TYPE-APP
