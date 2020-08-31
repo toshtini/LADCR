@@ -21,7 +21,7 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 		var parentInitId = initialAltId.slice(0,8);
 		var lenOfStr = initialAltId.length();
 		var parentEndId = initialAltId.slice(-3,lenOfStr);
-		var childAltId = capIdToUpdate;
+		var childAltId = capIdToUpdate.getCustomID();
 		var childId = childAltId.slice(8,14);
 		// Construct new Alt ID
 		returnAltID = parentInitId + childId + "-" + activityLetter + "-" + parentEndId;
