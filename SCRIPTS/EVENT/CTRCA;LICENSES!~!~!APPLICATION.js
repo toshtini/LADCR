@@ -1,3 +1,5 @@
+//CTRCA;LICENSES!~!~!APPLICATION.js
+// Last Update: 08/31/2020
 // Insert the public user reference contact as the owner applicant
 //include("COPY_PUBLIC_USER_TO_OWNER_APPLICANT");
 // Insert the public user reference contact as the owner applicant or agent of service (ghess, 3/20/18)
@@ -35,11 +37,10 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 // Begin script to update the Application AltID based on Business Activity,
 // updated 8/26/20 to include creating activity children
 if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
+	include("UPDATE_APPLICATION_MJ_ALTID");
 	if (AInfo["Is this a Renewal?"] == "Yes") {
 		include("CREATE_ACTIVITY_RECS_FROM_PREAPP");
-	} else {
-		include("UPDATE_APPLICATION_MJ_ALTID");
-	}
+	} 
 }
 // End script to update the Application AltID based on Business Activity
 
