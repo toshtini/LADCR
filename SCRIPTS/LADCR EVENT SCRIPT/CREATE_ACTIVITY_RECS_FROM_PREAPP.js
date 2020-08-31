@@ -1,5 +1,5 @@
 //Start - License Creation/Update Script
-//Update: 08/27/2020:06:16
+//Update: 08/31/2020:11:57AM
 
 //if (wfTask == "Issuance" && (wfStatus == "Issued" || wfStatus == "Provisionally Issued" || wfStatus == "Temporarily Issued"))
 
@@ -96,5 +96,5 @@ for (var i in childSuffixArray) {
 
 if (capId.getCustomID().indexOf("-R-") > 0) {
 	logDebug("removing -R- from record Id : " + capId.getCustomID());
-	var updResult = aa.cap.updateCapAltID(capId, capId.getCustomID().replace("-R-",""));
+	var updResult = aa.cap.updateCapAltID(capId, capId.getCustomID().replace("-R-","-"));
 }
