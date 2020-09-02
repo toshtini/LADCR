@@ -10,6 +10,7 @@
 | Notes   : Created 06/05/2019, Ghess -  check for parent to flag whether the app is a renewal.
 |           This will drive what business activities to offer
 |         : 01/24/2020 - added copy ASI from parent
+|         : 09/02/2020 - added copy record detail and address
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -170,6 +171,15 @@ if (parentCapId){
 	
 	editAppSpecific4ACA("Is this a Renewal?", "Y");
 	editAppSpecific4ACA("Retailer Commercial Cannabis Activity license in an area of Undue Concentration?", "N");
+	
+	//Copy Record Detail
+	editAppName(getAppName(parentCapId));
+	aa.cap.copyCapWorkDesInfo(parentCapId, capId);
+
+	//copy address
+	copyAddress(parentCapId, capId);
+	
+	//pass back to ACA
 	aa.env.setValue("CapModel", cap);
 }
 
