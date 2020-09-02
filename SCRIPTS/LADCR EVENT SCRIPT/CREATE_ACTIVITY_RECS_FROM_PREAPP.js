@@ -109,7 +109,7 @@ if (matches("CHECKED", AInfo["Retail"])) {
 } else {
     if (matches("CHECKED", AInfo["Adult-Use Retail"], AInfo["Medical Retail"], AInfo["Adult-Use Microbusiness"], AInfo["Medical Microbusiness"])) {
         childSuffixArray.push("R");
-		clearASIArray["R"] = aList.slice().remove("Adult-Use Retail").remove("Medical Retail").remove("Adult-Use Microbusiness").remove("Medical Microbusiness"]);
+		clearASIArray["R"] = aList.slice().remove("Adult-Use Retail").remove("Medical Retail").remove("Adult-Use Microbusiness").remove("Medical Microbusiness");
     }
 }
 
