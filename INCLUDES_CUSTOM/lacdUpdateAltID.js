@@ -1,5 +1,5 @@
 function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
-// Last Update: 08/30/2020, ghess
+// Last Update: 09/01/2020, ghess
 	var returnAltID;
 
 	if (recType == "PCN") {
@@ -63,6 +63,11 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 		if (altId.indexOf("LA-C-18-0") == 0) {
 			returnAltID = altId.replace("LA-C-18-0","LA-C-18-1");
 			//logDebug("Phase 2 returnAltID is " + returnAltID);
+		}
+		//propegate PCN designation
+		if (altId.indexOf("LA-P-") == 0) {
+			var childAltId = capIdToUpdate.getCustomID();
+			returnAltID = childAltId.replace("LA-C-","LA-P-");
 		}
 	}
 	
