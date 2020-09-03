@@ -173,7 +173,7 @@ if (parentCapId){
 	var contactList = cap.getContactsGroup();
 	if(contactList != null && contactList.size() > 0) {
 		var contactModel = contactList.get(0);
-		logDebug(describe(contactModel));
+		//logDebug(describe(contactModel));
 	} else {
 		logDebug("No contacts in ContactsGroup");
 	}
