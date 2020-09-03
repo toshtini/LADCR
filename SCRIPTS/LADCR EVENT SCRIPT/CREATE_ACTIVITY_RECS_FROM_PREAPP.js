@@ -9,13 +9,6 @@ var clearASIArray = [];
 // CREATE CHILD RECORDS HERE
 var rt = ["Licenses", "Cannabis", "Business", "Application"];
 
-Array.prototype.remove = function (val) {
-    var index = this.indexOf(val);
-    if (index >= 0)
-        this.splice(index, 1);
-    return this;
-};
-
 var aList = ["Adult-Use Cultivation Medium Indoor",
     "Adult-Use Cultivation Small Indoor",
     "Adult-Use Cultivation Specialty Cottage Indoor",
@@ -43,18 +36,16 @@ var aList = ["Adult-Use Cultivation Medium Indoor",
 // Cultivation
 if (matches("CHECKED", AInfo["Cultivation Small Indoor"], AInfo["Cultivation Medium Indoor"], AInfo["Cultivation Specialty Indoor"])) {
     childSuffixArray.push("C");
-    clearASIArray["C"] = aList.slice().remove("Cultivation Small Indoor").remove("Cultivation Medium Indoor").remove("Cultivation Specialty Indoor");
+    clearASIArray["C"] = removeElements(aList.slice(), ["Cultivation Small Indoor", "Cultivation Medium Indoor", "Cultivation Specialty Indoor"]);
 } else {
 
     if (matches("CHECKED", AInfo["Adult-Use Cultivation Medium Indoor"], AInfo["Adult-Use Cultivation Small Indoor"], AInfo["Adult-Use Cultivation Specialty Indoor"], AInfo["Adult-Use Cultivation Specialty Cottage Indoor"])) {
         childSuffixArray.push("C");
-        clearASIArray["C"] = aList.slice().remove("Adult-Use Cultivation Medium Indoor").remove("Adult-Use Cultivation Small Indoor").remove("Adult-Use Cultivation Specialty Indoor"),
-        remove("Adult-Use Cultivation Specialty Cottage Indoor");
+        clearASIArray["C"] = removeElements(aList.slice(), ["Adult-Use Cultivation Medium Indoor", "Adult-Use Cultivation Small Indoor", "Adult-Use Cultivation Specialty Indoor", "Adult-Use Cultivation Specialty Cottage Indoor"]);
     } else {
         if (matches("CHECKED", AInfo["Medical Cultivation Medium Indoor"], AInfo["Medical Cultivation Small Indoor"], AInfo["Medical Cultivation Specialty Indoor"], AInfo["Medical Cultivation Specialty Cottage Indoor"])) {
             childSuffixArray.push("C");
-            clearASIArray["C"] = aList.slice().remove("Medical Cultivation Medium Indoor").remove("Medical Cultivation Small Indoor").remove("Medical Cultivation Specialty Indoor"),
-            remove("Medical Cultivation Specialty Cottage Indoor");
+            clearASIArray["C"] = removeElements(aList.slice(), ["Medical Cultivation Medium Indoor", "Medical Cultivation Small Indoor", "Medical Cultivation Specialty Indoor", "Medical Cultivation Specialty Cottage Indoor"]);
         }
     }
 }
@@ -62,15 +53,15 @@ if (matches("CHECKED", AInfo["Cultivation Small Indoor"], AInfo["Cultivation Med
 // Distributor
 if (matches("CHECKED", AInfo["Distributor"])) {
     childSuffixArray.push("D");
-    clearASIArray["D"] = aList.slice().remove("Distributor");
+    clearASIArray["D"] = removeElements(aList.slice(), ["Distributor"]);
 } else {
     if (matches("CHECKED", AInfo["Adult-Use Distributor"], AInfo["Medical Distributor"])) {
         childSuffixArray.push("D");
-        clearASIArray["D"] = aList.slice().remove("Adult-Use Distributor").remove("Medical Distributor");
+        clearASIArray["D"] = removeElements(aList.slice(), ["Adult-Use Distributor", "Medical Distributor"]);
     } else {
         if (matches("Yes", AInfo["Distributor Transport Only"])) {
             childSuffixArray.push("D");
-            clearASIArray["D"] = aList.slice().remove("Distributor Transport Only");
+            clearASIArray["D"] = removeElements(aList.slice(), ["Distributor Transport Only"]);
         }
     }
 }
@@ -78,15 +69,15 @@ if (matches("CHECKED", AInfo["Distributor"])) {
 // Manufacturer
 if (matches("CHECKED", AInfo["Manufacturer"])) {
     childSuffixArray.push("V");
-    clearASIArray["V"] = aList.slice().remove("Manufacturer");
+    clearASIArray["V"] = removeElements(aList.slice(), ["Manufacturer"]);
 } else {
     if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 2"], AInfo["Medical Manufacturer Level 2"])) {
         childSuffixArray.push("V");
-        clearASIArray["V"] = aList.slice().remove("Adult-Use Manufacturer Level 2").remove("Medical Manufacturer Level 2");
+        clearASIArray["V"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 2", "Medical Manufacturer Level 2"]);
     } else {
         if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical Manufacturer Level 1"])) {
             childSuffixArray.push("M");
-            clearASIArray["V"] = aList.slice().remove("Adult-Use Manufacturer Level 1").remove("Medical Manufacturer Level 1");
+            clearASIArray["V"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 1", "Medical Manufacturer Level 1"]);
         }
     }
 }
@@ -94,34 +85,34 @@ if (matches("CHECKED", AInfo["Manufacturer"])) {
 // Delivery
 if (matches("CHECKED", AInfo["Delivery Only"])) {
     childSuffixArray.push("Q");
-	clearASIArray["Q"] = aList.slice().remove("Delivery Only");
+    clearASIArray["Q"] = removeElements(aList.slice(), ["Delivery Only"]);
 } else {
     if (matches("CHECKED", AInfo["Adult-Use Delivery Only"], AInfo["Medical Delivery Only"])) {
         childSuffixArray.push("Q");
-		clearASIArray["Q"] = aList.slice().remove("Adult-Use Delivery Only").remove("Medical Delivery Only");
+        clearASIArray["Q"] = removeElements(aList.slice(), ["Adult-Use Delivery Only", "Medical Delivery Only"]);
     }
 }
 
 // Retail
 if (matches("CHECKED", AInfo["Retail"])) {
     childSuffixArray.push("R");
-	clearASIArray["R"] = aList.slice().remove("Retail");
+    clearASIArray["R"] = removeElements(aList.slice(), ["Retail"]);
 } else {
     if (matches("CHECKED", AInfo["Adult-Use Retail"], AInfo["Medical Retail"], AInfo["Adult-Use Microbusiness"], AInfo["Medical Microbusiness"])) {
         childSuffixArray.push("R");
-		clearASIArray["R"] = aList.slice().remove("Adult-Use Retail").remove("Medical Retail").remove("Adult-Use Microbusiness").remove("Medical Microbusiness");
+        clearASIArray["R"] = removeElements(aList.slice(), ["Adult-Use Retail", "Medical Retail", "Adult-Use Microbusiness", "Medical Microbusiness"]);
     }
 }
 
 // Misc Y/N selections
 if (matches("Yes", AInfo["Nursery"])) {
     childSuffixArray.push("N");
-	clearASIArray["N"] = aList.slice().remove("Nursery");
+    clearASIArray["N"] = removeElements(aList.slice(), ["Nursery"]);
 
 }
 if (matches("Yes", AInfo["Testing"])) {
     childSuffixArray.push("T");
-	clearASIArray["T"] = aList.slice().remove("Testing");
+    clearASIArray["T"] = removeElements(aList.slice(), ["Testing"]);
 
 }
 
@@ -130,7 +121,7 @@ for (var i in childSuffixArray) {
 
     //Copy ASI from child to license
     // TODO: only certain fields?
-    copyASIInfo(capId, childId);
+    //copyASIInfo(capId, childId);
 
     //Copy ASIT from child to license
     copyASITables(capId, childId);
@@ -148,11 +139,13 @@ for (var i in childSuffixArray) {
 
     //use the suffix to give it a unique ID
     lacdUpdateAltID(childId, "ACTIVITY", capId.getCustomID(), childSuffixArray[i]);
-	
-	// clear ASI
-	for (var j in clearASIArray[i]) {
-		editAppSpecific(clearASIArray[i][j],"",childId);
-	}
+
+    // clear ASI
+    logDebug("here in record for " + childSuffixArray[i]);
+    for (var j in clearASIArray[childSuffixArray[i]]) {
+        logDebug("clearing ASI: " + clearASIArray[childSuffixArray[i]][j]);
+        editAppSpecific(clearASIArray[childSuffixArray[i]][j], "", childId);
+    }
 
     //End - Activity Record Creation/Update Script
 }
@@ -164,9 +157,12 @@ if (capId.getCustomID().indexOf("-R-") > 0) {
     var updResult = aa.cap.updateCapAltID(capId, capId.getCustomID().replace("-R-", "-"));
 }
 
-function removeElement(array, elem) {
-    var index = array.indexOf(elem);
-    if (index > -1) {
-        array.splice(index, 1);
+function removeElements(array, elem) {
+    for (var i in elem) {
+        var index = array.indexOf(elem[i]);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
     }
+    return array;
 }
