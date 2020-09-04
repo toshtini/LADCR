@@ -67,20 +67,14 @@ if (matches("CHECKED", AInfo["Distributor"])) {
 }
 
 // Manufacturer
-if (matches("CHECKED", AInfo["Manufacturer"])) {
-    childSuffixArray.push("V");
-    clearASIArray["V"] = removeElements(aList.slice(), ["Manufacturer"]);
-} else {
-    if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 2"], AInfo["Medical Manufacturer Level 2"])) {
-        childSuffixArray.push("V");
-        clearASIArray["V"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 2", "Medical Manufacturer Level 2"]);
-    } else {
-        if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical Manufacturer Level 1"])) {
-            childSuffixArray.push("M");
-            clearASIArray["M"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 1", "Medical Manufacturer Level 1"]);
-        }
-    }
+if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical Manufacturer Level 1"])) {
+	childSuffixArray.push("M");
+	clearASIArray["M"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 1", "Medical Manufacturer Level 1"]);
 }
+if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 2"], AInfo["Medical Manufacturer Level 2"])) {
+	childSuffixArray.push("V");
+	clearASIArray["V"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 2", "Medical Manufacturer Level 2"]);
+} 
 
 // Delivery
 if (matches("CHECKED", AInfo["Delivery Only"])) {
