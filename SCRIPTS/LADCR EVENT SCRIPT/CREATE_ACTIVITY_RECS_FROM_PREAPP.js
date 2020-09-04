@@ -121,7 +121,7 @@ for (var i in childSuffixArray) {
 
     //Copy ASI from child to license
     // TODO: only certain fields?
-    //copyASIInfo(capId, childId);
+    copyASIInfo(capId, childId);
 
     //Copy ASIT from child to license
     copyASITables(capId, childId);
