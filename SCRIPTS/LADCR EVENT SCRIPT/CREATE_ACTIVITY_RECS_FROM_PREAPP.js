@@ -76,8 +76,8 @@ if (matches("CHECKED", AInfo["Manufacturer"])) {
         clearASIArray["V"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 2", "Medical Manufacturer Level 2"]);
     } else {
         if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical Manufacturer Level 1"])) {
-            childSuffixArray.push("V");
-            clearASIArray["V"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 1", "Medical Manufacturer Level 1"]);
+            childSuffixArray.push("M");
+            clearASIArray["M"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 1", "Medical Manufacturer Level 1"]);
         }
     }
 }
@@ -136,6 +136,10 @@ for (var i in childSuffixArray) {
 
     //Copy application name from child to license
     editAppName(getAppName(capId), childId);
+
+    /Copy remaining application fields
+    updateShortNotes(getShortNotes(capId),childId);
+	editPriority(getPriority(capId),childId);
 
     //use the suffix to give it a unique ID
     lacdUpdateAltID(childId, "ACTIVITY", capId.getCustomID(), childSuffixArray[i]);
