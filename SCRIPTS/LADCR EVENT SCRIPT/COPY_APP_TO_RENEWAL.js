@@ -5,22 +5,16 @@
 
 	// Main test code goes here...
 	altId = capId.getCustomID();
-	parentCapId = getParent();
-	parentAltId = parentCapId.getCustomID();
-	
-	logDebug("capId = " + capId);
-	logDebug("altId = " + altId);
-	logDebug("parentCapId = " + parentCapId);
-	logDebug("parentAltId = " + parentAltId);
+	//parentCapId = getParent();
 
 	//Copy from parent
 	editAppName(getAppName(parentCapId));
-	logDebug("Parent Legal Biz Name = " + getAppName(parentCapId));
+	//logDebug("Parent Legal Biz Name = " + getAppName(parentCapId));
 
-	logDebug("Parent DBAName = " + getShortNotes(parentCapId));
 	updateShortNotes(getShortNotes(parentCapId));
+	//logDebug("Parent DBAName = " + getShortNotes(parentCapId));
 
-	logDebug("Parent Priority = " + getPriority(parentCapId));
 	editPriority(getPriority(parentCapId));
+	//logDebug("Parent Priority = " + getPriority(parentCapId));
 
 	copyAddress(parentCapId, capId);
