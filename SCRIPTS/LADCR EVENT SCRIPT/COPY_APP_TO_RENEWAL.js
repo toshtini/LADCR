@@ -1,7 +1,7 @@
 // COPY_APP_TO_RENEWAL
 // last update: 09/04/2020
-	showDebug = true;
-	logDebug("Starting COPY_APP_TO_RENEWAL...");
+	//showDebug = true;
+	//logDebug("Starting COPY_APP_TO_RENEWAL...");
 
 	// Main test code goes here...
 	altId = capId.getCustomID();
