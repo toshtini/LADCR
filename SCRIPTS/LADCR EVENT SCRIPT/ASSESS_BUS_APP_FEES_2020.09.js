@@ -6,7 +6,8 @@
 if (!isTrue(AInfo["Is this a Renewal?"])) {
 	logDebug("Not a Renewal");
  
-	updateFee("J300","CAN_BUS_APP","FINAL",1,"Y"); //Cannabis Pre-Application Review Fee
+	//updateFee("J300","CAN_BUS_APP","FINAL",1,"Y"); //Cannabis Pre-Application Review Fee
+	updateFee("F100","CAN_BUS_APP","FINAL",1,"Y"); //place holder until fee is created
 
 }
 
