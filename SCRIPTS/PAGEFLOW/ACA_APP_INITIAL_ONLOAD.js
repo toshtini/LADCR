@@ -10,7 +10,7 @@
 | Notes   : Created 06/05/2019, Ghess -  check for parent to flag whether the app is a renewal.
 |           This will drive what business activities to offer
 |         : 01/24/2020 - added copy ASI from parent
-|         : 09/02/2020 - added copy record detail and address
+|         : 09/03/2020 - added copy record detail and address
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -73,6 +73,32 @@ function getScriptText(vScriptName, servProvCode, useProductScripts) {
 		return "";
 	}
 }
+function objectExplore2(pObject)
+{
+try{
+
+//	for (x in pObject)
+//	{
+//		logDebug("objectExplore[" + x + "] = " + pObject[x]);
+//	}
+	
+	logDebug("Methods:")
+	for (x in pObject) {
+		if (typeof(pObject[x]) == "function") logDebug("   " + x);
+	}
+
+	logDebug("");
+	logDebug("Properties:")
+	for (x in pObject) {
+		if (typeof(pObject[x]) != "function") logDebug("   " + x + " = " + pObject[x]);
+	}
+}
+catch(err){
+	logDebug("Error:" + err);
+	//comment("Error:" + err);
+}
+}
+
 
 var cap = aa.env.getValue("CapModel");
 var capId = cap.getCapID();
@@ -175,6 +201,63 @@ if (parentCapId){
 	//Copy Record Detail
 	editAppName(getAppName(parentCapId));
 	aa.cap.copyCapWorkDesInfo(parentCapId, capId);
+
+	//var cap = aa.env.getValue("CapModel");
+	//var capId = cap.getCapID();
+	var parentId = getParent(capId);
+
+		var parCap = aa.cap.getCap(parentId).getOutput();
+		var appName = parCap.getSpecialText();
+		logDebug("appName = " + appName);
+		cap.setSpecialText(appName);
+		
+/************************************************
+		var result = aa.cap.editCapByPK(cap);
+		if(!result.getSuccess()){
+			logDebug("Error updating app name: " + result.getErrorMessage());
+		}
+
+************************************************/
+/************************************************
+
+		// looking for General Desciption field
+		var workDescResult = aa.cap.getCapWorkDesByPK(parentCapId);
+		var workDesObj;
+
+		if (!workDescResult.getSuccess()) {
+			aa.print("**ERROR: Failed to get work description: " + workDescResult.getErrorMessage());
+			//return false;
+		}
+
+		var workDesScriptObj = workDescResult.getOutput();
+		if (workDesScriptObj) {
+			workDesObj = workDesScriptObj.getCapWorkDesModel();
+		} else {
+			aa.print("**ERROR: Failed to get workdes Obj: " + workDescResult.getErrorMessage());
+			//return false;
+		}
+		
+	objectExplore2(workDesObj);
+		
+		var appDesc = workDesObj.getDescription();
+		logDebug("appDesc = " + appDesc);
+		
+		//workDesObj.setDescription(newWorkDes);
+		aa.cap.editCapWorkDes(workDesObj);
+
+		//aa.cap.copyCapDetailInfo(parentId, capId);
+		//aa.cap.copyCapWorkDesInfo(parentId, capId);
+		
+		var amendCapModel = aa.cap.getCapViewBySingle4ACA(capId);
+		amendCapModel.getCapType().setSpecInfoCode(cap.getCapType().getSpecInfoCode());
+		aa.env.setValue("CapModel", amendCapModel);
+*********************************************************/
+
+	// Get Business/Professional Name (DBA)
+	logDebug("Parent Short Notes = " + getShortNotes(parentId));
+	var bizName = getShortNotes(parentId);
+	updateShortNotes(bizName, capId);
+
 
 	//copy address
 	copyAddress(parentCapId, capId);
