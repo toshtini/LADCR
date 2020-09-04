@@ -137,7 +137,7 @@ for (var i in childSuffixArray) {
     //Copy application name from child to license
     editAppName(getAppName(capId), childId);
 
-    /Copy remaining application fields
+    //Copy remaining application fields
     updateShortNotes(getShortNotes(capId),childId);
 	editPriority(getPriority(capId),childId);
 
