@@ -76,7 +76,7 @@ if (matches("CHECKED", AInfo["Manufacturer"])) {
         clearASIArray["V"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 2", "Medical Manufacturer Level 2"]);
     } else {
         if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical Manufacturer Level 1"])) {
-            childSuffixArray.push("M");
+            childSuffixArray.push("V");
             clearASIArray["V"] = removeElements(aList.slice(), ["Adult-Use Manufacturer Level 1", "Medical Manufacturer Level 1"]);
         }
     }
