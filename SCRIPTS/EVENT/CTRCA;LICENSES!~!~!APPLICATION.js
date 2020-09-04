@@ -39,6 +39,7 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 	include("UPDATE_APPLICATION_MJ_ALTID");
 	if (AInfo["Is this a Renewal?"] == "Yes") {
+		include("COPY_APP_TO_RENEWAL");
 		include("CREATE_ACTIVITY_RECS_FROM_PREAPP");
 	} 
 }
