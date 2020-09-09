@@ -2,6 +2,7 @@ function getRequiredDocuments(isPageFlow) {
 // 01/24/20: Removed check for MANAGEMENT COMPANIES table entry
 // 05/08/20: Updated for next phase of license applications and renewals
 // 08/26/20: updated for Pre-App
+// 09/09/20: Added Modification Request Form
 	
 	logDebug("start getRequiredDocuments(" + [].slice.call(arguments) + ")");
 
@@ -133,6 +134,8 @@ function getRequiredDocuments(isPageFlow) {
 	var CUPAPermit = {condition : "CUPA Permit (If Applicable)",document : "CUPA Permit (If Applicable)"};
 	// added requirements 8/26/2020 GH
 	var Attestation = {condition: "Attestation",document: "Attestation"};
+	// added requirements 9/9/2020 GH
+	var ModificationRequestForm = {condition: "Modification Request Form",document: "Modification Request Form"};
 
 
 	/*------------------------------------------------------------------------------------------------------/
@@ -148,6 +151,7 @@ function getRequiredDocuments(isPageFlow) {
 	if (AInfo["Are you requesting a temporary license?"] == null || AInfo["Are you requesting a temporary license?"] == "") {
 		isTemporaryRequest = true;
 	}
+	var isModRequest =  AInfo["Are you submitting a Modification Request"] == "YES" || AInfo["Are you submitting a Modification Request"] == "Yes"; 
 
 
 	//check to see if a temporary license has already been issued
@@ -166,7 +170,7 @@ function getRequiredDocuments(isPageFlow) {
 
 	if (isAttestationAmendment) {
 		isTemporaryRequest = false;
-		}
+	}
 
 	logDebug("isTemporaryRequest: " + isTemporaryRequest);
 		
@@ -217,7 +221,12 @@ function getRequiredDocuments(isPageFlow) {
 			requirementArray.push(BusinessPremisesDiagram); 		
 			requirementArray.push(DatedRadiusMap); 					
 			requirementArray.push(ownDisclosure);  
-			requirementArray.push(SitePlan); 						
+			requirementArray.push(SitePlan); 	
+
+			if (isModRequest) {
+				requirementArray.push(ModificationRequestForm);
+			}
+			
 
 			/*************************************************
 			//updated 5/8/2020
