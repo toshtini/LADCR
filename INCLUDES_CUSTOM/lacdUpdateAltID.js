@@ -1,93 +1,88 @@
-// Last Update: 09/10/2020, ghess
-var thisActivityType = null;
-var altId = capId.getCustomID();
+function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
+// Last Update: 09/01/2020, ghess
+	var returnAltID;
 
-if(getAppSpecific("Is this a Renewal?") == "Yes" || getAppSpecific("Is this a Renewal?") == "YES") {
-	var thisRecType = "APPRENEW";
-	altId = parentCapId.getCustomID();
-	
-} else {
+	if (recType == "PCN") {
+		// like LA-C-YY-######-TYPE-APP
+		var initialAltId = altId;
+		var activityLetter = ActivityType;
+		// Split out parts of the number
+		var LA = initialAltId.slice(0, 2);
+		var remainder = initialAltId.slice(4, 14);
+		//var APP = initialAltId.slice(14, 18);
+		// Construct new Alt ID
+		returnAltID = LA + "-P" + remainder + "-APP-PREAPP";
+	}
+	if (recType == "ACTIVITY") {
+		// like LA-C-YY-######-TYPE-APP
+		var activityLetter = ActivityType;
+		var initialAltId = altId;
+		// Split out parts of the number
+		var parentInitId = initialAltId.slice(0,8);
+		var lenOfStr = initialAltId.length();
+		var parentEndId = initialAltId.slice(-3,lenOfStr);
+		var childAltId = capIdToUpdate.getCustomID();
+		var childId = childAltId.slice(8,14);
+		// Construct new Alt ID
+		returnAltID = parentInitId + childId + "-" + activityLetter + "-" + parentEndId;
+		
+	}
+	if (recType == "NONPCN") {
+		// like LA-C-YY-######-TYPE-APP
+		var initialAltId = altId;
+		var activityLetter = ActivityType;
+		// Split out parts of the number
+		var LA = initialAltId.slice(0, 2)
+		var remainder = initialAltId.slice(4, 14);
+		//var APP = initialAltId.slice(14, 18);
+		// Construct new Alt ID
+		returnAltID = LA + "-C" + remainder + "-APP-PREAPP";
+	}
+	if (recType == "RENEWAL") {
+		// like LA-C-YY-######-TYPE-RENYY
+		var initialAltId = altId;
+		// Split out parts of the number
+		var todayDate = new Date();
+		var strYear = todayDate.getFullYear();
+		var strYear = strYear.toString();
+		var strYear = strYear.slice(2, 4);
+		var yearOfRen = strYear;
+		lenOfStr = initialAltId.length() - 3;
+		var AltIdSlice = initialAltId.slice(0, lenOfStr);
+		// Construct new Alt ID
+		returnAltID = AltIdSlice + "REN" + yearOfRen;
+	}
 
-	if(getAppSpecific("Retailer Commercial Cannabis Activity license in an area of Undue Concentration?") == "Yes")
-		{
-		var thisRecType = "PCN"
+	if (recType == "APPRENEW") {
+		// Phase 1 - LA-C-19-1#####-APP
+		if (altId.indexOf("LA-C-19-0") == 0) {
+			returnAltID = altId.replace("LA-C-19-0","LA-C-19-1");
+			//logDebug("Phase 1 returnAltID is " + returnAltID);
 		}
-	else
-		{
-		var thisRecType = "NONPCN"
+		// Phase 2 - LA-C-18-1#####-APP
+		if (altId.indexOf("LA-C-18-0") == 0) {
+			returnAltID = altId.replace("LA-C-18-0","LA-C-18-1");
+			//logDebug("Phase 2 returnAltID is " + returnAltID);
 		}
-
-	/* C - Cultivation (any and all)
-	Adult-Use Cultivation Small Indoor,Adult-Use Cultivation Medium Indoor,Adult-Use Cultivation Specialty Indoor,Medical Cultivation Small Indoor,Medical Cultivation Medium Indoor,Medical Cultivation Specialty Indoor
-	*/
-	var ACSI = getAppSpecific("Adult-Use Cultivation Small Indoor");
-	var ACMI = getAppSpecific("Adult-Use Cultivation Medium Indoor");
-	var ACSPI = getAppSpecific("Adult-Use Cultivation Specialty Indoor");
-	var MCSI = getAppSpecific("Medical Cultivation Small Indoor");
-	var MCMI = getAppSpecific("Medical Cultivation Medium Indoor");
-	var MCSPI = getAppSpecific("Medical Cultivation Specialty Indoor");
-	if(ACSI == "CHECKED" ||  ACMI  == "CHECKED" && ACSPI == "CHECKED" || MCSI == "CHECKED" || MCMI == "CHECKED" || MCSPI == "CHECKED")
-		{
-		thisActivityType = "C"
+		//propegate PCN designation
+		if (altId.indexOf("LA-P-") == 0) {
+			var childAltId = capIdToUpdate.getCustomID();
+			returnAltID = childAltId.replace("LA-C-","LA-P-");
 		}
-	/*V - Manufacture Level 2 (volatile)
-	Adult-Use Manufacturer Level 2,Medical Manufacturer Level 2
-	*/
-	var AML2 = getAppSpecific("Adult-Use Manufacturer Level 2");
-	var MML2 = getAppSpecific("Medical Manufacturer Level 2");
-	if(AML2  == "CHECKED" || MML2  == "CHECKED")
-		{
-		thisActivityType = "V"
-		}
-	/********** D - Distribution Transport Only - no longer applicable (5/13/2020)
-	Distributor Transport Only,Medical Distributor Transport Only,Adult-Use Distributor Transport Only 
+	}
 	
-	//var DTO = getAppSpecific("Distribution Transport Only");
-	var ADTO = getAppSpecific("Adult-Use Distributor Transport Only");
-	var MDTO = getAppSpecific("Medical Distributor Transport Only");
-	//if(DTO  == "Yes" || ADTO  == "CHECKED" || MDTO  == "CHECKED")
-	if(ADTO  == "CHECKED" || MDTO  == "CHECKED")
-		{
-		thisActivityType = "D"
+	if (returnAltID) {
+		var updResult = aa.cap.updateCapAltID(capIdToUpdate, returnAltID);
+		//in case of duplicates...
+		var capCount = 0;
+		while(!updResult.getSuccess()){
+			capCount = capCount + 1;
+			returnAltID = returnAltID + "-" + capCount;
+			updResult = aa.cap.updateCapAltID(capIdToUpdate, returnAltID);
 		}
-	*************/
-	/* Distribution Only
-	*/
-	if("Y".equals(String(getAppSpecific("Distribution Only")).toUpperCase().substr(0,1))) {
-		thisActivityType = "D"
-		}
-	
-	/* R - Retail Adult-Use Retail,Medical Retail
-	*/
-	var AR = getAppSpecific("Adult-Use Retail");
-	var MR = getAppSpecific("Medical Retail");
-	if(AR  == "CHECKED" || MR == "CHECKED" )
-		{
-		thisActivityType = "R"
-		}
-	/* T - Testing 
-	*/
-	if("Y".equals(String(getAppSpecific("Testing")).toUpperCase().substr(0,1))) {
-		thisActivityType = "T"
-		}
-	/* O - Other
-	Adult-Use Distributor,Medical Distributor,Adult-Use Manufacturer Level 1,Adult-Use Delivery Only,Medical Manufacturer Level 1,Medical Delivery Only,Adult-Use Microbusiness,Medical Microbusiness
-	*/
-	var AD = getAppSpecific("Adult-Use Distributor");
-	var MD = getAppSpecific("Medical Distributor");
-	var AML1 = getAppSpecific("Adult-Use Manufacturer Level 1");
-	var MML1 = getAppSpecific("Medical Manufacturer Level 1");
-	var ADO = getAppSpecific("Adult-Use Delivery Only");
-	var AMO = getAppSpecific("Medical Delivery Only");
-	var AMB = getAppSpecific("Adult-Use Microbusiness");
-	var MMB = getAppSpecific("Medical Microbusiness");
-	if(AD == "CHECKED" || MD== "CHECKED" || AML1== "CHECKED" || MML1 == "CHECKED" || ADO== "CHECKED" || AMO== "CHECKED" || AMB== "CHECKED" || MMB== "CHECKED")
-		{
-		thisActivityType = "O"
-		}
+		logDebug("returnAltID is " + returnAltID);
+		// update global var
+		capIDString = returnAltID;
+	}
+	return(returnAltID);
 }
-
-// Update the AltID
-var newId = lacdUpdateAltID(capId,thisRecType,altId,thisActivityType);
-//logDebug("newId = " + newId);
-
