@@ -16,7 +16,8 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 	if (recType == "ACTIVITY") {
 		// like LA-C-YY-######-TYPE-APP
 		var activityLetter = ActivityType;
-		var initialAltId = altId;
+		var initialAltId = capIdToUpdate.getCustomID();
+		//var initialAltId = parentAltId;
 
 		/********************************
 		// Split out parts of the number to use child record number
@@ -36,7 +37,6 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 		
 		// Construct new Alt ID
 		returnAltID = parentInitId + "-" + activityLetter + "-" + parentEndId;
-		
 	}
 	if (recType == "NONPCN") {
 		// like LA-C-YY-######-TYPE-APP
