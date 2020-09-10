@@ -1,8 +1,8 @@
-// Last Update: 05/13/2020, ghess
+// Last Update: 09/10/2020, ghess
 var thisActivityType = null;
 var altId = capId.getCustomID();
 
-if(getAppSpecific("Is this a Renewal?") == "Yes") {
+if(getAppSpecific("Is this a Renewal?") == "Yes" || getAppSpecific("Is this a Renewal?") == "YES") {
 	var thisRecType = "APPRENEW";
 	altId = parentCapId.getCustomID();
 	
