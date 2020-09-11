@@ -153,8 +153,8 @@ function getRequiredDocuments(isPageFlow) {
 		isTemporaryRequest = true;
 	}
 	//var isModRequest =  AInfo["Are you submitting a Modification Request"] == "YES" || AInfo["Are you submitting a Modification Request"] == "Yes"; 
-	var isModRequest =  "Y".equals(AInfo["Are you submitting a Modification Request?"].substr(0,1).toUpperCase())
-	var isAppRenewal =  "Y".equals(AInfo["Is this a Renewal?"].substr(0,1).toUpperCase())
+	var isModRequest = AInfo["Are you submitting a Modification Request?"] == "YES" || AInfo["Are you submitting a Modification Request?"] == "Yes" || AInfo["Are you submitting a Modification Request?"] == "Y"; 
+	var isAppRenewal = AInfo["Is this a Renewal?"] == "YES" || AInfo["Is this a Renewal?"] == "Yes" || AInfo["Is this a Renewal?"] == "Y"; 
 
 	//check to see if a temporary license has already been issued
 	var vWFTaskHistory = aa.workflow.getWorkflowHistory(capId, 'Issuance', null).getOutput();
