@@ -95,7 +95,7 @@ if (matches("Y", String(AInfo["Testing"]).substr(0,1).toUpperCase())) {
 }
 
 // refresh as alt id has likely changed
-var itemCapId = aa.cap.getCapID(capId).getOutput();
+var itemCapId = aa.cap.getCapID(capId.getID1(),capId.getID2(),capId.getID3()).getOutput();
 
 for (var i in childSuffixArray) {
     var childId = createChild(rt[0], rt[1], rt[2], rt[3], "");
