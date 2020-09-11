@@ -154,9 +154,9 @@ try {
 	// Display Page? Only new applications...
 	var isRenewal = isASITrue(AInfo["Is this a Renewal?"]); 
 
-	if (isRenewal) {
-		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
-	} else {
+	//if (isRenewal) {
+	//	aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
+	//} else {
 	
 		// initialize required docs types
 		conditionType = "License Required Documents";
@@ -226,7 +226,7 @@ try {
 		if (r.length > 0 && showList && docsMissing) {
 			comment("</ol></div>");
 		}
-	}
+	//}
 
 
 } catch (err) {
