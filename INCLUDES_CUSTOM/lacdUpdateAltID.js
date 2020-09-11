@@ -70,7 +70,7 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 		}
 		// remove -R- redundant activity record
 		if (returnAltID.indexOf("-R-") > 0) {
-			returnAltID = returnAltID.replace("-R-", "-"));
+			returnAltID = returnAltID.replace("-R-", "-");
 		}
 	}
 	
