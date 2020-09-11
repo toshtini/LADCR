@@ -16,27 +16,15 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 	if (recType == "ACTIVITY") {
 		// like LA-C-YY-######-TYPE-APP
 		var activityLetter = ActivityType;
-		//var initialAltId = capIdToUpdate.getCustomID();
 		var initialAltId = altId;
-
-		/********************************
-		// Split out parts of the number to use child record number
+		// Split out parts of the number
 		var parentInitId = initialAltId.slice(0,8);
 		var lenOfStr = initialAltId.length();
 		var parentEndId = initialAltId.slice(-3,lenOfStr);
-		
 		var childAltId = capIdToUpdate.getCustomID();
 		var childId = childAltId.slice(8,14);
-		//returnAltID = parentInitId + childId + "-" + activityLetter + "-" + parentEndId;
-		*******************************/
-		
-		// This uses renewal's record number
-		var parentInitId = initialAltId.slice(0,14);
-		var lenOfStr = initialAltId.length();
-		var parentEndId = initialAltId.slice(-3,lenOfStr);
-		
 		// Construct new Alt ID
-		returnAltID = parentInitId + "-" + activityLetter + "-" + parentEndId;
+		returnAltID = parentInitId + childId + "-" + activityLetter + "-" + parentEndId;
 	}
 	if (recType == "NONPCN") {
 		// like LA-C-YY-######-TYPE-APP
