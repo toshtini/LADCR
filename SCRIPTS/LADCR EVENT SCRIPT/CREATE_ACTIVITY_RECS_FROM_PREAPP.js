@@ -94,33 +94,36 @@ if (matches("Y", String(AInfo["Testing"]).substr(0,1).toUpperCase())) {
 
 }
 
+// refresh as alt id has likely changed
+var itemCapId = aa.cap.getCapID(capId).getOutput();
+
 for (var i in childSuffixArray) {
     var childId = createChild(rt[0], rt[1], rt[2], rt[3], "");
 
     //Copy ASI from child to license
     // TODO: only certain fields?
-    copyASIInfo(capId, childId);
+    copyASIInfo(itemCapId, childId);
 
     //Copy ASIT from child to license
-    copyASITables(capId, childId);
+    copyASITables(itemCapId, childId);
 
     editAppSpecific("Is this a Renewal?", "N", childId);
 
     //Copy Contacts from child to license
-    copyContacts3_0(capId, childId);
+    copyContacts3_0(itemCapId, childId);
 
     //Copy Work Description from child to license
-    aa.cap.copyCapWorkDesInfo(capId, childId);
+    aa.cap.copyCapWorkDesInfo(itemCapId, childId);
 
     //Copy application name from child to license
-    editAppName(getAppName(capId), childId);
+    editAppName(getAppName(itemCapId), childId);
 
     //Copy remaining application fields
-    updateShortNotes(getShortNotes(capId),childId);
-	editPriority(getPriority(capId),childId);
+    updateShortNotes(getShortNotes(itemCapId),childId);
+	editPriority(getPriority(itemCapId),childId);
 
     //use the suffix to give it a unique ID
-    lacdUpdateAltID(childId, "ACTIVITY", capId.getCustomID(), childSuffixArray[i]);
+    lacdUpdateAltID(childId, "ACTIVITY", itemCapId.getCustomID(), childSuffixArray[i]);
 
     // clear ASI
     logDebug("here in record for " + childSuffixArray[i]);
@@ -132,12 +135,6 @@ for (var i in childSuffixArray) {
     //End - Activity Record Creation/Update Script
 }
 
-// remove -R- redundant activity record
-
-if (capId.getCustomID().indexOf("-R-") > 0) {
-    var updResult = aa.cap.updateCapAltID(capId, capId.getCustomID().replace("-R-", "-"));
-	logDebug("removing -R- from record Id : " + capId.getCustomID() + " success? " + updResult.getSuccess());
-}
 
 function removeElements(array, elem) {
     for (var i in elem) {
