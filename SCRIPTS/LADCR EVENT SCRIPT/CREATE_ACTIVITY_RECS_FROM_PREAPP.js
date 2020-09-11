@@ -43,9 +43,9 @@ if (matches("CHECKED", AInfo["Adult-Use Cultivation Medium Indoor"], AInfo["Adul
 if (matches("CHECKED", AInfo["Adult-Use Distributor"], AInfo["Medical Distributor"])) {
     childSuffixArray.push("D");
     clearASIArray["D"] = removeElements(aList.slice(), ["Adult-Use Distributor", "Medical Distributor"]);
-} else if (matches("CHECKED", AInfo["Adult-Use Distributor Transport Only"], AInfo["Medical Distributor Transport Only"])) {
+} else if (matches("Y", AInfo["Distributor Transport Only"].substr(0,1).toUpperCase())) {
     childSuffixArray.push("D");
-    clearASIArray["D"] = removeElements(aList.slice(), ["Adult-Use Distributor Transport Only", "Medical Distributor Transport Only"]);
+    clearASIArray["D"] = removeElements(aList.slice(), ["Distributor Transport Only"]);
 }
     
 
@@ -83,12 +83,12 @@ if (matches("CHECKED", AInfo["Retail"])) {
 }
 
 // Misc Y/N selections
-if (matches("Yes", AInfo["Nursery"])) {
+if (matches("Y", AInfo["Nursery"].substr(0,1).toUpperCase())) {
     childSuffixArray.push("N");
     clearASIArray["N"] = removeElements(aList.slice(), ["Nursery"]);
 
 }
-if (matches("Yes", AInfo["Testing"])) {
+if (matches("Y", AInfo["Testing"].substr(0,1).toUpperCase())) {
     childSuffixArray.push("T");
     clearASIArray["T"] = removeElements(aList.slice(), ["Testing"]);
 
@@ -135,8 +135,8 @@ for (var i in childSuffixArray) {
 // remove -R- redundant activity record
 
 if (capId.getCustomID().indexOf("-R-") > 0) {
-    logDebug("removing -R- from record Id : " + capId.getCustomID());
     var updResult = aa.cap.updateCapAltID(capId, capId.getCustomID().replace("-R-", "-"));
+	logDebug("removing -R- from record Id : " + capId.getCustomID() + " success? " + updResult.getSuccess());
 }
 
 function removeElements(array, elem) {
