@@ -34,37 +34,21 @@ var aList = ["Adult-Use Cultivation Medium Indoor",
     "Nursery"];
 
 // Cultivation
-if (matches("CHECKED", AInfo["Cultivation Small Indoor"], AInfo["Cultivation Medium Indoor"], AInfo["Cultivation Specialty Indoor"])) {
+if (matches("CHECKED", AInfo["Adult-Use Cultivation Medium Indoor"], AInfo["Adult-Use Cultivation Small Indoor"], AInfo["Adult-Use Cultivation Specialty Indoor"], AInfo["Adult-Use Cultivation Specialty Cottage Indoor"],AInfo["Medical Cultivation Medium Indoor"], AInfo["Medical Cultivation Small Indoor"], AInfo["Medical Cultivation Specialty Indoor"], AInfo["Medical Cultivation Specialty Cottage Indoor"])) {
     childSuffixArray.push("C");
-    clearASIArray["C"] = removeElements(aList.slice(), ["Cultivation Small Indoor", "Cultivation Medium Indoor", "Cultivation Specialty Indoor"]);
-} else {
-
-    if (matches("CHECKED", AInfo["Adult-Use Cultivation Medium Indoor"], AInfo["Adult-Use Cultivation Small Indoor"], AInfo["Adult-Use Cultivation Specialty Indoor"], AInfo["Adult-Use Cultivation Specialty Cottage Indoor"])) {
-        childSuffixArray.push("C");
-        clearASIArray["C"] = removeElements(aList.slice(), ["Adult-Use Cultivation Medium Indoor", "Adult-Use Cultivation Small Indoor", "Adult-Use Cultivation Specialty Indoor", "Adult-Use Cultivation Specialty Cottage Indoor"]);
-    } else {
-        if (matches("CHECKED", AInfo["Medical Cultivation Medium Indoor"], AInfo["Medical Cultivation Small Indoor"], AInfo["Medical Cultivation Specialty Indoor"], AInfo["Medical Cultivation Specialty Cottage Indoor"])) {
-            childSuffixArray.push("C");
-            clearASIArray["C"] = removeElements(aList.slice(), ["Medical Cultivation Medium Indoor", "Medical Cultivation Small Indoor", "Medical Cultivation Specialty Indoor", "Medical Cultivation Specialty Cottage Indoor"]);
-        }
-    }
+    clearASIArray["C"] = removeElements(aList.slice(), ["Adult-Use Cultivation Medium Indoor", "Adult-Use Cultivation Small Indoor", "Adult-Use Cultivation Specialty Indoor", "Adult-Use Cultivation Specialty Cottage Indoor","Medical Cultivation Medium Indoor", "Medical Cultivation Small Indoor"], "Medical Cultivation Specialty Indoor", "Medical Cultivation Specialty Cottage Indoor");
 }
 
 // Distributor
-if (matches("CHECKED", AInfo["Distributor"])) {
+if (matches("CHECKED", AInfo["Adult-Use Distributor"], AInfo["Medical Distributor"])) {
     childSuffixArray.push("D");
-    clearASIArray["D"] = removeElements(aList.slice(), ["Distributor"]);
-} else {
-    if (matches("CHECKED", AInfo["Adult-Use Distributor"], AInfo["Medical Distributor"])) {
-        childSuffixArray.push("D");
-        clearASIArray["D"] = removeElements(aList.slice(), ["Adult-Use Distributor", "Medical Distributor"]);
-    } else {
-        if (matches("Yes", AInfo["Distributor Transport Only"])) {
-            childSuffixArray.push("D");
-            clearASIArray["D"] = removeElements(aList.slice(), ["Distributor Transport Only"]);
-        }
-    }
+    clearASIArray["D"] = removeElements(aList.slice(), ["Adult-Use Distributor", "Medical Distributor"]);
+} else if (matches("CHECKED", AInfo["Adult-Use Distributor Transport Only"], AInfo["Medical Distributor Transport Only"])) {
+    childSuffixArray.push("D");
+    clearASIArray["D"] = removeElements(aList.slice(), ["Adult-Use Distributor Transport Only", "Medical Distributor Transport Only"]);
 }
+    
+
 
 // Manufacturer
 if (matches("CHECKED", AInfo["Adult-Use Manufacturer Level 1"], AInfo["Medical Manufacturer Level 1"])) {
