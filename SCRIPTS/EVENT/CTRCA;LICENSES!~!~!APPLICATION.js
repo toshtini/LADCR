@@ -38,7 +38,7 @@ if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 // updated 8/26/20 to include creating activity children
 if(publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 	include("UPDATE_APPLICATION_MJ_ALTID");
-	if (AInfo["Is this a Renewal?"] == "Yes") {
+	if (AInfo["Is this a Renewal?"] == "Yes" || AInfo["Is this a Renewal?"] == "Y") {
 		include("COPY_APP_TO_RENEWAL");
 		include("CREATE_ACTIVITY_RECS_FROM_PREAPP");
 	} 
