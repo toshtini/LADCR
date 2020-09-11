@@ -153,7 +153,7 @@ function getRequiredDocuments(isPageFlow) {
 		isTemporaryRequest = true;
 	}
 	//var isModRequest =  AInfo["Are you submitting a Modification Request"] == "YES" || AInfo["Are you submitting a Modification Request"] == "Yes"; 
-	var isModRequest =  "Y".equals(AInfo["Are you submitting a Modification Request"].substr(0,1).toUpperCase())
+	var isModRequest =  "Y".equals(AInfo["Are you submitting a Modification Request?"].substr(0,1).toUpperCase())
 	var isAppRenewal =  "Y".equals(AInfo["Is this a Renewal?"].substr(0,1).toUpperCase())
 
 	//check to see if a temporary license has already been issued
