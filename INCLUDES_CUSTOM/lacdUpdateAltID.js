@@ -16,8 +16,8 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 	if (recType == "ACTIVITY") {
 		// like LA-C-YY-######-TYPE-APP
 		var activityLetter = ActivityType;
-		var initialAltId = capIdToUpdate.getCustomID();
-		//var initialAltId = parentAltId;
+		//var initialAltId = capIdToUpdate.getCustomID();
+		var initialAltId = altId;
 
 		/********************************
 		// Split out parts of the number to use child record number
