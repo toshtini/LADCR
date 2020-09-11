@@ -21,6 +21,7 @@ if (!isTrue(AInfo["Is this a Renewal?"])) {
 	}
 	
 	if (codeSet) {
+		var actFees = [];
 		// Cultivation
 		if (matches("CHECKED", AInfo["Adult-Use Cultivation Small Indoor"], AInfo["Medical Cultivation Small Indoor"])) {
 			actFees.push("J" + codeSet + "7R21");
