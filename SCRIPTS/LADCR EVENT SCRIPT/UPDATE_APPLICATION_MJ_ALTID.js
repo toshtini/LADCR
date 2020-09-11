@@ -2,7 +2,7 @@
 var thisActivityType = null;
 var altId = capId.getCustomID();
 
-if(getAppSpecific("Is this a Renewal?") == "Yes" || getAppSpecific("Is this a Renewal?") == "YES") {
+if(getAppSpecific("Is this a Renewal?") == "Yes" || getAppSpecific("Is this a Renewal?") == "YES" || getAppSpecific("Is this a Renewal?") == "Y") {
 	var thisRecType = "APPRENEW";
 	altId = parentCapId.getCustomID();
 	
