@@ -3,6 +3,7 @@ function getRequiredDocuments(isPageFlow) {
 // 05/08/20: Updated for next phase of license applications and renewals
 // 08/26/20: updated for Pre-App
 // 09/09/20: Added Modification Request Form
+// 09/11/20: app renewal logic
 	
 	logDebug("start getRequiredDocuments(" + [].slice.call(arguments) + ")");
 
@@ -151,8 +152,9 @@ function getRequiredDocuments(isPageFlow) {
 	if (AInfo["Are you requesting a temporary license?"] == null || AInfo["Are you requesting a temporary license?"] == "") {
 		isTemporaryRequest = true;
 	}
-	var isModRequest =  AInfo["Are you submitting a Modification Request"] == "YES" || AInfo["Are you submitting a Modification Request"] == "Yes"; 
-
+	//var isModRequest =  AInfo["Are you submitting a Modification Request"] == "YES" || AInfo["Are you submitting a Modification Request"] == "Yes"; 
+	var isModRequest =  "Y".equals(AInfo["Are you submitting a Modification Request"].substr(0,1).toUpperCase())
+	var isAppRenewal =  "Y".equals(AInfo["Is this a Renewal?"].substr(0,1).toUpperCase())
 
 	//check to see if a temporary license has already been issued
 	var vWFTaskHistory = aa.workflow.getWorkflowHistory(capId, 'Issuance', null).getOutput();
@@ -217,14 +219,16 @@ function getRequiredDocuments(isPageFlow) {
 		if (true) { // for testing purposes - set to false to bypass
 
 			// Pre-App requirements 8/26/2020
-			requirementArray.push(Attestation); 		
-			requirementArray.push(BusinessPremisesDiagram); 		
-			requirementArray.push(DatedRadiusMap); 					
-			requirementArray.push(ownDisclosure);  
-			requirementArray.push(SitePlan); 	
-
-			if (isModRequest) {
-				requirementArray.push(ModificationRequestForm);
+			if (isAppRenewal) {
+				if (isModRequest) {
+					requirementArray.push(ModificationRequestForm);
+				}
+			} else {		
+				requirementArray.push(Attestation); 		
+				requirementArray.push(BusinessPremisesDiagram); 		
+				requirementArray.push(DatedRadiusMap); 					
+				requirementArray.push(ownDisclosure);  
+				requirementArray.push(SitePlan); 	
 			}
 			
 
