@@ -1,5 +1,5 @@
 function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
-// Last Update: 09/01/2020, ghess
+// Last Update: 09/11/2020, ghess
 	var returnAltID;
 
 	if (recType == "PCN") {
@@ -53,6 +53,7 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 	}
 
 	if (recType == "APPRENEW") {
+		/******************************************************
 		// Phase 1 - LA-C-19-1#####-APP
 		if (altId.indexOf("LA-C-19-0") == 0) {
 			returnAltID = altId.replace("LA-C-19-0","LA-C-19-1");
@@ -63,6 +64,29 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 			returnAltID = altId.replace("LA-C-18-0","LA-C-18-1");
 			//logDebug("Phase 2 returnAltID is " + returnAltID);
 		}
+		******************************************************/
+		
+		// New Phase checking 9/11/20
+		returnAltID = altId;
+		var phaseCat = getPriority(capIdToUpdate);
+		logDebug("Renewal Phase = " + phaseCat);
+		var phaseNum = "";
+		if(phaseCat == "104.07 Phase 1") {
+			phaseNum = "1";
+		}
+		if(phaseCat == "104.08 Phase 2") {
+			phaseNum = "2";		
+		}
+		if(phaseCat == "104.06 Testing") {
+			phaseNum = "0";
+		}
+		if (phaseNum) {
+			var lenOfStr = altId.length();
+			var prePend = altId.slice(0, 8)
+			var postPend = altId.slice(9, lenOfStr);
+			returnAltID = prePend + phaseNum + postPend;
+		}
+		
 		//propegate PCN designation
 		if (altId.indexOf("LA-P-") == 0) {
 			var childAltId = capIdToUpdate.getCustomID();
