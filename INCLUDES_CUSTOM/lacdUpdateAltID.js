@@ -68,7 +68,7 @@ function lacdUpdateAltID(capIdToUpdate, recType, altId, ActivityType) {
 		
 		// New Phase checking 9/11/20
 		returnAltID = altId;
-		var phaseCat = getPriority(capIdToUpdate);
+		var phaseCat = getPriority(parentCapId);
 		logDebug("Renewal Phase = " + phaseCat);
 		var phaseNum = "";
 		if(phaseCat == "104.07 Phase 1") {
