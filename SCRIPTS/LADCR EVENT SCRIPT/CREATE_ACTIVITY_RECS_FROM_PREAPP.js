@@ -122,6 +122,9 @@ for (var i in childSuffixArray) {
     updateShortNotes(getShortNotes(itemCapId),childId);
 	editPriority(getPriority(itemCapId),childId);
 
+	// set child record status
+	updateAppStatus("Temporarily Approved","",childId);
+
     //use the suffix to give it a unique ID
     lacdUpdateAltID(childId, "ACTIVITY", itemCapId.getCustomID(), childSuffixArray[i]);
 
@@ -131,6 +134,7 @@ for (var i in childSuffixArray) {
         logDebug("clearing ASI: " + clearASIArray[childSuffixArray[i]][j]);
         editAppSpecific(clearASIArray[childSuffixArray[i]][j], "", childId);
     }
+
 
     //End - Activity Record Creation/Update Script
 }
