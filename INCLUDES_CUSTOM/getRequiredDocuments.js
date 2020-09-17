@@ -152,7 +152,7 @@ function getRequiredDocuments(isPageFlow) {
 	if (AInfo["Are you requesting a temporary license?"] == null || AInfo["Are you requesting a temporary license?"] == "") {
 		isTemporaryRequest = true;
 	}
-	//var isModRequest =  AInfo["Are you submitting a Modification Request"] == "YES" || AInfo["Are you submitting a Modification Request"] == "Yes"; 
+	//var isModRequest AInfo["Are you submitting a Modification Request"] == "YES" || AInfo["Are you submitting a Modification Request"] == "Yes"; 
 	var isModRequest = AInfo["Are you submitting a Modification Request?"] == "YES" || AInfo["Are you submitting a Modification Request?"] == "Yes" || AInfo["Are you submitting a Modification Request?"] == "Y"; 
 	var isAppRenewal = AInfo["Is this a Renewal?"] == "YES" || AInfo["Is this a Renewal?"] == "Yes" || AInfo["Is this a Renewal?"] == "Y"; 
 
@@ -344,7 +344,7 @@ function getRequiredDocuments(isPageFlow) {
 		if (isChecked("Distributor Plan (Distribution Applications Only)")) requirementArray.push(distributorPlan);
 		if (isChecked("Manufacturer Plan (Manufacturing Applications Only)")) requirementArray.push(manufacturerPlan);
 		if (isChecked("Cultivator Plan (Cultivation Applications Only)")) requirementArray.push(cultivatorPlan);
-		if (isChecked("Indemnification Agreement")) requirementArray.push(indemnificationAgreement);
+		if (isChecked("Indemnification Agreement")) requirementArray.push(IndemnificationAgreement);
 
 		// added 2/28/2019 - check if entry in table for document requirement
 		// commented out 1/24/2019
