@@ -266,6 +266,9 @@ function getRequiredDocuments(isPageFlow) {
 			*****************************************************/
 		}
 		
+		/*
+		
+		// disabled 09-17-2020 JSCHOMP not required for this release.
 		
 		if (!isTesting) {
 			//requirementArray.push(DeclarationEngagedActivities);
@@ -352,6 +355,8 @@ function getRequiredDocuments(isPageFlow) {
 		//if (relASIT && relASIT.length > 0) {
 		//	requirementArray.push(managementCompanies);
 		//} 
+		
+		*/
 
 	}
 	logDebug("Num of Req Docs:" + requirementArray.length + " docs.");
