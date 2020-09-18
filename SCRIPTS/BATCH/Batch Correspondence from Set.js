@@ -17,7 +17,7 @@ aa.env.setValue("sendEmailToContactTypes","Person-in-Charge");
 aa.env.setValue("reportTemplate","Invoice");
 //aa.env.setValue("eventType","Batch Process");
 */
-
+//aa.env.setValue("paramStdChoice","GH Correspondence Set Parameters"); //testing!!!!!!!!!!!!!!!!!
 /*------------------------------------------------------------------------------------------------------/
 | BEGIN Includes
 /------------------------------------------------------------------------------------------------------*/
