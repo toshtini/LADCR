@@ -1,3 +1,14 @@
+//RCNA;~!~!~!~.js
+// last update: 09/18/20
+
+//initialize ACA Reference Id
+var refContactId = ContactModel.getContactSeqNumber();
+ContactModel.setBirthCity(refContactId);
+var updateReferenceContactResult = aa.people.editPeople(ContactModel);
+//logDebug("updateReferenceContactResult: " + updateReferenceContactResult.getSuccess());
+var acaRefId = ContactModel.getBirthCity();
+logDebug("ACA Refirence Id = " + acaRefId);
+
 if (publicUser) {
 	var people = aa.people.getPeople(ContactModel.getContactSeqNumber()).getOutput();
 	var seStatus = people.getSalutation();
