@@ -22,7 +22,7 @@ if (AInfo["Is this a Renewal?"] && AInfo["Is this a Renewal?"].substr(0, 1).toUp
 	//include("ASSESS_BUS_APP_FEES2");
 	//include("ASSESS_BUS_APP_FEES");
 	//include("ASSESS_BUS_APP_FEES_2020.06");
-	include("ASSESS_BUS_APP_FEES_2020.09");
+	include("ASSESS_BUS_APP_FEES_2020.10");
 }
 // end assess fees
 
