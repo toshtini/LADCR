@@ -168,7 +168,7 @@ try {
 		logDebug("Found contact with type: " + contactModel.contactType);
 		
 		if (contactModel.contactType == "Business Entity") foundBusinessEntity = true;
-		if (contactModel.contactType == "Owner") foundOwner = true;
+		if (contactModel.contactType == "Owner" || contactModel.contactType == "Owner - Entity") foundOwner = true;
 		if (contactModel.contactType == "Social Equity Owner") foundSocialEquityOwner = true;
 	}
 
@@ -181,7 +181,7 @@ try {
 	if (!foundOwner && !foundSocialEquityOwner) {
 		cancel = true;
 		showMessage = true;
-		comment("Must enter an Owner or Social Equity Owner");
+		comment("Must enter an Owner, Owner - Entity, or Social Equity Owner");
 	}
 		
 } catch (err) { 
