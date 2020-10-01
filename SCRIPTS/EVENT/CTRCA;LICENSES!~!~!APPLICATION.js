@@ -62,6 +62,11 @@ if(AInfo["Is this a Renewal?"] != "Yes" && AInfo["Retailer Commercial Cannabis A
 }
 // End script
 
+// Update contacts - set contact type flag
+if(publicUser){
+	include("UPDATE_APP_CONTACT_TYPES");
+}
+
 // use the address to populate data from ZIMAS layers
 if(publicUser){
 	include("POPULATE_ZIMAS_DATA");
