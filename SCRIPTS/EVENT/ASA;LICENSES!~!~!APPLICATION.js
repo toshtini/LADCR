@@ -32,6 +32,11 @@ if(!publicUser && appMatch("Licenses/Cannabis/Business/Application")){
 }
 // End script to update the Application AltID based on Business Activity
 
+// Update contacts - set contact type flag
+if(!publicUser){
+	include("UPDATE_APP_CONTACT_TYPES");
+}
+
 // use the address to populate data from ZIMAS layers
 if(!publicUser){
 	include("POPULATE_ZIMAS_DATA");
