@@ -4,6 +4,7 @@ function getRequiredDocuments(isPageFlow) {
 // 08/26/20: updated for Pre-App
 // 09/09/20: Added Modification Request Form
 // 09/11/20: app renewal logic
+// 10/01/20: added PCN Request Form
 	
 	logDebug("start getRequiredDocuments(" + [].slice.call(arguments) + ")");
 
@@ -137,6 +138,9 @@ function getRequiredDocuments(isPageFlow) {
 	var Attestation = {condition: "Attestation",document: "Attestation"};
 	// added requirements 9/9/2020 GH
 	var ModificationRequestForm = {condition: "Modification Request Form",document: "Modification Request Form"};
+	// added requirements 10/1/2020 GH
+	var PCNRequestForm = {condition: "PCN Request Form",document: "PCN Request Form"};
+
 
 
 	/*------------------------------------------------------------------------------------------------------/
@@ -155,6 +159,7 @@ function getRequiredDocuments(isPageFlow) {
 	//var isModRequest =  AInfo["Are you submitting a Modification Request"] == "YES" || AInfo["Are you submitting a Modification Request"] == "Yes"; 
 	var isModRequest = AInfo["Are you submitting a Modification Request?"] == "YES" || AInfo["Are you submitting a Modification Request?"] == "Yes" || AInfo["Are you submitting a Modification Request?"] == "Y"; 
 	var isAppRenewal = AInfo["Is this a Renewal?"] == "YES" || AInfo["Is this a Renewal?"] == "Yes" || AInfo["Is this a Renewal?"] == "Y"; 
+	var isPCNRequest = AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "YES" || AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "Yes" || AInfo["Retailer Commercial Cannabis Activity license in an area of Undue Concentration?"] == "Y"; 
 
 	//check to see if a temporary license has already been issued
 	var vWFTaskHistory = aa.workflow.getWorkflowHistory(capId, 'Issuance', null).getOutput();
@@ -228,7 +233,10 @@ function getRequiredDocuments(isPageFlow) {
 				requirementArray.push(BusinessPremisesDiagram); 		
 				requirementArray.push(DatedRadiusMap); 					
 				requirementArray.push(ownDisclosure);  
-				requirementArray.push(SitePlan); 	
+				requirementArray.push(SitePlan); 
+				if (isPCNRequest) {
+					requirementArray.push(PCNRequestForm);
+				}
 			}
 			
 
