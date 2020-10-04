@@ -175,7 +175,7 @@ try {
 			showPage = isFicticiousName || isLegalEntityNameChange;
 		break;
 		case "Document":
-			showPage = isFicticiousName || isLegalEntityNameChange || isPremisesRelocation || isOwnershipPrimaryChange || isOtherContactChange || isNewActivity || isRemoveActivity;
+			showPage = isFicticiousName || isLegalEntityNameChange || isPremisesRelocation || isPremisesDiagram || isOwnershipPrimaryChange || isOtherContactChange || isNewActivity || isRemoveActivity;
 		break; 
 		case "Contact":
 			showPage = isOwnershipPrimaryChange || isOtherContactChange;
