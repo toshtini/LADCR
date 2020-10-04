@@ -1,13 +1,14 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : ACA_AMEND_DOC_ONLOAD.JS
-| Event   : ACA Page Flow onload attachments component
+| Program : ACA_APP_PEOPLE_ONLOAD
+| Event   : ACA Page Flow onload
 |
 | Usage   : Master Script by Accela.  See accompanying documentation and release notes.
 |
 | Client  : N/A
 | Action# : N/A
 |
-| Notes   :
+| Notes   : Created 05/14/2020, Ghess -  check for parent to flag whether the app is a renewal.
+|           Copy contacts from parent, copy to Custom List component
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -159,7 +160,7 @@ try {
 	//cancel = true;
 
 	// indicate the current page
-	var thisPage = "Document";  // Business, Document, Contact, Location, ActivityType, or Activity
+	var thisPage = "Contact";  // Business, Document, Contact, Location, ActivityType, or Activity
 	var showPage = false;
 	var isFicticiousName = isASITrue(AInfo["Fictitious Business Name"]); 
 	var isLegalEntityNameChange = isASITrue(AInfo["Legal Entity Name Change"]); 
@@ -194,81 +195,89 @@ try {
 	if (!showPage) {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	} else {
-		conditionType = "License Required Documents";
-		showDebug = false;
-		docsMissing = false;
-		showList = false;
-		addConditions = true;
-		addTableRows = false;
-		cancel = false;
-		showMessage = false;
-		capIdString = capId.getID1() + "-" + capId.getID2() + "-" + capId.getID3();
-		var r1 = getRequiredDocumentsFromCOA(true);
-		var r2 = getRequiredDocuments(true);
-		var r = mergeDocReqs(r1,r2);
+	//editAppSpecific4ACA("Person In Charge - Title", parentCapId);
+	//editAppSpecific4ACA("Business Organizational Structure", " Corporation");
+	
+	parentCap = aa.cap.getCapViewBySingle4ACA(parentCapId);
 
-		var parentCapId;
-		parentCapIdString = "" + cap.getParentCapID();
-		if (parentCapIdString) {
-			pca = parentCapIdString.split("-");
-			parentCapId = aa.cap.getCapID(pca[0], pca[1], pca[2]).getOutput();
-		}
+	//Copy Contacts
+ 	 copyContacts(parentCapId, capId);
+	 
+	//populate custom list
+	var cap = aa.env.getValue("CapModel");
+	var contactList = cap.getContactsGroup();
+	if(contactList != null && contactList.size() > 0) {
+		var contactModel = contactList.get(0);
+		//logDebug(describe(contactModel));
+	} else {
+		logDebug("No contacts in ContactsGroup");
+	}
 
-		uploadedDocs = new Array();
+	var parContactList = parentCap.getContactsGroup();
+		if(parContactList != null && parContactList.size() > 0) {
+		var parContactModel = parContactList.get(0);
+		//logDebug(describe(parContactModel));
+	} else {
+		logDebug("No contacts in Parent ContactsGroup");
+	}
+    var componentName = parContactList.get(0).getComponentName();
+    logDebug("Source Component Name: " + componentName);
 
-		if (parentCapId) { 
-			submittedDocList = aa.document.getDocumentListByEntity(parentCapId, "CAP").getOutput().toArray();
-			for (var i in submittedDocList) {
-				uploadedDocs[submittedDocList[i].getDocCategory()] = true;
-				}
-		}
+	//cap.setContactsGroup(parContactList);
+	cap.setContactsGroup(parContactList);
+	var contactList = cap.getContactsGroup();
+	if(contactList != null && contactList.size() > 0) {
+		var contactModel = contactList.get(0);
+		//logDebug(describe(contactModel));
+		logDebug("Found contact!");
+	} else {
+		logDebug("No contacts in ContactsGroup");
+	}
 
-		if (r.length > 0) {
-			for (x in r) {
-				if (uploadedDocs[r[x].document] == undefined) {
-					showMessage = true;
-					if (!docsMissing && showList) {
-						comment("<div class='docList'><span class='fontbold font14px ACA_Title_Color'>The following documents are required based on the information you have provided: </span><ol>");
-						docsMissing = true;
-					}
+	//Populate Custom List
+	var capID = cap.getCapID();
+	
+	stepIndex = 3;
+	pageIndex = 1;
+	
+	var pageComponents = getPageComponents(capID, stepIndex, pageIndex);
 		
-					dr = r[x].condition;
-					publicDisplayCond = null;
-					if (dr) {
-						ccr = aa.capCondition.getStandardConditions(conditionType, dr).getOutput();
-						for (var i = 0;
-							i < ccr.length;
-							i++)
-							if (ccr[i].getConditionDesc().toUpperCase() == dr.toUpperCase())
-								publicDisplayCond = ccr[i];
-					}
+	if(pageComponents != null && pageComponents.length > 0)
+	{
+		for(var i= 0; i< pageComponents.length; i++)
+		{			
+			compName = pageComponents[i].getComponentName();
+			compSeqNum = pageComponents[i].getComponentSeqNbr();
+			logDebug("ComponentName = " + compName);
+			logDebug("ComponentSeqNbr = " + compSeqNum);
 
-					if (dr && ccr.length > 0 && showList && publicDisplayCond) {
-						message += "<li><span>" + dr + "</span>: " + publicDisplayCond.getPublicDisplayMessage() + "</li>";
-					}
-
-					if (dr && ccr.length > 0 && addConditions && !appHasCondition(conditionType, null, dr, null)) {
-						addStdCondition(conditionType, dr);
-					}
-
-					if (dr && ccr.length > 0 && addTableRows) {
-						row = new Array();
-						row["Document Type"] = new asiTableValObj("Document Type", dr, "Y");
-						row["Description"] = new asiTableValObj("Description", publicDisplayCond.getPublicDisplayMessage(), "Y");
-						conditionTable.push(row);
-					}
-				}
+			if (compName == "Contact List") {
+				//assign all contacts the componentName
+				logDebug("Contact List size: " + contactList.size());
+				var contactModel = contactList.get(0);
+				contactModel.setComponentName("Contact List");
+				cap.setContactsGroup(contactList);
+				logDebug("Setting component for " + contactModel.contactType);
+				//for(var i=contactList.size(); i > 0; i--)
+				//{
+				//	var contactModel = contactList.get(i-1);
+				//	//contactModel.setComponentName("Contact List");
+				//	logDebug("Setting component for " + contactModel.contactType);
+				//}
 			}
 		}
-
-		if (r.length > 0 && showList && docsMissing) {
-			comment("</ol></div>");
-		}
-
-
 	}
+
+
+	aa.env.setValue("CapModel", cap);
+} 
+
+
+	
+
+	
 } catch (err) {
-	cancel = true; showDebug = true;
+
 	logDebug(err);
 
 }
@@ -294,18 +303,76 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", debug);
 	}
 }
-
-function mergeDocReqs(arr1,arr2) {
-var arr3 = [];
-for(var i in arr1){
-   var shared = false;
-   for (var j in arr2)
-       if (arr2[j].document == arr1[i].document) {
-           shared = true;
-           break;
-       }
-   if(!shared) arr3.push(arr1[i])
+function getPageComponents(capID, stepIndex, pageIndex)
+{
+	var componentResult = aa.acaPageFlow.getPageComponents(capID, stepIndex, pageIndex);
+	
+	if(componentResult.getSuccess())
+	{
+		return componentResult.getOutput();
+	}
+	
+	return null;	
 }
-arr3 = arr3.concat(arr2);
-return arr3;
+
+function describe(obj) {
+	var ret = "";
+	for (var i in obj)
+		if (typeof(obj[i]) == "function")
+			ret += "method:" + i + "\n";
+		else
+			ret += "property:" + i + " = " + obj[i] + "\n";
+	return ret;
+}
+
+function addPublicUserToRecordAsContact(publicUserId, itemCapId, contactType) {
+
+	var getUserResult = aa.publicUser.getPublicUserByPUser(publicUserId);
+	if (!getUserResult.getSuccess()) {
+		logDebug("addPublicUserToRecordAsContact: could not get public user " + getUserResult.getErrorMessage);
+		return false;
+	}
+	var userModel = getUserResult.getOutput();
+	if (!userModel) {
+		logDebug("addPublicUserToRecordAsContact: user Model is empty");
+		return false;
+	}
+	var userSeqNum = userModel.getUserSeqNum();
+	var refContact = getRefContactForPublicUser(userSeqNum);
+	if (!refContact) {
+		logDebug("addPublicUserToRecordAsContact: refContact is empty");
+		return false;
+	}
+	var refContactNum = refContact.getContactSeqNumber();
+	refContact.setContactAddressList(getRefAddContactList(refContactNum));
+	var capContactModel = aa.proxyInvoker.newInstance("com.accela.aa.aamain.people.CapContactModel").getOutput();
+	capContactModel.setPeople(refContact);
+	capContactModel.setSyncFlag("Y");
+	capContactModel.setRefContactNumber(refContactNum);
+	capContactModel.setContactType(contactType);
+	capContactModel.setCapID(itemCapId);
+	var createResult = aa.people.createCapContactWithAttribute(capContactModel);
+	if (!createResult.getSuccess()) {
+		logDebug("addPublicUserToRecordAsContact: createCapContact Failed " + createResult.getErrorMessage());
+		return false;
+	}
+	return true;
+}
+
+function getRefAddContactList(peoId) {
+	var conAdd = aa.proxyInvoker.newInstance("com.accela.orm.model.address.ContactAddressModel").getOutput();
+	conAdd.setEntityID(parseInt(peoId));
+	conAdd.setEntityType("CONTACT");
+	var addList = aa.address.getContactAddressList(conAdd).getOutput();
+	var tmpList = aa.util.newArrayList();
+	var pri = true;
+	for (x in addList) {
+		if (pri) {
+			pri = false;
+			addList[x].getContactAddressModel().setPrimary("Y");
+		}
+		tmpList.add(addList[x].getContactAddressModel());
+	}
+
+	return tmpList;
 }
