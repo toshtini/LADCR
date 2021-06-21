@@ -196,6 +196,34 @@ try {
 		aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
 	}
 	
+	
+    editAppSpecific("Adult-Use Cultivation Medium Indoor1", AInfo["Adult-Use Cultivation Medium Indoor"]);
+    editAppSpecific("Adult-Use Cultivation Small Indoor1", AInfo["Adult-Use Cultivation Small Indoor"]);
+    editAppSpecific("Adult-Use Cultivation Specialty Cottage Indoor1", AInfo["Adult-Use Cultivation Specialty Cottage Indoor"]);
+    editAppSpecific("Adult-Use Cultivation Specialty Indoor1", AInfo["Adult-Use Cultivation Specialty Indoor"]);
+    editAppSpecific("Adult-Use Distributor1", AInfo["Adult-Use Distributor"]);
+    editAppSpecific("Adult-Use Manufacturer Level 11", AInfo["Adult-Use Manufacturer Level 1"]);
+    editAppSpecific("Adult-Use Manufacturer Level 21", AInfo["Adult-Use Manufacturer Level 2"]);
+    editAppSpecific("Adult-Use Retail1", AInfo["Adult-Use Retail"]);
+    editAppSpecific("Adult-Use Microbusiness1", AInfo["Adult-Use Microbusiness"]);
+    editAppSpecific("Adult-Use Delivery Only1", AInfo["Adult-Use Delivery Only"]);
+    editAppSpecific("Medical Cultivation Medium Indoor1", AInfo["Medical Cultivation Medium Indoor"]);
+    editAppSpecific("Medical Cultivation Small Indoor1", AInfo["Medical Cultivation Small Indoor"]);
+    editAppSpecific("Medical Distributor1", AInfo["Medical Distributor"]);
+    editAppSpecific("Medical Cultivation Specialty Indoor1", AInfo["Medical Cultivation Specialty Indoor"]);
+    editAppSpecific("Medical Manufacturer Level 11", AInfo["Medical Manufacturer Level 1"]);
+    editAppSpecific("Medical Manufacturer Level 21", AInfo["Medical Manufacturer Level 2"]);
+    editAppSpecific("Medical Retail1", AInfo["Inspection Time"]);
+    editAppSpecific("Medical Microbusiness1", AInfo["Medical Retail"]);
+    editAppSpecific("Medical Delivery Only1", AInfo["Medical Delivery Only"]);
+    editAppSpecific("Distributor Transport Only1", AInfo["Distributor Transport Only"]);
+    editAppSpecific("Testing1", AInfo["Testing"]);
+    editAppSpecific("Nursery1", AInfo["Nursery"]);
+	
+	
+	
+	
+	
 } catch (err) {
 
 	logDebug(err);
