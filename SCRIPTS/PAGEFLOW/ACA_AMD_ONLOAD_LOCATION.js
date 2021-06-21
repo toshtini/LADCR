@@ -198,28 +198,28 @@ try {
 
 		 
       
-    editAppSpecific("Adult-Use Cultivation Medium Indoor1", AInfo["Adult-Use Cultivation Medium Indoor", parentCapId]);
-    editAppSpecific("Adult-Use Cultivation Small Indoor1", AInfo["Adult-Use Cultivation Small Indoor", parentCapId]);
-    editAppSpecific("Adult-Use Cultivation Specialty Cottage Indoor1", AInfo["Adult-Use Cultivation Specialty Cottage Indoor", parentCapId]);
-    editAppSpecific("Adult-Use Cultivation Specialty Indoor1", AInfo["Adult-Use Cultivation Specialty Indoor", parentCapId]);
-    editAppSpecific("Adult-Use Distributor1", AInfo["Adult-Use Distributor", parentCapId]);
-    editAppSpecific("Adult-Use Manufacturer Level 11", AInfo["Adult-Use Manufacturer Level 1", parentCapId]);
-    editAppSpecific("Adult-Use Manufacturer Level 21", AInfo["Adult-Use Manufacturer Level 2", parentCapId]);
-    editAppSpecific("Adult-Use Retail1", AInfo["Adult-Use Retail", parentCapId]);
-    editAppSpecific("Adult-Use Microbusiness1", AInfo["Adult-Use Microbusiness", parentCapId]);
-    editAppSpecific("Adult-Use Delivery Only1", AInfo["Adult-Use Delivery Only", parentCapId]);
-    editAppSpecific("Medical Cultivation Medium Indoor1", AInfo["Medical Cultivation Medium Indoor", parentCapId]);
-    editAppSpecific("Medical Cultivation Small Indoor1", AInfo["Medical Cultivation Small Indoor", parentCapId]);
-    editAppSpecific("Medical Distributor1", AInfo["Medical Distributor", parentCapId]);
-    editAppSpecific("Medical Cultivation Specialty Indoor1", AInfo["Medical Cultivation Specialty Indoor", parentCapId]);
-    editAppSpecific("Medical Manufacturer Level 11", AInfo["Medical Manufacturer Level 1", parentCapId]);
-    editAppSpecific("Medical Manufacturer Level 21", AInfo["Medical Manufacturer Level 2", parentCapId]);
-    editAppSpecific("Medical Retail1", AInfo["Inspection Time", parentCapId]);
-    editAppSpecific("Medical Microbusiness1", AInfo["Medical Retail", parentCapId]);
-    editAppSpecific("Medical Delivery Only1", AInfo["Medical Delivery Only", parentCapId]);
-    editAppSpecific("Distributor Transport Only1", AInfo["Distributor Transport Only", parentCapId]);
-    editAppSpecific("Testing1", AInfo["Testing", parentCapId]);
-    editAppSpecific("Nursery1", AInfo["Nursery", parentCapId]);
+    editAppSpecific("Adult-Use Cultivation Medium Indoor1", AInfo["Adult-Use Cultivation Medium Indoor"], parentCapId);
+    editAppSpecific("Adult-Use Cultivation Small Indoor1", AInfo["Adult-Use Cultivation Small Indoor"], parentCapId);
+    editAppSpecific("Adult-Use Cultivation Specialty Cottage Indoor1", AInfo["Adult-Use Cultivation Specialty Cottage Indoor"], parentCapId);
+    editAppSpecific("Adult-Use Cultivation Specialty Indoor1", AInfo["Adult-Use Cultivation Specialty Indoor"], parentCapId);
+    editAppSpecific("Adult-Use Distributor1", AInfo["Adult-Use Distributor"], parentCapId);
+    editAppSpecific("Adult-Use Manufacturer Level 11", AInfo["Adult-Use Manufacturer Level 1"], parentCapId);
+    editAppSpecific("Adult-Use Manufacturer Level 21", AInfo["Adult-Use Manufacturer Level 2"], parentCapId);
+    editAppSpecific("Adult-Use Retail1", AInfo["Adult-Use Retail"], parentCapId);
+    editAppSpecific("Adult-Use Microbusiness1", AInfo["Adult-Use Microbusiness"], parentCapId);
+    editAppSpecific("Adult-Use Delivery Only1", AInfo["Adult-Use Delivery Only"], parentCapId);
+    editAppSpecific("Medical Cultivation Medium Indoor1", AInfo["Medical Cultivation Medium Indoor"], parentCapId);
+    editAppSpecific("Medical Cultivation Small Indoor1", AInfo["Medical Cultivation Small Indoor"], parentCapId);
+    editAppSpecific("Medical Distributor1", AInfo["Medical Distributor"], parentCapId);
+    editAppSpecific("Medical Cultivation Specialty Indoor1", AInfo["Medical Cultivation Specialty Indoor"], parentCapId);
+    editAppSpecific("Medical Manufacturer Level 11", AInfo["Medical Manufacturer Level 1"], parentCapId);
+    editAppSpecific("Medical Manufacturer Level 21", AInfo["Medical Manufacturer Level 2"], parentCapId);
+    editAppSpecific("Medical Retail1", AInfo["Inspection Time"], parentCapId);
+    editAppSpecific("Medical Microbusiness1", AInfo["Medical Retail"], parentCapId);
+    editAppSpecific("Medical Delivery Only1", AInfo["Medical Delivery Only"], parentCapId);
+    editAppSpecific("Distributor Transport Only1", AInfo["Distributor Transport Only"], parentCapId);
+    editAppSpecific("Testing1", AInfo["Testing"], parentCapId);
+    editAppSpecific("Nursery1", AInfo["Nursery"], parentCapId);
 	
 	
 	
