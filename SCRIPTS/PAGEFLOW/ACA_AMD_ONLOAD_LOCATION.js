@@ -217,7 +217,7 @@ try {
     editAppSpecific("Medical Retail1", getAppSpecific("Medical Retail", parentCapId));
     editAppSpecific("Medical Microbusiness1", getAppSpecific("Medical Microbusiness", parentCapId));
     editAppSpecific("Medical Delivery Only1", getAppSpecific("Medical Delivery Only", parentCapId));
-    editAppSpecific("Distributor Transport Only1", AInfo("Distributor Transport Only", parentCapId));
+    editAppSpecific("Distributor Transport Only1", getAppSpecific("Distributor Transport Only", parentCapId));
     editAppSpecific("Testing1", getAppSpecific("Testing", parentCapId));
     editAppSpecific("Nursery1", getAppSpecific("Nursery", parentCapId));
 	
